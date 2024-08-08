@@ -1,0 +1,21 @@
+(mdx
+ (deps
+  (package commandlang)
+  my-calculator
+  (glob_files *.txt)
+  (glob_files *.exe)
+  (glob_files *.mli)
+  (glob_files *.ml))
+ (preludes prelude.txt))
+
+(rule
+ (copy ./bin/main.ml ./main.ml))
+
+(rule
+ (copy ./lib/getting_started.mli ./getting_started.mli))
+
+(rule
+ (copy ./lib/getting_started.ml ./getting_started.ml))
+
+(rule
+ (copy ./bin/main.exe ./my-calculator))
