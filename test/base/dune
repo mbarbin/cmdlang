@@ -1,0 +1,8 @@
+(rule
+ (copy bin/main_base.exe main_base.exe))
+
+(cram
+ (deps
+  (package commandlang)
+  (package commandlang-test)
+  main_base.exe))

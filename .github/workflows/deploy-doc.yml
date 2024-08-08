@@ -1,0 +1,86 @@
+name: deploy-doc
+
+on:
+  push:
+    branches:
+      - main
+    # Review gh actions docs if you want to further define triggers, paths, etc
+    # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#on
+
+jobs:
+  build:
+    name: Build Docusaurus
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: npm
+          cache-dependency-path: doc/package-lock.json
+
+      - name: Install Docusaurus Dependencies
+        working-directory: ./doc
+        run: npm ci
+
+      - name: Setup OCaml
+        uses: ocaml/setup-ocaml@v3
+        with:
+          ocaml-compiler: "5.2.x"
+          opam-repositories: |
+            default: https://github.com/ocaml/opam-repository.git
+            mbarbin: https://github.com/mbarbin/opam-repository.git
+#           janestreet-bleeding: https://github.com/janestreet/opam-repository.git
+#           janestreet-bleeding-external: https://github.com/janestreet/opam-repository.git#external-packages
+
+      - name: Install OCaml Dependencies
+        run: opam install . --deps-only --with-doc
+
+      - name: Build Odoc Pages
+        run: opam exec -- dune build @doc
+
+      - name: Copy Odoc Pages to Docusaurus Static Directory
+        run: |
+          rm -rf doc/static/odoc
+          cp -R _build/default/_doc/_html doc/static/odoc
+
+      - name: Build Website
+        working-directory: ./doc
+        run: npm run build
+
+      - name: Upload Build Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: doc/build
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+
+    # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
+    permissions:
+      pages: write # to deploy to Pages
+      id-token: write # to verify the deployment originates from an appropriate source
+
+    # Deploy to the github-pages environment
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./doc
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

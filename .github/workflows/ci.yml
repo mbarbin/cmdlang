@@ -1,0 +1,52 @@
+name: ci
+
+on:
+  - pull_request
+  - push
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+        ocaml-compiler:
+          - 5.2.x
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup OCaml
+        uses: ocaml/setup-ocaml@v3
+        with:
+          ocaml-compiler: ${{ matrix.ocaml-compiler }}
+          opam-repositories: |
+            default: https://github.com/ocaml/opam-repository.git
+            mbarbin: https://github.com/mbarbin/opam-repository.git
+#           janestreet-bleeding: https://github.com/janestreet/opam-repository.git
+#           janestreet-bleeding-external: https://github.com/janestreet/opam-repository.git#external-packages
+
+      - name: Install dependencies
+        run: opam install . --deps-only --with-doc --with-test
+
+      - name: Build
+        run: opam exec -- dune build @all @lint
+
+      - name: Run tests
+        run: opam exec -- dune runtest
+
+      - name: Check for uncommitted changes
+        run: git diff --exit-code
+
+      - name: Lint opam
+        uses: ocaml/setup-ocaml/lint-opam@v3
+
+      - name: Lint fmt
+        uses: ocaml/setup-ocaml/lint-fmt@v3
+
+      - name: Lint doc
+        uses: ocaml/setup-ocaml/lint-doc@v3

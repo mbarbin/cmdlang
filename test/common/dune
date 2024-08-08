@@ -1,0 +1,28 @@
+(library
+ (name test_command)
+ (public_name commandlang-test.test_command)
+ (flags
+  :standard
+  -w
+  +a-4-40-41-42-44-45-48-66
+  -warn-error
+  +a
+  -open
+  Base
+  -open
+  Stdio
+  -open
+  Commandlang)
+ (libraries base commandlang stdio)
+ (lint
+  (pps ppx_js_style -allow-let-operators -check-doc-comments))
+ (preprocess
+  (pps
+   -unused-code-warnings=force
+   ppx_compare
+   ppx_enumerate
+   ppx_hash
+   ppx_here
+   ppx_let
+   ppx_sexp_conv
+   ppx_sexp_value)))
