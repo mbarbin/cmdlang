@@ -19,7 +19,7 @@ For example, if you are using a local opam switch, follow these steps:
 
 <!-- $MDX skip -->
 ```sh
-$ opam switch create . 5.2.0 --no-install
+$ cd /path/to/your/local/switch
 $ eval $(opam env)
 $ opam repo add mbarbin https://github.com/mbarbin/opam-repository.git
 ```

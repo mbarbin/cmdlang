@@ -21,7 +21,7 @@ There is also a third library under development:
 
 3. [climate](https://github.com/gridbugs/climate), aiming to support autocompletion scripts and other conventions.
 
-The following table reflects our understanding and preferences (ranked 1-3) as of the early days of `commandlang` (your mileage may vary):
+The following table reflects our understanding and preferences (ranked 1-3, most preferred first) as of the early days of `commandlang` (your mileage may vary):
 
 |     Library    |  Runtime (eval)        |  Ergonomic (mli)  |  CLI conventions  | Man pages  |  Auto-complete  |
 |----------------|:----------------------:|:-----------------:|:-----------------:|:----------:|:---------------:|
@@ -71,7 +71,7 @@ We initiated the library as part of another project where we are migrating some 
 
 3. **Translation Libraries**:
    - Convert `commandlang` parsers at runtime into `cmdliner`, `core.command`, or `climate` parsers
-   - Packaged as three separate helper libraries to keep dependencies isolated.
+   - Packaged as separate helper libraries to keep dependencies isolated.
 
 ## Experimental Status
 
