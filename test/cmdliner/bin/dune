@@ -2,4 +2,6 @@
  (name main_cmdliner)
  (flags :standard -w +a-4-40-41-42-44-45-48-66 -warn-error +a)
  (libraries cmdliner commandlang_to_cmdliner test_command)
+ (instrumentation
+  (backend bisect_ppx))
  (preprocess no_preprocessing))

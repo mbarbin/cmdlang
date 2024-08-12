@@ -9,4 +9,6 @@
   +a
   -open
   Commandlang)
- (libraries commandlang))
+ (libraries commandlang)
+ (instrumentation
+  (backend bisect_ppx)))

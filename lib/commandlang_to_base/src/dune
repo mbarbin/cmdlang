@@ -12,6 +12,8 @@
   -open
   Commandlang_ast)
  (libraries base commandlang commandlang.ast core.command)
+ (instrumentation
+  (backend bisect_ppx))
  (lint
   (pps ppx_js_style -allow-let-operators -check-doc-comments))
  (preprocess
