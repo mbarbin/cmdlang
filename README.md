@@ -1,6 +1,8 @@
 # commandlang
 
 [![CI Status](https://github.com/mbarbin/commandlang/workflows/ci/badge.svg)](https://github.com/mbarbin/commandlang/actions/workflows/ci.yml)
+[![Coverage Status](https://coveralls.io/repos/github/mbarbin/commandlang/badge.svg?branch=main)](https://coveralls.io/github/mbarbin/commandlang?branch=main)
+[![Deploy Doc Status](https://github.com/mbarbin/commandlang/workflows/deploy-doc/badge.svg)](https://github.com/mbarbin/commandlang/actions/workflows/deploy-doc.yml)
 
 Declarative Command-line Parsing for OCaml.
 
