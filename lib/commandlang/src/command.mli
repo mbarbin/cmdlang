@@ -4,12 +4,19 @@ module Nonempty_list : sig
   type 'a t = 'a Commandlang_ast.Ast.Nonempty_list.t = ( :: ) : 'a * 'a list -> 'a t
 end
 
+module type Enumerated_stringable = sig
+  type t
+
+  val all : t list
+  val to_string : t -> string
+end
+
 module Param : sig
   type 'a t
   type 'a parse := string -> ('a, [ `Msg of string ]) result
   type 'a print := Format.formatter -> 'a -> unit
 
-  val conv : docv:string -> parse:'a parse -> print:'a print -> 'a t
+  val create : docv:string -> parse:'a parse -> print:'a print -> 'a t
 
   (** {1 Basic types} *)
 
@@ -21,14 +28,19 @@ module Param : sig
 
   (** {1 Helpers} *)
 
-  val enum : ?docv:string -> (string * 'a) list -> 'a t
+  val assoc : ?docv:string -> (string * 'a) list -> 'a t
+  val enumerated : ?docv:string -> (module Enumerated_stringable with type t = 'a) -> 'a t
 end
 
 module Arg : sig
   type 'a t
 
   val return : 'a -> 'a t
+
+  (** {1 Named arguments} *)
+
   val flag : string Nonempty_list.t -> doc:string -> bool t
+  val named : ?docv:string -> string Nonempty_list.t -> 'a Param.t -> doc:string -> 'a t
 
   val named_opt
     :  ?docv:string
@@ -45,20 +57,30 @@ module Arg : sig
     -> doc:string
     -> 'a t
 
-  val named_req
+  (** {1 Positional arguments} *)
+
+  (** starting at 0. *)
+
+  val pos : ?docv:string -> ?doc:string -> int -> 'a Param.t -> 'a t
+  val pos_opt : ?docv:string -> ?doc:string -> int -> 'a Param.t -> 'a option t
+
+  val pos_with_default
     :  ?docv:string
-    -> string Nonempty_list.t
+    -> ?doc:string
+    -> int
     -> 'a Param.t
-    -> doc:string
+    -> default:'a
     -> 'a t
+
+  val pos_all : ?docv:string -> ?doc:string -> 'a Param.t -> 'a list t
 end
 
 (** {1 Command} *)
 
 type 'a t
 
-val make : 'a Arg.t -> doc:string -> 'a t
-val group : ?default:'a Arg.t -> doc:string -> (string * 'a t) list -> 'a t
+val make : 'a Arg.t -> summary:string -> 'a t
+val group : ?default:'a Arg.t -> summary:string -> (string * 'a t) list -> 'a t
 
 (** For use with the [( let+ )] style. *)
 
@@ -111,6 +133,7 @@ module Let_syntax : sig
         module Open_on_rhs : sig
           module Arg = Arg
           module Param = Param
+          include Applicative_infix with type 'a t := 'a t
         end
       end
       with type 'a t := 'a t

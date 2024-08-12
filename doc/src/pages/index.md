@@ -9,6 +9,7 @@
 
 <p align="center">
   <a href="https://github.com/mbarbin/commandlang/actions/workflows/ci.yml"><img src="https://github.com/mbarbin/commandlang/workflows/ci/badge.svg" alt="CI Status"/></a>
+  <a href="https://coveralls.io/github/mbarbin/commandlang?branch=main"><img src="https://coveralls.io/repos/github/mbarbin/commandlang/badge.svg?branch=main" alt="Coverage Status"/></a>
   <a href="https://github.com/mbarbin/commandlang/actions/workflows/deploy-doc.yml"><img src="https://github.com/mbarbin/commandlang/workflows/deploy-doc/badge.svg" alt="Deploy Doc Status"/></a>
 </p>
 

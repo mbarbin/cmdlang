@@ -1,6 +1,7 @@
 (library
- (name test_command)
- (public_name commandlang-test.test_command)
+ (name commandlang_test)
+ (public_name commandlang-test.commandlang_test)
+ (inline_tests)
  (flags
   :standard
   -w
@@ -10,10 +11,13 @@
   -open
   Base
   -open
-  Stdio
+  Expect_test_helpers_base
   -open
   Commandlang)
- (libraries base commandlang stdio)
+ (libraries
+  base
+  commandlang
+  expect_test_helpers_core.expect_test_helpers_base)
  (instrumentation
   (backend bisect_ppx))
  (lint
@@ -23,6 +27,7 @@
    -unused-code-warnings=force
    ppx_compare
    ppx_enumerate
+   ppx_expect
    ppx_hash
    ppx_here
    ppx_let

@@ -112,6 +112,10 @@
    (and
     (>= v0.17)
     (< v0.18)))
+  (bisect_ppx
+   (and
+    :dev
+    (>= 2.8.3)))
   (climate
    (= 0.0.1~preview-0.1))
   (cmdliner
@@ -123,6 +127,10 @@
     (>= v0.17)
     (< v0.18)))
   (core_unix
+   (and
+    (>= v0.17)
+    (< v0.18)))
+  (expect_test_helpers_core
    (and
     (>= v0.17)
     (< v0.18)))

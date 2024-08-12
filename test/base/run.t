@@ -10,6 +10,7 @@
     cmd2                       . Hello let%bind command
     cmd3                       . Hello cmd3
     cmd4                       . Hello let%bind command
+    cmd5                       . Hello positional
     version                    . print version information
     help                       . explain a given subcommand (perhaps recursively)
   
@@ -162,3 +163,19 @@
 
   $ ./main_base.exe cmd4 -n 3.14
   3.14
+
+  $ ./main_base.exe cmd5 --help
+  Hello positional
+  
+    main_base.exe cmd5 A B [C]
+  
+  === flags ===
+  
+    [-help], -?                . print this help text and exit
+  
+
+  $ ./main_base.exe cmd5 1.2 3.4
+  ((a 1.2) (b 3.4) (c 3.14))
+
+  $ ./main_base.exe cmd5 1.2 3.4 5.6
+  ((a 1.2) (b 3.4) (c 5.6))

@@ -49,6 +49,7 @@ const sidebars: SidebarsConfig = {
       items: [
         { type: 'doc', id: 'explanation/README', label: 'Introduction' },
         { type: 'doc', id: 'explanation/future_plans', label: 'Future Plans' },
+        { type: 'doc', id: 'explanation/faq', label: 'Frequently Asked Questions' },
       ],
     },
   ],

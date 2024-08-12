@@ -22,7 +22,7 @@ end
 (* $MDX part-begin=void *)
 let cmd =
   Command.make
-    ~doc:"A simple calculator"
+    ~summary:"A simple calculator"
     (let open Command.Std in
      let+ () = Arg.return () in
      ())
@@ -34,15 +34,12 @@ let _ = cmd
 (* $MDX part-begin=final *)
 let cmd =
   Command.make
-    ~doc:"A simple calculator"
+    ~summary:"A simple calculator"
     (let open Command.Std in
      let+ op =
-       Arg.named_req
-         [ "op" ]
-         ~doc:"operation to perform"
-         (Param.enum (Operator.all |> List.map (fun op -> Operator.to_string op, op)))
-     and+ a = Arg.named_req [ "a" ] ~doc:"first operand" Param.float
-     and+ b = Arg.named_req [ "b" ] ~doc:"second operand" Param.float
+       Arg.named [ "op" ] (Param.enumerated (module Operator)) ~doc:"operation to perform"
+     and+ a = Arg.pos 0 ~docv:"a" Param.float ~doc:"first operand"
+     and+ b = Arg.pos 1 ~docv:"b" Param.float ~doc:"second operand"
      and+ verbose = Arg.flag [ "verbose" ] ~doc:"print debug information" in
      if verbose then Printf.printf "op: %s, a: %f, b: %f\n" (Operator.to_string op) a b;
      print_endline (Operator.eval op a b |> string_of_float))

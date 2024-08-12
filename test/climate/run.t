@@ -13,6 +13,7 @@
    cmd2  Hello let%bind command
    cmd3  Hello cmd3
    cmd4  Hello let%bind command
+   cmd5  Hello positional
 
   $ ./main_climate.exe cmd1 --help
   Usage: ./main_climate.exe cmd1 [OPTIONS]
@@ -127,3 +128,17 @@
 
   $ ./main_climate.exe cmd4 -n 3.14
   3.14
+
+  $ ./main_climate.exe cmd5 --help
+  Usage: ./main_climate.exe cmd5 [OPTIONS] <A> <B>
+  
+  Hello positional
+  
+  Options:
+   --help, -h   Print help
+
+  $ ./main_climate.exe cmd5 1.2 3.4
+  ((a 1.2) (b 3.4) (c 3.14))
+
+  $ ./main_climate.exe cmd5 1.2 3.4 5.6
+  ((a 1.2) (b 3.4) (c 5.6))
