@@ -44,6 +44,13 @@ module Arg = struct
         ; doc : string
         }
         -> bool t
+    | Named :
+        { names : string Nonempty_list.t
+        ; doc : string
+        ; docv : string option
+        ; param : 'a Param.t
+        }
+        -> 'a t
     | Named_opt :
         { names : string Nonempty_list.t
         ; doc : string
@@ -59,25 +66,46 @@ module Arg = struct
         ; default : 'a
         }
         -> 'a t
-    | Named_req :
-        { names : string Nonempty_list.t
-        ; doc : string
+    | Pos :
+        { doc : string option
         ; docv : string option
+        ; index : int
         ; param : 'a Param.t
         }
         -> 'a t
+    | Pos_opt :
+        { doc : string option
+        ; docv : string option
+        ; index : int
+        ; param : 'a Param.t
+        }
+        -> 'a option t
+    | Pos_with_default :
+        { doc : string option
+        ; docv : string option
+        ; index : int
+        ; param : 'a Param.t
+        ; default : 'a
+        }
+        -> 'a t
+    | Pos_all :
+        { doc : string option
+        ; docv : string option
+        ; param : 'a Param.t
+        }
+        -> 'a list t
 end
 
 module Command = struct
   type 'a t =
     | Make :
         { arg : 'a Arg.t
-        ; doc : string
+        ; summary : string
         }
         -> 'a t
     | Group :
         { default : 'a Arg.t option
-        ; doc : string
+        ; summary : string
         ; subcommands : (string * 'a t) list
         }
         -> 'a t

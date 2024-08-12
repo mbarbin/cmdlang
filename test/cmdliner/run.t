@@ -19,11 +19,17 @@
          cmd4 [-n VAL] [OPTION]…
              Hello let%bind command
   
+         cmd5 [OPTION]… A B [C]
+             Hello positional
+  
   COMMON OPTIONS
          --help[=FMT] (default=auto)
              Show this help in format FMT. The value FMT must be one of auto,
              pager, groff or plain. With auto, the format is pager or plain
              whenever the TERM env var is dumb or undefined.
+  
+         --version
+             Show version information.
   
   EXIT STATUS
          ./main_cmdliner.exe exits with:
@@ -48,6 +54,9 @@
              Show this help in format FMT. The value FMT must be one of auto,
              pager, groff or plain. With auto, the format is pager or plain
              whenever the TERM env var is dumb or undefined.
+  
+         --version
+             Show version information.
   
   EXIT STATUS
          ./main_cmdliner.exe cmd1 exits with:
@@ -82,6 +91,9 @@
              Show this help in format FMT. The value FMT must be one of auto,
              pager, groff or plain. With auto, the format is pager or plain
              whenever the TERM env var is dumb or undefined.
+  
+         --version
+             Show version information.
   
   EXIT STATUS
          ./main_cmdliner.exe cmd2 exits with:
@@ -135,6 +147,9 @@
              Show this help in format FMT. The value FMT must be one of auto,
              pager, groff or plain. With auto, the format is pager or plain
              whenever the TERM env var is dumb or undefined.
+  
+         --version
+             Show version information.
   
   EXIT STATUS
          ./main_cmdliner.exe cmd3 exits with:
@@ -209,6 +224,9 @@
              pager, groff or plain. With auto, the format is pager or plain
              whenever the TERM env var is dumb or undefined.
   
+         --version
+             Show version information.
+  
   EXIT STATUS
          ./main_cmdliner.exe cmd4 exits with:
   
@@ -251,3 +269,40 @@
 
   $ ./main_cmdliner.exe cmd4 -n 3.14
   3.14
+
+  $ ./main_cmdliner.exe cmd5 --help=plain
+  NAME
+         ./main_cmdliner.exe-cmd5 - Hello positional
+  
+  SYNOPSIS
+         ./main_cmdliner.exe cmd5 [OPTION]… A B [C]
+  
+  COMMON OPTIONS
+         --help[=FMT] (default=auto)
+             Show this help in format FMT. The value FMT must be one of auto,
+             pager, groff or plain. With auto, the format is pager or plain
+             whenever the TERM env var is dumb or undefined.
+  
+         --version
+             Show version information.
+  
+  EXIT STATUS
+         ./main_cmdliner.exe cmd5 exits with:
+  
+         0   on success.
+  
+         123 on indiscriminate errors reported on standard error.
+  
+         124 on command line parsing errors.
+  
+         125 on unexpected internal errors (bugs).
+  
+  SEE ALSO
+         ./main_cmdliner.exe(1)
+  
+
+  $ ./main_cmdliner.exe cmd5 1.2 3.4
+  ((a 1.2) (b 3.4) (c 3.14))
+
+  $ ./main_cmdliner.exe cmd5 1.2 3.4 5.6
+  ((a 1.2) (b 3.4) (c 5.6))

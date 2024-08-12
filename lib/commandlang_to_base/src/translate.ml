@@ -64,8 +64,20 @@ let project_flag_names (hd :: tl : _ Nonempty_list.t) ~(config : Config.t) =
 module Arg = struct
   type 'a t = { param : 'a Command.Param.t }
 
+  let check_positional_index ~positional_index ~index =
+    let expected = !positional_index + 1 in
+    if index = expected
+    then positional_index := index
+    else
+      Error.raise_s
+        [%sexp
+          "Positional arguments must be supplied in consecutive order"
+          , { expected : int; got = (index : int) }]
+  ;;
+
   let project : type a. a Ast.Arg.t -> config:Config.t -> a t =
     fun ast ~(config : Config.t) ->
+    let positional_index = ref (-1) in
     let rec project : type a. a Ast.Arg.t -> a t = function
       | Return x -> { param = Command.Param.return x }
       | Map { x; f } ->
@@ -111,7 +123,7 @@ module Arg = struct
                  | None -> doc
                  | Some docv -> docv ^ " " ^ doc)
         }
-      | Named_req { names; doc; docv; param } ->
+      | Named { names; doc; docv; param } ->
         let (name :: aliases) = project_flag_names names ~config in
         let { Param.arg_type } = param |> Param.project in
         { param =
@@ -125,34 +137,93 @@ module Arg = struct
                  | None -> doc
                  | Some docv -> docv ^ " " ^ doc)
         }
+      | Pos { doc = _; docv; index; param } ->
+        check_positional_index ~positional_index ~index;
+        let { Param.arg_type } = param |> Param.project in
+        let anon = Command.Anons.(Option.value docv ~default:"VAL" %: arg_type) in
+        { param = Command.Param.anon anon }
+      | Pos_opt { doc = _; docv; index; param } ->
+        check_positional_index ~positional_index ~index;
+        let { Param.arg_type } = param |> Param.project in
+        let anon = Command.Anons.(Option.value docv ~default:"VAL" %: arg_type) in
+        { param = Command.Param.anon (Command.Anons.maybe anon) }
+      | Pos_with_default { doc = _; docv; index; param; default } ->
+        check_positional_index ~positional_index ~index;
+        let { Param.arg_type } = param |> Param.project in
+        let anon = Command.Anons.(Option.value docv ~default:"VAL" %: arg_type) in
+        { param = Command.Param.anon (Command.Anons.maybe_with_default default anon) }
+      | Pos_all { doc = _; docv; param } ->
+        let { Param.arg_type } = param |> Param.project in
+        let anon = Command.Anons.(Option.value docv ~default:"VAL" %: arg_type) in
+        { param = Command.Param.anon (Command.Anons.sequence anon) }
     in
     project ast
   ;;
 end
 
 module Command = struct
+  let unit ?config command =
+    let config =
+      match config with
+      | Some config -> config
+      | None -> Config.create ()
+    in
+    let rec unit : unit Ast.Command.t -> Command.t =
+      fun command ->
+      match command with
+      | Make { arg; summary } ->
+        let { Arg.param } = arg |> Arg.project ~config in
+        Command.basic
+          ~summary
+          ?readme:None
+          (let%map_open.Command () = param in
+           fun () -> ())
+      | Group { default = _; summary; subcommands } ->
+        Command.group
+          ~summary
+          (List.map subcommands ~f:(fun (name, arg) -> name, arg |> unit))
+    in
+    unit command
+  ;;
+
   let basic ?config command =
     let config =
       match config with
       | Some config -> config
       | None -> Config.create ()
     in
-    let rec basic : unit Ast.Command.t -> Command.t =
+    let rec basic : (unit -> unit) Ast.Command.t -> Command.t =
       fun command ->
       match command with
-      | Make { arg; doc } ->
+      | Make { arg; summary } ->
         let { Arg.param } = arg |> Arg.project ~config in
-        Command.basic
-          ~summary:doc
-          ?readme:None
-          (let%map.Command param = param in
-           fun () -> param)
-      | Group { default = _; doc; subcommands } ->
+        Command.basic ~summary ?readme:None param
+      | Group { default = _; summary; subcommands } ->
         Command.group
-          ~summary:doc
+          ~summary
           (List.map subcommands ~f:(fun (name, arg) -> name, arg |> basic))
     in
     basic command
+  ;;
+
+  let or_error ?config command =
+    let config =
+      match config with
+      | Some config -> config
+      | None -> Config.create ()
+    in
+    let rec or_error : (unit -> unit Or_error.t) Ast.Command.t -> Command.t =
+      fun command ->
+      match command with
+      | Make { arg; summary } ->
+        let { Arg.param } = arg |> Arg.project ~config in
+        Command.basic_or_error ~summary ?readme:None param
+      | Group { default = _; summary; subcommands } ->
+        Command.group
+          ~summary
+          (List.map subcommands ~f:(fun (name, arg) -> name, arg |> or_error))
+    in
+    or_error command
   ;;
 end
 
@@ -160,4 +231,6 @@ module To_ast = Commandlang.Command.Private.To_ast
 
 let _param p = p |> To_ast.param |> Param.project
 let _arg a = a |> To_ast.arg |> Arg.project
+let unit ?config a = a |> To_ast.command |> Command.unit ?config
 let basic ?config a = a |> To_ast.command |> Command.basic ?config
+let or_error ?config a = a |> To_ast.command |> Command.or_error ?config

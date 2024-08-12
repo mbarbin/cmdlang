@@ -2,12 +2,19 @@ module Nonempty_list = struct
   type 'a t = 'a Commandlang_ast.Ast.Nonempty_list.t = ( :: ) : 'a * 'a list -> 'a t
 end
 
+module type Enumerated_stringable = sig
+  type t
+
+  val all : t list
+  val to_string : t -> string
+end
+
 module Param = struct
   type 'a t = 'a Ast.Param.t
   type 'a parse = string -> ('a, [ `Msg of string ]) result
   type 'a print = Format.formatter -> 'a -> unit
 
-  let conv ~docv ~(parse : _ parse) ~(print : _ print) =
+  let create ~docv ~(parse : _ parse) ~(print : _ print) =
     Ast.Param.Conv { docv; parse; print }
   ;;
 
@@ -17,10 +24,14 @@ module Param = struct
   let bool = Ast.Param.Bool
   let file = Ast.Param.File
 
-  let enum ?docv choices =
+  let assoc ?docv choices =
     match choices with
     | [] -> invalid_arg "Command.Arg.enum"
     | hd :: tl -> Ast.Param.Enum { docv; choices = hd :: tl }
+  ;;
+
+  let enumerated (type a) ?docv (module M : Enumerated_stringable with type t = a) =
+    assoc ?docv (M.all |> List.map (fun m -> M.to_string m, m))
   ;;
 end
 
@@ -35,19 +46,30 @@ module Arg = struct
   let ( let+ ) = ( >>| )
   let ( and+ ) = both
   let flag names ~doc = Ast.Arg.Flag { names; doc }
+  let named ?docv names param ~doc = Ast.Arg.Named { names; doc; docv; param }
   let named_opt ?docv names param ~doc = Ast.Arg.Named_opt { names; doc; docv; param }
 
   let named_with_default ?docv names param ~default ~doc =
     Ast.Arg.Named_with_default { names; doc; docv; param; default }
   ;;
 
-  let named_req ?docv names param ~doc = Ast.Arg.Named_req { names; doc; docv; param }
+  let pos ?docv ?doc index param = Ast.Arg.Pos { doc; docv; index; param }
+  let pos_opt ?docv ?doc index param = Ast.Arg.Pos_opt { doc; docv; index; param }
+
+  let pos_with_default ?docv ?doc index param ~default =
+    Ast.Arg.Pos_with_default { doc; docv; index; param; default }
+  ;;
+
+  let pos_all ?docv ?doc param = Ast.Arg.Pos_all { doc; docv; param }
 end
 
 type 'a t = 'a Ast.Command.t
 
-let make arg ~doc = Ast.Command.Make { arg; doc }
-let group ?default ~doc subcommands = Ast.Command.Group { default; doc; subcommands }
+let make arg ~summary = Ast.Command.Make { arg; summary }
+
+let group ?default ~summary subcommands =
+  Ast.Command.Group { default; summary; subcommands }
+;;
 
 module type Applicative_syntax = sig
   type 'a t
@@ -102,6 +124,7 @@ module Let_syntax = struct
     module Open_on_rhs = struct
       module Arg = Arg
       module Param = Param
+      include Applicative_infix
     end
   end
 end

@@ -49,12 +49,24 @@ module Arg = struct
         (hd :: tl)
         (param |> Param.project)
         ~default
-    | Named_req { names = hd :: tl; doc; docv; param } ->
+    | Named { names = hd :: tl; doc; docv; param } ->
       Climate.Arg_parser.named_req
         ~desc:doc
         ?value_name:docv
         (hd :: tl)
         (param |> Param.project)
+    | Pos { doc = _; docv; index; param } ->
+      Climate.Arg_parser.pos_req ?value_name:docv index (param |> Param.project)
+    | Pos_opt { doc = _; docv; index; param } ->
+      Climate.Arg_parser.pos_opt ?value_name:docv index (param |> Param.project)
+    | Pos_with_default { doc = _; docv; index; param; default } ->
+      Climate.Arg_parser.pos_with_default
+        ?value_name:docv
+        index
+        (param |> Param.project)
+        ~default
+    | Pos_all { doc = _; docv; param } ->
+      Climate.Arg_parser.pos_all ?value_name:docv (param |> Param.project)
   ;;
 end
 
@@ -62,12 +74,12 @@ module Command = struct
   let rec to_command : type a. a Ast.Command.t -> a Climate.Command.t =
     fun command ->
     match command with
-    | Make { arg; doc } -> Climate.Command.singleton ~desc:doc (arg |> Arg.project)
-    | Group { default; doc; subcommands } ->
+    | Make { arg; summary } -> Climate.Command.singleton ~desc:summary (arg |> Arg.project)
+    | Group { default; summary; subcommands } ->
       let cmds = subcommands |> List.map (fun (name, arg) -> to_subcommand arg ~name) in
       Climate.Command.group
         ?default_arg_parser:(default |> Option.map Arg.project)
-        ~desc:doc
+        ~desc:summary
         cmds
 
   and to_subcommand

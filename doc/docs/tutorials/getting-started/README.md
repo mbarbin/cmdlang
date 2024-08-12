@@ -5,7 +5,7 @@ In this tutorial, we'll create a small calculator in OCaml, export it as a comma
 We'll create a CLI that can perform operations like:
 
 ```sh
-$ ./my-calculator --op=add -a 1 -b 2.5
+$ ./my-calculator --op=add 1 2.5
 3.5
 ```
 
@@ -57,7 +57,7 @@ Next, create an empty command-line skeleton that we will complete incrementally.
 ```ocaml
 let cmd =
   Command.make
-    ~doc:"A simple calculator"
+    ~summary:"A simple calculator"
     (let open Command.Std in
      let+ () = Arg.return () in
      ())
@@ -86,17 +86,15 @@ As you'll learn, `commandlang` doesn't come with its own command runner. Instead
 
 An invocation of `cmdliner` for a `commandlang` command may look like this:
 
-<!-- $MDX file=main0.ml,skip -->
+<!-- $MDX file=main.ml -->
 ```ocaml
 let () =
-  match
-    Cmdliner.Cmd.eval_value'
-      (Commandlang_to_cmdliner.Translate.command
-         Getting_started.cmd
-         ~name:"my-calculator")
-  with
-  | `Ok () -> ()
-  | `Exit code -> exit code
+  Cmdliner.Cmd.eval
+    (Commandlang_to_cmdliner.Translate.command
+       Getting_started.cmd
+       ~name:"my-calculator"
+       ~version:"%%VERSION%%")
+  |> Stdlib.exit
 ;;
 ```
 
@@ -104,9 +102,11 @@ You'll notice how we've:
 1. Used a commandlang translator library to obtain a cmdliner command.
 2. Used the cmdliner library to evaluate (run) our command.
 
-## Adding Operations
+## Implementation
 
 With our build rules set, it's time to start coding!
+
+### Adding Operations
 
 We'll add an operator module that supports some binary operations:
 
@@ -217,15 +217,12 @@ At this point, we have everything we need to complete our calculator.
 ```ocaml
 let cmd =
   Command.make
-    ~doc:"A simple calculator"
+    ~summary:"A simple calculator"
     (let open Command.Std in
      let+ op =
-       Arg.named_req
-         [ "op" ]
-         ~doc:"operation to perform"
-         (Param.enum (Operator.all |> List.map (fun op -> Operator.to_string op, op)))
-     and+ a = Arg.named_req [ "a" ] ~doc:"first operand" Param.float
-     and+ b = Arg.named_req [ "b" ] ~doc:"second operand" Param.float
+       Arg.named [ "op" ] (Param.enumerated (module Operator)) ~doc:"operation to perform"
+     and+ a = Arg.pos 0 ~docv:"a" Param.float ~doc:"first operand"
+     and+ b = Arg.pos 1 ~docv:"b" Param.float ~doc:"second operand"
      and+ verbose = Arg.flag [ "verbose" ] ~doc:"print debug information" in
      if verbose then Printf.printf "op: %s, a: %f, b: %f\n" (Operator.to_string op) a b;
      print_endline (Operator.eval op a b |> string_of_float))
@@ -234,7 +231,15 @@ let cmd =
 
 ### Running the Command
 
-That's it! We're ready to enjoy the full features of our command line tool, including a generated help page:
+That's it! We're ready to enjoy the full features of our command line tool.
+
+```sh
+$ ./my-calculator --op=mul 3 7.2 --verbose
+op: mul, a: 3.000000, b: 7.200000
+21.6
+```
+
+Our CLI includes a generated help page:
 
 <details open>
 <summary>
@@ -247,15 +252,16 @@ NAME
        my-calculator - A simple calculator
 
 SYNOPSIS
-       my-calculator [OPTION]…
+       my-calculator [--op=VAL] [--verbose] [OPTION]… a b
 
-OPTIONS
-       -a VAL (required)
+ARGUMENTS
+       a (required)
            first operand
 
-       -b VAL (required)
+       b (required)
            second operand
 
+OPTIONS
        --op=VAL (required)
            operation to perform
 
@@ -267,6 +273,9 @@ COMMON OPTIONS
            Show this help in format FMT. The value FMT must be one of auto,
            pager, groff or plain. With auto, the format is pager or plain
            whenever the TERM env var is dumb or undefined.
+
+       --version
+           Show version information.
 
 EXIT STATUS
        my-calculator exits with:
@@ -285,19 +294,19 @@ EXIT STATUS
 Additionally, we don't need to worry about handling invalid usages, this is done for us by `cmdliner`:
 
 ```sh
-$ ./my-calculator --op=not-found -a 1 -b 2.5
+$ ./my-calculator --op=not-found 1 2.5
 my-calculator: option '--op': invalid value 'not-found', expected either
                'add' or 'mul'
-Usage: my-calculator [OPTION]…
+Usage: my-calculator [--op=VAL] [--verbose] [OPTION]… a b
 Try 'my-calculator --help' for more information.
 [124]
 ```
 
 ```sh
-$ ./my-calculator --op=add -a true -b 2.5
-my-calculator: option '-a': invalid value 'true', expected a floating point
+$ ./my-calculator --op=add true 2.5
+my-calculator: a argument: invalid value 'true', expected a floating point
                number
-Usage: my-calculator [OPTION]…
+Usage: my-calculator [--op=VAL] [--verbose] [OPTION]… a b
 Try 'my-calculator --help' for more information.
 [124]
 ```

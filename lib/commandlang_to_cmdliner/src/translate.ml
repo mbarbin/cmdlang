@@ -18,10 +18,16 @@ module Arg = struct
     | Apply { f; x } -> Cmdliner.Term.app (project f) (project x)
     | Flag { names = hd :: tl; doc } ->
       Cmdliner.Arg.value (Cmdliner.Arg.flag (Cmdliner.Arg.info ~doc (hd :: tl)))
+    | Named { names = hd :: tl; doc; docv; param } ->
+      Cmdliner.Arg.required
+        (Cmdliner.Arg.opt
+           (Cmdliner.Arg.some (Param.project param))
+           None
+           (Cmdliner.Arg.info ?docv ~doc (hd :: tl)))
     | Named_opt { names = hd :: tl; doc; docv; param } ->
       Cmdliner.Arg.value
         (Cmdliner.Arg.opt
-           (Cmdliner.Arg.some' (Param.project param))
+           (Cmdliner.Arg.some (Param.project param))
            None
            (Cmdliner.Arg.info ?docv ~doc (hd :: tl)))
     | Named_with_default { names = hd :: tl; doc; docv; param; default } ->
@@ -30,25 +36,45 @@ module Arg = struct
            (Param.project param)
            default
            (Cmdliner.Arg.info ?docv ~doc (hd :: tl)))
-    | Named_req { names = hd :: tl; doc; docv; param } ->
+    | Pos { doc; docv; index; param } ->
       Cmdliner.Arg.required
-        (Cmdliner.Arg.opt
-           (Cmdliner.Arg.some' (Param.project param))
+        (Cmdliner.Arg.pos
+           index
+           (Cmdliner.Arg.some (Param.project param))
            None
-           (Cmdliner.Arg.info ?docv ~doc (hd :: tl)))
+           (Cmdliner.Arg.info ?docv ?doc []))
+    | Pos_opt { doc; docv; index; param } ->
+      Cmdliner.Arg.value
+        (Cmdliner.Arg.pos
+           index
+           (Cmdliner.Arg.some (Param.project param))
+           None
+           (Cmdliner.Arg.info ?docv ?doc []))
+    | Pos_with_default { doc; docv; index; param; default } ->
+      Cmdliner.Arg.value
+        (Cmdliner.Arg.pos
+           index
+           (Param.project param)
+           default
+           (Cmdliner.Arg.info ?docv ?doc []))
+    | Pos_all { doc; docv; param } ->
+      Cmdliner.Arg.value
+        (Cmdliner.Arg.pos_all (Param.project param) [] (Cmdliner.Arg.info ?docv ?doc []))
   ;;
 end
 
 module Command = struct
-  let rec project : type a. a Ast.Command.t -> name:string -> a Cmdliner.Cmd.t =
-    fun command ~name ->
-    match command with
-    | Make { arg; doc } ->
-      let info = Cmdliner.Cmd.info name ~doc in
+  let rec project
+    : type a. ?version:string -> a Ast.Command.t -> name:string -> a Cmdliner.Cmd.t
+    =
+    fun ?version command ~name ->
+    match (command : _ Ast.Command.t) with
+    | Make { arg; summary } ->
+      let info = Cmdliner.Cmd.info ~doc:summary ?version name in
       Cmdliner.Cmd.v info (Arg.project arg)
-    | Group { default; doc; subcommands } ->
+    | Group { default; summary; subcommands } ->
       let cmds = subcommands |> List.map (fun (name, arg) -> project arg ~name) in
-      let info = Cmdliner.Cmd.info name ~doc in
+      let info = Cmdliner.Cmd.info ~doc:summary ?version name in
       Cmdliner.Cmd.group ?default:(default |> Option.map Arg.project) info cmds
   ;;
 end
@@ -57,4 +83,4 @@ module To_ast = Commandlang.Command.Private.To_ast
 
 let _param p = p |> To_ast.param |> Param.project
 let _arg a = a |> To_ast.arg |> Arg.project
-let command a ~name = a |> To_ast.command |> Command.project ~name
+let command ?version a ~name = a |> To_ast.command |> Command.project ?version ~name

@@ -14,4 +14,14 @@ module Config : sig
     -> t
 end
 
-val basic : ?config:Config.t -> unit Commandlang.Command.t -> Command.t
+val basic : ?config:Config.t -> (unit -> unit) Commandlang.Command.t -> Command.t
+
+val or_error
+  :  ?config:Config.t
+  -> (unit -> unit Or_error.t) Commandlang.Command.t
+  -> Command.t
+
+(** [unit] can be a convenient helper during a migration, however note that it
+    is probably not quite right, due to the body of the command being evaluated
+    as an argument. *)
+val unit : ?config:Config.t -> unit Commandlang.Command.t -> Command.t
