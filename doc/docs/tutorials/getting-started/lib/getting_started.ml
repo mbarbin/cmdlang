@@ -37,9 +37,13 @@ let cmd =
     ~summary:"A simple calculator"
     (let open Command.Std in
      let+ op =
-       Arg.named [ "op" ] (Param.enumerated (module Operator)) ~doc:"operation to perform"
-     and+ a = Arg.pos 0 ~docv:"a" Param.float ~doc:"first operand"
-     and+ b = Arg.pos 1 ~docv:"b" Param.float ~doc:"second operand"
+       Arg.named
+         [ "op" ]
+         (Param.enumerated (module Operator))
+         ~docv:"OP"
+         ~doc:"operation to perform"
+     and+ a = Arg.pos ~pos:0 Param.float ~docv:"a" ~doc:"first operand"
+     and+ b = Arg.pos ~pos:1 Param.float ~docv:"b" ~doc:"second operand"
      and+ verbose = Arg.flag [ "verbose" ] ~doc:"print debug information" in
      if verbose then Printf.printf "op: %s, a: %f, b: %f\n" (Operator.to_string op) a b;
      print_endline (Operator.eval op a b |> string_of_float))

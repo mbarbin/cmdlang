@@ -43,9 +43,16 @@ let cmd4 =
 let cmd5 =
   Command.make
     ~summary:"Hello positional"
-    (let%map_open.Command a = Arg.pos 0 ~docv:"A" Param.float
-     and b = Arg.pos 1 ~docv:"B" Param.float
-     and c = Arg.pos_with_default 2 ~docv:"C" Param.float ~default:3.14 in
+    (let%map_open.Command a = Arg.pos ~pos:0 Param.float ~docv:"A" ~doc:"a first float"
+     and b = Arg.pos ~pos:1 Param.float ~docv:"B" ~doc:"a second float"
+     and c =
+       Arg.pos_with_default
+         ~pos:2
+         Param.float
+         ~default:3.14
+         ~docv:"C"
+         ~doc:"another float"
+     in
      print_s [%sexp { a : float; b : float; c : float }];
      ())
 ;;

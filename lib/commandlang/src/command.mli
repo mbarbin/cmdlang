@@ -11,6 +11,39 @@ module type Enumerated_stringable = sig
   val to_string : t -> string
 end
 
+module type Stringable = sig
+  (** An interface for types that can be parsed from strings, when parsing never
+      results in failures. *)
+
+  type t
+
+  (** This function is not expected to to raise. If you need to validate the
+      input string, see {!val:validated_string}. *)
+  val of_string : string -> t
+
+  val to_string : t -> string
+end
+
+module type Validated_string = sig
+  (** An interface for types that can be parsed from strings, with the possibility
+      of parsing failures. This is useful for types that require validation
+      during conversion from string representations.
+
+      The names [v] and [to_string] were chosen to match the conventions used by
+      some existing libraries, such as [Fpath]. *)
+
+  type t
+
+  (** Parses a string into the type [t], potentially raising an exception if the
+      string is invalid. The exception is turned into a user facing message,
+      so the actual exception is expected to be registered with [Printexc]. *)
+  val v : string -> t
+
+  val to_string : t -> string
+end
+
+(** {1 Parameters} *)
+
 module Param : sig
   type 'a t
   type 'a parse := string -> ('a, [ `Msg of string ]) result
@@ -30,7 +63,17 @@ module Param : sig
 
   val assoc : ?docv:string -> (string * 'a) list -> 'a t
   val enumerated : ?docv:string -> (module Enumerated_stringable with type t = 'a) -> 'a t
+  val stringable : ?docv:string -> (module Stringable with type t = 'a) -> 'a t
+
+  val validated_string
+    :  ?docv:string
+    -> (module Validated_string with type t = 'a)
+    -> 'a t
+
+  val comma_separated : 'a t -> 'a list t
 end
+
+(** {1 Arguments} *)
 
 module Arg : sig
   type 'a t
@@ -41,6 +84,13 @@ module Arg : sig
 
   val flag : string Nonempty_list.t -> doc:string -> bool t
   val named : ?docv:string -> string Nonempty_list.t -> 'a Param.t -> doc:string -> 'a t
+
+  val named_multi
+    :  ?docv:string
+    -> string Nonempty_list.t
+    -> 'a Param.t
+    -> doc:string
+    -> 'a list t
 
   val named_opt
     :  ?docv:string
@@ -59,28 +109,34 @@ module Arg : sig
 
   (** {1 Positional arguments} *)
 
-  (** starting at 0. *)
+  (** Positional argument start at index 0. *)
 
-  val pos : ?docv:string -> ?doc:string -> int -> 'a Param.t -> 'a t
-  val pos_opt : ?docv:string -> ?doc:string -> int -> 'a Param.t -> 'a option t
+  val pos : ?docv:string -> pos:int -> 'a Param.t -> doc:string -> 'a t
+  val pos_opt : ?docv:string -> pos:int -> 'a Param.t -> doc:string -> 'a option t
 
   val pos_with_default
     :  ?docv:string
-    -> ?doc:string
-    -> int
+    -> pos:int
     -> 'a Param.t
     -> default:'a
+    -> doc:string
     -> 'a t
 
-  val pos_all : ?docv:string -> ?doc:string -> 'a Param.t -> 'a list t
+  val pos_all : ?docv:string -> 'a Param.t -> doc:string -> 'a list t
 end
 
-(** {1 Command} *)
+(** {1 Commands} *)
 
 type 'a t
 
-val make : 'a Arg.t -> summary:string -> 'a t
-val group : ?default:'a Arg.t -> summary:string -> (string * 'a t) list -> 'a t
+val make : ?readme:(unit -> string) -> 'a Arg.t -> summary:string -> 'a t
+
+val group
+  :  ?default:'a Arg.t
+  -> ?readme:(unit -> string)
+  -> summary:string
+  -> (string * 'a t) list
+  -> 'a t
 
 (** For use with the [( let+ )] style. *)
 

@@ -220,9 +220,13 @@ let cmd =
     ~summary:"A simple calculator"
     (let open Command.Std in
      let+ op =
-       Arg.named [ "op" ] (Param.enumerated (module Operator)) ~doc:"operation to perform"
-     and+ a = Arg.pos 0 ~docv:"a" Param.float ~doc:"first operand"
-     and+ b = Arg.pos 1 ~docv:"b" Param.float ~doc:"second operand"
+       Arg.named
+         [ "op" ]
+         (Param.enumerated (module Operator))
+         ~docv:"OP"
+         ~doc:"operation to perform"
+     and+ a = Arg.pos ~pos:0 Param.float ~docv:"a" ~doc:"first operand"
+     and+ b = Arg.pos ~pos:1 Param.float ~docv:"b" ~doc:"second operand"
      and+ verbose = Arg.flag [ "verbose" ] ~doc:"print debug information" in
      if verbose then Printf.printf "op: %s, a: %f, b: %f\n" (Operator.to_string op) a b;
      print_endline (Operator.eval op a b |> string_of_float))
@@ -252,21 +256,21 @@ NAME
        my-calculator - A simple calculator
 
 SYNOPSIS
-       my-calculator [--op=VAL] [--verbose] [OPTION]… a b
+       my-calculator [--op=OP] [--verbose] [OPTION]… a b
 
 ARGUMENTS
        a (required)
-           first operand
+           first operand.
 
        b (required)
-           second operand
+           second operand.
 
 OPTIONS
-       --op=VAL (required)
-           operation to perform
+       --op=OP (required)
+           operation to perform. OP must be either 'add' or 'mul'.
 
        --verbose
-           print debug information
+           print debug information.
 
 COMMON OPTIONS
        --help[=FMT] (default=auto)
@@ -297,7 +301,7 @@ Additionally, we don't need to worry about handling invalid usages, this is done
 $ ./my-calculator --op=not-found 1 2.5
 my-calculator: option '--op': invalid value 'not-found', expected either
                'add' or 'mul'
-Usage: my-calculator [--op=VAL] [--verbose] [OPTION]… a b
+Usage: my-calculator [--op=OP] [--verbose] [OPTION]… a b
 Try 'my-calculator --help' for more information.
 [124]
 ```
@@ -306,7 +310,7 @@ Try 'my-calculator --help' for more information.
 $ ./my-calculator --op=add true 2.5
 my-calculator: a argument: invalid value 'true', expected a floating point
                number
-Usage: my-calculator [--op=VAL] [--verbose] [OPTION]… a b
+Usage: my-calculator [--op=OP] [--verbose] [OPTION]… a b
 Try 'my-calculator --help' for more information.
 [124]
 ```

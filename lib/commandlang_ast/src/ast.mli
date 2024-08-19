@@ -8,7 +8,7 @@ end
 module Param : sig
   type 'a t =
     | Conv :
-        { docv : string
+        { docv : string option
         ; parse : 'a parse
         ; print : 'a print
         }
@@ -23,6 +23,7 @@ module Param : sig
         ; choices : (string * 'a) Nonempty_list.t
         }
         -> 'a t
+    | Comma_separated : 'a t -> 'a list t
 end
 
 module Arg : sig
@@ -46,52 +47,59 @@ module Arg : sig
         -> bool t
     | Named :
         { names : string Nonempty_list.t
-        ; doc : string
-        ; docv : string option
         ; param : 'a Param.t
+        ; docv : string option
+        ; doc : string
         }
         -> 'a t
+    | Named_multi :
+        { names : string Nonempty_list.t
+        ; param : 'a Param.t
+        ; docv : string option
+        ; doc : string
+        }
+        -> 'a list t
     | Named_opt :
         { names : string Nonempty_list.t
-        ; doc : string
-        ; docv : string option
         ; param : 'a Param.t
+        ; docv : string option
+        ; doc : string
         }
         -> 'a option t
     | Named_with_default :
         { names : string Nonempty_list.t
-        ; doc : string
-        ; docv : string option
         ; param : 'a Param.t
         ; default : 'a
+        ; docv : string option
+        ; doc : string
         }
         -> 'a t
     | Pos :
-        { doc : string option
-        ; docv : string option
-        ; index : int
+        { pos : int
         ; param : 'a Param.t
+        ; docv : string option
+        ; doc : string
         }
         -> 'a t
     | Pos_opt :
-        { doc : string option
-        ; docv : string option
-        ; index : int
+        { pos : int
         ; param : 'a Param.t
+        ; docv : string option
+        ; doc : string
         }
         -> 'a option t
     | Pos_with_default :
-        { doc : string option
-        ; docv : string option
-        ; index : int
+        { pos : int
         ; param : 'a Param.t
         ; default : 'a
+        ; docv : string option
+        ; doc : string
         }
         -> 'a t
     | Pos_all :
-        { doc : string option
+        { param : 'a Param.t
         ; docv : string option
-        ; param : 'a Param.t
+        ; doc : string
         }
         -> 'a list t
 end
@@ -101,11 +109,13 @@ module Command : sig
     | Make :
         { arg : 'a Arg.t
         ; summary : string
+        ; readme : (unit -> string) option
         }
         -> 'a t
     | Group :
         { default : 'a Arg.t option
         ; summary : string
+        ; readme : (unit -> string) option
         ; subcommands : (string * 'a t) list
         }
         -> 'a t
