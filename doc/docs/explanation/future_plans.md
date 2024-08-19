@@ -22,10 +22,10 @@ Another area of focus is the generation of complex man pages. `cmdliner` has exc
 The rendering to simple strings could be exported by a standalone `cmdliner` helper library to reduce dependencies. We could then reuse and integrate this in the translation to `core.command` and `climate`. This part is more prospective and may require some coordination with the developers of other libraries.
 
 ### Tasks
-- [ ] Add support for one-line summaries of help messages
+- [x] Add support for one-line summaries and readme help pages.
 - [ ] Design optional information for specification language based on `cmdliner`
-- [ ] Create a standalone `cmdliner` helper library for rendering to simple strings
-- [ ] Integrate `cmdliner` design into `core.command` and `climate`
+- [ ] Create a standalone helper library for rendering to simple strings
+- [ ] Integrate design into translation to `core.command` and `climate`
 
 ## Auto-Completion
 

@@ -1,7 +1,11 @@
 module Param = struct
-  let project : type a. a Ast.Param.t -> a Climate.Arg_parser.conv = function
+  let rec project : type a. a Ast.Param.t -> a Climate.Arg_parser.conv = function
     | Conv { docv; parse; print } ->
-      { Climate.Arg_parser.parse; print; default_value_name = docv; completion = None }
+      { Climate.Arg_parser.parse
+      ; print
+      ; default_value_name = docv |> Option.value ~default:"VAL"
+      ; completion = None
+      }
     | String -> Climate.Arg_parser.string
     | Int -> Climate.Arg_parser.int
     | Float -> Climate.Arg_parser.float
@@ -26,6 +30,32 @@ module Param = struct
           | Some _, None | None, Some _ | None, None -> false)
       in
       Climate.Arg_parser.enum ?default_value_name:docv choices ~eq
+    | Comma_separated t ->
+      let { Climate.Arg_parser.parse; print; default_value_name; completion = _ } =
+        project t
+      in
+      let parse str =
+        match String.split_on_char ',' str |> List.map parse with
+        | exception e -> Error (`Msg (Printexc.to_string e))
+        | r ->
+          let ok, msgs =
+            r
+            |> List.partition_map (function
+              | Ok x -> Left x
+              | Error (`Msg e) -> Right e)
+          in
+          (match msgs with
+           | [] -> Ok ok
+           | _ :: _ -> Error (`Msg (String.concat ", " msgs)))
+      in
+      let print fmt = function
+        | [] -> ()
+        | [ e ] -> print fmt e
+        | hd :: (_ :: _ as tl) ->
+          Format.fprintf fmt "%a," print hd;
+          tl |> List.iter (fun i -> Format.fprintf fmt ",%a" print i)
+      in
+      { Climate.Arg_parser.parse; print; default_value_name; completion = None }
   ;;
 end
 
@@ -36,50 +66,63 @@ module Arg = struct
     | Both (a, b) -> Climate.Arg_parser.both (project a) (project b)
     | Apply { f; x } -> Climate.Arg_parser.apply (project f) (project x)
     | Flag { names = hd :: tl; doc } -> Climate.Arg_parser.flag ~desc:doc (hd :: tl)
-    | Named_opt { names = hd :: tl; doc; docv; param } ->
+    | Named { names = hd :: tl; param; docv; doc } ->
+      Climate.Arg_parser.named_req
+        ~desc:doc
+        ?value_name:docv
+        (hd :: tl)
+        (param |> Param.project)
+    | Named_multi { names = hd :: tl; param; docv; doc } ->
+      Climate.Arg_parser.named_multi
+        ~desc:doc
+        ?value_name:docv
+        (hd :: tl)
+        (param |> Param.project)
+    | Named_opt { names = hd :: tl; param; docv; doc } ->
       Climate.Arg_parser.named_opt
         ~desc:doc
         ?value_name:docv
         (hd :: tl)
         (param |> Param.project)
-    | Named_with_default { names = hd :: tl; doc; docv; param; default } ->
+    | Named_with_default { names = hd :: tl; param; default; docv; doc } ->
       Climate.Arg_parser.named_with_default
         ~desc:doc
         ?value_name:docv
         (hd :: tl)
         (param |> Param.project)
         ~default
-    | Named { names = hd :: tl; doc; docv; param } ->
-      Climate.Arg_parser.named_req
-        ~desc:doc
-        ?value_name:docv
-        (hd :: tl)
-        (param |> Param.project)
-    | Pos { doc = _; docv; index; param } ->
-      Climate.Arg_parser.pos_req ?value_name:docv index (param |> Param.project)
-    | Pos_opt { doc = _; docv; index; param } ->
-      Climate.Arg_parser.pos_opt ?value_name:docv index (param |> Param.project)
-    | Pos_with_default { doc = _; docv; index; param; default } ->
+    | Pos { pos; param; docv; doc = _ } ->
+      Climate.Arg_parser.pos_req ?value_name:docv pos (param |> Param.project)
+    | Pos_opt { pos; param; docv; doc = _ } ->
+      Climate.Arg_parser.pos_opt ?value_name:docv pos (param |> Param.project)
+    | Pos_with_default { pos; param; default; docv; doc = _ } ->
       Climate.Arg_parser.pos_with_default
         ?value_name:docv
-        index
+        pos
         (param |> Param.project)
         ~default
-    | Pos_all { doc = _; docv; param } ->
+    | Pos_all { param; docv; doc = _ } ->
       Climate.Arg_parser.pos_all ?value_name:docv (param |> Param.project)
   ;;
 end
 
 module Command = struct
+  let desc ~summary ~readme =
+    match readme with
+    | None -> summary
+    | Some readme -> summary ^ "\n" ^ readme ()
+  ;;
+
   let rec to_command : type a. a Ast.Command.t -> a Climate.Command.t =
     fun command ->
     match command with
-    | Make { arg; summary } -> Climate.Command.singleton ~desc:summary (arg |> Arg.project)
-    | Group { default; summary; subcommands } ->
+    | Make { arg; summary; readme } ->
+      Climate.Command.singleton ~desc:(desc ~summary ~readme) (arg |> Arg.project)
+    | Group { default; summary; readme; subcommands } ->
       let cmds = subcommands |> List.map (fun (name, arg) -> to_subcommand arg ~name) in
       Climate.Command.group
         ?default_arg_parser:(default |> Option.map Arg.project)
-        ~desc:summary
+        ~desc:(desc ~summary ~readme)
         cmds
 
   and to_subcommand

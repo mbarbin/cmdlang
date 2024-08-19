@@ -9,13 +9,27 @@ module type Enumerated_stringable = sig
   val to_string : t -> string
 end
 
+module type Stringable = sig
+  type t
+
+  val of_string : string -> t
+  val to_string : t -> string
+end
+
+module type Validated_string = sig
+  type t
+
+  val v : string -> t
+  val to_string : t -> string
+end
+
 module Param = struct
   type 'a t = 'a Ast.Param.t
   type 'a parse = string -> ('a, [ `Msg of string ]) result
   type 'a print = Format.formatter -> 'a -> unit
 
   let create ~docv ~(parse : _ parse) ~(print : _ print) =
-    Ast.Param.Conv { docv; parse; print }
+    Ast.Param.Conv { docv = Some docv; parse; print }
   ;;
 
   let string = Ast.Param.String
@@ -33,6 +47,23 @@ module Param = struct
   let enumerated (type a) ?docv (module M : Enumerated_stringable with type t = a) =
     assoc ?docv (M.all |> List.map (fun m -> M.to_string m, m))
   ;;
+
+  let stringable (type a) ?docv (module M : Stringable with type t = a) =
+    let parse s = Ok (M.of_string s)
+    and print ppf x = Format.fprintf ppf "%s" (M.to_string x) in
+    Ast.Param.Conv { docv; parse; print }
+  ;;
+
+  let validated_string (type a) ?docv (module M : Validated_string with type t = a) =
+    let parse s =
+      match M.v s with
+      | ok -> Ok ok
+      | exception exn -> Error (`Msg (Printexc.to_string exn))
+    and print ppf x = Format.fprintf ppf "%s" (M.to_string x) in
+    Ast.Param.Conv { docv; parse; print }
+  ;;
+
+  let comma_separated t = Ast.Param.Comma_separated t
 end
 
 module Arg = struct
@@ -46,29 +77,30 @@ module Arg = struct
   let ( let+ ) = ( >>| )
   let ( and+ ) = both
   let flag names ~doc = Ast.Arg.Flag { names; doc }
-  let named ?docv names param ~doc = Ast.Arg.Named { names; doc; docv; param }
-  let named_opt ?docv names param ~doc = Ast.Arg.Named_opt { names; doc; docv; param }
+  let named ?docv names param ~doc = Ast.Arg.Named { names; param; docv; doc }
+  let named_multi ?docv names param ~doc = Ast.Arg.Named_multi { names; param; docv; doc }
+  let named_opt ?docv names param ~doc = Ast.Arg.Named_opt { names; param; docv; doc }
 
   let named_with_default ?docv names param ~default ~doc =
-    Ast.Arg.Named_with_default { names; doc; docv; param; default }
+    Ast.Arg.Named_with_default { names; param; default; docv; doc }
   ;;
 
-  let pos ?docv ?doc index param = Ast.Arg.Pos { doc; docv; index; param }
-  let pos_opt ?docv ?doc index param = Ast.Arg.Pos_opt { doc; docv; index; param }
+  let pos ?docv ~pos param ~doc = Ast.Arg.Pos { pos; param; docv; doc }
+  let pos_opt ?docv ~pos param ~doc = Ast.Arg.Pos_opt { pos; param; docv; doc }
 
-  let pos_with_default ?docv ?doc index param ~default =
-    Ast.Arg.Pos_with_default { doc; docv; index; param; default }
+  let pos_with_default ?docv ~pos param ~default ~doc =
+    Ast.Arg.Pos_with_default { pos; param; default; docv; doc }
   ;;
 
-  let pos_all ?docv ?doc param = Ast.Arg.Pos_all { doc; docv; param }
+  let pos_all ?docv param ~doc = Ast.Arg.Pos_all { param; docv; doc }
 end
 
 type 'a t = 'a Ast.Command.t
 
-let make arg ~summary = Ast.Command.Make { arg; summary }
+let make ?readme arg ~summary = Ast.Command.Make { arg; summary; readme }
 
-let group ?default ~summary subcommands =
-  Ast.Command.Group { default; summary; subcommands }
+let group ?default ?readme ~summary subcommands =
+  Ast.Command.Group { default; summary; readme; subcommands }
 ;;
 
 module type Applicative_syntax = sig

@@ -6,6 +6,14 @@
 
 Declarative Command-line Parsing for OCaml.
 
+## Synopsys
+
+Commandlang is a library for creating command-line parsers in OCaml. Implemented as an OCaml EDSL, its declarative specification language lives at the intersection of other well-established similar libraries.
+
+Commandlang doesn't include an execution engine. Instead, Commandlang parsers are automatically translated to `cmdliner`, `core.command`, or `climate` commands for execution.
+
+Our goal is to provide an approachable, flexible, and user-friendly interface while allowing users to choose the backend runtime that best suits their needs.
+
 ## Documentation
 
 Commandlang's documentation is published [here](https://mbarbin.github.io/commandlang).
@@ -38,10 +46,6 @@ The `commandlang` developers are enthusiastic to the prospect of compatible ways
 As developers of CLI tools written in OCaml, we aim to avoid a strong commitment to any single library if possible, especially concerning the runtime aspects. This is particularly relevant for new commands written today.
 
 In this spirit, we created `commandlang`, a new library that offers a unique twist: it doesn't implement its own runtime. Instead, it translates its parsers into `cmdliner`, `core.command`, or `climate` parsers, making it compatible with all their execution engines.
-
-# Motivation
-
-Our goal is to provide an approachable, flexible, and user-friendly interface while allowing users to choose the backend runtime that best suits their needs.
 
 Our current preferred target is depicted below, but other combinations are possible:
 

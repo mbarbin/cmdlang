@@ -13,10 +13,10 @@
          cmd2 [--verbose] [OPTION]…
              Hello let%bind command
   
-         cmd3 [--bool=MYBOOL] [--int=VAL] [--verbose] [OPTION]…
+         cmd3 [--bool=MYBOOL] [--int=INT] [--verbose] [OPTION]…
              Hello cmd3
   
-         cmd4 [-n VAL] [OPTION]…
+         cmd4 [-n FLOAT] [OPTION]…
              Hello let%bind command
   
          cmd5 [OPTION]… A B [C]
@@ -84,7 +84,7 @@
   
   OPTIONS
          -v, --verbose
-             be more verbose
+             be more verbose.
   
   COMMON OPTIONS
          --help[=FMT] (default=auto)
@@ -129,18 +129,18 @@
          ./main_cmdliner.exe-cmd3 - Hello cmd3
   
   SYNOPSIS
-         ./main_cmdliner.exe cmd3 [--bool=MYBOOL] [--int=VAL] [--verbose]
+         ./main_cmdliner.exe cmd3 [--bool=MYBOOL] [--int=INT] [--verbose]
          [OPTION]…
   
   OPTIONS
          -b MYBOOL, --bool=MYBOOL
-             Specify a value
+             Specify a value.
   
-         -i VAL, --int=VAL (absent=42)
-             Specify an int
+         -i INT, --int=INT (absent=42)
+             Specify an int.
   
          -v, --verbose
-             be more verbose
+             be more verbose.
   
   COMMON OPTIONS
          --help[=FMT] (default=auto)
@@ -193,7 +193,7 @@
   $ ./main_cmdliner.exe cmd3 -vb=true
   ./main_cmdliner.exe: option '-b': invalid value '=true', either 'true' or
                        'false'
-  Usage: ./main_cmdliner.exe cmd3 [--bool=MYBOOL] [--int=VAL] [--verbose] [OPTION]…
+  Usage: ./main_cmdliner.exe cmd3 [--bool=MYBOOL] [--int=INT] [--verbose] [OPTION]…
   Try './main_cmdliner.exe cmd3 --help' or './main_cmdliner.exe --help' for more information.
   [124]
 
@@ -212,11 +212,11 @@
          ./main_cmdliner.exe-cmd4 - Hello let%bind command
   
   SYNOPSIS
-         ./main_cmdliner.exe cmd4 [-n VAL] [OPTION]…
+         ./main_cmdliner.exe cmd4 [-n FLOAT] [OPTION]…
   
   OPTIONS
-         -n VAL (required)
-             a float to print
+         -n FLOAT (required)
+             a float to print.
   
   COMMON OPTIONS
          --help[=FMT] (default=auto)
@@ -244,7 +244,7 @@
 
   $ ./main_cmdliner.exe cmd4
   ./main_cmdliner.exe: required option -n is missing
-  Usage: ./main_cmdliner.exe cmd4 [-n VAL] [OPTION]…
+  Usage: ./main_cmdliner.exe cmd4 [-n FLOAT] [OPTION]…
   Try './main_cmdliner.exe cmd4 --help' or './main_cmdliner.exe --help' for more information.
   [124]
 
@@ -253,7 +253,7 @@
 
   $ ./main_cmdliner.exe cmd4 --n=3.14
   ./main_cmdliner.exe: unknown option '--n', did you mean '-n'?
-  Usage: ./main_cmdliner.exe cmd4 [-n VAL] [OPTION]…
+  Usage: ./main_cmdliner.exe cmd4 [-n FLOAT] [OPTION]…
   Try './main_cmdliner.exe cmd4 --help' or './main_cmdliner.exe --help' for more information.
   [124]
 
@@ -263,7 +263,7 @@
   $ ./main_cmdliner.exe cmd4 -n=3.14
   ./main_cmdliner.exe: option '-n': invalid value '=3.14', expected a floating
                        point number
-  Usage: ./main_cmdliner.exe cmd4 [-n VAL] [OPTION]…
+  Usage: ./main_cmdliner.exe cmd4 [-n FLOAT] [OPTION]…
   Try './main_cmdliner.exe cmd4 --help' or './main_cmdliner.exe --help' for more information.
   [124]
 
@@ -276,6 +276,16 @@
   
   SYNOPSIS
          ./main_cmdliner.exe cmd5 [OPTION]… A B [C]
+  
+  ARGUMENTS
+         A (required)
+             a first float.
+  
+         B (required)
+             a second float.
+  
+         C (absent=3.14)
+             another float.
   
   COMMON OPTIONS
          --help[=FMT] (default=auto)
