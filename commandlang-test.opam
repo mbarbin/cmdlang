@@ -17,8 +17,8 @@ depends: [
   "commandlang" {= version}
   "commandlang-err" {= version}
   "commandlang-to-base" {= version}
-  "commandlang-to-cmdliner" {= version}
   "commandlang-to-climate" {= version}
+  "commandlang-to-cmdliner" {= version}
   "core" {>= "v0.17" & < "v0.18"}
   "core_unix" {>= "v0.17" & < "v0.18"}
   "expect_test_helpers_core" {>= "v0.17" & < "v0.18"}
