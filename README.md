@@ -85,4 +85,5 @@ We initiated the library as part of another project where we are migrating some 
 
 - We are grateful for the years of accumulated work and experience that have resulted in high-quality CLI libraries like `cmdliner` and `core.command`.
 - `climate`'s early programming interface was a great source of inspiration. We are very thankful for their work on auto-completion and excited to see where the `climate` project goes next.
+- We would like to thank the Dune developers for the user-facing error handling of Dune (`Stdune.User_message`), on which we based the error handling scheme used in commandlang (`Err`). By adopting a similar approach, we aim to provide a consistent and unified user experience for OCaml users across different tools and libraries.
 - We are inspired by the [diataxis](https://diataxis.fr/) approach to technical documentation, which we use to structure our documentation.

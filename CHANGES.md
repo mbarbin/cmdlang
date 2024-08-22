@@ -1,4 +1,10 @@
-## 0.0.1~preview-0.1 (2024-08-19)
+## 0.0.1 (2024-08-22)
+
+### Added
+
+- Added library `Err` establishing a standard for error handling in commandlang CLIs.
+
+## 0.0.1_preview-0.1 (2024-08-19)
 
 ### Added
 

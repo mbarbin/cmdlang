@@ -18,6 +18,7 @@ depends: [
   "core" {>= "v0.17" & < "v0.18"}
   "core_unix" {>= "v0.17" & < "v0.18"}
   "expect_test_helpers_core" {>= "v0.17" & < "v0.18"}
+  "loc" {>= "0.0.2"}
   "mdx" {>= "2.4"}
   "ppx_compare" {>= "v0.17" & < "v0.18"}
   "ppx_enumerate" {>= "v0.17" & < "v0.18"}
@@ -31,6 +32,7 @@ depends: [
   "ppxlib" {>= "0.33"}
   "sherlodoc" {with-doc & >= "0.2"}
   "stdio" {>= "v0.17" & < "v0.18"}
+  "stdune" {>= "3.16"}
   "odoc" {with-doc}
 ]
 build: [

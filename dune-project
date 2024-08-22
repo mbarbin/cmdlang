@@ -22,7 +22,40 @@
  (synopsis "Declarative Command-line Parsing for OCaml")
  (depends
   (ocaml
-   (>= 5.2))))
+   (>= 5.2))
+  (bisect_ppx
+   (and
+    :dev
+    (>= 2.8.3)))
+  (ppx_js_style
+   (and
+    :dev
+    (>= v0.17)
+    (< v0.18)))))
+
+(package
+ (name commandlang-err)
+ (synopsis "Error Handling Standard for Commandlang CLIs")
+ (depends
+  (ocaml
+   (>= 5.2))
+  (bisect_ppx
+   (and
+    :dev
+    (>= 2.8.3)))
+  (commandlang
+   (= :version))
+  (ppx_js_style
+   (and
+    :dev
+    (>= v0.17)
+    (< v0.18)))
+  (sexplib0
+   (and
+    (>= v0.17)
+    (< v0.18)))
+  (stdune
+   (>= 3.16))))
 
 (package
  (name commandlang-to-base)
@@ -34,6 +67,12 @@
    (and
     (>= v0.17)
     (< v0.18)))
+  (bisect_ppx
+   (and
+    :dev
+    (>= 2.8.3)))
+  (commandlang
+   (= :version))
   (core
    (and
     (>= v0.17)
@@ -86,10 +125,19 @@
  (depends
   (ocaml
    (>= 5.2))
+  (bisect_ppx
+   (and
+    :dev
+    (>= 2.8.3)))
   (cmdliner
    (= 1.3.0))
   (commandlang
-   (= :version))))
+   (= :version))
+  (ppx_js_style
+   (and
+    :dev
+    (>= v0.17)
+    (< v0.18)))))
 
 (package
  (name commandlang-to-climate)
@@ -97,10 +145,19 @@
  (depends
   (ocaml
    (>= 5.2))
+  (bisect_ppx
+   (and
+    :dev
+    (>= 2.8.3)))
   (climate
    (= 0.0.1~preview-0.1))
   (commandlang
-   (= :version))))
+   (= :version))
+  (ppx_js_style
+   (and
+    :dev
+    (>= v0.17)
+    (< v0.18)))))
 
 (package
  (name commandlang-test)
@@ -134,6 +191,8 @@
    (and
     (>= v0.17)
     (< v0.18)))
+  (loc
+   (>= 0.0.2))
   (mdx
    (>= 2.4))
   (ppx_compare
@@ -182,4 +241,6 @@
   (stdio
    (and
     (>= v0.17)
-    (< v0.18)))))
+    (< v0.18)))
+  (stdune
+   (>= 3.16))))

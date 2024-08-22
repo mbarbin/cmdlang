@@ -1,6 +1,6 @@
 (library
- (name commandlang_to_cmdliner)
- (public_name commandlang-to-cmdliner)
+ (name commandlang_err)
+ (public_name commandlang-err)
  (flags
   :standard
   -w
@@ -8,8 +8,10 @@
   -warn-error
   +a
   -open
-  Commandlang_ast)
- (libraries cmdliner commandlang commandlang-err commandlang.ast)
+  Commandlang
+  -open
+  Sexplib0)
+ (libraries commandlang sexplib0 stdune)
  (instrumentation
   (backend bisect_ppx))
  (lint
