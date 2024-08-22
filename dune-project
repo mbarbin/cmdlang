@@ -73,6 +73,8 @@
     (>= 2.8.3)))
   (commandlang
    (= :version))
+  (commandlang-err
+   (= :version))
   (core
    (and
     (>= v0.17)
@@ -133,6 +135,8 @@
    (= 1.3.0))
   (commandlang
    (= :version))
+  (commandlang-err
+   (= :version))
   (ppx_js_style
    (and
     :dev
@@ -152,6 +156,8 @@
   (climate
    (= 0.0.1~preview-0.1))
   (commandlang
+   (= :version))
+  (commandlang-err
    (= :version))
   (ppx_js_style
    (and
@@ -178,6 +184,14 @@
   (cmdliner
    (= 1.3.0))
   (commandlang
+   (= :version))
+  (commandlang-err
+   (= :version))
+  (commandlang-to-base
+   (= :version))
+  (commandlang-to-climate
+   (= :version))
+  (commandlang-to-cmdliner
    (= :version))
   (core
    (and

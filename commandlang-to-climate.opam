@@ -13,6 +13,7 @@ depends: [
   "bisect_ppx" {dev & >= "2.8.3"}
   "climate" {= "0.0.1~preview-0.1"}
   "commandlang" {= version}
+  "commandlang-err" {= version}
   "ppx_js_style" {dev & >= "v0.17" & < "v0.18"}
   "odoc" {with-doc}
 ]

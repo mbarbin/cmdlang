@@ -9,7 +9,7 @@
   +a
   -open
   Commandlang_ast)
- (libraries cmdliner commandlang commandlang_err commandlang_ast)
+ (libraries cmdliner commandlang commandlang_ast commandlang_err)
  (instrumentation
   (backend bisect_ppx))
  (lint
