@@ -151,6 +151,8 @@ let%expect_test "state getters" =
 ;;
 
 let%expect_test "multiple errors" =
+  Err.For_test.wrap
+  @@ fun () ->
   Err.error ~loc:(Loc.in_file ~path:(Fpath.v "my/file1")) [ Pp.text "Hello Error1" ];
   Err.error ~loc:(Loc.in_file ~path:(Fpath.v "my/file2")) [ Pp.text "Hello Error1" ];
   [%expect
@@ -165,6 +167,8 @@ let%expect_test "multiple errors" =
 ;;
 
 let%expect_test "error" =
+  Err.For_test.wrap
+  @@ fun () ->
   let state =
     create_state ~config:(Err.Config.create ~mode:Default ~warn_error:false ())
   in
@@ -192,6 +196,8 @@ let%expect_test "error handler" =
 ;;
 
 let%expect_test "warning" =
+  Err.For_test.wrap
+  @@ fun () ->
   let state =
     create_state ~config:(Err.Config.create ~mode:Default ~warn_error:false ())
   in
@@ -291,6 +297,8 @@ let%expect_test "exn_handler" =
 ;;
 
 let%expect_test "non-test handler" =
+  Err.For_test.wrap
+  @@ fun () ->
   let result =
     Err.handler
       (fun () -> failwith "Hello Exn")

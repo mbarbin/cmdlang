@@ -335,6 +335,12 @@ module For_test : sig
   (** Same as [handler], but won't return the exit code, rather print the code
       at the end in case of a non zero code, like in cram tests. *)
   val handler : ?state:State.t -> ?exn_handler:(exn -> t option) -> (unit -> unit) -> unit
+
+  (** Wrap the execution of a function under an environment proper for test
+      execution. For example, it will turn down the colors in user messages.
+      {!val:handler} already does a [wrap] - this is exposed if you'd like to
+      run some test outside of a handler. *)
+  val wrap : (unit -> 'a) -> 'a
 end
 
 (** {1 Other styles}

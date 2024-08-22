@@ -315,14 +315,14 @@ let handler ?(state = the_state) ?(exn_handler = Fun.const None) f =
 ;;
 
 module For_test = struct
-  let handler ?state ?exn_handler f =
+  let wrap f =
     let init = !am_running_test in
     am_running_test := true;
-    match
-      Fun.protect
-        ~finally:(fun () -> am_running_test := init)
-        (fun () -> handler f ?state ?exn_handler)
-    with
+    Fun.protect ~finally:(fun () -> am_running_test := init) f
+  ;;
+
+  let handler ?state ?exn_handler f =
+    match wrap (fun () -> handler f ?state ?exn_handler) with
     | Ok () -> ()
     | Error code -> Stdlib.prerr_endline (Printf.sprintf "[%d]" code)
   ;;
