@@ -9,7 +9,7 @@
   +a
   -open
   Commandlang_ast)
- (libraries climate commandlang commandlang.ast)
+ (libraries climate commandlang commandlang_ast)
  (instrumentation
   (backend bisect_ppx))
  (lint

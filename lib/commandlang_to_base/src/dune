@@ -13,7 +13,7 @@
   Commandlang_ast
   -open
   Commandlang_err)
- (libraries base commandlang commandlang-err commandlang.ast core.command)
+ (libraries base commandlang commandlang_err commandlang_ast core.command)
  (instrumentation
   (backend bisect_ppx))
  (lint
