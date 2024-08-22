@@ -19,18 +19,6 @@ module Operator = struct
 end
 (* $MDX part-end *)
 
-(* $MDX part-begin=void *)
-let cmd =
-  Command.make
-    ~summary:"A simple calculator"
-    (let open Command.Std in
-     let+ () = Arg.return () in
-     ())
-;;
-
-(* $MDX part-end *)
-let _ = cmd
-
 (* $MDX part-begin=final *)
 let cmd =
   Command.make

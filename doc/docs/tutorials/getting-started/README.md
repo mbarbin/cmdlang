@@ -53,7 +53,7 @@ First, create a `lib/` directory and a `lib/dune` file for our library, listing 
 
 Next, create an empty command-line skeleton that we will complete incrementally.
 
-<!-- $MDX file=getting_started.ml,part=void -->
+<!-- $MDX skip -->
 ```ocaml
 let cmd =
   Command.make
@@ -81,7 +81,7 @@ As you'll learn, `commandlang` doesn't come with its own command runner. Instead
 ```lisp
 (executable
  (name main)
- (libraries commandlang_to_cmdliner cmdliner getting_started))
+ (libraries commandlang_to_cmdliner getting_started))
 ```
 
 An invocation of `cmdliner` for a `commandlang` command may look like this:
@@ -89,12 +89,10 @@ An invocation of `cmdliner` for a `commandlang` command may look like this:
 <!-- $MDX file=main.ml -->
 ```ocaml
 let () =
-  Cmdliner.Cmd.eval
-    (Commandlang_to_cmdliner.Translate.command
-       Getting_started.cmd
-       ~name:"my-calculator"
-       ~version:"%%VERSION%%")
-  |> Stdlib.exit
+  Commandlang_to_cmdliner.run
+    Getting_started.cmd
+    ~name:"my-calculator"
+    ~version:"%%VERSION%%"
 ;;
 ```
 
@@ -138,7 +136,7 @@ Next, we'll start exposing the functionality via the command-line interface.
 
 Let's revisit our empty skeleton:
 
-<!-- $MDX file=getting_started.ml,part=void,skip -->
+<!-- $MDX skip -->
 ```ocaml
 let cmd =
   Command.make

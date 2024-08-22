@@ -1,6 +1,5 @@
-(library
- (name commandlang_to_base)
- (public_name commandlang-to-base)
+(executable
+ (name main)
  (flags
   :standard
   -w
@@ -10,10 +9,10 @@
   -open
   Base
   -open
-  Commandlang_ast
+  Commandlang
   -open
   Commandlang_err)
- (libraries base commandlang commandlang-err commandlang.ast core.command)
+ (libraries base commandlang commandlang-err commandlang-to-cmdliner loc)
  (instrumentation
   (backend bisect_ppx))
  (lint
@@ -28,3 +27,6 @@
    ppx_let
    ppx_sexp_conv
    ppx_sexp_value)))
+
+(cram
+ (deps main.exe))

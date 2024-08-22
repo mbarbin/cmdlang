@@ -1,3 +1,5 @@
+(** Declarative Command-line Parsing for OCaml. *)
+
 (** {1 Utils} *)
 
 module Nonempty_list : sig
