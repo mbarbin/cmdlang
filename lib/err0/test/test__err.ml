@@ -125,6 +125,8 @@ let create_state ~config =
   state
 ;;
 
+let am_running_test state = print_s [%sexp (Err.State.am_running_test state : bool)]
+
 let%expect_test "config" =
   let config = Err.Config.create ~mode:Default ~warn_error:false () in
   print_s [%sexp (Err_handler.Config.to_args config : string list)];
@@ -183,12 +185,40 @@ let%expect_test "multiple errors" =
   ()
 ;;
 
+let%expect_test "wrap and state" =
+  (* By default [wrap] acts on the default state. *)
+  Err_handler.For_test.wrap (fun () ->
+    am_running_test Err.the_state;
+    [%expect {| true |}];
+    let state = create_state ~config:(Err.Config.create ()) in
+    (* thus it doesn't affect the value of state created manually *)
+    am_running_test state;
+    [%expect {| false |}];
+    Err.State.set_am_running_test state true;
+    am_running_test state;
+    [%expect {| true |}]);
+  (* It is however possible to provide the state to [wrap]. *)
+  let state = create_state ~config:(Err.Config.create ()) in
+  (* thus it doesn't affect the value of state created manually *)
+  am_running_test state;
+  [%expect {| false |}];
+  Err_handler.For_test.wrap ~state (fun () ->
+    am_running_test state;
+    [%expect {| true |}]);
+  (* The [am_running_test] is returned to its internal value after [wrap] returns. *)
+  am_running_test state;
+  [%expect {| false |}];
+  ()
+;;
+
 let%expect_test "error" =
-  Err_handler.For_test.wrap
-  @@ fun () ->
   let state =
     create_state ~config:(Err.Config.create ~mode:Default ~warn_error:false ())
   in
+  Err_handler.For_test.wrap ~state
+  @@ fun () ->
+  am_running_test state;
+  [%expect {| true |}];
   print_s [%sexp (Err.State.had_errors state : bool)];
   [%expect {| false |}];
   Err.error ~state [ Pp.text "Hello Error1" ];
@@ -213,36 +243,40 @@ let%expect_test "error handler" =
 ;;
 
 let%expect_test "warning" =
-  Err_handler.For_test.wrap
-  @@ fun () ->
   let state =
     create_state ~config:(Err.Config.create ~mode:Default ~warn_error:false ())
   in
-  print_s [%sexp (Err.State.had_errors state : bool)];
-  [%expect {| false |}];
-  Err.warning ~state [ Pp.text "Hello Warning1" ];
-  [%expect {| Warning: Hello Warning1 |}];
-  Err.warning ~state [ Pp.text "Hello Warning2" ];
-  [%expect {| Warning: Hello Warning2 |}];
-  print_s [%sexp (Err.State.had_errors state : bool)];
-  [%expect {| false |}];
-  Err.State.reset_counts state;
-  print_s [%sexp (Err.State.had_errors state : bool)];
-  [%expect {| false |}];
+  Err_handler.For_test.wrap ~state (fun () ->
+    am_running_test state;
+    [%expect {| true |}];
+    print_s [%sexp (Err.State.had_errors state : bool)];
+    [%expect {| false |}];
+    Err.warning ~state [ Pp.text "Hello Warning1" ];
+    [%expect {| Warning: Hello Warning1 |}];
+    Err.warning ~state [ Pp.text "Hello Warning2" ];
+    [%expect {| Warning: Hello Warning2 |}];
+    print_s [%sexp (Err.State.had_errors state : bool)];
+    [%expect {| false |}];
+    Err.State.reset_counts state;
+    print_s [%sexp (Err.State.had_errors state : bool)];
+    [%expect {| false |}]);
   let state =
     create_state ~config:(Err.Config.create ~mode:Default ~warn_error:true ())
   in
-  print_s [%sexp (Err.State.had_errors state : bool)];
-  [%expect {| false |}];
-  Err.warning ~state [ Pp.text "Hello Warning1" ];
-  [%expect {| Warning: Hello Warning1 |}];
-  Err.warning ~state [ Pp.text "Hello Warning2" ];
-  [%expect {| Warning: Hello Warning2 |}];
-  print_s [%sexp (Err.State.had_errors state : bool)];
-  [%expect {| true |}];
-  Err.State.reset_counts state;
-  print_s [%sexp (Err.State.had_errors state : bool)];
-  [%expect {| false |}];
+  Err_handler.For_test.wrap ~state (fun () ->
+    am_running_test state;
+    [%expect {| true |}];
+    print_s [%sexp (Err.State.had_errors state : bool)];
+    [%expect {| false |}];
+    Err.warning ~state [ Pp.text "Hello Warning1" ];
+    [%expect {| Warning: Hello Warning1 |}];
+    Err.warning ~state [ Pp.text "Hello Warning2" ];
+    [%expect {| Warning: Hello Warning2 |}];
+    print_s [%sexp (Err.State.had_errors state : bool)];
+    [%expect {| true |}];
+    Err.State.reset_counts state;
+    print_s [%sexp (Err.State.had_errors state : bool)];
+    [%expect {| false |}]);
   ()
 ;;
 
@@ -253,6 +287,8 @@ let%expect_test "warning handler" =
     create_state ~config:(Err.Config.create ~mode:Default ~warn_error:true ())
   in
   Err_handler.For_test.protect ~state (fun () ->
+    am_running_test state;
+    [%expect {| true |}];
     Err.warning ~state [ Pp.text "Hello Warning1" ]);
   [%expect {|
     Warning: Hello Warning1
@@ -319,10 +355,9 @@ let%expect_test "protect and reset" =
   @@ fun () ->
   let result =
     Err_handler.protect (fun () ->
-      print_s
-        [%sexp { am_running_test = (Err.State.am_running_test Err.the_state : bool) }])
+      am_running_test Err.the_state;
+      [%expect {| true |}])
   in
-  [%expect {| ((am_running_test true)) |}];
   print_s [%sexp (result : (unit, int) Result.t)];
   [%expect {| (Ok ()) |}];
   ()
