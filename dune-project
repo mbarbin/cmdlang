@@ -103,6 +103,8 @@
     (< v0.18)))
   (err0
    (= :version))
+  (err0-handler
+   (= :version))
   (ppx_compare
    (and
     (>= v0.17)
@@ -161,6 +163,8 @@
    (= :version))
   (err0
    (= :version))
+  (err0-handler
+   (= :version))
   (ppx_js_style
    (and
     :dev
@@ -182,6 +186,8 @@
   (commandlang
    (= :version))
   (err0
+   (= :version))
+  (err0-handler
    (= :version))
   (ppx_js_style
    (and
@@ -224,6 +230,8 @@
     (>= v0.17)
     (< v0.18)))
   (err0
+   (= :version))
+  (err0-handler
    (= :version))
   (expect_test_helpers_core
    (and

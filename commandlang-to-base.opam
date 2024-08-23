@@ -15,6 +15,7 @@ depends: [
   "commandlang" {= version}
   "core" {>= "v0.17" & < "v0.18"}
   "err0" {= version}
+  "err0-handler" {= version}
   "ppx_compare" {>= "v0.17" & < "v0.18"}
   "ppx_enumerate" {>= "v0.17" & < "v0.18"}
   "ppx_expect" {>= "v0.17" & < "v0.18"}

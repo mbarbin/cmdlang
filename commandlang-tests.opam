@@ -21,6 +21,7 @@ depends: [
   "core" {>= "v0.17" & < "v0.18"}
   "core_unix" {>= "v0.17" & < "v0.18"}
   "err0" {= version}
+  "err0-handler" {= version}
   "expect_test_helpers_core" {>= "v0.17" & < "v0.18"}
   "loc0" {>= "0.1.0"}
   "mdx" {>= "2.4"}
