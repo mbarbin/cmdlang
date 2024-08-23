@@ -1,11 +1,26 @@
 let%expect_test "return" =
-  Err.For_test.handler (fun () -> ());
+  Err_handler.For_test.protect (fun () -> ());
   [%expect {||}];
   ()
 ;;
 
+let%expect_test "return" =
+  let am_running_test () =
+    print_s [%sexp (Err_handler.For_test.am_running_test () : bool)]
+  in
+  am_running_test ();
+  [%expect {| false |}];
+  Err_handler.For_test.wrap (fun () ->
+    am_running_test ();
+    [%expect {| true |}]);
+  Err_handler.For_test.protect (fun () ->
+    am_running_test ();
+    [%expect {| true |}]);
+  ()
+;;
+
 let%expect_test "raise" =
-  Err.For_test.handler (fun () ->
+  Err_handler.For_test.protect (fun () ->
     Err.raise
       ~loc:(Loc.in_file ~path:(Fpath.v "path/to/my-file.txt"))
       ~hints:(Err.did_you_mean "bah" ~candidates:[ "bar"; "foo" ])
@@ -21,13 +36,13 @@ let%expect_test "raise" =
 ;;
 
 let%expect_test "exit" =
-  Err.For_test.handler (fun () -> Err.exit Some_error);
+  Err_handler.For_test.protect (fun () -> Err.exit Some_error);
   [%expect {| [123] |}];
   ()
 ;;
 
 let%expect_test "reraise" =
-  Err.For_test.handler (fun () ->
+  Err_handler.For_test.protect (fun () ->
     match
       Err.raise
         ~loc:(Loc.in_file ~path:(Fpath.v "path/to/my-file.txt"))
@@ -45,13 +60,15 @@ let%expect_test "reraise" =
         [ Pp.text "Re raised with context"; Pp.verbatim "x" ]);
   [%expect
     {|
+    File "path/to/my-file.txt", line 1, characters 0-0:
+    Error: Hello Raise
+    Hint: did you mean bar?
+
     File "path/to/other-file.txt", line 1, characters 0-0:
     Error: Re raised with context
     x
 
-    File "path/to/my-file.txt", line 1, characters 0-0:
-    Error: Hello Raise
-    Hint: did you mean bar?
+    Backtrace: <backtrace disabled in tests>
     [125]
     |}];
   ()
@@ -64,16 +81,16 @@ let%expect_test "make" =
       ~hints:(Err.did_you_mean "bah" ~candidates:[ "bar"; "foo" ])
       [ Pp.text "Hello Make" ]
   in
-  Err.For_test.handler (fun () -> Err.prerr err);
+  Err_handler.For_test.protect (fun () -> Err_handler.prerr err);
   [%expect
     {|
     File "path/to/my-file.txt", line 1, characters 0-0:
     Error: Hello Make
     Hint: did you mean bar?
     |}];
-  Err.For_test.handler (fun () -> Err.ok_exn (Ok ()));
+  Err_handler.For_test.protect (fun () -> Err.ok_exn (Ok ()));
   [%expect {||}];
-  Err.For_test.handler (fun () -> Err.ok_exn (Error err));
+  Err_handler.For_test.protect (fun () -> Err.ok_exn (Error err));
   [%expect
     {|
     File "path/to/my-file.txt", line 1, characters 0-0:
@@ -92,7 +109,7 @@ let%expect_test "of_stdune_message" =
       [ Pp.text "Hello Stdune" ]
     |> Err.of_stdune_user_message ~exit_code:Ok
   in
-  Err.For_test.handler (fun () -> Err.prerr err);
+  Err_handler.For_test.protect (fun () -> Err_handler.prerr err);
   [%expect
     {|
     File "path/to/other-file.txt", line 1, characters 0-0:
@@ -108,15 +125,17 @@ let create_state ~config =
   state
 ;;
 
+let am_running_test state = print_s [%sexp (Err.State.am_running_test state : bool)]
+
 let%expect_test "config" =
   let config = Err.Config.create ~mode:Default ~warn_error:false () in
-  print_s [%sexp (Err.Config.to_args config : string list)];
+  print_s [%sexp (Err_handler.Config.to_args config : string list)];
   [%expect {| () |}];
   let config = Err.Config.create ~mode:Verbose ~warn_error:true () in
-  print_s [%sexp (Err.Config.to_args config : string list)];
+  print_s [%sexp (Err_handler.Config.to_args config : string list)];
   [%expect {| (--verbose --warn-error) |}];
   let config = Err.Config.create ~mode:Debug ~warn_error:true () in
-  print_s [%sexp (Err.Config.to_args config : string list)];
+  print_s [%sexp (Err_handler.Config.to_args config : string list)];
   [%expect {| (--debug --warn-error) |}];
   ()
 ;;
@@ -151,7 +170,7 @@ let%expect_test "state getters" =
 ;;
 
 let%expect_test "multiple errors" =
-  Err.For_test.wrap
+  Err_handler.For_test.wrap
   @@ fun () ->
   Err.error ~loc:(Loc.in_file ~path:(Fpath.v "my/file1")) [ Pp.text "Hello Error1" ];
   Err.error ~loc:(Loc.in_file ~path:(Fpath.v "my/file2")) [ Pp.text "Hello Error1" ];
@@ -166,12 +185,40 @@ let%expect_test "multiple errors" =
   ()
 ;;
 
+let%expect_test "wrap and state" =
+  (* By default [wrap] acts on the default state. *)
+  Err_handler.For_test.wrap (fun () ->
+    am_running_test Err.the_state;
+    [%expect {| true |}];
+    let state = create_state ~config:(Err.Config.create ()) in
+    (* thus it doesn't affect the value of state created manually *)
+    am_running_test state;
+    [%expect {| false |}];
+    Err.State.set_am_running_test state true;
+    am_running_test state;
+    [%expect {| true |}]);
+  (* It is however possible to provide the state to [wrap]. *)
+  let state = create_state ~config:(Err.Config.create ()) in
+  (* thus it doesn't affect the value of state created manually *)
+  am_running_test state;
+  [%expect {| false |}];
+  Err_handler.For_test.wrap ~state (fun () ->
+    am_running_test state;
+    [%expect {| true |}]);
+  (* The [am_running_test] is returned to its internal value after [wrap] returns. *)
+  am_running_test state;
+  [%expect {| false |}];
+  ()
+;;
+
 let%expect_test "error" =
-  Err.For_test.wrap
-  @@ fun () ->
   let state =
     create_state ~config:(Err.Config.create ~mode:Default ~warn_error:false ())
   in
+  Err_handler.For_test.wrap ~state
+  @@ fun () ->
+  am_running_test state;
+  [%expect {| true |}];
   print_s [%sexp (Err.State.had_errors state : bool)];
   [%expect {| false |}];
   Err.error ~state [ Pp.text "Hello Error1" ];
@@ -180,14 +227,14 @@ let%expect_test "error" =
   [%expect {| Error: Hello Error2 |}];
   print_s [%sexp (Err.State.had_errors state : bool)];
   [%expect {| true |}];
-  Err.State.reset state;
+  Err.State.reset_counts state;
   print_s [%sexp (Err.State.had_errors state : bool)];
   [%expect {| false |}];
   ()
 ;;
 
 let%expect_test "error handler" =
-  Err.For_test.handler (fun () -> Err.error [ Pp.text "Hello Error1" ]);
+  Err_handler.For_test.protect (fun () -> Err.error [ Pp.text "Hello Error1" ]);
   [%expect {|
     Error: Hello Error1
     [123]
@@ -196,46 +243,53 @@ let%expect_test "error handler" =
 ;;
 
 let%expect_test "warning" =
-  Err.For_test.wrap
-  @@ fun () ->
   let state =
     create_state ~config:(Err.Config.create ~mode:Default ~warn_error:false ())
   in
-  print_s [%sexp (Err.State.had_errors state : bool)];
-  [%expect {| false |}];
-  Err.warning ~state [ Pp.text "Hello Warning1" ];
-  [%expect {| Warning: Hello Warning1 |}];
-  Err.warning ~state [ Pp.text "Hello Warning2" ];
-  [%expect {| Warning: Hello Warning2 |}];
-  print_s [%sexp (Err.State.had_errors state : bool)];
-  [%expect {| false |}];
-  Err.State.reset state;
-  print_s [%sexp (Err.State.had_errors state : bool)];
-  [%expect {| false |}];
+  Err_handler.For_test.wrap ~state (fun () ->
+    am_running_test state;
+    [%expect {| true |}];
+    print_s [%sexp (Err.State.had_errors state : bool)];
+    [%expect {| false |}];
+    Err.warning ~state [ Pp.text "Hello Warning1" ];
+    [%expect {| Warning: Hello Warning1 |}];
+    Err.warning ~state [ Pp.text "Hello Warning2" ];
+    [%expect {| Warning: Hello Warning2 |}];
+    print_s [%sexp (Err.State.had_errors state : bool)];
+    [%expect {| false |}];
+    Err.State.reset_counts state;
+    print_s [%sexp (Err.State.had_errors state : bool)];
+    [%expect {| false |}]);
   let state =
     create_state ~config:(Err.Config.create ~mode:Default ~warn_error:true ())
   in
-  print_s [%sexp (Err.State.had_errors state : bool)];
-  [%expect {| false |}];
-  Err.warning ~state [ Pp.text "Hello Warning1" ];
-  [%expect {| Warning: Hello Warning1 |}];
-  Err.warning ~state [ Pp.text "Hello Warning2" ];
-  [%expect {| Warning: Hello Warning2 |}];
-  print_s [%sexp (Err.State.had_errors state : bool)];
-  [%expect {| true |}];
-  Err.State.reset state;
-  print_s [%sexp (Err.State.had_errors state : bool)];
-  [%expect {| false |}];
+  Err_handler.For_test.wrap ~state (fun () ->
+    am_running_test state;
+    [%expect {| true |}];
+    print_s [%sexp (Err.State.had_errors state : bool)];
+    [%expect {| false |}];
+    Err.warning ~state [ Pp.text "Hello Warning1" ];
+    [%expect {| Warning: Hello Warning1 |}];
+    Err.warning ~state [ Pp.text "Hello Warning2" ];
+    [%expect {| Warning: Hello Warning2 |}];
+    print_s [%sexp (Err.State.had_errors state : bool)];
+    [%expect {| true |}];
+    Err.State.reset_counts state;
+    print_s [%sexp (Err.State.had_errors state : bool)];
+    [%expect {| false |}]);
   ()
 ;;
 
 let%expect_test "warning handler" =
-  Err.For_test.handler (fun () -> Err.warning [ Pp.text "Hello Warning1" ]);
+  Err_handler.For_test.protect (fun () -> Err.warning [ Pp.text "Hello Warning1" ]);
   [%expect {| Warning: Hello Warning1 |}];
   let state =
     create_state ~config:(Err.Config.create ~mode:Default ~warn_error:true ())
   in
-  Err.For_test.handler ~state (fun () -> Err.warning ~state [ Pp.text "Hello Warning1" ]);
+  Err_handler.For_test.protect ~state (fun () ->
+    am_running_test state;
+    [%expect {| true |}];
+    Err.warning ~state [ Pp.text "Hello Warning1" ]);
   [%expect {|
     Warning: Hello Warning1
     [123]
@@ -245,7 +299,7 @@ let%expect_test "warning handler" =
 
 let%expect_test "info & debug" =
   let test state =
-    Err.For_test.handler ~state (fun () ->
+    Err_handler.For_test.protect ~state (fun () ->
       Err.info ~state [ Pp.text "Hello Info1" ];
       Err.debug ~state [ Pp.text "Hello Debug1" ])
   in
@@ -272,7 +326,7 @@ let%expect_test "info & debug" =
 ;;
 
 let%expect_test "exn_handler" =
-  Err.For_test.handler (fun () -> failwith "Hello Exn");
+  Err_handler.For_test.protect (fun () -> failwith "Hello Exn");
   [%expect
     {|
     Internal Error: Failure("Hello Exn") <backtrace disabled in tests>
@@ -282,12 +336,12 @@ let%expect_test "exn_handler" =
     | Failure msg -> Some (Err.make [ Pp.text msg ])
     | _ -> None
   in
-  Err.For_test.handler ~exn_handler (fun () -> failwith "Hello Exn");
+  Err_handler.For_test.protect ~exn_handler (fun () -> failwith "Hello Exn");
   [%expect {|
     Error: Hello Exn
     [123]
     |}];
-  Err.For_test.handler ~exn_handler (fun () -> invalid_arg "Hello Exn");
+  Err_handler.For_test.protect ~exn_handler (fun () -> invalid_arg "Hello Exn");
   [%expect
     {|
     Internal Error: Invalid_argument("Hello Exn") <backtrace disabled in tests>
@@ -296,11 +350,24 @@ let%expect_test "exn_handler" =
   ()
 ;;
 
-let%expect_test "non-test handler" =
-  Err.For_test.wrap
+let%expect_test "protect and reset" =
+  Err_handler.For_test.wrap
   @@ fun () ->
   let result =
-    Err.handler
+    Err_handler.protect (fun () ->
+      am_running_test Err.the_state;
+      [%expect {| true |}])
+  in
+  print_s [%sexp (result : (unit, int) Result.t)];
+  [%expect {| (Ok ()) |}];
+  ()
+;;
+
+let%expect_test "non-test handler" =
+  Err_handler.For_test.wrap
+  @@ fun () ->
+  let result =
+    Err_handler.protect
       (fun () -> failwith "Hello Exn")
       ~exn_handler:(function
         | Failure msg -> Some (Err.make [ Pp.text msg ])
@@ -313,7 +380,7 @@ let%expect_test "non-test handler" =
 ;;
 
 let%expect_test "raise_s" =
-  Err.For_test.handler (fun () ->
+  Err_handler.For_test.protect (fun () ->
     Err.raise_s
       ~loc:(Loc.in_file ~path:(Fpath.v "path/to/my-file.txt"))
       ~hints:(Err.did_you_mean "bah" ~candidates:[ "bar"; "foo" ])
@@ -331,7 +398,7 @@ let%expect_test "raise_s" =
 ;;
 
 let%expect_test "reraise" =
-  Err.For_test.handler (fun () ->
+  Err_handler.For_test.protect (fun () ->
     match
       Err.raise_s
         ~loc:(Loc.in_file ~path:(Fpath.v "path/to/my-file.txt"))
@@ -350,14 +417,14 @@ let%expect_test "reraise" =
         [%sexp { x = 42 }]);
   [%expect
     {|
-    File "path/to/other-file.txt", line 1, characters 0-0:
-    Error: Re raised with context
-    (x 42)
-
     File "path/to/my-file.txt", line 1, characters 0-0:
     Error: Hello Raise
     (hello 42)
     Hint: did you mean bar?
+
+    File "path/to/other-file.txt", line 1, characters 0-0:
+    Error: Re raised with context
+    (x 42)
     [123]
     |}];
   ()

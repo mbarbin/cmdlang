@@ -8,8 +8,12 @@
   -warn-error
   +a
   -open
+  Err0
+  -open
+  Err0_handler
+  -open
   Commandlang_ast)
- (libraries cmdliner commandlang commandlang_ast commandlang_err)
+ (libraries cmdliner commandlang commandlang_ast err0 err0-handler)
  (instrumentation
   (backend bisect_ppx))
  (lint

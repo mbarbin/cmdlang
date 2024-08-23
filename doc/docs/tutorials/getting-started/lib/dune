@@ -1,6 +1,6 @@
 (library
  (name getting_started)
- (public_name commandlang-test.getting_started)
+ (public_name commandlang-tests.getting_started)
  (flags
   :standard
   -w

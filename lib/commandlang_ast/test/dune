@@ -1,6 +1,6 @@
 (library
  (name commandlang_ast_test)
- (public_name commandlang-test.commandlang_ast_test)
+ (public_name commandlang-tests.commandlang_ast_test)
  (inline_tests)
  (flags :standard -w +a-4-40-41-42-44-45-48-66 -warn-error +a)
  (libraries commandlang_ast)

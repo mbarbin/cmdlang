@@ -42,7 +42,7 @@ type t
     }
 
     The standard usage for this library is to wrap entire sections in a
-    {!val:handler}, which takes care of catching [E] and handling it
+    [Err_handler.protect], which takes care of catching [E] and handling it
     accordingly. You may also catch this exception manually if you need, for
     more advanced uses (in which case you'll take care of recording and
     re-raising backtraces, etc). *)
@@ -105,8 +105,6 @@ module Config : sig
 
   val default : t
   val create : ?mode:Mode.t -> ?warn_error:bool -> unit -> t
-  val arg : t Command.Arg.t
-  val to_args : t -> string list
 end
 
 (** {1 State} *)
@@ -139,7 +137,7 @@ module State : sig
       numbers of errors. To be used in places where you want to stop the flow at a
       given point rather than returning meaningless data.
 
-      [had_errors] is used by {!val:handler} to determine whether to exit with
+      [had_errors] is used by [Err_handler] to determine whether to exit with
       an error code. *)
   val had_errors : t -> bool
 
@@ -149,13 +147,19 @@ module State : sig
       function accessing the state. For example, if you changed the log level
       to include Debug message, the next call to [debug ~state] will be
       printed. The intended usage is to do it early from the command line
-      handler. See {!val:Err.set_config}. *)
+      handler. See [Err_handler.set_config]. *)
   val set_config : t -> Config.t -> unit
 
   (** Reset the error and warning counts to zero. [reset] is done by each call
-      to {!val:handler} as an initialization step, so unless you are
-      manipulating states directly you shouldn't need to use this function. *)
-  val reset : t -> unit
+      to [Err_handler.protect] as an initialization step, so unless you are
+      manipulating states directly you shouldn't need to use this function.
+      This function does not mutate [am_running_test]. *)
+  val reset_counts : t -> unit
+
+  (** Returns [true] if [set_am_running_test] was last called with [true]. *)
+  val am_running_test : t -> bool
+
+  val set_am_running_test : t -> bool -> unit
 end
 
 (** {2 Default shared state} *)
@@ -169,16 +173,6 @@ end
       let my_error () = Err.raise ~state [ Pp.text "An error occurred" ]
     ]} *)
 val the_state : State.t
-
-(** Adding this argument to your command line will make it support [Err]
-    configuration and takes care of setting the config.
-
-    {[
-      let open Command.Std
-      let+ () = Err.set_config () in
-      ...
-    ]} *)
-val set_config : ?state:State.t -> unit -> unit Command.Arg.t
 
 (** {1 Raising errors} *)
 
@@ -263,10 +257,20 @@ val ok_exn : ('a, t) result -> 'a
 (** Produces a "Did you mean ...?" hint *)
 val did_you_mean : string -> candidates:string list -> Style.t Pp.t list
 
-(** {1 Printing messages} *)
+(** {1 Printing messages}
 
-(** Print to [stderr] (not thread safe) *)
-val prerr : t -> unit
+    When you only link with the [Err] library, the default printer for [t] is
+    pretty basic. The hope is to accommodate more use cases, and not require
+    linking with too many libraries. However, if you are writing a command
+    line, chances are that you are already using [Err_handler] ([Commandlang]
+    does this for you as well), in which case a better printer is setup, the one
+    with colors from [dune]. *)
+
+val set_reporter : (t -> state:State.t -> unit) -> unit
+
+(** Call the function registered by [set_reporter]. [state] defaults to
+    {!val:the_state}. *)
+val report : ?state:State.t -> t -> unit
 
 (** {1 Non-raising user errors}
 
@@ -315,34 +319,6 @@ val debug
   -> Style.t Pp.t list
   -> unit
 
-(** {1 Handler}
-
-    To be used by command line handlers, as well as tests. *)
-
-(** [handler f] will take care of running [f], and catch any user error. If the
-    exit code must be affected it is returned as an [Error]. This also takes
-    care of catching uncaught exceptions and printing them to the screen. You
-    may provide [exn_handler] to match on custom exceptions and turn them into
-    [Err] for display and exit code. Any uncaught exception will be reported as
-    an internal errors with a backtrace. *)
-val handler
-  :  ?state:State.t
-  -> ?exn_handler:(exn -> t option)
-  -> (unit -> 'a)
-  -> ('a, int) Result.t
-
-module For_test : sig
-  (** Same as [handler], but won't return the exit code, rather print the code
-      at the end in case of a non zero code, like in cram tests. *)
-  val handler : ?state:State.t -> ?exn_handler:(exn -> t option) -> (unit -> unit) -> unit
-
-  (** Wrap the execution of a function under an environment proper for test
-      execution. For example, it will turn down the colors in user messages.
-      {!val:handler} already does a [wrap] - this is exposed if you'd like to
-      run some test outside of a handler. *)
-  val wrap : (unit -> 'a) -> 'a
-end
-
 (** {1 Other styles}
 
     Whether that is during a migration, or to keep experimenting, we
@@ -381,3 +357,12 @@ val reraise_s
     become tricky - newlines inserted in surprising places, etc. This
     functions attempts to do an OK job at it. *)
 val pp_of_sexp : Sexp.t -> _ Pp.t
+
+module Private : sig
+  (** [Private] is used by the [Err_handler]. We mean both libraries to work as
+      companion libs. Note any of this can change without notice and without
+      requiring a semver bump, so use at your own risk (or don't). *)
+
+  val messages : t -> Stdune.User_message.t list
+  val exit_code : t -> Exit_code.t
+end

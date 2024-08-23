@@ -1,6 +1,6 @@
 (library
- (name commandlang_to_cmdliner_test)
- (public_name commandlang-tests.commandlang_to_cmdliner_test)
+ (name err0_test)
+ (public_name commandlang-tests.err0_test)
  (inline_tests)
  (flags
   :standard
@@ -11,11 +11,21 @@
   -open
   Base
   -open
+  Loc0
+  -open
+  Err0
+  -open
+  Err0_handler
+  -open
   Expect_test_helpers_base)
  (libraries
   base
-  commandlang_to_cmdliner
-  expect_test_helpers_core.expect_test_helpers_base)
+  cmdliner
+  err0
+  err0_handler
+  expect_test_helpers_core.expect_test_helpers_base
+  loc0
+  stdune)
  (instrumentation
   (backend bisect_ppx))
  (lint

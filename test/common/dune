@@ -1,6 +1,6 @@
 (library
  (name test_command)
- (public_name commandlang-test.test_command)
+ (public_name commandlang-tests.test_command)
  (flags
   :standard
   -w

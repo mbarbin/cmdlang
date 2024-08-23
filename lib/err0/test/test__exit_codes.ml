@@ -30,22 +30,22 @@ let%expect_test "code" =
 ;;
 
 let%expect_test "exit" =
-  let test f =
-    let result = Err.handler f in
-    print_s [%sexp (result : (unit, int) Result.t)]
-  in
+  let test f = Err_handler.For_test.protect f in
   test ignore;
-  [%expect {| (Ok ()) |}];
+  [%expect {| |}];
   test (fun () -> Err.exit Ok);
-  [%expect {| (Error 0) |}];
+  [%expect {| [0] |}];
   test (fun () -> Err.exit Some_error);
-  [%expect {| (Error 123) |}];
+  [%expect {| [123] |}];
   test (fun () -> Err.exit Cli_error);
-  [%expect {| (Error 124) |}];
+  [%expect {| [124] |}];
   test (fun () -> Err.exit Internal_error);
-  [%expect {| (Error 125) |}];
+  [%expect {|
+    Backtrace: <backtrace disabled in tests>
+    [125]
+    |}];
   test (fun () -> Err.exit (Custom 42));
-  [%expect {| (Error 42) |}];
+  [%expect {| [42] |}];
   ()
 ;;
 
