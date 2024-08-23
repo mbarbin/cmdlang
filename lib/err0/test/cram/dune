@@ -1,7 +1,5 @@
-(library
- (name commandlang_err_test)
- (public_name commandlang-test.commandlang_err_test)
- (inline_tests)
+(executable
+ (name main)
  (flags
   :standard
   -w
@@ -11,19 +9,14 @@
   -open
   Base
   -open
-  Expect_test_helpers_base
+  Loc0
   -open
-  Commandlang
+  Err0
   -open
-  Commandlang_err)
- (libraries
-  base
-  cmdliner
-  commandlang
-  commandlang_err
-  expect_test_helpers_core.expect_test_helpers_base
-  loc
-  stdune)
+  Err0_handler
+  -open
+  Commandlang)
+ (libraries base commandlang commandlang-to-cmdliner err0 err0-handler loc0)
  (instrumentation
   (backend bisect_ppx))
  (lint
@@ -33,9 +26,11 @@
    -unused-code-warnings=force
    ppx_compare
    ppx_enumerate
-   ppx_expect
    ppx_hash
    ppx_here
    ppx_let
    ppx_sexp_conv
    ppx_sexp_value)))
+
+(cram
+ (deps main.exe))

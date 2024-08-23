@@ -202,7 +202,7 @@ module Let_syntax : sig
 
     This module is exported to be used by libraries with strong ties to
     [commandlang]. Its signature may change in breaking ways at any time without
-    prior notice. *)
+    prior notice, and outside of the guidelines set by semver. *)
 
 module Private : sig
   module To_ast : sig

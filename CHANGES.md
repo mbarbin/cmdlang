@@ -1,3 +1,9 @@
+## 0.0.2 (2024-08-23)
+
+### Changed
+
+- Make `commandlang-err` and standalone library called `err0` so it can be used more broadly. Split the handler part as a separated lib `err0-handler`.
+
 ## 0.0.1 (2024-08-22)
 
 ### Added

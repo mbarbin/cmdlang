@@ -34,8 +34,30 @@
     (< v0.18)))))
 
 (package
- (name commandlang-err)
- (synopsis "Error Handling Standard for Commandlang CLIs")
+ (name err0)
+ (synopsis "Error Handling Standard Based on Human Readable Messages")
+ (depends
+  (ocaml
+   (>= 5.2))
+  (bisect_ppx
+   (and
+    :dev
+    (>= 2.8.3)))
+  (ppx_js_style
+   (and
+    :dev
+    (>= v0.17)
+    (< v0.18)))
+  (sexplib0
+   (and
+    (>= v0.17)
+    (< v0.18)))
+  (stdune
+   (>= 3.16))))
+
+(package
+ (name err0-handler)
+ (synopsis "A handler for Err0 that works well with commandlang")
  (depends
   (ocaml
    (>= 5.2))
@@ -44,6 +66,8 @@
     :dev
     (>= 2.8.3)))
   (commandlang
+   (= :version))
+  (err0
    (= :version))
   (ppx_js_style
    (and
@@ -73,12 +97,12 @@
     (>= 2.8.3)))
   (commandlang
    (= :version))
-  (commandlang-err
-   (= :version))
   (core
    (and
     (>= v0.17)
     (< v0.18)))
+  (err0
+   (= :version))
   (ppx_compare
    (and
     (>= v0.17)
@@ -135,7 +159,7 @@
    (= 1.3.0))
   (commandlang
    (= :version))
-  (commandlang-err
+  (err0
    (= :version))
   (ppx_js_style
    (and
@@ -157,7 +181,7 @@
    (= 0.0.1~preview-0.1))
   (commandlang
    (= :version))
-  (commandlang-err
+  (err0
    (= :version))
   (ppx_js_style
    (and
@@ -166,7 +190,7 @@
     (< v0.18)))))
 
 (package
- (name commandlang-test)
+ (name commandlang-tests)
  (synopsis "Tests for commandlang")
  (depends
   (ocaml
@@ -185,8 +209,6 @@
    (= 1.3.0))
   (commandlang
    (= :version))
-  (commandlang-err
-   (= :version))
   (commandlang-to-base
    (= :version))
   (commandlang-to-climate
@@ -201,12 +223,14 @@
    (and
     (>= v0.17)
     (< v0.18)))
+  (err0
+   (= :version))
   (expect_test_helpers_core
    (and
     (>= v0.17)
     (< v0.18)))
-  (loc
-   (>= 0.0.2))
+  (loc0
+   (>= 0.1.0))
   (mdx
    (>= 2.4))
   (ppx_compare

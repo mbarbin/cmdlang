@@ -4,5 +4,5 @@
 (cram
  (deps
   (package commandlang)
-  (package commandlang-test)
+  (package commandlang-tests)
   main_cmdliner.exe))

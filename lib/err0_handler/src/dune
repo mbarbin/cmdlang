@@ -1,6 +1,6 @@
 (library
- (name commandlang_err)
- (public_name commandlang-err)
+ (name err0_handler)
+ (public_name err0-handler)
  (flags
   :standard
   -w
@@ -8,10 +8,12 @@
   -warn-error
   +a
   -open
+  Err0
+  -open
   Commandlang
   -open
   Sexplib0)
- (libraries commandlang sexplib0 stdune)
+ (libraries commandlang err0 sexplib0 stdune)
  (instrumentation
   (backend bisect_ppx))
  (lint

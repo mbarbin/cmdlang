@@ -8,8 +8,10 @@
   -warn-error
   +a
   -open
+  Err0
+  -open
   Commandlang_ast)
- (libraries climate commandlang commandlang_ast)
+ (libraries climate commandlang commandlang_ast err0)
  (instrumentation
   (backend bisect_ppx))
  (lint

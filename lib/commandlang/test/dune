@@ -1,6 +1,6 @@
 (library
  (name commandlang_test)
- (public_name commandlang-test.commandlang_test)
+ (public_name commandlang-tests.commandlang_test)
  (inline_tests)
  (flags
   :standard
