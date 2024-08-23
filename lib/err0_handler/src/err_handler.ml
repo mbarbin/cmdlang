@@ -122,13 +122,8 @@ let handle_messages_and_exit ~messages ~exit_code ~state ~backtrace =
   Error code
 ;;
 
-let protect_internal
-  ~am_running_test
-  ?(state = Err.the_state)
-  ?(exn_handler = Fun.const None)
-  f
-  =
-  Err.State.reset state ~am_running_test;
+let protect ?(state = Err.the_state) ?(exn_handler = Fun.const None) f =
+  Err.State.reset_counts state;
   match f () with
   | ok ->
     if Err.State.had_errors state then Error (Err.Exit_code.code Some_error) else Ok ok
@@ -170,18 +165,12 @@ module For_test = struct
   ;;
 
   let protect ?state ?exn_handler f =
-    match
-      wrap ?state (fun () -> protect_internal ~am_running_test:true f ?state ?exn_handler)
-    with
+    match wrap ?state (fun () -> protect f ?state ?exn_handler) with
     | Ok () -> ()
     | Error code -> Stdlib.prerr_endline (Printf.sprintf "[%d]" code)
   ;;
 
   let am_running_test ?(state = Err.the_state) () = Err.State.am_running_test state
 end
-
-let protect ?state ?exn_handler f =
-  protect_internal ~am_running_test:false ?state ?exn_handler f
-;;
 
 let prerr ?(state = Err.the_state) t = prerr_internal t ~state

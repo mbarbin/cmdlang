@@ -110,10 +110,9 @@ module State = struct
   let set_config t config = t.config <- config
   let had_errors t = t.had_errors || (t.config.warn_error && t.had_warnings)
 
-  let reset ?(am_running_test = false) t =
+  let reset_counts t =
     t.had_errors <- false;
-    t.had_warnings <- false;
-    t.am_running_test <- am_running_test
+    t.had_warnings <- false
   ;;
 
   let am_running_test t = t.am_running_test

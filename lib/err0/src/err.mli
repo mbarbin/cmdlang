@@ -153,8 +153,8 @@ module State : sig
   (** Reset the error and warning counts to zero. [reset] is done by each call
       to [Err_handler.protect] as an initialization step, so unless you are
       manipulating states directly you shouldn't need to use this function.
-      [am_running_test] defaults to [false]. *)
-  val reset : ?am_running_test:bool -> t -> unit
+      This function does not mutate [am_running_test]. *)
+  val reset_counts : t -> unit
 
   (** Returns [true] if [set_am_running_test] was last called with [true]. *)
   val am_running_test : t -> bool

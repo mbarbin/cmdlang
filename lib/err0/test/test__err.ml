@@ -197,7 +197,7 @@ let%expect_test "error" =
   [%expect {| Error: Hello Error2 |}];
   print_s [%sexp (Err.State.had_errors state : bool)];
   [%expect {| true |}];
-  Err.State.reset state;
+  Err.State.reset_counts state;
   print_s [%sexp (Err.State.had_errors state : bool)];
   [%expect {| false |}];
   ()
@@ -226,7 +226,7 @@ let%expect_test "warning" =
   [%expect {| Warning: Hello Warning2 |}];
   print_s [%sexp (Err.State.had_errors state : bool)];
   [%expect {| false |}];
-  Err.State.reset state;
+  Err.State.reset_counts state;
   print_s [%sexp (Err.State.had_errors state : bool)];
   [%expect {| false |}];
   let state =
@@ -240,7 +240,7 @@ let%expect_test "warning" =
   [%expect {| Warning: Hello Warning2 |}];
   print_s [%sexp (Err.State.had_errors state : bool)];
   [%expect {| true |}];
-  Err.State.reset state;
+  Err.State.reset_counts state;
   print_s [%sexp (Err.State.had_errors state : bool)];
   [%expect {| false |}];
   ()
@@ -311,6 +311,20 @@ let%expect_test "exn_handler" =
     Internal Error: Invalid_argument("Hello Exn") <backtrace disabled in tests>
     [125]
     |}];
+  ()
+;;
+
+let%expect_test "protect and reset" =
+  Err_handler.For_test.wrap
+  @@ fun () ->
+  let result =
+    Err_handler.protect (fun () ->
+      print_s
+        [%sexp { am_running_test = (Err.State.am_running_test Err.the_state : bool) }])
+  in
+  [%expect {| ((am_running_test true)) |}];
+  print_s [%sexp (result : (unit, int) Result.t)];
+  [%expect {| (Ok ()) |}];
   ()
 ;;
 
