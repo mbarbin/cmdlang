@@ -20,7 +20,7 @@ lint:
 
 .PHONY: deps
 deps:
-	opam install . --deps-only --with-doc --with-test
+	opam install . --deps-only --with-doc --with-test --with-dev-setup
 
 .PHONY: doc
 doc:

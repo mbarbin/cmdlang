@@ -2,7 +2,7 @@
  (copy bin/main_base.exe main_base.exe))
 
 (cram
+ (package commandlang-tests)
  (deps
   (package commandlang)
-  (package commandlang-tests)
   main_base.exe))

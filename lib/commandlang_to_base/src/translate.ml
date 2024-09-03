@@ -97,6 +97,11 @@ module Arg = struct
         let (name :: aliases) = project_flag_names names ~config in
         let flag = Command.Flag.no_arg in
         { param = Command.Param.flag ~aliases name flag ~doc }
+      | Flag_count { names = hd :: tl; doc } ->
+        raise_s
+          [%sexp
+            "Flag_count not supported by core.command"
+            , { names = (hd :: tl : string list); doc : string }]
       | Named { names; param; docv; doc } ->
         let (name :: aliases) = project_flag_names names ~config in
         let { Param.arg_type } = param |> Param.project in

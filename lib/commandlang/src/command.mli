@@ -85,6 +85,7 @@ module Arg : sig
   (** {1 Named arguments} *)
 
   val flag : string Nonempty_list.t -> doc:string -> bool t
+  val flag_count : string Nonempty_list.t -> doc:string -> int t
   val named : ?docv:string -> string Nonempty_list.t -> 'a Param.t -> doc:string -> 'a t
 
   val named_multi
