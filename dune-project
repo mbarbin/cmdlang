@@ -51,6 +51,8 @@
    (and
     :with-dev-setup
     (>= 2.8.3)))
+  (loc
+   (>= 0.2.0))
   (ppx_js_style
    (and
     :with-dev-setup
@@ -82,6 +84,12 @@
    (= :version))
   (err
    (= :version))
+  (fmt
+   (>= 0.9.0))
+  (loc
+   (>= 0.2.0))
+  (logs
+   (>= 0.7.0))
   (ppx_js_style
    (and
     :with-dev-setup
