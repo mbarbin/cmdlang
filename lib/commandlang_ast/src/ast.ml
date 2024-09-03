@@ -45,6 +45,11 @@ module Arg = struct
         ; doc : string
         }
         -> bool t
+    | Flag_count :
+        { names : string Nonempty_list.t
+        ; doc : string
+        }
+        -> int t
     | Named :
         { names : string Nonempty_list.t
         ; param : 'a Param.t

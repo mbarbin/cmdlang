@@ -52,7 +52,7 @@ Exercising the error handling from the command line.
   $ ./main.exe write --file file --line 1 --pos-bol 0 \
   > --pos-cnum 6 --length 5 \
   > --message-kind=debug \
-  > --debug
+  > --verbosity=debug
   File "file", line 1, characters 6-11:
   1 | Hello World
             ^^^^^

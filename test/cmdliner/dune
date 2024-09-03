@@ -2,7 +2,7 @@
  (copy bin/main_cmdliner.exe main_cmdliner.exe))
 
 (cram
+ (package commandlang-tests)
  (deps
   (package commandlang)
-  (package commandlang-tests)
   main_cmdliner.exe))

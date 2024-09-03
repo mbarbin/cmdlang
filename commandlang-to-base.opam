@@ -10,18 +10,18 @@ bug-reports: "https://github.com/mbarbin/commandlang/issues"
 depends: [
   "dune" {>= "3.16"}
   "ocaml" {>= "5.2"}
+  "ocamlformat" {with-dev-setup & = "0.26.2"}
   "base" {>= "v0.17" & < "v0.18"}
-  "bisect_ppx" {dev & >= "2.8.3"}
+  "bisect_ppx" {with-dev-setup & >= "2.8.3"}
   "commandlang" {= version}
   "core" {>= "v0.17" & < "v0.18"}
-  "err0" {= version}
-  "err0-handler" {= version}
+  "err" {= version}
   "ppx_compare" {>= "v0.17" & < "v0.18"}
   "ppx_enumerate" {>= "v0.17" & < "v0.18"}
   "ppx_expect" {>= "v0.17" & < "v0.18"}
   "ppx_hash" {>= "v0.17" & < "v0.18"}
   "ppx_here" {>= "v0.17" & < "v0.18"}
-  "ppx_js_style" {dev & >= "v0.17" & < "v0.18"}
+  "ppx_js_style" {with-dev-setup & >= "v0.17" & < "v0.18"}
   "ppx_let" {>= "v0.17" & < "v0.18"}
   "ppx_sexp_conv" {>= "v0.17" & < "v0.18"}
   "ppx_sexp_value" {>= "v0.17" & < "v0.18"}

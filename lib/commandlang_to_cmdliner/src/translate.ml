@@ -58,6 +58,10 @@ module Arg = struct
     | Flag { names = hd :: tl; doc } ->
       let doc = with_dot_suffix ~doc in
       Cmdliner.Arg.value (Cmdliner.Arg.flag (Cmdliner.Arg.info ~doc (hd :: tl)))
+    | Flag_count { names = hd :: tl; doc } ->
+      let doc = with_dot_suffix ~doc in
+      Cmdliner.Arg.value (Cmdliner.Arg.flag_all (Cmdliner.Arg.info ~doc (hd :: tl)))
+      |> Cmdliner.Term.map List.length
     | Named { names = hd :: tl; param; docv; doc } ->
       let doc = doc_of_param ~doc ~param in
       let docv = docv_of_param ~docv ~param in

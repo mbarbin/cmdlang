@@ -77,6 +77,7 @@ module Arg = struct
   let ( let+ ) = ( >>| )
   let ( and+ ) = both
   let flag names ~doc = Ast.Arg.Flag { names; doc }
+  let flag_count names ~doc = Ast.Arg.Flag_count { names; doc }
   let named ?docv names param ~doc = Ast.Arg.Named { names; param; docv; doc }
   let named_multi ?docv names param ~doc = Ast.Arg.Named_multi { names; param; docv; doc }
   let named_opt ?docv names param ~doc = Ast.Arg.Named_opt { names; param; docv; doc }

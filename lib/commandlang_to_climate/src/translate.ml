@@ -66,6 +66,8 @@ module Arg = struct
     | Both (a, b) -> Climate.Arg_parser.both (project a) (project b)
     | Apply { f; x } -> Climate.Arg_parser.apply (project f) (project x)
     | Flag { names = hd :: tl; doc } -> Climate.Arg_parser.flag ~desc:doc (hd :: tl)
+    | Flag_count { names = hd :: tl; doc } ->
+      Climate.Arg_parser.flag_count ~desc:doc (hd :: tl)
     | Named { names = hd :: tl; param; docv; doc } ->
       Climate.Arg_parser.named_req
         ~desc:doc

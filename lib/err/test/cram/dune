@@ -1,7 +1,5 @@
-(library
- (name err0_handler_test)
- (public_name commandlang-tests.err0_handler_test)
- (inline_tests)
+(executable
+ (name main)
  (flags
   :standard
   -w
@@ -11,24 +9,8 @@
   -open
   Base
   -open
-  Loc0
-  -open
-  Err0
-  -open
-  Err0_handler
-  -open
-  Expect_test_helpers_base
-  -open
   Commandlang)
- (libraries
-  base
-  cmdliner
-  commandlang
-  err0
-  err0_handler
-  expect_test_helpers_core.expect_test_helpers_base
-  loc0
-  stdune)
+ (libraries base commandlang commandlang-to-cmdliner err err-cli loc logs)
  (instrumentation
   (backend bisect_ppx))
  (lint
@@ -38,9 +20,12 @@
    -unused-code-warnings=force
    ppx_compare
    ppx_enumerate
-   ppx_expect
    ppx_hash
    ppx_here
    ppx_let
    ppx_sexp_conv
    ppx_sexp_value)))
+
+(cram
+ (package commandlang-tests)
+ (deps main.exe))

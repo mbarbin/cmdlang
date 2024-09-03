@@ -1,6 +1,6 @@
 (library
- (name err0_handler)
- (public_name err0-handler)
+ (name err_cli)
+ (public_name err-cli)
  (flags
   :standard
   -w
@@ -8,12 +8,8 @@
   -warn-error
   +a
   -open
-  Err0
-  -open
-  Commandlang
-  -open
-  Sexplib0)
- (libraries commandlang err0 sexplib0 stdune)
+  Commandlang)
+ (libraries commandlang err fmt fmt.tty logs logs.fmt)
  (instrumentation
   (backend bisect_ppx))
  (lint

@@ -1,8 +1,8 @@
 (library
- (name err0)
- (public_name err0)
- (flags :standard -w +a-4-40-41-42-44-45-48-66 -warn-error +a -open Sexplib0)
- (libraries sexplib0 stdune)
+ (name err)
+ (public_name err)
+ (flags :standard -w +a-4-40-41-42-44-45-48-66 -warn-error +a)
+ (libraries loc sexplib0 stdune)
  (instrumentation
   (backend bisect_ppx))
  (lint

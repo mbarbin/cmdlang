@@ -16,7 +16,7 @@ end
 let write_cmd =
   Command.make
     ~summary:"write to an error-log"
-    (let%map_open.Command () = Err_handler.set_config ()
+    (let%map_open.Command () = Err_cli.set_config ()
      and file = Arg.named [ "file" ] Param.string ~docv:"FILE" ~doc:"file"
      and line = Arg.named [ "line" ] Param.int ~docv:"N" ~doc:"line number"
      and pos_cnum = Arg.named [ "pos-cnum" ] Param.int ~docv:"N" ~doc:"character position"
@@ -39,7 +39,7 @@ let write_cmd =
      | Error -> Err.error ~loc [ Pp.text "error message" ]
      | Warning -> Err.warning ~loc [ Pp.text "warning message" ]
      | Info -> Err.info ~loc [ Pp.text "info message" ]
-     | Debug -> Err.debug ~loc [ Pp.text "debug message" ])
+     | Debug -> Err.debug ~loc (lazy [ Pp.text "debug message" ]))
 ;;
 
 let main = Command.group ~summary:"test err from the command line" [ "write", write_cmd ]

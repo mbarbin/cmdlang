@@ -2,7 +2,7 @@
  (copy bin/main_climate.exe main_climate.exe))
 
 (cram
+ (package commandlang-tests)
  (deps
   (package commandlang)
-  (package commandlang-tests)
   main_climate.exe))

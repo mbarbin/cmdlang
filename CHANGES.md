@@ -1,3 +1,14 @@
+## 0.0.3 (2024-09-03)
+
+### Changed
+
+- Refactor `Err` - undocumented changes while we're stabilizing.
+- Refactor the separation between `Err` and `Err_handler`. Keep only the cli part separate and rename it `err-cli`.
+
+### Fixed
+
+- Fix some unintended behavior related to raising and catching errors with `err0` and `erro-handler`. Added tests to cover and characterize different use cases.
+
 ## 0.0.2 (2024-08-23)
 
 ### Changed

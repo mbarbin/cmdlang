@@ -2,7 +2,7 @@ module Translate = Translate
 
 let run ?exn_handler cmd ~name ~version =
   match
-    Err_handler.protect ?exn_handler (fun () ->
+    Err.protect ?exn_handler (fun () ->
       Cmdliner.Cmd.eval ~catch:false (Translate.command cmd ~name ~version))
   with
   | Ok code | Error code ->

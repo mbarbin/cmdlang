@@ -23,29 +23,37 @@
  (depends
   (ocaml
    (>= 5.2))
+  (ocamlformat
+   (and
+    :with-dev-setup
+    (= 0.26.2)))
   (bisect_ppx
    (and
-    :dev
+    :with-dev-setup
     (>= 2.8.3)))
   (ppx_js_style
    (and
-    :dev
+    :with-dev-setup
     (>= v0.17)
     (< v0.18)))))
 
 (package
- (name err0)
+ (name err)
  (synopsis "Error Handling Standard Based on Human Readable Messages")
  (depends
   (ocaml
    (>= 5.2))
+  (ocamlformat
+   (and
+    :with-dev-setup
+    (= 0.26.2)))
   (bisect_ppx
    (and
-    :dev
+    :with-dev-setup
     (>= 2.8.3)))
   (ppx_js_style
    (and
-    :dev
+    :with-dev-setup
     (>= v0.17)
     (< v0.18)))
   (sexplib0
@@ -56,22 +64,27 @@
    (>= 3.16))))
 
 (package
- (name err0-handler)
- (synopsis "A handler for Err0 that works well with commandlang")
+ (name err-cli)
+ (synopsis
+  "Command line interface configuration for [Err] based on [Commandlang]")
  (depends
   (ocaml
    (>= 5.2))
+  (ocamlformat
+   (and
+    :with-dev-setup
+    (= 0.26.2)))
   (bisect_ppx
    (and
-    :dev
+    :with-dev-setup
     (>= 2.8.3)))
   (commandlang
    (= :version))
-  (err0
+  (err
    (= :version))
   (ppx_js_style
    (and
-    :dev
+    :with-dev-setup
     (>= v0.17)
     (< v0.18)))
   (sexplib0
@@ -87,13 +100,17 @@
  (depends
   (ocaml
    (>= 5.2))
+  (ocamlformat
+   (and
+    :with-dev-setup
+    (= 0.26.2)))
   (base
    (and
     (>= v0.17)
     (< v0.18)))
   (bisect_ppx
    (and
-    :dev
+    :with-dev-setup
     (>= 2.8.3)))
   (commandlang
    (= :version))
@@ -101,9 +118,7 @@
    (and
     (>= v0.17)
     (< v0.18)))
-  (err0
-   (= :version))
-  (err0-handler
+  (err
    (= :version))
   (ppx_compare
    (and
@@ -127,7 +142,7 @@
     (< v0.18)))
   (ppx_js_style
    (and
-    :dev
+    :with-dev-setup
     (>= v0.17)
     (< v0.18)))
   (ppx_let
@@ -153,21 +168,23 @@
  (depends
   (ocaml
    (>= 5.2))
+  (ocamlformat
+   (and
+    :with-dev-setup
+    (= 0.26.2)))
   (bisect_ppx
    (and
-    :dev
+    :with-dev-setup
     (>= 2.8.3)))
   (cmdliner
    (= 1.3.0))
   (commandlang
    (= :version))
-  (err0
-   (= :version))
-  (err0-handler
+  (err
    (= :version))
   (ppx_js_style
    (and
-    :dev
+    :with-dev-setup
     (>= v0.17)
     (< v0.18)))))
 
@@ -177,21 +194,23 @@
  (depends
   (ocaml
    (>= 5.2))
+  (ocamlformat
+   (and
+    :with-dev-setup
+    (= 0.26.2)))
   (bisect_ppx
    (and
-    :dev
+    :with-dev-setup
     (>= 2.8.3)))
   (climate
    (= 0.0.1~preview-0.1))
   (commandlang
    (= :version))
-  (err0
-   (= :version))
-  (err0-handler
+  (err
    (= :version))
   (ppx_js_style
    (and
-    :dev
+    :with-dev-setup
     (>= v0.17)
     (< v0.18)))))
 
@@ -201,13 +220,17 @@
  (depends
   (ocaml
    (>= 5.2))
+  (ocamlformat
+   (and
+    :with-dev-setup
+    (= 0.26.2)))
   (base
    (and
     (>= v0.17)
     (< v0.18)))
   (bisect_ppx
    (and
-    :dev
+    :with-dev-setup
     (>= 2.8.3)))
   (climate
    (= 0.0.1~preview-0.1))
@@ -229,16 +252,16 @@
    (and
     (>= v0.17)
     (< v0.18)))
-  (err0
+  (err
    (= :version))
-  (err0-handler
+  (err-cli
    (= :version))
   (expect_test_helpers_core
    (and
     (>= v0.17)
     (< v0.18)))
-  (loc0
-   (>= 0.1.0))
+  (loc
+   (>= 0.2.0))
   (mdx
    (>= 2.4))
   (ppx_compare
@@ -263,7 +286,7 @@
     (< v0.18)))
   (ppx_js_style
    (and
-    :dev
+    :with-dev-setup
     (>= v0.17)
     (< v0.18)))
   (ppx_let
@@ -280,13 +303,13 @@
     (< v0.18)))
   (ppxlib
    (>= 0.33))
-  (sherlodoc
-   (and
-    :with-doc
-    (>= 0.2)))
   (stdio
    (and
     (>= v0.17)
     (< v0.18)))
   (stdune
-   (>= 3.16))))
+   (>= 3.16))
+  (sherlodoc
+   (and
+    :with-doc
+    (>= 0.2)))))

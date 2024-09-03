@@ -1,4 +1,5 @@
 (mdx
+ (package commandlang-tests)
  (deps
   (package commandlang)
   my-calculator
