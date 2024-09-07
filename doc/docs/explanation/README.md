@@ -1,18 +1,18 @@
 # Explanation
 
-Welcome to the Explanation section of the `commandlang` documentation. Here, we delve into the details of how `commandlang` works, its design principles, and our future plans. This section is intended to provide a deeper understanding of the project for developers and contributors.
+Welcome to the Explanation section of the `cmdlang` documentation. Here, we delve into the details of how `cmdlang` works, its design principles, and our future plans. This section is intended to provide a deeper understanding of the project for developers and contributors.
 
 ## Architecture
 
-`commandlang` is composed of several parts:
+`cmdlang` is composed of several parts:
 
 - **Core Specification Language**: A kernel command-line parsing specification language written as an OCaml EDSL.
-- **OCaml Library**: Exposes a single module, `Commandlang.Command`, with no dependencies, to build command-line parsers in total abstraction using ergonomic helpers.
-- **Translation Libraries**: Convert `commandlang` parsers at runtime into `cmdliner`, `core.command`, or `climate` parsers.
+- **OCaml Library**: Exposes a single module, `Cmdlang.Command`, with no dependencies, to build command-line parsers in total abstraction using ergonomic helpers.
+- **Translation Libraries**: Convert `cmdlang` parsers at runtime into `cmdliner`, `core.command`, or `climate` parsers.
 
 ## Experimental Status
 
-`commandlang` is currently under construction and considered experimental. We are actively seeking feedback to validate our design and engage with other declarative command-line enthusiasts.
+`cmdlang` is currently under construction and considered experimental. We are actively seeking feedback to validate our design and engage with other declarative command-line enthusiasts.
 
 ## Future Plans
 

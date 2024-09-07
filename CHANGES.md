@@ -1,3 +1,9 @@
+## 0.0.4 (unreleased)
+
+### Changed
+
+- Rename project `cmdlang`.
+
 ## 0.0.3 (2024-09-03)
 
 ### Changed
@@ -13,13 +19,13 @@
 
 ### Changed
 
-- Make `commandlang-err` and standalone library called `err0` so it can be used more broadly. Split the handler part as a separated lib `err0-handler`.
+- Make `cmdlang-err` and standalone library called `err0` so it can be used more broadly. Split the handler part as a separated lib `err0-handler`.
 
 ## 0.0.1 (2024-08-22)
 
 ### Added
 
-- Added library `Err` establishing a standard for error handling in commandlang CLIs.
+- Added library `Err` establishing a standard for error handling in cmdlang CLIs.
 
 ## 0.0.1_preview-0.1 (2024-08-19)
 

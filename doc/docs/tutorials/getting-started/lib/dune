@@ -1,14 +1,7 @@
 (library
  (name getting_started)
- (public_name commandlang-tests.getting_started)
- (flags
-  :standard
-  -w
-  +a-4-40-41-42-44-45-48-66
-  -warn-error
-  +a
-  -open
-  Commandlang)
- (libraries commandlang)
+ (public_name cmdlang-tests.getting_started)
+ (flags :standard -w +a-4-40-41-42-44-45-48-66 -warn-error +a -open Cmdlang)
+ (libraries cmdlang)
  (instrumentation
   (backend bisect_ppx)))

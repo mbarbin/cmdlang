@@ -1,6 +1,6 @@
 (lang dune 3.16)
 
-(name commandlang)
+(name cmdlang)
 
 (generate_opam_files)
 
@@ -11,31 +11,18 @@
 (maintainers "Mathieu Barbin")
 
 (source
- (github mbarbin/commandlang))
+ (github mbarbin/cmdlang))
 
-(documentation "https://mbarbin.github.io/commandlang/")
+(documentation "https://mbarbin.github.io/cmdlang/")
 
 (using mdx 0.4)
 
 (package
- (name commandlang)
+ (name cmdlang)
  (synopsis "Declarative Command-line Parsing for OCaml")
  (depends
   (ocaml
-   (>= 5.2))
-  (ocamlformat
-   (and
-    :with-dev-setup
-    (= 0.26.2)))
-  (bisect_ppx
-   (and
-    :with-dev-setup
-    (>= 2.8.3)))
-  (ppx_js_style
-   (and
-    :with-dev-setup
-    (>= v0.17)
-    (< v0.18)))))
+   (>= 5.2))))
 
 (package
  (name err)
@@ -43,21 +30,8 @@
  (depends
   (ocaml
    (>= 5.2))
-  (ocamlformat
-   (and
-    :with-dev-setup
-    (= 0.26.2)))
-  (bisect_ppx
-   (and
-    :with-dev-setup
-    (>= 2.8.3)))
   (loc
    (>= 0.2.0))
-  (ppx_js_style
-   (and
-    :with-dev-setup
-    (>= v0.17)
-    (< v0.18)))
   (sexplib0
    (and
     (>= v0.17)
@@ -68,19 +42,11 @@
 (package
  (name err-cli)
  (synopsis
-  "Command line interface configuration for [Err] based on [Commandlang]")
+  "Command line interface configuration for [Err] based on [Cmdlang]")
  (depends
   (ocaml
    (>= 5.2))
-  (ocamlformat
-   (and
-    :with-dev-setup
-    (= 0.26.2)))
-  (bisect_ppx
-   (and
-    :with-dev-setup
-    (>= 2.8.3)))
-  (commandlang
+  (cmdlang
    (= :version))
   (err
    (= :version))
@@ -90,11 +56,6 @@
    (>= 0.2.0))
   (logs
    (>= 0.7.0))
-  (ppx_js_style
-   (and
-    :with-dev-setup
-    (>= v0.17)
-    (< v0.18)))
   (sexplib0
    (and
     (>= v0.17)
@@ -103,24 +64,16 @@
    (>= 3.16))))
 
 (package
- (name commandlang-to-base)
- (synopsis "Convert commandlang Parsers to core.command")
+ (name cmdlang-to-base)
+ (synopsis "Convert cmdlang Parsers to core.command")
  (depends
   (ocaml
    (>= 5.2))
-  (ocamlformat
-   (and
-    :with-dev-setup
-    (= 0.26.2)))
   (base
    (and
     (>= v0.17)
     (< v0.18)))
-  (bisect_ppx
-   (and
-    :with-dev-setup
-    (>= 2.8.3)))
-  (commandlang
+  (cmdlang
    (= :version))
   (core
    (and
@@ -148,11 +101,6 @@
    (and
     (>= v0.17)
     (< v0.18)))
-  (ppx_js_style
-   (and
-    :with-dev-setup
-    (>= v0.17)
-    (< v0.18)))
   (ppx_let
    (and
     (>= v0.17)
@@ -171,60 +119,34 @@
     (< v0.18)))))
 
 (package
- (name commandlang-to-cmdliner)
- (synopsis "Convert commandlang Parsers to cmdliner")
+ (name cmdlang-to-cmdliner)
+ (synopsis "Convert cmdlang Parsers to cmdliner")
  (depends
   (ocaml
    (>= 5.2))
-  (ocamlformat
-   (and
-    :with-dev-setup
-    (= 0.26.2)))
-  (bisect_ppx
-   (and
-    :with-dev-setup
-    (>= 2.8.3)))
   (cmdliner
    (= 1.3.0))
-  (commandlang
+  (cmdlang
    (= :version))
   (err
-   (= :version))
-  (ppx_js_style
-   (and
-    :with-dev-setup
-    (>= v0.17)
-    (< v0.18)))))
+   (= :version))))
 
 (package
- (name commandlang-to-climate)
- (synopsis "Convert commandlang Parsers to climate")
+ (name cmdlang-to-climate)
+ (synopsis "Convert cmdlang Parsers to climate")
  (depends
   (ocaml
    (>= 5.2))
-  (ocamlformat
-   (and
-    :with-dev-setup
-    (= 0.26.2)))
-  (bisect_ppx
-   (and
-    :with-dev-setup
-    (>= 2.8.3)))
   (climate
    (= 0.0.1~preview-0.1))
-  (commandlang
+  (cmdlang
    (= :version))
   (err
-   (= :version))
-  (ppx_js_style
-   (and
-    :with-dev-setup
-    (>= v0.17)
-    (< v0.18)))))
+   (= :version))))
 
 (package
- (name commandlang-tests)
- (synopsis "Tests for commandlang")
+ (name cmdlang-tests)
+ (synopsis "Tests for cmdlang")
  (depends
   (ocaml
    (>= 5.2))
@@ -244,13 +166,13 @@
    (= 0.0.1~preview-0.1))
   (cmdliner
    (= 1.3.0))
-  (commandlang
+  (cmdlang
    (= :version))
-  (commandlang-to-base
+  (cmdlang-to-base
    (= :version))
-  (commandlang-to-climate
+  (cmdlang-to-climate
    (= :version))
-  (commandlang-to-cmdliner
+  (cmdlang-to-cmdliner
    (= :version))
   (core
    (and

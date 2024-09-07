@@ -1,6 +1,6 @@
 # Getting Started
 
-In this tutorial, we'll create a small calculator in OCaml, export it as a command-line tool, and demonstrate the use of the `commandlang` library along the way.
+In this tutorial, we'll create a small calculator in OCaml, export it as a command-line tool, and demonstrate the use of the `cmdlang` library along the way.
 
 We'll create a CLI that can perform operations like:
 
@@ -13,7 +13,7 @@ $ ./my-calculator --op=add 1 2.5
 
 ## Installation
 
-`commandlang` is currently under development and is not yet published to opam. Instead, it is available through a custom [opam repository](https://github.com/mbarbin/opam-repository.git), which must be added to your opam switch.
+`cmdlang` is currently under development and is not yet published to opam. Instead, it is available through a custom [opam repository](https://github.com/mbarbin/opam-repository.git), which must be added to your opam switch.
 
 For example, if you are using a local opam switch, follow these steps:
 
@@ -24,11 +24,11 @@ $ eval $(opam env)
 $ opam repo add mbarbin https://github.com/mbarbin/opam-repository.git
 ```
 
-Once this is set up, you can install `commandlang` as usual with opam:
+Once this is set up, you can install `cmdlang` as usual with opam:
 
 <!-- $MDX skip -->
 ```sh
-$ opam install commandlang
+$ opam install cmdlang
 ```
 
 We will update this section as the project progresses.
@@ -39,16 +39,16 @@ To keep the dependencies separate, our command will be implemented in its own li
 
 ### Lib
 
-First, create a `lib/` directory and a `lib/dune` file for our library, listing `commandlang` as a dependency.
+First, create a `lib/` directory and a `lib/dune` file for our library, listing `cmdlang` as a dependency.
 
-`Commandlang` is designed to expose a single module named `Command`. To bind `Command` directly to `Commandlang.Command` in our scope, we use the `-open` flag in the dune setup. You can use different styles if you prefer.
+`Cmdlang` is designed to expose a single module named `Command`. To bind `Command` directly to `Cmdlang.Command` in our scope, we use the `-open` flag in the dune setup. You can use different styles if you prefer.
 
 <!-- $MDX skip -->
 ```lisp
 (library
  (name getting_started)
- (flags :standard -open Commandlang)
- (libraries commandlang))
+ (flags :standard -open Cmdlang)
+ (libraries cmdlang))
 ```
 
 Next, create an empty command-line skeleton that we will complete incrementally.
@@ -75,29 +75,26 @@ val cmd : unit Command.t
 
 Create a `bin/` directory and a `bin/dune` file to set up the build rules for our executable.
 
-As you'll learn, `commandlang` doesn't come with its own command runner. Instead, it is designed to use existing runners from the community. For this tutorial, we'll use `cmdliner` as our command runner.
+As you'll learn, `cmdlang` doesn't come with its own command runner. Instead, it is designed to use existing runners from the community. For this tutorial, we'll use `cmdliner` as our command runner.
 
 <!-- $MDX skip -->
 ```lisp
 (executable
  (name main)
- (libraries commandlang_to_cmdliner getting_started))
+ (libraries cmdlang_to_cmdliner getting_started))
 ```
 
-An invocation of `cmdliner` for a `commandlang` command may look like this:
+An invocation of `cmdliner` for a `cmdlang` command may look like this:
 
 <!-- $MDX file=main.ml -->
 ```ocaml
 let () =
-  Commandlang_to_cmdliner.run
-    Getting_started.cmd
-    ~name:"my-calculator"
-    ~version:"%%VERSION%%"
+  Cmdlang_to_cmdliner.run Getting_started.cmd ~name:"my-calculator" ~version:"%%VERSION%%"
 ;;
 ```
 
 You'll notice how we've:
-1. Used a commandlang translator library to obtain a cmdliner command.
+1. Used a cmdlang translator library to obtain a cmdliner command.
 2. Used the cmdliner library to evaluate (run) our command.
 
 ## Implementation
@@ -315,7 +312,7 @@ Try 'my-calculator --help' for more information.
 
 ## Conclusion
 
-In this tutorial, we've created a command-line interface and exposed its entry point from a library. Then, we've used the `commandlang_to_cmdliner` translation step and set up dune build rules to create an executable that runs this command with `cmdliner` as a backend.
+In this tutorial, we've created a command-line interface and exposed its entry point from a library. Then, we've used the `cmdlang_to_cmdliner` translation step and set up dune build rules to create an executable that runs this command with `cmdliner` as a backend.
 
 While we've covered the basics, there are additional features you might want to explore, such as generating complete man pages and setting up auto-completion. We'll cover these advanced topics in other parts of the documentation.
 

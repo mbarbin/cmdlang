@@ -1,6 +1,6 @@
 (library
  (name err_cli_test)
- (public_name commandlang-tests.err_cli_test)
+ (public_name cmdlang-tests.err_cli_test)
  (inline_tests)
  (flags
   :standard
@@ -13,11 +13,11 @@
   -open
   Expect_test_helpers_base
   -open
-  Commandlang)
+  Cmdlang)
  (libraries
   base
   cmdliner
-  commandlang
+  cmdlang
   err
   err_cli
   expect_test_helpers_core.expect_test_helpers_base

@@ -1,6 +1,6 @@
 (library
  (name err_test)
- (public_name commandlang-tests.err_test)
+ (public_name cmdlang-tests.err_test)
  (inline_tests)
  (flags
   :standard

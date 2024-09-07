@@ -1,7 +1,7 @@
 (mdx
- (package commandlang-tests)
+ (package cmdlang-tests)
  (deps
-  (package commandlang)
+  (package cmdlang)
   my-calculator
   (glob_files *.txt)
   (glob_files *.exe)

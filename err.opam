@@ -4,16 +4,13 @@ synopsis: "Error Handling Standard Based on Human Readable Messages"
 maintainer: ["Mathieu Barbin"]
 authors: ["Mathieu Barbin"]
 license: "MIT"
-homepage: "https://github.com/mbarbin/commandlang"
-doc: "https://mbarbin.github.io/commandlang/"
-bug-reports: "https://github.com/mbarbin/commandlang/issues"
+homepage: "https://github.com/mbarbin/cmdlang"
+doc: "https://mbarbin.github.io/cmdlang/"
+bug-reports: "https://github.com/mbarbin/cmdlang/issues"
 depends: [
   "dune" {>= "3.16"}
   "ocaml" {>= "5.2"}
-  "ocamlformat" {with-dev-setup & = "0.26.2"}
-  "bisect_ppx" {with-dev-setup & >= "2.8.3"}
   "loc" {>= "0.2.0"}
-  "ppx_js_style" {with-dev-setup & >= "v0.17" & < "v0.18"}
   "sexplib0" {>= "v0.17" & < "v0.18"}
   "stdune" {>= "3.16"}
   "odoc" {with-doc}
@@ -32,4 +29,4 @@ build: [
     "@doc" {with-doc}
   ]
 ]
-dev-repo: "git+https://github.com/mbarbin/commandlang.git"
+dev-repo: "git+https://github.com/mbarbin/cmdlang.git"

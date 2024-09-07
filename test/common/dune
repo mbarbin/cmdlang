@@ -1,6 +1,6 @@
 (library
  (name test_command)
- (public_name commandlang-tests.test_command)
+ (public_name cmdlang-tests.test_command)
  (flags
   :standard
   -w
@@ -12,8 +12,8 @@
   -open
   Stdio
   -open
-  Commandlang)
- (libraries base commandlang stdio)
+  Cmdlang)
+ (libraries base cmdlang stdio)
  (instrumentation
   (backend bisect_ppx))
  (lint

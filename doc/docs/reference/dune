@@ -1,6 +1,6 @@
 (mdx
- (package commandlang-tests)
+ (package cmdlang-tests)
  (deps
-  (package commandlang)
+  (package cmdlang)
   (glob_files *.txt))
  (preludes prelude.txt))

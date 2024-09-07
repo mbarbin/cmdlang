@@ -31,11 +31,11 @@ The rendering to simple strings could be exported by a standalone `cmdliner` hel
 
 The third point is by far the most challenging but also a source of significant added value: auto-completion. This has been a highly anticipated feature within the community, and we have recently seen progress in this area, particularly with the `climate` developers working on integrating support for auto-completion.
 
-We envision a potential hybrid translation mode where a `commandlang` command is translated into both `cmdliner` and `climate` — `cmdliner` for runtime execution and `climate` to generate completion scripts. This approach leaves the question of reentrant completion as future work.
+We envision a potential hybrid translation mode where a `cmdlang` command is translated into both `cmdliner` and `climate` — `cmdliner` for runtime execution and `climate` to generate completion scripts. This approach leaves the question of reentrant completion as future work.
 
-Given the ongoing developments in other libraries regarding auto-completion, we will carefully consider how `commandlang`'s unique architecture can accommodate and leverage these changes. This will require thoughtful planning and possibly significant adjustments as the landscape evolves.
+Given the ongoing developments in other libraries regarding auto-completion, we will carefully consider how `cmdlang`'s unique architecture can accommodate and leverage these changes. This will require thoughtful planning and possibly significant adjustments as the landscape evolves.
 
 ### Tasks
 - [ ] Research auto-completion support in `climate`
-- [ ] Develop a hybrid translation mode for `commandlang` commands
+- [ ] Develop a hybrid translation mode for `cmdlang` commands
 - [ ] Implement auto-completion feature

@@ -3,7 +3,7 @@ import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
-  title: 'commandlang',
+  title: 'cmdlang',
   tagline: 'Declarative Command-line Parsing for OCaml',
   favicon: 'img/favicon.ico',
 
@@ -11,12 +11,12 @@ const config: Config = {
   url: 'https://mbarbin.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/commandlang/',
+  baseUrl: '/cmdlang/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'mbarbin', // Usually your GitHub org/user name.
-  projectName: 'commandlang', // Usually your repo name.
+  projectName: 'cmdlang', // Usually your repo name.
 
   trailingSlash: true,
 
@@ -39,13 +39,13 @@ const config: Config = {
           sidebarPath: './sidebars.ts',
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl: 'https://github.com/mbarbin/commandlang/tree/main/doc/',
+          editUrl: 'https://github.com/mbarbin/cmdlang/tree/main/doc/',
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl: 'https://github.com/mbarbin/commandlang/tree/main/doc/',
+          editUrl: 'https://github.com/mbarbin/cmdlang/tree/main/doc/',
         },
         theme: {
           customCss: './src/css/custom.css',
@@ -62,13 +62,13 @@ const config: Config = {
 
   themeConfig: {
     // Replace with your project's social card
-    image: 'img/commandlang.png',
+    image: 'img/cmdlang.png',
     navbar: {
       hideOnScroll: true,
-      title: 'commandlang',
+      title: 'cmdlang',
       logo: {
         alt: 'Site Logo',
-        src: 'img/commandlang.png',
+        src: 'img/cmdlang.png',
       },
       items: [
         {
@@ -97,7 +97,7 @@ const config: Config = {
         },
         { to: '/blog/', label: 'Blog', position: 'right' },
         {
-          href: 'https://github.com/mbarbin/commandlang',
+          href: 'https://github.com/mbarbin/cmdlang',
           label: 'GitHub',
           position: 'right',
         },
@@ -142,7 +142,7 @@ const config: Config = {
             },
             {
               label: 'GitHub',
-              href: 'https://github.com/mbarbin/commandlang',
+              href: 'https://github.com/mbarbin/cmdlang',
             },
           ],
         },

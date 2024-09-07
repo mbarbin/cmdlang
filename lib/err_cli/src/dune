@@ -1,15 +1,8 @@
 (library
  (name err_cli)
  (public_name err-cli)
- (flags
-  :standard
-  -w
-  +a-4-40-41-42-44-45-48-66
-  -warn-error
-  +a
-  -open
-  Commandlang)
- (libraries commandlang err fmt fmt.tty logs logs.fmt)
+ (flags :standard -w +a-4-40-41-42-44-45-48-66 -warn-error +a -open Cmdlang)
+ (libraries cmdlang err fmt fmt.tty logs logs.fmt)
  (instrumentation
   (backend bisect_ppx))
  (lint
