@@ -20,7 +20,7 @@ module type Stringable = sig
   type t
 
   (** This function is not expected to to raise. If you need to validate the
-      input string, see {!val:validated_string}. *)
+      input string, see {!val:Param.validated_string}. *)
   val of_string : string -> t
 
   val to_string : t -> string

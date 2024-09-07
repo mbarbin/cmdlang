@@ -14,11 +14,11 @@ depends: [
   "base" {>= "v0.17" & < "v0.18"}
   "bisect_ppx" {with-dev-setup & >= "2.8.3"}
   "climate" {= "0.0.1~preview-0.1"}
-  "cmdliner" {= "1.3.0"}
   "cmdlang" {= version}
   "cmdlang-to-base" {= version}
   "cmdlang-to-climate" {= version}
   "cmdlang-to-cmdliner" {= version}
+  "cmdliner" {= "1.3.0"}
   "core" {>= "v0.17" & < "v0.18"}
   "core_unix" {>= "v0.17" & < "v0.18"}
   "err" {= version}

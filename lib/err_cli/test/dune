@@ -16,8 +16,8 @@
   Cmdlang)
  (libraries
   base
-  cmdliner
   cmdlang
+  cmdliner
   err
   err_cli
   expect_test_helpers_core.expect_test_helpers_base

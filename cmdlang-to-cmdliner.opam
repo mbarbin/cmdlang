@@ -10,8 +10,8 @@ bug-reports: "https://github.com/mbarbin/cmdlang/issues"
 depends: [
   "dune" {>= "3.16"}
   "ocaml" {>= "5.2"}
-  "cmdliner" {= "1.3.0"}
   "cmdlang" {= version}
+  "cmdliner" {= "1.3.0"}
   "err" {= version}
   "odoc" {with-doc}
 ]

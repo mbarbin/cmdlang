@@ -124,10 +124,10 @@
  (depends
   (ocaml
    (>= 5.2))
-  (cmdliner
-   (= 1.3.0))
   (cmdlang
    (= :version))
+  (cmdliner
+   (= 1.3.0))
   (err
    (= :version))))
 
@@ -164,8 +164,6 @@
     (>= 2.8.3)))
   (climate
    (= 0.0.1~preview-0.1))
-  (cmdliner
-   (= 1.3.0))
   (cmdlang
    (= :version))
   (cmdlang-to-base
@@ -174,6 +172,8 @@
    (= :version))
   (cmdlang-to-cmdliner
    (= :version))
+  (cmdliner
+   (= 1.3.0))
   (core
    (and
     (>= v0.17)
