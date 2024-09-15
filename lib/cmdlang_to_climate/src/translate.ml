@@ -139,3 +139,7 @@ module To_ast = Cmdlang.Command.Private.To_ast
 let _param p = p |> To_ast.param |> Param.project
 let _arg a = a |> To_ast.arg |> Arg.project
 let command a = a |> To_ast.command |> Command.to_command
+
+module Private = struct
+  module Arg = Arg
+end

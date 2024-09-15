@@ -7,6 +7,7 @@ module Private : sig
   module Arg : sig
     val with_dot_suffix : doc:string -> string
     val doc_of_param : doc:string -> param:'a Ast.Param.t -> string
+    val project : 'a Ast.Arg.t -> 'a Cmdliner.Term.t
   end
 
   module Command : sig
