@@ -14,6 +14,6 @@ module Command_line : sig
     }
 end
 
-(** Evaluate all backends and print a full trace on standard channel. This is
-    designed with expect_test in mind. *)
+(** Evaluate all backends and print a full trace on standard channels for use in
+    expect tests. *)
 val eval_all : unit t -> Command_line.t -> unit

@@ -1,3 +1,17 @@
+## 0.0.5 (unreleased)
+
+### Added
+
+- Increase test coverage.
+
+### Changed
+
+### Deprecated
+
+### Fixed
+
+### Removed
+
 ## 0.0.4 (2024-09-07)
 
 ### Changed

@@ -40,7 +40,7 @@ module Param = struct
 
   let assoc ?docv choices =
     match choices with
-    | [] -> invalid_arg "Command.Arg.enum"
+    | [] -> invalid_arg "Command.Param.assoc"
     | hd :: tl -> Ast.Param.Enum { docv; choices = hd :: tl }
   ;;
 

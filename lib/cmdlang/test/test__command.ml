@@ -1,8 +1,6 @@
-let%expect_test "Param.enum" =
+let%expect_test "Param.assoc" =
   let open Command.Std in
-  require_does_raise [%here] (fun () ->
-    let+ _ = Arg.named [ "a" ] (Param.assoc []) ~doc:"empty enum" in
-    (() [@coverage off]));
-  [%expect {| (Invalid_argument Command.Arg.enum) |}];
+  require_does_raise [%here] (fun () -> Param.assoc []);
+  [%expect {| (Invalid_argument Command.Param.assoc) |}];
   ()
 ;;

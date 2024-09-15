@@ -4,6 +4,7 @@
         "cmdliner",
         "janestreet",
         "odoc",
-        "opam"
+        "opam",
+        "stringable"
     ]
 }

@@ -14,17 +14,17 @@ let create arg =
     let config = Cmdlang_to_base.Translate.Config.create () in
     match Cmdlang_to_base.Translate.Private.Arg.project ast_arg ~config with
     | { param } -> Ok param
-    | exception e -> Error e
+    | exception e -> Error e [@coverage off]
   in
   let climate =
     match Cmdlang_to_climate.Translate.Private.Arg.project ast_arg with
     | arg_parser -> Ok arg_parser
-    | exception e -> Error e
+    | exception e -> Error e [@coverage off]
   in
   let cmdliner =
     match Cmdlang_to_cmdliner.Translate.Private.Arg.project ast_arg with
     | term -> Ok term
-    | exception e -> Error e
+    | exception e -> Error e [@coverage off]
   in
   { arg; base; climate; cmdliner }
 ;;
@@ -52,46 +52,53 @@ let () =
     [%extension_constructor Climate.Parse_error.E]
     (function
     | Climate.Parse_error.E e ->
-      List [ Atom "Climate.Parse_error.E"; Atom (Climate.Parse_error.to_string e) ]
+      List [ Atom "Climate.Parse_error.E"; Atom (Climate.Parse_error.to_string e) ] [@coverage
+                                                                                      off]
     | _ -> assert false);
   Sexplib0.Sexp_conv.Exn_converter.add
     [%extension_constructor Climate.Spec_error.E]
     (function
     | Climate.Spec_error.E e ->
-      List [ Atom "Climate.Spec_error.E"; Atom (Climate.Spec_error.to_string e) ]
+      List [ Atom "Climate.Spec_error.E"; Atom (Climate.Spec_error.to_string e) ] [@coverage
+                                                                                    off]
     | _ -> assert false);
   ()
 ;;
 
 let eval_base t { Command_line.prog = _; args } =
   match t.base with
-  | Error e -> print_s [%sexp "Translation Raised", (e : Exn.t)]
+  | Error e -> print_s [%sexp "Translation Raised", (e : Exn.t)] [@coverage off]
   | Ok param ->
     (match Core_command.Param.parse param args with
      | Ok () -> ()
      | Error e -> print_s [%sexp "Evaluation Failed", (e : Error.t)]
-     | exception e -> print_s [%sexp "Evaluation Raised", (e : Exn.t)])
+     | exception e -> print_s [%sexp "Evaluation Raised", (e : Exn.t)] [@coverage off])
 ;;
 
 let eval_climate t { Command_line.prog; args } =
   match t.climate with
-  | Error e -> print_s [%sexp "Translation Raised", (e : Exn.t)]
+  | Error e -> print_s [%sexp "Translation Raised", (e : Exn.t)] [@coverage off]
   | Ok arg_parser ->
-    let cmd = Climate.Command.singleton arg_parser in
-    (match Climate.Command.eval cmd { program = prog; args } with
+    (match
+       let cmd = Climate.Command.singleton arg_parser in
+       Climate.Command.eval cmd { program = prog; args }
+     with
      | () -> ()
-     | exception e -> print_s [%sexp "Evaluation Raised", (e : Exn.t)])
+     | exception e -> print_s [%sexp "Evaluation Raised", (e : Exn.t)] [@coverage off])
 ;;
 
 let eval_cmdliner t { Command_line.prog; args } =
   match t.cmdliner with
-  | Error e -> print_s [%sexp "Translation Raised", (e : Exn.t)]
+  | Error e -> print_s [%sexp "Translation Raised", (e : Exn.t)] [@coverage off]
   | Ok term ->
-    let cmd = Cmdliner.Cmd.v (Cmdliner.Cmd.info prog) term in
-    (match Cmdliner.Cmd.eval cmd ~argv:(Array.of_list (prog :: args)) with
+    (match
+       let cmd = Cmdliner.Cmd.v (Cmdliner.Cmd.info prog) term in
+       Cmdliner.Cmd.eval cmd ~argv:(Array.of_list (prog :: args))
+     with
      | 0 -> ()
-     | exit_code -> print_s [%sexp "Evaluation Failed", { exit_code : int }]
-     | exception e -> print_s [%sexp "Evaluation Raised", (e : Exn.t)])
+     | exit_code ->
+       print_s [%sexp "Evaluation Failed", { exit_code : int }] [@coverage off]
+     | exception e -> print_s [%sexp "Evaluation Raised", (e : Exn.t)] [@coverage off])
 ;;
 
 let eval_all t command_line =

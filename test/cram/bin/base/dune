@@ -1,7 +1,7 @@
 (executable
- (name main_climate)
+ (name main_base)
  (flags :standard -w +a-4-40-41-42-44-45-48-66 -warn-error +a)
- (libraries climate cmdlang_to_climate test_command)
+ (libraries cmdlang_to_base core_unix.command_unix cram_test_command)
  (instrumentation
   (backend bisect_ppx))
  (preprocess no_preprocessing))
