@@ -7,7 +7,8 @@ let%expect_test "const" =
        print_endline string)
   in
   Arg_test.eval_all test { prog = "test"; args = [] };
-  [%expect {|
+  [%expect
+    {|
     ----------------------------- Climate
     hello
     ----------------------------- Cmdliner
