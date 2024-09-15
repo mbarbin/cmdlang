@@ -1,14 +1,15 @@
 module Core_command = Command
+module Command = Cmdlang.Command
 
 type 'a t =
-  { arg : 'a Cmdlang.Command.Arg.t
+  { arg : 'a Command.Arg.t
   ; base : ('a Core_command.Param.t, Exn.t) Result.t
   ; climate : ('a Climate.Arg_parser.t, Exn.t) Result.t
   ; cmdliner : ('a Cmdliner.Term.t, Exn.t) Result.t
   }
 
 let create arg =
-  let ast_arg = Cmdlang.Command.Private.To_ast.arg arg in
+  let ast_arg = Command.Private.To_ast.arg arg in
   let base =
     let config = Cmdlang_to_base.Translate.Config.create () in
     match Cmdlang_to_base.Translate.Private.Arg.project ast_arg ~config with
@@ -44,6 +45,23 @@ module Command_line = struct
     ; args : string list
     }
 end
+
+(* Improve the display of certain exceptions encountered during our tests. *)
+let () =
+  Sexplib0.Sexp_conv.Exn_converter.add
+    [%extension_constructor Climate.Parse_error.E]
+    (function
+    | Climate.Parse_error.E e ->
+      List [ Atom "Climate.Parse_error.E"; Atom (Climate.Parse_error.to_string e) ]
+    | _ -> assert false);
+  Sexplib0.Sexp_conv.Exn_converter.add
+    [%extension_constructor Climate.Spec_error.E]
+    (function
+    | Climate.Spec_error.E e ->
+      List [ Atom "Climate.Spec_error.E"; Atom (Climate.Spec_error.to_string e) ]
+    | _ -> assert false);
+  ()
+;;
 
 let eval_base t { Command_line.prog = _; args } =
   match t.base with
