@@ -1,0 +1,16 @@
+(rule
+ (copy bin/base/main_base.exe main_base.exe))
+
+(rule
+ (copy bin/climate/main_climate.exe main_climate.exe))
+
+(rule
+ (copy bin/cmdliner/main_cmdliner.exe main_cmdliner.exe))
+
+(cram
+ (package cmdlang-tests)
+ (deps
+  (package cmdlang)
+  main_base.exe
+  main_climate.exe
+  main_cmdliner.exe))

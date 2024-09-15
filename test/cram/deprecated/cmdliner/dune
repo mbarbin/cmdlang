@@ -1,8 +1,0 @@
-(rule
- (copy bin/main_cmdliner.exe main_cmdliner.exe))
-
-(cram
- (package cmdlang-tests)
- (deps
-  (package cmdlang)
-  main_cmdliner.exe))

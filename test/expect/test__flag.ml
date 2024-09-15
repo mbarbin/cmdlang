@@ -244,3 +244,36 @@ let%expect_test "ambiguous prefixes" =
     |}];
   ()
 ;;
+
+let%expect_test "flag_count" =
+  let test =
+    Arg_test.create
+      (let%map_open.Command count = Arg.flag_count [ "count"; "c" ] ~doc:"count" in
+       print_s [%sexp { count : int }])
+  in
+  (* At the moment [flag_count] isn't supported by [core.command]. *)
+  Arg_test.eval_all test { prog = "test"; args = [] };
+  [%expect
+    {|
+    ----------------------------- Climate
+    ((count 0))
+    ----------------------------- Cmdliner
+    ((count 0))
+    ----------------------------- Core_command
+    ("Translation Raised" (
+      "Flag_count not supported by core.command" ((names (count c)) (doc count))))
+    |}];
+  (* We want to verify that the same count is updated by any of the alias. *)
+  Arg_test.eval_all test { prog = "test"; args = [ "--count"; "-c"; "-c" ] };
+  [%expect
+    {|
+    ----------------------------- Climate
+    ((count 3))
+    ----------------------------- Cmdliner
+    ((count 3))
+    ----------------------------- Core_command
+    ("Translation Raised" (
+      "Flag_count not supported by core.command" ((names (count c)) (doc count))))
+    |}];
+  ()
+;;
