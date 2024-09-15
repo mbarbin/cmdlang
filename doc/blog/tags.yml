@@ -2,3 +2,28 @@ hello:
   label: Hello
   permalink: /hello
   description: Hello tag description
+
+cmdlang:
+  label: cmdlang
+  permalink: /cmdlang
+  description: cmdlang
+
+cmdliner:
+  label: cmdliner
+  permalink: /cmdliner
+  description: cmdliner
+
+climate:
+  label: climate
+  permalink: /climate
+  description: climate
+
+core.command:
+  label: core.command
+  permalink: /core.command
+  description: core.command
+
+stdlib.arg:
+  label: stdlib.arg
+  permalink: /stdlib.arg
+  description: stdlib.arg
