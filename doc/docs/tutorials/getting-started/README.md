@@ -77,11 +77,20 @@ Create a `bin/` directory and a `bin/dune` file to set up the build rules for ou
 
 As you'll learn, `cmdlang` doesn't come with its own command runner. Instead, it is designed to use existing runners from the community. For this tutorial, we'll use `cmdliner` as our command runner.
 
+**Install step**
+
+<!-- $MDX skip -->
+```sh
+$ opam install cmdlang-cmdliner-runner
+```
+
+**Setup bin/dune**
+
 <!-- $MDX skip -->
 ```lisp
 (executable
  (name main)
- (libraries cmdlang_to_cmdliner getting_started))
+ (libraries cmdlang_cmdliner_runner getting_started))
 ```
 
 An invocation of `cmdliner` for a `cmdlang` command may look like this:
@@ -89,7 +98,10 @@ An invocation of `cmdliner` for a `cmdlang` command may look like this:
 <!-- $MDX file=main.ml -->
 ```ocaml
 let () =
-  Cmdlang_to_cmdliner.run Getting_started.cmd ~name:"my-calculator" ~version:"%%VERSION%%"
+  Cmdlang_cmdliner_runner.run
+    Getting_started.cmd
+    ~name:"my-calculator"
+    ~version:"%%VERSION%%"
 ;;
 ```
 

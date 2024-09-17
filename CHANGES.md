@@ -2,9 +2,12 @@
 
 ### Added
 
+- Expose `param` & `arg` translators.
 - Increase test coverage.
 
 ### Changed
+
+- Separate the translation from the runner in 2 separate packages to keep dependencies isolated.
 
 ### Deprecated
 

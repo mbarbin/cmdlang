@@ -1,5 +1,3 @@
-module Translate = Translate
-
 (** This is the standard way that is designed with cmdlang, assuming you are
     using [Err] etc. *)
 val run

@@ -1,7 +1,7 @@
 (executable
  (name main_cmdliner)
  (flags :standard -w +a-4-40-41-42-44-45-48-66 -warn-error +a)
- (libraries cmdlang_to_cmdliner cram_test_command)
+ (libraries cmdlang_cmdliner_runner cram_test_command)
  (instrumentation
   (backend bisect_ppx))
  (preprocess no_preprocessing))

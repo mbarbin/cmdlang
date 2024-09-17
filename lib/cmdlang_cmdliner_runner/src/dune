@@ -1,15 +1,13 @@
 (library
- (name cmdlang_to_cmdliner)
- (public_name cmdlang-to-cmdliner)
+ (name cmdlang_cmdliner_runner)
+ (public_name cmdlang-cmdliner-runner)
  (flags
   :standard
   -w
   +a-4-40-41-42-44-45-48-66
   -warn-error
-  +a
-  -open
-  Cmdlang_ast)
- (libraries cmdlang cmdlang_ast cmdliner)
+  +a)
+ (libraries cmdlang cmdlang_to_cmdliner cmdliner err)
  (instrumentation
   (backend bisect_ppx))
  (lint

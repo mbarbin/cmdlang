@@ -9,7 +9,7 @@
   +a
   -open
   Cmdlang_ast)
- (libraries climate cmdlang cmdlang_ast err)
+ (libraries climate cmdlang cmdlang_ast)
  (instrumentation
   (backend bisect_ppx))
  (lint

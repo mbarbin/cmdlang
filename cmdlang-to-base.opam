@@ -13,7 +13,6 @@ depends: [
   "base" {>= "v0.17" & < "v0.18"}
   "cmdlang" {= version}
   "core" {>= "v0.17" & < "v0.18"}
-  "err" {= version}
   "ppx_compare" {>= "v0.17" & < "v0.18"}
   "ppx_enumerate" {>= "v0.17" & < "v0.18"}
   "ppx_expect" {>= "v0.17" & < "v0.18"}

@@ -1,9 +1,9 @@
-module Translate = Translate
-
 let run ?exn_handler cmd ~name ~version =
   match
     Err.protect ?exn_handler (fun () ->
-      Cmdliner.Cmd.eval ~catch:false (Translate.command cmd ~name ~version))
+      Cmdliner.Cmd.eval
+        ~catch:false
+        (Cmdlang_to_cmdliner.Translate.command cmd ~name ~version))
   with
   | Ok code | Error code ->
     (* We allow the function to terminate normally when [code=0]. This is
