@@ -27,7 +27,10 @@ module Param = struct
             , List.find_opt (fun (_, x) -> x == b) choices )
           with
           | Some (a, _), Some (b, _) -> String.equal a b
-          | Some _, None | None, Some _ | None, None -> false)
+          | Some _, None | None, Some _ | None, None ->
+            raise
+              (Invalid_argument "Cmdlang_to_climate.enum: eq called with unknown choice")
+            [@coverage off])
       in
       Climate.Arg_parser.enum ?default_value_name:docv choices ~eq
     | Comma_separated t ->
@@ -35,18 +38,17 @@ module Param = struct
         translate t
       in
       let parse str =
-        match String.split_on_char ',' str |> List.map parse with
-        | exception e -> Error (`Msg (Printexc.to_string e))
-        | r ->
-          let ok, msgs =
-            r
-            |> List.partition_map (function
-              | Ok x -> Left x
-              | Error (`Msg e) -> Right e)
-          in
-          (match msgs with
-           | [] -> Ok ok
-           | _ :: _ -> Error (`Msg (String.concat ", " msgs)))
+        let ok, msgs =
+          str
+          |> String.split_on_char ','
+          |> List.partition_map (fun arg ->
+            match parse arg with
+            | Ok x -> Left x
+            | Error (`Msg e) -> Right e)
+        in
+        match msgs with
+        | [] -> Ok ok
+        | _ :: _ -> Error (`Msg (String.concat ", " msgs))
       in
       let print fmt = function
         | [] -> ()
