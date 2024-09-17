@@ -7,6 +7,7 @@
 
 ### Changed
 
+- Include `>>|` infix operator in `Command.Std`.
 - Separate the translation from the runner in 2 separate packages to keep dependencies isolated.
 
 ### Deprecated
@@ -14,6 +15,8 @@
 ### Fixed
 
 ### Removed
+
+- Removed most of applicative infix operators - keep only `>>|`.
 
 ## 0.0.4 (2024-09-07)
 

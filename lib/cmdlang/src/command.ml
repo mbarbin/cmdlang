@@ -100,6 +100,18 @@ let group ?default ?readme ~summary subcommands =
   Ast.Command.Group { default; summary; readme; subcommands }
 ;;
 
+module type Applicative_infix = sig
+  type 'a t
+
+  val ( >>| ) : 'a t -> ('a -> 'b) -> 'b t
+end
+
+module Applicative_infix : Applicative_infix with type 'a t := 'a Arg.t = struct
+  open Arg
+
+  let ( >>| ) = ( >>| )
+end
+
 module type Applicative_syntax = sig
   type 'a t
 
@@ -118,24 +130,7 @@ module Std = struct
   module Arg = Arg
   module Param = Param
   include Applicative_syntax
-end
-
-module type Applicative_infix = sig
-  type 'a t
-
-  val ( <*> ) : ('a -> 'b) t -> 'a t -> 'b t
-  val ( <* ) : 'a t -> unit t -> 'a t
-  val ( *> ) : unit t -> 'a t -> 'a t
-  val ( >>| ) : 'a t -> ('a -> 'b) -> 'b t
-end
-
-module Applicative_infix : Applicative_infix with type 'a t := 'a Arg.t = struct
-  open Arg
-
-  let ( <*> ) = apply
-  let ( <* ) a do_b = map (both a do_b) ~f:(fun (a, ()) -> a)
-  let ( *> ) do_a b = map (both do_a b) ~f:(fun ((), b) -> b)
-  let ( >>| ) = ( >>| )
+  include Applicative_infix
 end
 
 module Let_syntax = struct

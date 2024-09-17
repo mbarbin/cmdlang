@@ -8,8 +8,9 @@ the executable for each backend.
   
   === subcommands ===
   
-    named                      . named arguments
-    return                     . return
+    doc                        . Testing documentation features
+    named                      . Named arguments
+    return                     . An empty command
     version                    . print version information
     help                       . explain a given subcommand (perhaps recursively)
   
@@ -24,8 +25,12 @@ the executable for each backend.
    --help, -h   Print help
   
   Subcommands:
-   return  return
-   named  named arguments
+   doc  Testing documentation features
+  
+  This group is dedicated to testing documentation features.
+      
+   named  Named arguments
+   return  An empty command
 
   $ ./main_cmdliner.exe --help=plain
   NAME
@@ -35,11 +40,14 @@ the executable for each backend.
          ./main_cmdliner.exe COMMAND …
   
   COMMANDS
+         doc COMMAND …
+             Testing documentation features
+  
          named COMMAND …
-             named arguments
+             Named arguments
   
          return [OPTION]…
-             return
+             An empty command
   
   COMMON OPTIONS
          --help[=FMT] (default=auto)

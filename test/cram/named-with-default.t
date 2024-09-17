@@ -5,7 +5,7 @@ Let's start with characterizing whether and how the default value appears in the
 At the moment, the default value is not displayed in the help page for the `base` backend.
 
   $ ./main_base.exe named with-default string --help
-  named_with_default__string
+  Named_with_default__string
   
     main_base.exe named with-default string 
   
@@ -22,7 +22,7 @@ help page.
   $ ./main_climate.exe named with-default string --help
   Usage: ./main_climate.exe named with-default string [OPTIONS]
   
-  named_with_default__string
+  Named_with_default__string
   
   Options:
    --who <WHO>   Hello WHO?
@@ -34,7 +34,7 @@ parentheses. See `(absent=...)` below.
   $ ./main_cmdliner.exe named with-default string --help=plain
   NAME
          ./main_cmdliner.exe-named-with-default-string -
-         named_with_default__string
+         Named_with_default__string
   
   SYNOPSIS
          ./main_cmdliner.exe named with-default string [--who=WHO] [OPTION]…
@@ -133,7 +133,7 @@ functions or parsers generated from modules with utils.
   [124]
 
   $ ./main_base.exe named with-default create --help
-  named_with_default__create
+  Named_with_default__create
   
     main_base.exe named with-default create 
   
@@ -146,7 +146,7 @@ functions or parsers generated from modules with utils.
   $ ./main_climate.exe named with-default create --help
   Usage: ./main_climate.exe named with-default create [OPTIONS]
   
-  named_with_default__create
+  Named_with_default__create
   
   Options:
    --who <(A|B)>   Greet A or B?
@@ -155,7 +155,7 @@ functions or parsers generated from modules with utils.
   $ ./main_cmdliner.exe named with-default create --help=plain
   NAME
          ./main_cmdliner.exe-named-with-default-create -
-         named_with_default__create
+         Named_with_default__create
   
   SYNOPSIS
          ./main_cmdliner.exe named with-default create [--who=(A|B)]
@@ -188,8 +188,10 @@ functions or parsers generated from modules with utils.
   SEE ALSO
          ./main_cmdliner.exe(1)
   
+Named-with-default with a stringable parameter.
+
   $ ./main_base.exe named with-default stringable --help
-  named_with_default__stringable
+  Named_with_default__stringable
   
     main_base.exe named with-default stringable 
   
@@ -202,7 +204,7 @@ functions or parsers generated from modules with utils.
   $ ./main_climate.exe named with-default stringable --help
   Usage: ./main_climate.exe named with-default stringable [OPTIONS]
   
-  named_with_default__stringable
+  Named_with_default__stringable
   
   Options:
    --who <VAL>   identifier
@@ -211,7 +213,7 @@ functions or parsers generated from modules with utils.
   $ ./main_cmdliner.exe named with-default stringable --help=plain
   NAME
          ./main_cmdliner.exe-named-with-default-stringable -
-         named_with_default__stringable
+         Named_with_default__stringable
   
   SYNOPSIS
          ./main_cmdliner.exe named with-default stringable [--who=VAL]
@@ -252,3 +254,187 @@ functions or parsers generated from modules with utils.
 
   $ ./main_cmdliner.exe named with-default stringable
   Hello my-id
+
+Named-with-default with a validated string parameter.
+
+  $ ./main_base.exe named with-default validated --help
+  Named_with_default__validated
+  
+    main_base.exe named with-default validated 
+  
+  === flags ===
+  
+    [--who 4]                  . letters alphanumerical identifier
+    [-help], -?                . print this help text and exit
+  
+
+  $ ./main_climate.exe named with-default validated --help
+  Usage: ./main_climate.exe named with-default validated [OPTIONS]
+  
+  Named_with_default__validated
+  
+  Options:
+   --who <VAL>   4 letters alphanumerical identifier
+   --help, -h   Print help
+
+  $ ./main_cmdliner.exe named with-default validated --help=plain
+  NAME
+         ./main_cmdliner.exe-named-with-default-validated -
+         Named_with_default__validated
+  
+  SYNOPSIS
+         ./main_cmdliner.exe named with-default validated [--who=VAL]
+         [OPTION]…
+  
+  OPTIONS
+         --who=VAL (absent=0000)
+             4 letters alphanumerical identifier.
+  
+  COMMON OPTIONS
+         --help[=FMT] (default=auto)
+             Show this help in format FMT. The value FMT must be one of auto,
+             pager, groff or plain. With auto, the format is pager or plain
+             whenever the TERM env var is dumb or undefined.
+  
+         --version
+             Show version information.
+  
+  EXIT STATUS
+         ./main_cmdliner.exe named with-default validated exits with:
+  
+         0   on success.
+  
+         123 on indiscriminate errors reported on standard error.
+  
+         124 on command line parsing errors.
+  
+         125 on unexpected internal errors (bugs).
+  
+  SEE ALSO
+         ./main_cmdliner.exe(1)
+  
+  $ ./main_base.exe named with-default validated
+  Hello 0000
+
+  $ ./main_climate.exe named with-default validated
+  Hello 0000
+
+  $ ./main_cmdliner.exe named with-default validated
+  Hello 0000
+
+Invalid entry for the validated string parameter.
+
+  $ ./main_base.exe named with-default validated --who foo
+  Error parsing command line:
+  
+    failed to parse --who value "foo".
+    (Msg "\"foo\": invalid 4 letters alphanumerical identifier")
+  
+  For usage information, run
+  
+    main_base.exe named with-default validated -help
+  
+  [1]
+
+  $ ./main_climate.exe named with-default validated --who foo
+  Failed to parse the argument to "--who": "foo": invalid 4 letters alphanumerical identifier
+  [124]
+
+  $ ./main_cmdliner.exe named with-default validated --who foo
+  ./main_cmdliner.exe: option '--who': "foo": invalid 4 letters alphanumerical
+                       identifier
+  Usage: ./main_cmdliner.exe named with-default validated [--who=VAL] [OPTION]…
+  Try './main_cmdliner.exe named with-default validated --help' or './main_cmdliner.exe --help' for more information.
+  [124]
+
+Valid entry for the validated string parameter.
+
+  $ ./main_base.exe named with-default validated --who foo7
+  Hello foo7
+
+  $ ./main_climate.exe named with-default validated --who foo7
+  Hello foo7
+
+  $ ./main_cmdliner.exe named with-default validated --who foo7
+  Hello foo7
+
+Named-with-default with a comma-separated string parameter.
+
+  $ ./main_base.exe named with-default comma-separated --help
+  Named_with_default__comma_separated
+  
+    main_base.exe named with-default comma-separated 
+  
+  === flags ===
+  
+    [--who Hello]              . WHO?
+    [-help], -?                . print this help text and exit
+  
+
+  $ ./main_climate.exe named with-default comma-separated --help
+  Usage: ./main_climate.exe named with-default comma-separated [OPTIONS]
+  
+  Named_with_default__comma_separated
+  
+  Options:
+   --who <STRING>   Hello WHO?
+   --help, -h   Print help
+
+  $ ./main_cmdliner.exe named with-default comma-separated --help=plain
+  NAME
+         ./main_cmdliner.exe-named-with-default-comma-separated -
+         Named_with_default__comma_separated
+  
+  SYNOPSIS
+         ./main_cmdliner.exe named with-default comma-separated
+         [--who=[STRING,..]] [OPTION]…
+  
+  OPTIONS
+         --who=[STRING,..] (absent=World)
+             Hello WHO? (comma-separated).
+  
+  COMMON OPTIONS
+         --help[=FMT] (default=auto)
+             Show this help in format FMT. The value FMT must be one of auto,
+             pager, groff or plain. With auto, the format is pager or plain
+             whenever the TERM env var is dumb or undefined.
+  
+         --version
+             Show version information.
+  
+  EXIT STATUS
+         ./main_cmdliner.exe named with-default comma-separated exits with:
+  
+         0   on success.
+  
+         123 on indiscriminate errors reported on standard error.
+  
+         124 on command line parsing errors.
+  
+         125 on unexpected internal errors (bugs).
+  
+  SEE ALSO
+         ./main_cmdliner.exe(1)
+  
+  $ ./main_base.exe named with-default comma-separated
+  Hello World
+
+  $ ./main_climate.exe named with-default comma-separated
+  Hello World
+
+  $ ./main_cmdliner.exe named with-default comma-separated
+  Hello World
+
+Valid entry for the parameter.
+
+  $ ./main_base.exe named with-default comma-separated --who You,Me
+  Hello You
+  Hello Me
+
+  $ ./main_climate.exe named with-default comma-separated --who You,Me
+  Hello You
+  Hello Me
+
+  $ ./main_cmdliner.exe named with-default comma-separated --who You,Me
+  Hello You
+  Hello Me
