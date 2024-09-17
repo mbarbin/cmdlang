@@ -43,10 +43,7 @@ let roundtrip_test original_config =
   let args = Err_cli.Config.to_args original_config in
   let term =
     let open Cmdliner.Term.Syntax in
-    let+ config =
-      Cmdlang_to_cmdliner.Translate.Private.Arg.project
-        (Cmdlang.Command.Private.To_ast.arg Err_cli.Config.arg)
-    in
+    let+ config = Cmdlang_to_cmdliner.Translate.arg Err_cli.Config.arg in
     Err_cli.setup_config ~config;
     if Config_with_sexp.equal original_config config
     then print_s [%sexp { args : string list; config : Config_with_sexp.t }]
@@ -151,10 +148,7 @@ let%expect_test "roundtrip" =
 let parse args =
   let term =
     let open Cmdliner.Term.Syntax in
-    let+ config =
-      Cmdlang_to_cmdliner.Translate.Private.Arg.project
-        (Cmdlang.Command.Private.To_ast.arg Err_cli.Config.arg)
-    in
+    let+ config = Cmdlang_to_cmdliner.Translate.arg Err_cli.Config.arg in
     Err_cli.setup_config ~config;
     print_s [%sexp { args : string list; config : Config_with_sexp.t }]
   in

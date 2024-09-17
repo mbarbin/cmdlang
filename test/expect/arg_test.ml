@@ -9,20 +9,19 @@ type 'a t =
   }
 
 let create arg =
-  let ast_arg = Command.Private.To_ast.arg arg in
   let base =
     let config = Cmdlang_to_base.Translate.Config.create () in
-    match Cmdlang_to_base.Translate.Private.Arg.project ast_arg ~config with
-    | { param } -> Ok param
+    match Cmdlang_to_base.Translate.arg arg ~config with
+    | param -> Ok param
     | exception e -> Error e [@coverage off]
   in
   let climate =
-    match Cmdlang_to_climate.Translate.Private.Arg.project ast_arg with
+    match Cmdlang_to_climate.Translate.arg arg with
     | arg_parser -> Ok arg_parser
     | exception e -> Error e [@coverage off]
   in
   let cmdliner =
-    match Cmdlang_to_cmdliner.Translate.Private.Arg.project ast_arg with
+    match Cmdlang_to_cmdliner.Translate.arg arg with
     | term -> Ok term
     | exception e -> Error e [@coverage off]
   in

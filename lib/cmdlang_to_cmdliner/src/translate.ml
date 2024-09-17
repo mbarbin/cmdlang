@@ -1,5 +1,5 @@
 module Param = struct
-  let rec project : type a. a Ast.Param.t -> a Cmdliner.Arg.conv = function
+  let rec translate : type a. a Ast.Param.t -> a Cmdliner.Arg.conv = function
     | Conv { docv; parse; print } -> Cmdliner.Arg.conv ?docv (parse, print)
     | String -> Cmdliner.Arg.string
     | Int -> Cmdliner.Arg.int
@@ -7,7 +7,7 @@ module Param = struct
     | Bool -> Cmdliner.Arg.bool
     | File -> Cmdliner.Arg.file
     | Enum { docv = _; choices = hd :: tl } -> Cmdliner.Arg.enum (hd :: tl)
-    | Comma_separated param -> Cmdliner.Arg.list ~sep:',' (project param)
+    | Comma_separated param -> Cmdliner.Arg.list ~sep:',' (translate param)
   ;;
 
   let rec docv : type a. a Ast.Param.t -> string option = function
@@ -50,11 +50,11 @@ module Arg = struct
     | Comma_separated param -> doc_of_param ~doc:(doc ^ " (comma-separated)") ~param
   ;;
 
-  let rec project : type a. a Ast.Arg.t -> a Cmdliner.Term.t = function
+  let rec translate : type a. a Ast.Arg.t -> a Cmdliner.Term.t = function
     | Return x -> Cmdliner.Term.const x
-    | Map { x; f } -> Cmdliner.Term.map f (project x)
-    | Both (a, b) -> Cmdliner.Term.product (project a) (project b)
-    | Apply { f; x } -> Cmdliner.Term.app (project f) (project x)
+    | Map { x; f } -> Cmdliner.Term.map f (translate x)
+    | Both (a, b) -> Cmdliner.Term.product (translate a) (translate b)
+    | Apply { f; x } -> Cmdliner.Term.app (translate f) (translate x)
     | Flag { names = hd :: tl; doc } ->
       let doc = with_dot_suffix ~doc in
       Cmdliner.Arg.value (Cmdliner.Arg.flag (Cmdliner.Arg.info ~doc (hd :: tl)))
@@ -67,7 +67,7 @@ module Arg = struct
       let docv = docv_of_param ~docv ~param in
       Cmdliner.Arg.required
         (Cmdliner.Arg.opt
-           (Cmdliner.Arg.some (Param.project param))
+           (Cmdliner.Arg.some (Param.translate param))
            None
            (Cmdliner.Arg.info ?docv ~doc (hd :: tl)))
     | Named_multi { names = hd :: tl; param; docv; doc } ->
@@ -75,7 +75,7 @@ module Arg = struct
       let docv = docv_of_param ~docv ~param in
       Cmdliner.Arg.value
         (Cmdliner.Arg.opt_all
-           (Param.project param)
+           (Param.translate param)
            []
            (Cmdliner.Arg.info ?docv ~doc (hd :: tl)))
     | Named_opt { names = hd :: tl; param; docv; doc } ->
@@ -83,7 +83,7 @@ module Arg = struct
       let docv = docv_of_param ~docv ~param in
       Cmdliner.Arg.value
         (Cmdliner.Arg.opt
-           (Cmdliner.Arg.some (Param.project param))
+           (Cmdliner.Arg.some (Param.translate param))
            None
            (Cmdliner.Arg.info ?docv ~doc (hd :: tl)))
     | Named_with_default { names = hd :: tl; param; default; docv; doc } ->
@@ -91,7 +91,7 @@ module Arg = struct
       let docv = docv_of_param ~docv ~param in
       Cmdliner.Arg.value
         (Cmdliner.Arg.opt
-           (Param.project param)
+           (Param.translate param)
            default
            (Cmdliner.Arg.info ?docv ~doc (hd :: tl)))
     | Pos { pos; param; docv; doc } ->
@@ -100,7 +100,7 @@ module Arg = struct
       Cmdliner.Arg.required
         (Cmdliner.Arg.pos
            pos
-           (Cmdliner.Arg.some (Param.project param))
+           (Cmdliner.Arg.some (Param.translate param))
            None
            (Cmdliner.Arg.info ?docv ~doc []))
     | Pos_opt { pos; param; docv; doc } ->
@@ -109,7 +109,7 @@ module Arg = struct
       Cmdliner.Arg.value
         (Cmdliner.Arg.pos
            pos
-           (Cmdliner.Arg.some (Param.project param))
+           (Cmdliner.Arg.some (Param.translate param))
            None
            (Cmdliner.Arg.info ?docv ~doc []))
     | Pos_with_default { pos; param; default; docv; doc } ->
@@ -118,14 +118,17 @@ module Arg = struct
       Cmdliner.Arg.value
         (Cmdliner.Arg.pos
            pos
-           (Param.project param)
+           (Param.translate param)
            default
            (Cmdliner.Arg.info ?docv ~doc []))
     | Pos_all { param; docv; doc } ->
       let doc = doc_of_param ~doc ~param in
       let docv = docv_of_param ~docv ~param in
       Cmdliner.Arg.value
-        (Cmdliner.Arg.pos_all (Param.project param) [] (Cmdliner.Arg.info ?docv ~doc []))
+        (Cmdliner.Arg.pos_all
+           (Param.translate param)
+           []
+           (Cmdliner.Arg.info ?docv ~doc []))
   ;;
 end
 
@@ -161,7 +164,7 @@ module Command = struct
     Queue.fold (fun tl hd -> hd :: tl) [] paragraphs |> List.rev
   ;;
 
-  let rec project
+  let rec translate
     : type a. ?version:string -> a Ast.Command.t -> name:string -> a Cmdliner.Cmd.t
     =
     fun ?version command ~name ->
@@ -177,9 +180,9 @@ module Command = struct
           ?version
           name
       in
-      Cmdliner.Cmd.v info (Arg.project arg)
+      Cmdliner.Cmd.v info (Arg.translate arg)
     | Group { default; summary; readme; subcommands } ->
-      let commands = subcommands |> List.map (fun (name, arg) -> project arg ~name) in
+      let commands = subcommands |> List.map (fun (name, arg) -> translate arg ~name) in
       let info =
         Cmdliner.Cmd.info
           ?man:
@@ -190,15 +193,15 @@ module Command = struct
           ?version
           name
       in
-      Cmdliner.Cmd.group ?default:(default |> Option.map Arg.project) info commands
+      Cmdliner.Cmd.group ?default:(default |> Option.map Arg.translate) info commands
   ;;
 end
 
 module To_ast = Cmdlang.Command.Private.To_ast
 
-let _param p = p |> To_ast.param |> Param.project
-let _arg a = a |> To_ast.arg |> Arg.project
-let command ?version a ~name = a |> To_ast.command |> Command.project ?version ~name
+let param p = p |> To_ast.param |> Param.translate
+let arg a = a |> To_ast.arg |> Arg.translate
+let command ?version a ~name = a |> To_ast.command |> Command.translate ?version ~name
 
 module Private = struct
   module Arg = Arg

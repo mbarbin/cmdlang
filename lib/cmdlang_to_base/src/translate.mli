@@ -14,9 +14,19 @@ module Config : sig
     -> t
 end
 
-val basic : ?config:Config.t -> (unit -> unit) Cmdlang.Command.t -> Command.t
+(** {1 Param} *)
 
-val or_error
+val param : 'a Cmdlang.Command.Param.t -> config:Config.t -> 'a Command.Arg_type.t
+
+(** {1 Arg} *)
+
+val arg : 'a Cmdlang.Command.Arg.t -> config:Config.t -> 'a Command.Param.t
+
+(** {1 Command} *)
+
+val command_basic : ?config:Config.t -> (unit -> unit) Cmdlang.Command.t -> Command.t
+
+val command_or_error
   :  ?config:Config.t
   -> (unit -> unit Or_error.t) Cmdlang.Command.t
   -> Command.t
@@ -24,7 +34,9 @@ val or_error
 (** [unit] can be a convenient helper during a migration, however note that it
     is probably not quite right, due to the body of the command being evaluated
     as an argument. *)
-val unit : ?config:Config.t -> unit Cmdlang.Command.t -> Command.t
+val command_unit : ?config:Config.t -> unit Cmdlang.Command.t -> Command.t
+
+(** {1 Private} *)
 
 module Private : sig
   (** This module is exported for testing purposes only. Its signature may
@@ -33,6 +45,6 @@ module Private : sig
   module Arg : sig
     type 'a t = { param : 'a Command.Param.t }
 
-    val project : 'a Cmdlang_ast.Ast.Arg.t -> config:Config.t -> 'a t
+    val translate : 'a Cmdlang_ast.Ast.Arg.t -> config:Config.t -> 'a t
   end
 end
