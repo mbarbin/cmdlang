@@ -10,6 +10,7 @@ module Config = struct
         [ "verbosity" ]
         (Param.assoc
            [ "quiet", None
+           ; "app", Some Logs.App
            ; "error", Some Logs.Error
            ; "warning", Some Logs.Warning
            ; "info", Some Logs.Info
@@ -78,15 +79,12 @@ module Config = struct
       [ (match logs_level with
          | None -> [ "--quiet" ]
          | Some level ->
-           let level =
-             match level with
-             | App -> "app"
-             | Error -> "error"
-             | Warning -> "warning"
-             | Info -> "info"
-             | Debug -> "debug"
-           in
-           [ "--verbosity"; level ])
+           (match level with
+            | App -> [ "--verbosity"; "app" ]
+            | Error -> [ "--verbosity"; "error" ]
+            | Warning -> []
+            | Info -> [ "--verbosity"; "info" ]
+            | Debug -> [ "--verbosity"; "debug" ]))
       ; (match fmt_style_renderer with
          | None -> []
          | Some `Ansi_tty -> [ "--color"; "always" ]

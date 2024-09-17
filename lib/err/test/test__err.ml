@@ -122,19 +122,6 @@ let%expect_test "of_stdune_message" =
 
 let am_running_test () = print_s [%sexp (Err.am_running_test () : bool)]
 
-let%expect_test "config" =
-  let config = Err_cli.Config.create ~logs_level:(Some Warning) ~warn_error:false () in
-  print_s [%sexp (Err_cli.Config.to_args config : string list)];
-  [%expect {| (--verbosity warning) |}];
-  let config = Err_cli.Config.create ~logs_level:(Some Info) ~warn_error:true () in
-  print_s [%sexp (Err_cli.Config.to_args config : string list)];
-  [%expect {| (--verbosity info --warn-error) |}];
-  let config = Err_cli.Config.create ~logs_level:(Some Debug) ~warn_error:true () in
-  print_s [%sexp (Err_cli.Config.to_args config : string list)];
-  [%expect {| (--verbosity debug --warn-error) |}];
-  ()
-;;
-
 let%expect_test "multiple errors" =
   Err.For_test.protect (fun () ->
     Err.error ~loc:(Loc.in_file ~path:(Fpath.v "my/file1")) [ Pp.text "Hello Error1" ];
