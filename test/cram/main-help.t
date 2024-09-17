@@ -8,6 +8,7 @@ the executable for each backend.
   
   === subcommands ===
   
+    basic                      . Basic types
     doc                        . Testing documentation features
     named                      . Named arguments
     return                     . An empty command
@@ -25,6 +26,7 @@ the executable for each backend.
    --help, -h   Print help
   
   Subcommands:
+   basic  Basic types
    doc  Testing documentation features
   
   This group is dedicated to testing documentation features.
@@ -40,6 +42,9 @@ the executable for each backend.
          ./main_cmdliner.exe COMMAND …
   
   COMMANDS
+         basic COMMAND …
+             Basic types
+  
          doc COMMAND …
              Testing documentation features
   

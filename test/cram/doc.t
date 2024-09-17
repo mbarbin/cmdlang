@@ -146,7 +146,7 @@ dot to the documentation string if it is not present.
   $ ./main_base.exe doc args-doc-end-with-dots --help
   Args doc end with dots
   
-    main_base.exe doc args-doc-end-with-dots VAL VAL
+    main_base.exe doc args-doc-end-with-dots STRING STRING
   
   === flags ===
   

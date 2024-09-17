@@ -33,7 +33,7 @@ let%expect_test "invalid_pos_sequence" =
     Try 'test --help' for more information.
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------- Core_command
-    ("Evaluation Failed" "missing anonymous argument: VAL")
+    ("Evaluation Failed" "missing anonymous argument: STRING")
     |}];
   ()
 ;;
@@ -45,12 +45,11 @@ let%expect_test "invalid_pos_sequence" =
 let cmd = Command.make ~summary:"test" test
 
 let%expect_test "base" =
-  require_does_raise [%here] (fun () ->
-    Command_unix.run (Cmdlang_to_base.Translate.command_unit cmd));
+  require_does_raise [%here] (fun () -> Cmdlang_to_base.Translate.command_unit cmd);
   [%expect
     {|
     (Failure
-     "the grammar [VAL] VAL for anonymous arguments is not supported because there is the possibility for arguments (VAL) following a variable number of arguments ([VAL]).  Supporting such grammars would complicate the implementation significantly.")
+     "the grammar [STRING] STRING for anonymous arguments is not supported because there is the possibility for arguments (STRING) following a variable number of arguments ([STRING]).  Supporting such grammars would complicate the implementation significantly.")
     |}];
   ()
 ;;

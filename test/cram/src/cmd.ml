@@ -6,6 +6,54 @@ let return =
      print_endline "()")
 ;;
 
+module Basic = struct
+  let string =
+    Command.make
+      ~summary:"print string"
+      (let open Command.Std in
+       let+ v = Arg.pos ~pos:0 Param.string ~doc:"value" in
+       print_endline v)
+  ;;
+
+  let int =
+    Command.make
+      ~summary:"print int"
+      (let open Command.Std in
+       let+ v = Arg.pos ~pos:0 Param.int ~doc:"value" in
+       print_endline (Int.to_string v))
+  ;;
+
+  let float =
+    Command.make
+      ~summary:"print float"
+      (let open Command.Std in
+       let+ v = Arg.pos ~pos:0 Param.float ~doc:"value" in
+       print_endline (Float.to_string v))
+  ;;
+
+  let bool =
+    Command.make
+      ~summary:"print bool"
+      (let open Command.Std in
+       let+ v = Arg.pos ~pos:0 Param.bool ~doc:"value" in
+       print_endline (Bool.to_string v))
+  ;;
+
+  let file =
+    Command.make
+      ~summary:"print file"
+      (let open Command.Std in
+       let+ v = Arg.pos ~pos:0 Param.file ~doc:"value" in
+       print_endline v)
+  ;;
+
+  let main =
+    Command.group
+      ~summary:"Basic types"
+      [ "string", string; "int", int; "float", float; "bool", bool; "file", file ]
+  ;;
+end
+
 module Doc = struct
   let singleton_with_readme =
     Command.make
@@ -16,16 +64,16 @@ It can be written on multiple lines.
 |})
       (let open Command.Std in
        let+ () = Arg.return () in
-       ())
+       (() [@coverage off]))
   ;;
 
   let args_doc_end_with_dots =
     Command.make
       ~summary:"Args doc end with dots"
       (let open Command.Std in
-       let+ a = Arg.pos ~pos:0 Param.string ~doc:"The doc for a ends with a dot."
-       and+ b = Arg.pos ~pos:1 Param.string ~doc:"The doc for b doesn't" in
-       List.iter [ a; b ] ~f:print_endline)
+       let+ _ = Arg.pos ~pos:0 Param.string ~doc:"The doc for a ends with a dot."
+       and+ _ = Arg.pos ~pos:1 Param.string ~doc:"The doc for b doesn't" in
+       (() [@coverage off]))
   ;;
 
   let main =
@@ -42,6 +90,32 @@ This group is dedicated to testing documentation features.
 end
 
 module Named = struct
+  module Opt = struct
+    let string_with_docv =
+      Command.make
+        ~summary:"Named_opt__string_with_docv"
+        (let open Command.Std in
+         let+ who = Arg.named_opt [ "who" ] Param.string ~docv:"WHO" ~doc:"Hello WHO?" in
+         Option.iter who ~f:(fun who -> print_endline ("Hello " ^ who)))
+    ;;
+
+    let string_without_docv =
+      Command.make
+        ~summary:"Named_opt__string_without_docv"
+        (let open Command.Std in
+         let+ who = Arg.named_opt [ "who" ] Param.string ~doc:"Hello WHO?" in
+         (ignore (who : string option) [@coverage off]))
+    ;;
+
+    let main =
+      Command.group
+        ~summary:"Testing named-opt"
+        [ "string-with-docv", string_with_docv
+        ; "string-without-docv", string_without_docv
+        ]
+    ;;
+  end
+
   module With_default = struct
     let string =
       Command.make
@@ -190,12 +264,14 @@ module Named = struct
   end
 
   let main =
-    Command.group ~summary:"Named arguments" [ "with-default", With_default.main ]
+    Command.group
+      ~summary:"Named arguments"
+      [ "opt", Opt.main; "with-default", With_default.main ]
   ;;
 end
 
 let main =
   Command.group
     ~summary:"Cram Test Command"
-    [ "doc", Doc.main; "named", Named.main; "return", return ]
+    [ "basic", Basic.main; "doc", Doc.main; "named", Named.main; "return", return ]
 ;;

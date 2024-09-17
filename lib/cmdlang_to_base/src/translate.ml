@@ -48,10 +48,30 @@ module Param = struct
     in
     translate ast
   ;;
+
+  let rec docv : type a. a Ast.Param.t -> string option = function
+    | Conv { docv; parse = _; print = _ } -> docv
+    | String -> Some "STRING"
+    | Int -> Some "INT"
+    | Float -> Some "FLOAT"
+    | Bool -> Some "BOOL"
+    | File -> Some "FILE"
+    | Enum { docv; choices = _ } -> docv
+    | Comma_separated param ->
+      docv param |> Option.map ~f:(fun docv -> Printf.sprintf "[%s,..]" docv)
+  ;;
 end
 
 module Arg = struct
   type 'a t = { param : 'a Command.Param.t }
+
+  let docv_of_param ~docv ~param =
+    match docv with
+    | Some docv -> docv
+    | None -> Param.docv param |> Option.value ~default:"VAL"
+  ;;
+
+  let doc_of_param ~docv ~doc ~param = docv_of_param ~docv ~param ^ " " ^ doc
 
   let translate_flag_names (hd :: tl : _ Nonempty_list.t) ~(config : Config.t) =
     let map_flag name = if String.length name = 1 then name else "--" ^ name in
@@ -115,10 +135,7 @@ module Arg = struct
               ?full_flag_required:(Option.some_if config.full_flags_required ())
               name
               (Command.Flag.required arg_type)
-              ~doc:
-                (match docv with
-                 | None -> doc
-                 | Some docv -> docv ^ " " ^ doc)
+              ~doc:(doc_of_param ~docv ~doc ~param)
         }
       | Named_multi { names; param; docv; doc } ->
         let (name :: aliases) = translate_flag_names names ~config in
@@ -129,10 +146,7 @@ module Arg = struct
               ?full_flag_required:(Option.some_if config.full_flags_required ())
               name
               (Command.Flag.listed arg_type)
-              ~doc:
-                (match docv with
-                 | None -> doc
-                 | Some docv -> docv ^ " " ^ doc)
+              ~doc:(doc_of_param ~docv ~doc ~param)
         }
       | Named_opt { names; param; docv; doc } ->
         let (name :: aliases) = translate_flag_names names ~config in
@@ -143,10 +157,7 @@ module Arg = struct
               ?full_flag_required:(Option.some_if config.full_flags_required ())
               name
               (Command.Flag.optional arg_type)
-              ~doc:
-                (match docv with
-                 | None -> doc
-                 | Some docv -> docv ^ " " ^ doc)
+              ~doc:(doc_of_param ~docv ~doc ~param)
         }
       | Named_with_default { names; param; default; docv; doc } ->
         let (name :: aliases) = translate_flag_names names ~config in
@@ -157,29 +168,26 @@ module Arg = struct
               ?full_flag_required:(Option.some_if config.full_flags_required ())
               name
               (Command.Flag.optional_with_default default arg_type)
-              ~doc:
-                (match docv with
-                 | None -> doc
-                 | Some docv -> docv ^ " " ^ doc)
+              ~doc:(doc_of_param ~docv ~doc ~param)
         }
       | Pos { pos; param; docv; doc = _ } ->
         check_positional_index ~last_positional_index ~next_positional_index:pos;
         let { Param.arg_type } = Param.translate param ~config in
-        let anon = Command.Anons.(Option.value docv ~default:"VAL" %: arg_type) in
+        let anon = Command.Anons.(docv_of_param ~docv ~param %: arg_type) in
         { param = Command.Param.anon anon }
       | Pos_opt { pos; param; docv; doc = _ } ->
         check_positional_index ~last_positional_index ~next_positional_index:pos;
         let { Param.arg_type } = Param.translate param ~config in
-        let anon = Command.Anons.(Option.value docv ~default:"VAL" %: arg_type) in
+        let anon = Command.Anons.(docv_of_param ~docv ~param %: arg_type) in
         { param = Command.Param.anon (Command.Anons.maybe anon) }
       | Pos_with_default { pos; param; default; docv; doc = _ } ->
         check_positional_index ~last_positional_index ~next_positional_index:pos;
         let { Param.arg_type } = Param.translate param ~config in
-        let anon = Command.Anons.(Option.value docv ~default:"VAL" %: arg_type) in
+        let anon = Command.Anons.(docv_of_param ~docv ~param %: arg_type) in
         { param = Command.Param.anon (Command.Anons.maybe_with_default default anon) }
       | Pos_all { param; docv; doc = _ } ->
         let { Param.arg_type } = Param.translate param ~config in
-        let anon = Command.Anons.(Option.value docv ~default:"VAL" %: arg_type) in
+        let anon = Command.Anons.(docv_of_param ~docv ~param %: arg_type) in
         { param = Command.Param.anon (Command.Anons.sequence anon) }
     in
     translate ast

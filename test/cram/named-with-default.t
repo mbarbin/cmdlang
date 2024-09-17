@@ -139,7 +139,7 @@ functions or parsers generated from modules with utils.
   
   === flags ===
   
-    [--who Greet]              . A or B?
+    [--who (A|B)]              . Greet A or B?
     [-help], -?                . print this help text and exit
   
 
@@ -197,7 +197,7 @@ Named-with-default with a stringable parameter.
   
   === flags ===
   
-    [--who _]                  . identifier
+    [--who VAL]                . identifier
     [-help], -?                . print this help text and exit
   
 
@@ -264,7 +264,7 @@ Named-with-default with a validated string parameter.
   
   === flags ===
   
-    [--who 4]                  . letters alphanumerical identifier
+    [--who VAL]                . 4 letters alphanumerical identifier
     [-help], -?                . print this help text and exit
   
 
@@ -367,7 +367,7 @@ Named-with-default with a comma-separated string parameter.
   
   === flags ===
   
-    [--who Hello]              . WHO?
+    [--who [STRING,..]]        . Hello WHO?
     [-help], -?                . print this help text and exit
   
 

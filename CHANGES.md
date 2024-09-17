@@ -14,6 +14,8 @@
 
 ### Fixed
 
+- Fix handling of `docv` when translating to `core.command`.
+
 ### Removed
 
 - Removed most of applicative infix operators - keep only `>>|`.

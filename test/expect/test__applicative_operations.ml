@@ -65,7 +65,7 @@ let%expect_test "apply" =
     type t =
       | Succ
       | Pred
-    [@@deriving enumerate, sexp_of]
+    [@@deriving enumerate]
 
     let to_string = function
       | Succ -> "succ"
