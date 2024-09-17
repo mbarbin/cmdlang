@@ -1,7 +1,7 @@
 Checking the help when there are no arguments.
 
   $ ./main_base.exe return --help
-  return
+  An empty command
   
     main_base.exe return 
   
@@ -13,14 +13,14 @@ Checking the help when there are no arguments.
   $ ./main_climate.exe return --help
   Usage: ./main_climate.exe return [OPTIONS]
   
-  return
+  An empty command
   
   Options:
    --help, -h   Print help
 
   $ ./main_cmdliner.exe return --help=plain
   NAME
-         ./main_cmdliner.exe-return - return
+         ./main_cmdliner.exe-return - An empty command
   
   SYNOPSIS
          ./main_cmdliner.exe return [OPTION]…

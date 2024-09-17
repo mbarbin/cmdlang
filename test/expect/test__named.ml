@@ -205,3 +205,69 @@ let%expect_test "named_with_default" =
     |}];
   ()
 ;;
+
+let%expect_test "named_with_default__comma_separated" =
+  let test ?(default = [ "You"; "Me"; "World" ]) () =
+    Arg_test.create
+      (let%map_open.Command who =
+         Arg.named_with_default
+           [ "who" ]
+           (Param.comma_separated Param.string)
+           ~docv:"WHO"
+           ~default
+           ~doc:"hello who?"
+       in
+       List.iter who ~f:(fun who -> print_endline ("Hello " ^ who)))
+  in
+  Arg_test.eval_all (test ()) { prog = "test"; args = [] };
+  [%expect
+    {|
+    ----------------------------- Climate
+    Hello You
+    Hello Me
+    Hello World
+    ----------------------------- Cmdliner
+    Hello You
+    Hello Me
+    Hello World
+    ----------------------------- Core_command
+    Hello You
+    Hello Me
+    Hello World
+    |}];
+  Arg_test.eval_all (test ~default:[] ()) { prog = "test"; args = [] };
+  [%expect
+    {|
+    ----------------------------- Climate
+    ----------------------------- Cmdliner
+    ----------------------------- Core_command
+    |}];
+  (* Empty values are currently treated inconsistently by the three
+     translation+backend. In climate, you get a singleton made of the empty
+     string, in cmdliner you get the empty list, and in core.command you get an
+     error. *)
+  Arg_test.eval_all (test ()) { prog = "test"; args = [ "--who"; "" ] };
+  [%expect
+    {|
+    ----------------------------- Climate
+    Hello
+    ----------------------------- Cmdliner
+    ----------------------------- Core_command
+    ("Evaluation Failed" (
+      "Command.Failed_to_parse_command_line(\"failed to parse --who value \\\"\\\".\\n(Failure \\\"Command.Spec.Arg_type.comma_separated: empty list not allowed\\\")\")"))
+    |}];
+  Arg_test.eval_all (test ()) { prog = "test"; args = [ "--who"; "Universe,Them Too" ] };
+  [%expect
+    {|
+    ----------------------------- Climate
+    Hello Universe
+    Hello Them Too
+    ----------------------------- Cmdliner
+    Hello Universe
+    Hello Them Too
+    ----------------------------- Core_command
+    Hello Universe
+    Hello Them Too
+    |}];
+  ()
+;;

@@ -223,8 +223,13 @@ module Logs_level = struct
 end
 
 let warn_error_value = ref false
-let logs_level_value = ref Logs_level.Warning
-let logs_enable level = Logs_level.compare !logs_level_value level >= 0
+
+let logs_level_get_value, logs_level_set_value =
+  let value = ref Logs_level.Warning in
+  ref (fun () -> (!value [@coverage off])), ref (fun v -> value := (v [@coverage off]))
+;;
+
+let logs_enable level = Logs_level.compare (logs_level_get_value.contents ()) level >= 0
 
 let error ?loc ?hints paragraphs =
   if logs_enable Error
@@ -281,8 +286,8 @@ let handle_messages_and_exit ~err:{ messages; exit_code } ~backtrace =
   Error exit_code
 ;;
 
-let logs_err_count_value = ref (fun () -> 0)
-let logs_warn_count_value = ref (fun () -> 0)
+let logs_err_count_value = ref (fun () -> (0 [@coverage off]))
+let logs_warn_count_value = ref (fun () -> (0 [@coverage off]))
 
 let had_errors_or_warn_errors () =
   let warn_error = !warn_error_value in
@@ -327,13 +332,19 @@ module For_test = struct
   let wrap f =
     let init = am_running_test () in
     am_running_test_value := true;
-    Fun.protect ~finally:(fun () -> am_running_test_value := init) f
+    let init_level = logs_level_get_value.contents () in
+    logs_level_set_value.contents Logs_level.Warning;
+    Fun.protect
+      ~finally:(fun () ->
+        am_running_test_value := init;
+        logs_level_set_value.contents init_level)
+      f
   ;;
 
   let protect ?exn_handler f =
     match wrap (fun () -> protect f ?exn_handler) with
     | Ok () -> ()
-    | Error code -> Stdlib.prerr_endline (Printf.sprintf "[%d]" code)
+    | Error code -> if code <> 0 then Stdlib.prerr_endline (Printf.sprintf "[%d]" code)
   ;;
 end
 
@@ -353,7 +364,12 @@ module Private = struct
 
   module Logs_level = Logs_level
 
-  let logs_level = logs_level_value
+  let set_logs_level ~get ~set =
+    logs_level_get_value := get;
+    logs_level_set_value := set;
+    ()
+  ;;
+
   let warn_error = warn_error_value
 
   let set_logs_counts ~err_count ~warn_count =

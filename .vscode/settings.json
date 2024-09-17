@@ -2,9 +2,11 @@
     "cSpell.words": [
         "cmdlang",
         "cmdliner",
+        "conv",
         "janestreet",
         "odoc",
         "opam",
+        "stdune",
         "stringable"
     ]
 }

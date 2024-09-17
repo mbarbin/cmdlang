@@ -79,8 +79,6 @@
    (and
     (>= v0.17)
     (< v0.18)))
-  (err
-   (= :version))
   (ppx_compare
    (and
     (>= v0.17)
@@ -127,9 +125,7 @@
   (cmdlang
    (= :version))
   (cmdliner
-   (= 1.3.0))
-  (err
-   (= :version))))
+   (= 1.3.0))))
 
 (package
  (name cmdlang-to-climate)
@@ -140,7 +136,20 @@
   (climate
    (= 0.0.1~preview-0.1))
   (cmdlang
+   (= :version))))
+
+(package
+ (name cmdlang-cmdliner-runner)
+ (synopsis "A cmdlang runner using cmdliner and err")
+ (depends
+  (ocaml
+   (>= 5.2))
+  (cmdlang
    (= :version))
+  (cmdlang-to-cmdliner
+   (= :version))
+  (cmdliner
+   (= 1.3.0))
   (err
    (= :version))))
 

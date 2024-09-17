@@ -215,7 +215,10 @@ val did_you_mean : string -> candidates:string list -> Style.t Pp.t list
 val am_running_test : unit -> bool
 
 (** This return the number of errors that have been emitted via [Err.error]
-    since the last [reset_counts]. *)
+    since the last [reset_counts]. Beware, note that errors raised as
+    exceptions via functions such as [Err.raise] do not affect the error
+    count. The motivation is to allow exceptions to be caught without
+    impacting the overall exit code. *)
 val error_count : unit -> int
 
 (** A convenient wrapper for [Err.error_count () > 0].
@@ -280,13 +283,14 @@ val debug : ?loc:Loc.t -> ?hints:Style.t Pp.t list -> Style.t Pp.t list Lazy.t -
     care of catching uncaught exceptions and printing them to the screen. You
     may provide [exn_handler] to match on custom exceptions and turn them into
     [Err] for display and exit code. Any uncaught exception will be reported
-    as an internal errors with a backtrace. When [Err.am_running_test ()]
-    is true the backtrace is redacted to avoid making expect test traces too
-    brittle. *)
+    as an internal errors with a backtrace. When [Err.am_running_test ()] is
+    true the backtrace is redacted to avoid making expect test traces too
+    brittle. [protect] starts by performing a reset of the error and warning
+    counts with a call to [reset_counts]. *)
 val protect : ?exn_handler:(exn -> t option) -> (unit -> 'a) -> ('a, int) Result.t
 
 module For_test : sig
-  (** Same as [handler], but won't return the exit code, rather print the code
+  (** Same as [protect], but won't return the exit code, rather print the code
       at the end in case of a non zero code, like in cram tests. *)
   val protect : ?exn_handler:(exn -> t option) -> (unit -> unit) -> unit
 
@@ -330,7 +334,11 @@ module Private : sig
       | Debug
   end
 
-  val logs_level : Logs_level.t ref
+  (** Since [Err] does not depend on [Logs], the [Err] and [Logs] levels must be
+      set independently. However, this is done for you consistently if you are
+      using [Err_cli]. *)
+  val set_logs_level : get:(unit -> Logs_level.t) -> set:(Logs_level.t -> unit) -> unit
+
   val warn_error : bool ref
 
   (** To avoid making this library depend on [Logs] we inject the dependency

@@ -47,7 +47,7 @@ let%expect_test "int" =
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------- Core_command
     ("Evaluation Failed" (
-      "Command.Failed_to_parse_command_line(\"failed to parse VAL value \\\"not-an-int\\\"\\n(Failure \\\"Int.of_string: \\\\\\\"not-an-int\\\\\\\"\\\")\")"))
+      "Command.Failed_to_parse_command_line(\"failed to parse INT value \\\"not-an-int\\\"\\n(Failure \\\"Int.of_string: \\\\\\\"not-an-int\\\\\\\"\\\")\")"))
     |}];
   ()
 ;;
@@ -89,7 +89,7 @@ let%expect_test "float" =
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------- Core_command
     ("Evaluation Failed" (
-      "Command.Failed_to_parse_command_line(\"failed to parse VAL value \\\"not-an-number\\\"\\n(Invalid_argument \\\"Float.of_string not-an-number\\\")\")"))
+      "Command.Failed_to_parse_command_line(\"failed to parse FLOAT value \\\"not-an-number\\\"\\n(Invalid_argument \\\"Float.of_string not-an-number\\\")\")"))
     |}];
   ()
 ;;
@@ -130,7 +130,7 @@ let%expect_test "bool" =
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------- Core_command
     ("Evaluation Failed" (
-      "Command.Failed_to_parse_command_line(\"failed to parse VAL value \\\"not-a-bool\\\"\\n(Failure \\\"valid arguments: {false,true}\\\")\")"))
+      "Command.Failed_to_parse_command_line(\"failed to parse BOOL value \\\"not-a-bool\\\"\\n(Failure \\\"valid arguments: {false,true}\\\")\")"))
     |}];
   ()
 ;;

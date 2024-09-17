@@ -2,7 +2,7 @@
     (such as a command line tool, as opposed to libraries).
 
     It defines a command line parser to configure the [Err] library, while
-    taking take of setting the logs and fmt style rendering. *)
+    taking take of setting the [Logs] and [Fmt] style rendering. *)
 
 (** {1 Configuration} *)
 
@@ -29,6 +29,12 @@ module Config : sig
   val arg : t Command.Arg.t
   val to_args : t -> string list
 end
+
+(** Perform global side effects to modules such as [Err], [Logs] & [Fmt] to
+    configure how to do error rendering in the terminal, set log levels, etc. If
+    you wish to do this automatically from the arguments parsed in a command
+    line, see also {!val:set_config}. *)
+val setup_config : config:Config.t -> unit
 
 (** Adding this argument to your command line will make it support [Err]
     configuration and takes care of setting the global configuration with

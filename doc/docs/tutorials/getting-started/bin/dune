@@ -1,6 +1,6 @@
 (executable
  (name main)
  (flags :standard -w +a-4-40-41-42-44-45-48-66 -warn-error +a)
- (libraries cmdlang_to_cmdliner getting_started)
+ (libraries cmdlang_cmdliner_runner getting_started)
  (instrumentation
   (backend bisect_ppx)))

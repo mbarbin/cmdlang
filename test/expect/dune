@@ -21,6 +21,7 @@
   cmdlang-to-climate
   cmdlang-to-cmdliner
   cmdliner
+  core_unix.command_unix
   err
   err-cli
   expect_test_helpers_core.expect_test_helpers_base

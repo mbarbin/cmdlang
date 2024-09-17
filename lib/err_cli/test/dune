@@ -17,6 +17,7 @@
  (libraries
   base
   cmdlang
+  cmdlang_to_cmdliner
   cmdliner
   err
   err_cli

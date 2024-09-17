@@ -1,5 +1,5 @@
 module Param = struct
-  let rec project : type a. a Ast.Param.t -> a Climate.Arg_parser.conv = function
+  let rec translate : type a. a Ast.Param.t -> a Climate.Arg_parser.conv = function
     | Conv { docv; parse; print } ->
       { Climate.Arg_parser.parse
       ; print
@@ -27,26 +27,28 @@ module Param = struct
             , List.find_opt (fun (_, x) -> x == b) choices )
           with
           | Some (a, _), Some (b, _) -> String.equal a b
-          | Some _, None | None, Some _ | None, None -> false)
+          | Some _, None | None, Some _ | None, None ->
+            raise
+              (Invalid_argument "Cmdlang_to_climate.enum: eq called with unknown choice")
+            [@coverage off])
       in
       Climate.Arg_parser.enum ?default_value_name:docv choices ~eq
     | Comma_separated t ->
       let { Climate.Arg_parser.parse; print; default_value_name; completion = _ } =
-        project t
+        translate t
       in
       let parse str =
-        match String.split_on_char ',' str |> List.map parse with
-        | exception e -> Error (`Msg (Printexc.to_string e))
-        | r ->
-          let ok, msgs =
-            r
-            |> List.partition_map (function
-              | Ok x -> Left x
-              | Error (`Msg e) -> Right e)
-          in
-          (match msgs with
-           | [] -> Ok ok
-           | _ :: _ -> Error (`Msg (String.concat ", " msgs)))
+        let ok, msgs =
+          str
+          |> String.split_on_char ','
+          |> List.partition_map (fun arg ->
+            match parse arg with
+            | Ok x -> Left x
+            | Error (`Msg e) -> Right e)
+        in
+        match msgs with
+        | [] -> Ok ok
+        | _ :: _ -> Error (`Msg (String.concat ", " msgs))
       in
       let print fmt = function
         | [] -> ()
@@ -60,11 +62,11 @@ module Param = struct
 end
 
 module Arg = struct
-  let rec project : type a. a Ast.Arg.t -> a Climate.Arg_parser.t = function
+  let rec translate : type a. a Ast.Arg.t -> a Climate.Arg_parser.t = function
     | Return x -> Climate.Arg_parser.const x
-    | Map { x; f } -> Climate.Arg_parser.map (project x) ~f
-    | Both (a, b) -> Climate.Arg_parser.both (project a) (project b)
-    | Apply { f; x } -> Climate.Arg_parser.apply (project f) (project x)
+    | Map { x; f } -> Climate.Arg_parser.map (translate x) ~f
+    | Both (a, b) -> Climate.Arg_parser.both (translate a) (translate b)
+    | Apply { f; x } -> Climate.Arg_parser.apply (translate f) (translate x)
     | Flag { names = hd :: tl; doc } -> Climate.Arg_parser.flag ~desc:doc (hd :: tl)
     | Flag_count { names = hd :: tl; doc } ->
       Climate.Arg_parser.flag_count ~desc:doc (hd :: tl)
@@ -73,38 +75,38 @@ module Arg = struct
         ~desc:doc
         ?value_name:docv
         (hd :: tl)
-        (param |> Param.project)
+        (param |> Param.translate)
     | Named_multi { names = hd :: tl; param; docv; doc } ->
       Climate.Arg_parser.named_multi
         ~desc:doc
         ?value_name:docv
         (hd :: tl)
-        (param |> Param.project)
+        (param |> Param.translate)
     | Named_opt { names = hd :: tl; param; docv; doc } ->
       Climate.Arg_parser.named_opt
         ~desc:doc
         ?value_name:docv
         (hd :: tl)
-        (param |> Param.project)
+        (param |> Param.translate)
     | Named_with_default { names = hd :: tl; param; default; docv; doc } ->
       Climate.Arg_parser.named_with_default
         ~desc:doc
         ?value_name:docv
         (hd :: tl)
-        (param |> Param.project)
+        (param |> Param.translate)
         ~default
     | Pos { pos; param; docv; doc = _ } ->
-      Climate.Arg_parser.pos_req ?value_name:docv pos (param |> Param.project)
+      Climate.Arg_parser.pos_req ?value_name:docv pos (param |> Param.translate)
     | Pos_opt { pos; param; docv; doc = _ } ->
-      Climate.Arg_parser.pos_opt ?value_name:docv pos (param |> Param.project)
+      Climate.Arg_parser.pos_opt ?value_name:docv pos (param |> Param.translate)
     | Pos_with_default { pos; param; default; docv; doc = _ } ->
       Climate.Arg_parser.pos_with_default
         ?value_name:docv
         pos
-        (param |> Param.project)
+        (param |> Param.translate)
         ~default
     | Pos_all { param; docv; doc = _ } ->
-      Climate.Arg_parser.pos_all ?value_name:docv (param |> Param.project)
+      Climate.Arg_parser.pos_all ?value_name:docv (param |> Param.translate)
   ;;
 end
 
@@ -119,11 +121,11 @@ module Command = struct
     fun command ->
     match command with
     | Make { arg; summary; readme } ->
-      Climate.Command.singleton ~desc:(desc ~summary ~readme) (arg |> Arg.project)
+      Climate.Command.singleton ~desc:(desc ~summary ~readme) (arg |> Arg.translate)
     | Group { default; summary; readme; subcommands } ->
       let cmds = subcommands |> List.map (fun (name, arg) -> to_subcommand arg ~name) in
       Climate.Command.group
-        ?default_arg_parser:(default |> Option.map Arg.project)
+        ?default_arg_parser:(default |> Option.map Arg.translate)
         ~desc:(desc ~summary ~readme)
         cmds
 
@@ -136,10 +138,8 @@ end
 
 module To_ast = Cmdlang.Command.Private.To_ast
 
-let _param p = p |> To_ast.param |> Param.project
-let _arg a = a |> To_ast.arg |> Arg.project
+let param p = p |> To_ast.param |> Param.translate
+let arg a = a |> To_ast.arg |> Arg.translate
 let command a = a |> To_ast.command |> Command.to_command
 
-module Private = struct
-  module Arg = Arg
-end
+module Private = struct end

@@ -1,6 +1,7 @@
 (library
- (name cmdlang_to_base)
- (public_name cmdlang-to-base)
+ (name cmdlang_cmdliner_runner_test)
+ (public_name cmdlang-tests.cmdlang_cmdliner_runner_test)
+ (inline_tests)
  (flags
   :standard
   -w
@@ -10,8 +11,11 @@
   -open
   Base
   -open
-  Cmdlang_ast)
- (libraries base cmdlang cmdlang_ast core.command)
+  Expect_test_helpers_base)
+ (libraries
+  base
+  cmdlang_cmdliner_runner
+  expect_test_helpers_core.expect_test_helpers_base)
  (instrumentation
   (backend bisect_ppx))
  (lint
@@ -21,6 +25,7 @@
    -unused-code-warnings=force
    ppx_compare
    ppx_enumerate
+   ppx_expect
    ppx_hash
    ppx_here
    ppx_let

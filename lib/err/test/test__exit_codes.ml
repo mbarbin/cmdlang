@@ -32,9 +32,9 @@ let%expect_test "code" =
 let%expect_test "exit" =
   let test f = Err.For_test.protect f in
   test ignore;
-  [%expect {| |}];
+  [%expect {||}];
   test (fun () -> Err.exit Err.Exit_code.ok);
-  [%expect {| [0] |}];
+  [%expect {||}];
   test (fun () -> Err.exit Err.Exit_code.some_error);
   [%expect {| [123] |}];
   test (fun () -> Err.exit Err.Exit_code.cli_error);

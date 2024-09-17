@@ -79,7 +79,12 @@ end
 module Arg : sig
   type 'a t
 
+  (** {1 Applicative operations} *)
+
   val return : 'a -> 'a t
+  val apply : ('a -> 'b) t -> 'a t -> 'b t
+  val map : 'a t -> f:('a -> 'b) -> 'b t
+  val both : 'a t -> 'b t -> ('a * 'b) t
 
   (** {1 Named arguments} *)
 
@@ -140,6 +145,12 @@ val group
   -> (string * 'a t) list
   -> 'a t
 
+module type Applicative_infix = sig
+  type 'a t
+
+  val ( >>| ) : 'a t -> ('a -> 'b) -> 'b t
+end
+
 (** For use with the [( let+ )] style. *)
 
 module type Applicative_syntax = sig
@@ -155,6 +166,7 @@ end
 
 module Std : sig
   include Applicative_syntax with type 'a t := 'a Arg.t
+  include Applicative_infix with type 'a t := 'a Arg.t
   module Arg = Arg
   module Param = Param
 end
@@ -162,15 +174,6 @@ end
 (** {1 Ppx_let}
 
     For use with the [( let%map_open.Command )] style. *)
-
-module type Applicative_infix = sig
-  type 'a t
-
-  val ( <*> ) : ('a -> 'b) t -> 'a t -> 'b t
-  val ( <* ) : 'a t -> unit t -> 'a t
-  val ( *> ) : unit t -> 'a t -> 'a t
-  val ( >>| ) : 'a t -> ('a -> 'b) -> 'b t
-end
 
 module Let_syntax : sig
     (** Substituted below. *)
