@@ -1,9 +1,7 @@
 module Core_command = Command
-module Command = Cmdlang.Command
 
 type 'a t =
-  { arg : 'a Command.Arg.t
-  ; base : ('a Core_command.Param.t, Exn.t) Result.t
+  { base : ('a Core_command.Param.t, Exn.t) Result.t
   ; climate : ('a Climate.Arg_parser.t, Exn.t) Result.t
   ; cmdliner : ('a Cmdliner.Term.t, Exn.t) Result.t
   }
@@ -25,7 +23,7 @@ let create arg =
     | term -> Ok term
     | exception e -> Error e [@coverage off]
   in
-  { arg; base; climate; cmdliner }
+  { base; climate; cmdliner }
 ;;
 
 module Backend = struct

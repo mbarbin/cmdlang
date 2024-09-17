@@ -5,7 +5,7 @@
  (flags
   :standard
   -w
-  +a-4-40-41-42-44-45-48-66-32-60-69
+  +a-4-40-41-42-44-45-48-66
   -warn-error
   +a
   -open
@@ -14,13 +14,13 @@
   Expect_test_helpers_base)
  (libraries
   base
-  core.command
   climate
   cmdlang
   cmdlang-to-base
   cmdlang-to-climate
   cmdlang-to-cmdliner
   cmdliner
+  core.command
   core_unix.command_unix
   err
   err-cli
