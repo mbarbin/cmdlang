@@ -1,4 +1,4 @@
-## 0.0.5 (unreleased)
+## 0.0.5 (2024-09-17)
 
 ### Added
 
@@ -9,8 +9,6 @@
 
 - Include `>>|` infix operator in `Command.Std`.
 - Separate the translation from the runner in 2 separate packages to keep dependencies isolated.
-
-### Deprecated
 
 ### Fixed
 
