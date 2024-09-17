@@ -104,13 +104,22 @@ let setup_log ~(config : Config.t) =
   in
   Logs.set_level config.logs_level;
   let () =
-    Err.Private.logs_level
-    := match config.logs_level with
-       | None -> Quiet
-       | Some (App | Error) -> Error
-       | Some Warning -> Warning
-       | Some Info -> Info
-       | Some Debug -> Debug
+    Err.Private.set_logs_level
+      ~get:(fun () ->
+        match Logs.level () with
+        | None | Some App -> Quiet
+        | Some Error -> Error
+        | Some Warning -> Warning
+        | Some Info -> Info
+        | Some Debug -> Debug)
+      ~set:(fun level ->
+        (Logs.set_level
+           (match level with
+            | Quiet -> None
+            | Error -> Some Error
+            | Warning -> Some Warning
+            | Info -> Some Info
+            | Debug -> Some Debug) [@coverage off]))
   in
   Logs.set_reporter (Logs_fmt.reporter ())
 ;;
