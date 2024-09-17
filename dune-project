@@ -175,6 +175,8 @@
    (= 0.0.1~preview-0.1))
   (cmdlang
    (= :version))
+  (cmdlang-cmdliner-runner
+   (= :version))
   (cmdlang-to-base
    (= :version))
   (cmdlang-to-climate
