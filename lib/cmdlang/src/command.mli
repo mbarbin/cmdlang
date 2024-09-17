@@ -79,6 +79,8 @@ end
 module Arg : sig
   type 'a t
 
+  (** {1 Applicative operations} *)
+
   val return : 'a -> 'a t
   val apply : ('a -> 'b) t -> 'a t -> 'b t
   val map : 'a t -> f:('a -> 'b) -> 'b t
