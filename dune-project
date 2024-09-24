@@ -8,7 +8,7 @@
 
 (authors "Mathieu Barbin")
 
-(maintainers "Mathieu Barbin")
+(maintainers "Mathieu Barbin <opensource@mbarbin.org>")
 
 (source
  (github mbarbin/cmdlang))
