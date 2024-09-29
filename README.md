@@ -6,7 +6,7 @@
 
 Declarative Command-line Parsing for OCaml.
 
-## Synopsys
+## Synopsis
 
 Cmdlang is a library for creating command-line parsers in OCaml. Implemented as an OCaml EDSL, its declarative specification language lives at the intersection of other well-established similar libraries.
 
