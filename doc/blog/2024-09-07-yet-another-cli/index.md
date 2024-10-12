@@ -13,6 +13,8 @@ I hope you had a nice summer! Mine took an unexpected turn when, roughly at the 
 
 When I read climate's [terminology](https://github.com/gridbugs/climate?tab=readme-ov-file#terminology) section and how it defines `Terms`, `Arguments`, and `Parameters`, something clicked. Seeing how `climate`'s API managed to make positional and named arguments fit so nicely together, I thought: "Wow, for the first time, it seems I'll be able to write a CLI spec on a whiteboard without referring to some code I never seem to get right (I am looking at you, core.command's anonymous arguments)."
 
+<!-- truncate -->
+
 I got quite excited and thought: "Can I switch to `climate` today?" But reality checked: it's not on opam yet, still under construction, I'm not sure what the community will do, etc.
 
 Implementing my own engine for an API resembling `climate` felt like a wasted effort, knowing about the work happening in `climate`. Still, having a `'a Param.t`, `'a Arg.t`, and `'a Command.t` type that I would get to know and love felt too good to pass up.
