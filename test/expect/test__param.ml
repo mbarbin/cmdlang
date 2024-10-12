@@ -11,11 +11,11 @@ let%expect_test "string" =
   Arg_test.eval_all t1 { prog = "test"; args = [ "hello" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     hello
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     hello
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     hello
     |}];
   ()
@@ -26,26 +26,26 @@ let%expect_test "int" =
   Arg_test.eval_all t1 { prog = "test"; args = [ "1_234" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     1_234
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     1_234
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     1_234
     |}];
   Arg_test.eval_all t1 { prog = "test"; args = [ "not-an-int" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     ("Evaluation Raised" (
       Climate.Parse_error.E
       "Failed to parse the argument at position 0: invalid value: \"not-an-int\" (not an int)"))
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     test: INT argument: invalid value 'not-an-int', expected an integer
     Usage: test [OPTION]… INT
     Try 'test --help' for more information.
     ("Evaluation Failed" ((exit_code 124)))
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
       "Command.Failed_to_parse_command_line(\"failed to parse INT value \\\"not-an-int\\\"\\n(Failure \\\"Int.of_string: \\\\\\\"not-an-int\\\\\\\"\\\")\")"))
     |}];
@@ -57,37 +57,37 @@ let%expect_test "float" =
   Arg_test.eval_all t1 { prog = "test"; args = [ "1_234" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     1234.
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     1234.
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     1234.
     |}];
   Arg_test.eval_all t1 { prog = "test"; args = [ "1.234" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     1.234
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     1.234
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     1.234
     |}];
   Arg_test.eval_all t1 { prog = "test"; args = [ "not-an-number" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     ("Evaluation Raised" (
       Climate.Parse_error.E
       "Failed to parse the argument at position 0: invalid value: \"not-an-number\" (not an float)"))
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     test: FLOAT argument: invalid value 'not-an-number', expected a floating
           point number
     Usage: test [OPTION]… FLOAT
     Try 'test --help' for more information.
     ("Evaluation Failed" ((exit_code 124)))
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
       "Command.Failed_to_parse_command_line(\"failed to parse FLOAT value \\\"not-an-number\\\"\\n(Invalid_argument \\\"Float.of_string not-an-number\\\")\")"))
     |}];
@@ -99,36 +99,36 @@ let%expect_test "bool" =
   Arg_test.eval_all t1 { prog = "test"; args = [ "true" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     true
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     true
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     true
     |}];
   Arg_test.eval_all t1 { prog = "test"; args = [ "false" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     false
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     false
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     false
     |}];
   Arg_test.eval_all t1 { prog = "test"; args = [ "not-a-bool" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     ("Evaluation Raised" (
       Climate.Parse_error.E
       "Failed to parse the argument at position 0: invalid value: \"not-a-bool\" (not an bool)"))
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     test: BOOL argument: invalid value 'not-a-bool', either 'true' or 'false'
     Usage: test [OPTION]… BOOL
     Try 'test --help' for more information.
     ("Evaluation Failed" ((exit_code 124)))
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
       "Command.Failed_to_parse_command_line(\"failed to parse BOOL value \\\"not-a-bool\\\"\\n(Failure \\\"valid arguments: {false,true}\\\")\")"))
     |}];
@@ -146,25 +146,25 @@ let%expect_test "file" =
   Arg_test.eval_all t1 { prog = "test"; args = [ "foo.txt" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     foo.txt
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     test: FILE argument: no 'foo.txt' file or directory
     Usage: test [OPTION]… FILE
     Try 'test --help' for more information.
     ("Evaluation Failed" ((exit_code 124)))
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     foo.txt
     |}];
   save_file ~path:"foo.txt" ~contents:"Foo";
   Arg_test.eval_all t1 { prog = "test"; args = [ "foo.txt" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     foo.txt
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     foo.txt
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     foo.txt
     |}]
 ;;
@@ -185,36 +185,36 @@ let%expect_test "assoc" =
   Arg_test.eval_all t1 { prog = "test"; args = [ "A" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     A
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     A
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     A
     |}];
   Arg_test.eval_all t1 { prog = "test"; args = [ "B" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     B
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     B
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     B
     |}];
   Arg_test.eval_all t1 { prog = "test"; args = [ "Not_an_e" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     ("Evaluation Raised" (
       Climate.Parse_error.E
       "Failed to parse the argument at position 0: invalid value: \"Not_an_e\" (valid values are: A, B)"))
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     test: invalid value 'Not_an_e', expected either 'A' or 'B'
     Usage: test [OPTION]… ARG
     Try 'test --help' for more information.
     ("Evaluation Failed" ((exit_code 124)))
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
       "Command.Failed_to_parse_command_line(\"failed to parse VAL value \\\"Not_an_e\\\"\\n(Failure \\\"valid arguments: {A,B}\\\")\")"))
     |}];
@@ -238,36 +238,36 @@ let%expect_test "enumerated" =
   Arg_test.eval_all t1 { prog = "test"; args = [ "A" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     A
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     A
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     A
     |}];
   Arg_test.eval_all t1 { prog = "test"; args = [ "B" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     B
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     B
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     B
     |}];
   Arg_test.eval_all t1 { prog = "test"; args = [ "Not_an_e" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     ("Evaluation Raised" (
       Climate.Parse_error.E
       "Failed to parse the argument at position 0: invalid value: \"Not_an_e\" (valid values are: A, B)"))
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     test: invalid value 'Not_an_e', expected either 'A' or 'B'
     Usage: test [OPTION]… ARG
     Try 'test --help' for more information.
     ("Evaluation Failed" ((exit_code 124)))
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
       "Command.Failed_to_parse_command_line(\"failed to parse VAL value \\\"Not_an_e\\\"\\n(Failure \\\"valid arguments: {A,B}\\\")\")"))
     |}];
@@ -291,11 +291,11 @@ let%expect_test "stringable" =
   Arg_test.eval_all t1 { prog = "test"; args = [ "my-id" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     my-id
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     my-id
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     my-id
     |}];
   ()
@@ -326,46 +326,46 @@ let%expect_test "validated_string" =
   Arg_test.eval_all t1 { prog = "test"; args = [ "A" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     A
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     A
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     A
     |}];
   Arg_test.eval_all t1 { prog = "test"; args = [ "B" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     B
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     B
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     B
     |}];
   Arg_test.eval_all t1 { prog = "test"; args = [ "Id_size8" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     Id_size8
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     Id_size8
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     Id_size8
     |}];
   Arg_test.eval_all t1 { prog = "test"; args = [ "Id_of_size12" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     ("Evaluation Raised" (
       Climate.Parse_error.E
       "Failed to parse the argument at position 0: invalid id"))
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     test: invalid id
     Usage: test [OPTION]… ARG
     Try 'test --help' for more information.
     ("Evaluation Failed" ((exit_code 124)))
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
       "Command.Failed_to_parse_command_line(\"failed to parse VAL value \\\"Id_of_size12\\\"\\n(Msg \\\"invalid id\\\")\")"))
     |}];
@@ -393,31 +393,31 @@ let%expect_test "comma_separated" =
   Arg_test.eval_all t1 { prog = "test"; args = [ "A" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     A
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     A
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     A
     |}];
   Arg_test.eval_all t1 { prog = "test"; args = [ "B" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     B
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     B
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     B
     |}];
   Arg_test.eval_all t1 { prog = "test"; args = [ "A,B" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     A,B
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     A,B
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     A,B
     |}];
   (* At the moment the translation does not consistently determine whether the
@@ -426,30 +426,30 @@ let%expect_test "comma_separated" =
   Arg_test.eval_all t1 { prog = "test"; args = [ "" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     ("Evaluation Raised" (
       Climate.Parse_error.E
       "Failed to parse the argument at position 0: invalid value: \"\" (valid values are: A, B)"))
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
 
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
       "Command.Failed_to_parse_command_line(\"failed to parse VAL value \\\"\\\"\\n(Failure \\\"Command.Spec.Arg_type.comma_separated: empty list not allowed\\\")\")"))
     |}];
   Arg_test.eval_all t1 { prog = "test"; args = [ "Not_an_e" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     ("Evaluation Raised" (
       Climate.Parse_error.E
       "Failed to parse the argument at position 0: invalid value: \"Not_an_e\" (valid values are: A, B)"))
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     test: invalid element in list ('Not_an_e'): invalid value 'Not_an_e',
           expected either 'A' or 'B'
     Usage: test [OPTION]… ARG
     Try 'test --help' for more information.
     ("Evaluation Failed" ((exit_code 124)))
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
       "Command.Failed_to_parse_command_line(\"failed to parse VAL value \\\"Not_an_e\\\"\\n(Failure \\\"valid arguments: {A,B}\\\")\")"))
     |}];

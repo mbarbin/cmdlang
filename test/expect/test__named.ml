@@ -11,36 +11,36 @@ let%expect_test "named" =
   Arg_test.eval_all test { prog = "test"; args = [] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     ("Evaluation Raised" (
       Climate.Parse_error.E "Missing required named argument: --who"))
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     test: required option --who is missing
     Usage: test [--who=WHO] [OPTION]…
     Try 'test --help' for more information.
     ("Evaluation Failed" ((exit_code 124)))
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     ("Evaluation Failed" "missing required flag: --who")
     |}];
   Arg_test.eval_all test { prog = "test"; args = [ "--who"; "World" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     Hello World
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     Hello World
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     Hello World
     |}];
   (* [climate] and [cmdliner] support the [--arg=VALUE] syntax. [core.command] does not. *)
   Arg_test.eval_all test { prog = "test"; args = [ "--who=You" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     Hello You
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     Hello You
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
       "Command.Failed_to_parse_command_line(\"unknown flag --who=You\")"))
     |}];
@@ -58,36 +58,36 @@ let%expect_test "1-letter-named" =
   Arg_test.eval_all test { prog = "test"; args = [] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     ("Evaluation Raised" (
       Climate.Parse_error.E "Missing required named argument: -w"))
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     test: required option -w is missing
     Usage: test [-w WHO] [OPTION]…
     Try 'test --help' for more information.
     ("Evaluation Failed" ((exit_code 124)))
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     ("Evaluation Failed" "missing required flag: -w")
     |}];
   Arg_test.eval_all test { prog = "test"; args = [ "-w"; "World" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     Hello World
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     Hello World
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     Hello World
     |}];
   (* [climate] and [cmdliner] support the [-wVALUE] syntax. [core.command] does not. *)
   Arg_test.eval_all test { prog = "test"; args = [ "-wYou" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     Hello You
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     Hello You
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
       "Command.Failed_to_parse_command_line(\"unknown flag -wYou\")"))
     |}];
@@ -105,18 +105,18 @@ let%expect_test "named_multi" =
   Arg_test.eval_all test { prog = "test"; args = [] };
   [%expect
     {|
-    ----------------------------- Climate
-    ----------------------------- Cmdliner
-    ----------------------------- Core_command
+    ----------------------------------------------------- Climate
+    ----------------------------------------------------- Cmdliner
+    ----------------------------------------------------- Core_command
     |}];
   Arg_test.eval_all test { prog = "test"; args = [ "--who"; "World" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     Hello World
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     Hello World
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     Hello World
     |}];
   Arg_test.eval_all
@@ -126,15 +126,15 @@ let%expect_test "named_multi" =
     };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     Hello World
     Hello You
     Hello Me
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     Hello World
     Hello You
     Hello Me
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     Hello World
     Hello You
     Hello Me
@@ -153,18 +153,18 @@ let%expect_test "named_opt" =
   Arg_test.eval_all test { prog = "test"; args = [] };
   [%expect
     {|
-    ----------------------------- Climate
-    ----------------------------- Cmdliner
-    ----------------------------- Core_command
+    ----------------------------------------------------- Climate
+    ----------------------------------------------------- Cmdliner
+    ----------------------------------------------------- Core_command
     |}];
   Arg_test.eval_all test { prog = "test"; args = [ "--who"; "World" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     Hello World
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     Hello World
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     Hello World
     |}];
   ()
@@ -186,21 +186,21 @@ let%expect_test "named_with_default" =
   Arg_test.eval_all test { prog = "test"; args = [] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     Hello World
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     Hello World
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     Hello World
     |}];
   Arg_test.eval_all test { prog = "test"; args = [ "--who"; "You" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     Hello You
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     Hello You
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     Hello You
     |}];
   ()
@@ -222,15 +222,15 @@ let%expect_test "named_with_default__comma_separated" =
   Arg_test.eval_all (test ()) { prog = "test"; args = [] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     Hello You
     Hello Me
     Hello World
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     Hello You
     Hello Me
     Hello World
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     Hello You
     Hello Me
     Hello World
@@ -238,9 +238,9 @@ let%expect_test "named_with_default__comma_separated" =
   Arg_test.eval_all (test ~default:[] ()) { prog = "test"; args = [] };
   [%expect
     {|
-    ----------------------------- Climate
-    ----------------------------- Cmdliner
-    ----------------------------- Core_command
+    ----------------------------------------------------- Climate
+    ----------------------------------------------------- Cmdliner
+    ----------------------------------------------------- Core_command
     |}];
   (* Empty values are currently treated inconsistently by the three
      translation+backend. In climate, you get a singleton made of the empty
@@ -249,23 +249,23 @@ let%expect_test "named_with_default__comma_separated" =
   Arg_test.eval_all (test ()) { prog = "test"; args = [ "--who"; "" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     Hello
-    ----------------------------- Cmdliner
-    ----------------------------- Core_command
+    ----------------------------------------------------- Cmdliner
+    ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
       "Command.Failed_to_parse_command_line(\"failed to parse --who value \\\"\\\".\\n(Failure \\\"Command.Spec.Arg_type.comma_separated: empty list not allowed\\\")\")"))
     |}];
   Arg_test.eval_all (test ()) { prog = "test"; args = [ "--who"; "Universe,Them Too" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     Hello Universe
     Hello Them Too
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     Hello Universe
     Hello Them Too
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     Hello Universe
     Hello Them Too
     |}];

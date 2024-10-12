@@ -134,7 +134,7 @@
   (ocaml
    (>= 5.2))
   (climate
-   (= 0.0.1~preview-0.1))
+   (>= 0.1.0~preview-0.1))
   (cmdlang
    (= :version))))
 
@@ -172,7 +172,7 @@
     :with-dev-setup
     (>= 2.8.3)))
   (climate
-   (= 0.0.1~preview-0.1))
+   (>= 0.1.0~preview-0.1))
   (cmdlang
    (= :version))
   (cmdlang-cmdliner-runner
