@@ -81,7 +81,7 @@ As you'll learn, `cmdlang` doesn't come with its own command runner. Instead, it
 
 <!-- $MDX skip -->
 ```sh
-$ opam install cmdlang-cmdliner-runner
+$ opam install cmdlang-to-cmdliner cmdliner
 ```
 
 **Setup bin/dune**
@@ -90,7 +90,7 @@ $ opam install cmdlang-cmdliner-runner
 ```lisp
 (executable
  (name main)
- (libraries cmdlang_cmdliner_runner getting_started))
+ (libraries cmdlang-to-cmdliner cmdliner getting_started))
 ```
 
 An invocation of `cmdliner` for a `cmdlang` command may look like this:
@@ -98,10 +98,12 @@ An invocation of `cmdliner` for a `cmdlang` command may look like this:
 <!-- $MDX file=main.ml -->
 ```ocaml
 let () =
-  Cmdlang_cmdliner_runner.run
-    Getting_started.cmd
-    ~name:"my-calculator"
-    ~version:"%%VERSION%%"
+  Cmdliner.Cmd.eval
+    (Cmdlang_to_cmdliner.Translate.command
+       Getting_started.cmd
+       ~name:"my-calculator"
+       ~version:"%%VERSION%%")
+  |> Stdlib.exit
 ;;
 ```
 
@@ -324,7 +326,7 @@ Try 'my-calculator --help' for more information.
 
 ## Conclusion
 
-In this tutorial, we've created a command-line interface and exposed its entry point from a library. Then, we've used the `cmdlang_to_cmdliner` translation step and set up dune build rules to create an executable that runs this command with `cmdliner` as a backend.
+In this tutorial, we've created a command-line interface and exposed its entry point from a library. Then, we've used the `cmdlang-to-cmdliner` translation step and set up dune build rules to create an executable that runs this command with `cmdliner` as a backend.
 
 While we've covered the basics, there are additional features you might want to explore, such as generating complete man pages and setting up auto-completion. We'll cover these advanced topics in other parts of the documentation.
 
