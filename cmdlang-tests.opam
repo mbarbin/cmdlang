@@ -13,7 +13,7 @@ depends: [
   "ocamlformat" {with-dev-setup & = "0.26.2"}
   "base" {>= "v0.17" & < "v0.18"}
   "bisect_ppx" {with-dev-setup & >= "2.8.3"}
-  "climate" {= "0.0.1~preview-0.1"}
+  "climate" {>= "0.1.0~preview-0.1"}
   "cmdlang" {= version}
   "cmdlang-cmdliner-runner" {= version}
   "cmdlang-to-base" {= version}

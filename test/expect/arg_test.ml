@@ -78,7 +78,7 @@ let eval_climate t { Command_line.prog; args } =
   | Ok arg_parser ->
     (match
        let cmd = Climate.Command.singleton arg_parser in
-       Climate.Command.eval cmd { program = prog; args }
+       Climate.Command.eval cmd ~program_name:(Literal prog) args
      with
      | () -> ()
      | exception e -> print_s [%sexp "Evaluation Raised", (e : Exn.t)] [@coverage off])
@@ -101,10 +101,14 @@ let eval_cmdliner t { Command_line.prog; args } =
 let eval_all t command_line =
   List.iter Backend.all ~f:(fun backend ->
     print_endline
-      (Printf.sprintf "----------------------------- %s" (Backend.to_string backend));
-    match backend with
-    | Climate -> eval_climate t command_line
-    | Cmdliner -> eval_cmdliner t command_line
-    | Core_command -> eval_base t command_line);
+      (Printf.sprintf
+         "----------------------------------------------------- %s"
+         (Backend.to_string backend));
+    (match backend with
+     | Climate -> eval_climate t command_line
+     | Cmdliner -> eval_cmdliner t command_line
+     | Core_command -> eval_base t command_line);
+    Stdlib.(flush stdout);
+    Stdlib.(flush stderr));
   ()
 ;;

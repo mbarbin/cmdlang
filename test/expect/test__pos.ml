@@ -11,25 +11,25 @@ let%expect_test "pos" =
   Arg_test.eval_all test { prog = "test"; args = [] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     ("Evaluation Raised" (
       Climate.Parse_error.E "Missing required positional argument at position 0."))
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     test: required argument WHO is missing
     Usage: test [OPTION]… WHO
     Try 'test --help' for more information.
     ("Evaluation Failed" ((exit_code 124)))
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     ("Evaluation Failed" "missing anonymous argument: WHO")
     |}];
   Arg_test.eval_all test { prog = "test"; args = [ "World" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     Hello World
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     Hello World
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     Hello World
     |}];
   ()
@@ -49,16 +49,16 @@ let%expect_test "skipping-pos" =
   Arg_test.eval_all test { prog = "test"; args = [] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     ("Evaluation Raised" (
       Climate.Spec_error.E
       "Attempted to declare a parser with a gap in its positional arguments. No parser would interpret the argument at position 0 but there is a parser for at least one argument at a higher position."))
-    ----------------------------- Cmdliner
+    Attempted to declare a parser with a gap in its positional arguments. No parser would interpret the argument at position 0 but there is a parser for at least one argument at a higher position.----------------------------------------------------- Cmdliner
     test: required argument WHO is missing
     Usage: test [OPTION]… WHO
     Try 'test --help' for more information.
     ("Evaluation Failed" ((exit_code 124)))
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     ("Translation Raised" (
       "Positional arguments must be supplied in consecutive order"
       ((expected 0)
@@ -67,16 +67,16 @@ let%expect_test "skipping-pos" =
   Arg_test.eval_all test { prog = "test"; args = [ "World" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     ("Evaluation Raised" (
       Climate.Spec_error.E
       "Attempted to declare a parser with a gap in its positional arguments. No parser would interpret the argument at position 0 but there is a parser for at least one argument at a higher position."))
-    ----------------------------- Cmdliner
+    Attempted to declare a parser with a gap in its positional arguments. No parser would interpret the argument at position 0 but there is a parser for at least one argument at a higher position.----------------------------------------------------- Cmdliner
     test: required argument WHO is missing
     Usage: test [OPTION]… WHO
     Try 'test --help' for more information.
     ("Evaluation Failed" ((exit_code 124)))
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     ("Translation Raised" (
       "Positional arguments must be supplied in consecutive order"
       ((expected 0)
@@ -85,13 +85,13 @@ let%expect_test "skipping-pos" =
   Arg_test.eval_all test { prog = "test"; args = [ "Big"; "World" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     ("Evaluation Raised" (
       Climate.Spec_error.E
       "Attempted to declare a parser with a gap in its positional arguments. No parser would interpret the argument at position 0 but there is a parser for at least one argument at a higher position."))
-    ----------------------------- Cmdliner
+    Attempted to declare a parser with a gap in its positional arguments. No parser would interpret the argument at position 0 but there is a parser for at least one argument at a higher position.----------------------------------------------------- Cmdliner
     Hello World
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     ("Translation Raised" (
       "Positional arguments must be supplied in consecutive order"
       ((expected 0)
@@ -111,18 +111,18 @@ let%expect_test "pos_opt" =
   Arg_test.eval_all test { prog = "test"; args = [] };
   [%expect
     {|
-    ----------------------------- Climate
-    ----------------------------- Cmdliner
-    ----------------------------- Core_command
+    ----------------------------------------------------- Climate
+    ----------------------------------------------------- Cmdliner
+    ----------------------------------------------------- Core_command
     |}];
   Arg_test.eval_all test { prog = "test"; args = [ "World" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     Hello World
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     Hello World
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     Hello World
     |}];
   ()
@@ -144,21 +144,21 @@ let%expect_test "pos_with_default" =
   Arg_test.eval_all test { prog = "test"; args = [] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     Hello World
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     Hello World
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     Hello World
     |}];
   Arg_test.eval_all test { prog = "test"; args = [ "You" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     Hello You
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     Hello You
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     Hello You
     |}];
   ()
@@ -175,32 +175,32 @@ let%expect_test "pos_all" =
   Arg_test.eval_all test { prog = "test"; args = [] };
   [%expect
     {|
-    ----------------------------- Climate
-    ----------------------------- Cmdliner
-    ----------------------------- Core_command
+    ----------------------------------------------------- Climate
+    ----------------------------------------------------- Cmdliner
+    ----------------------------------------------------- Core_command
     |}];
   Arg_test.eval_all test { prog = "test"; args = [ "World" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     Hello World
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     Hello World
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     Hello World
     |}];
   Arg_test.eval_all test { prog = "test"; args = [ "World"; "You"; "Me" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     Hello World
     Hello You
     Hello Me
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     Hello World
     Hello You
     Hello Me
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     Hello World
     Hello You
     Hello Me

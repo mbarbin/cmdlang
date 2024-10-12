@@ -16,21 +16,21 @@ let%expect_test "negative positional" =
   Arg_test.eval_all test { prog = "test"; args = [ "0" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     zero
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     zero
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     zero
     |}];
   Arg_test.eval_all test { prog = "test"; args = [ "+1" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     positive
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     positive
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     positive
     |}];
   (* All three backend agree, negative numbers are not supported as positional
@@ -38,17 +38,17 @@ let%expect_test "negative positional" =
   Arg_test.eval_all test { prog = "test"; args = [ "-1" ] };
   [%expect
     {|
-      ----------------------------- Climate
-      ("Evaluation Raised" (Climate.Parse_error.E "Unknown argument name: -1"))
-      ----------------------------- Cmdliner
-      test: unknown option '-1'.
-      Usage: test [OPTION]… INT
-      Try 'test --help' for more information.
-      ("Evaluation Failed" ((exit_code 124)))
-      ----------------------------- Core_command
-      ("Evaluation Failed" (
-        "Command.Failed_to_parse_command_line(\"unknown flag -1\")"))
-      |}];
+    ----------------------------------------------------- Climate
+    ("Evaluation Raised" (Climate.Parse_error.E "Unknown argument name: -1"))
+    ----------------------------------------------------- Cmdliner
+    test: unknown option '-1'.
+    Usage: test [OPTION]… INT
+    Try 'test --help' for more information.
+    ("Evaluation Failed" ((exit_code 124)))
+    ----------------------------------------------------- Core_command
+    ("Evaluation Failed" (
+      "Command.Failed_to_parse_command_line(\"unknown flag -1\")"))
+    |}];
   ()
 ;;
 
@@ -68,21 +68,21 @@ let%expect_test "negative named" =
   Arg_test.eval_all test { prog = "test"; args = [ "-n"; "0" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     zero
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     zero
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     zero
     |}];
   Arg_test.eval_all test { prog = "test"; args = [ "-n"; "+1" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     positive
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     positive
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     positive
     |}];
   (* When the arg is named, climate and core.command support negative values,
@@ -90,14 +90,14 @@ let%expect_test "negative named" =
   Arg_test.eval_all test { prog = "test"; args = [ "-n"; "-1" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     negative
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     test: unknown option '-1'.
     Usage: test [-n INT] [OPTION]…
     Try 'test --help' for more information.
     ("Evaluation Failed" ((exit_code 124)))
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     negative
     |}];
   ()

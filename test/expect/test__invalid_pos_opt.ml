@@ -14,25 +14,25 @@ let%expect_test "invalid_pos_sequence" =
   Arg_test.eval_all test { prog = "test"; args = [ "A"; "B" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     ((a (A)) (b B))
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     ((a (A)) (b B))
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     ((a (A)) (b B))
     |}];
   Arg_test.eval_all test { prog = "test"; args = [ "B" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     ("Evaluation Raised" (
       Climate.Parse_error.E "Missing required positional argument at position 1."))
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     test: required argument STRING is missing
     Usage: test [OPTION]… [STRING] STRING
     Try 'test --help' for more information.
     ("Evaluation Failed" ((exit_code 124)))
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     ("Evaluation Failed" "missing anonymous argument: STRING")
     |}];
   ()
@@ -57,7 +57,7 @@ let%expect_test "base" =
 let%expect_test "climate" =
   let cmd = Cmdlang_to_climate.Translate.command cmd in
   let run args =
-    match Climate.Command.eval cmd { program = "./main.exe"; args } with
+    match Climate.Command.eval cmd ~program_name:(Literal "./main.exe") args with
     | () -> ()
     | exception e -> print_s [%sexp "Evaluation raised", (e : Exn.t)]
   in

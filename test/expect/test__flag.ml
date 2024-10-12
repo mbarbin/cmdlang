@@ -9,19 +9,19 @@ let%expect_test "flag" =
   Arg_test.eval_all test { prog = "test"; args = [] };
   [%expect
     {|
-    ----------------------------- Climate
-    ----------------------------- Cmdliner
-    ----------------------------- Core_command
+    ----------------------------------------------------- Climate
+    ----------------------------------------------------- Cmdliner
+    ----------------------------------------------------- Core_command
     |}];
   (* When full flags are provided, all backend agree and things work as expected. *)
   Arg_test.eval_all test { prog = "test"; args = [ "--print-hello" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     Hello
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     Hello
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     Hello
     |}];
   (* When the specification does not include an explicit one letter alias, none
@@ -29,14 +29,14 @@ let%expect_test "flag" =
   Arg_test.eval_all test { prog = "test"; args = [ "-p" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     ("Evaluation Raised" (Climate.Parse_error.E "Unknown argument name: -p"))
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     test: unknown option '-p'.
     Usage: test [--print-hello] [OPTION]…
     Try 'test --help' for more information.
     ("Evaluation Failed" ((exit_code 124)))
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
       "Command.Failed_to_parse_command_line(\"unknown flag -p\")"))
     |}];
@@ -47,14 +47,14 @@ let%expect_test "flag" =
   Arg_test.eval_all test { prog = "test"; args = [ "-print-hello" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     ("Evaluation Raised" (Climate.Parse_error.E "Unknown argument name: -p"))
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     test: unknown option '-p', did you mean '--print-hello'?
     Usage: test [--print-hello] [OPTION]…
     Try 'test --help' for more information.
     ("Evaluation Failed" ((exit_code 124)))
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
       "Command.Failed_to_parse_command_line(\"unknown flag -print-hello\")"))
     |}];
@@ -64,11 +64,11 @@ let%expect_test "flag" =
   Arg_test.eval_all test { prog = "test"; args = [ "--print" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     ("Evaluation Raised" (Climate.Parse_error.E "Unknown argument name: --print"))
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     Hello
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     Hello
     |}];
   ()
@@ -84,35 +84,35 @@ let%expect_test "1-letter-flag" =
   Arg_test.eval_all test { prog = "test"; args = [] };
   [%expect
     {|
-    ----------------------------- Climate
-    ----------------------------- Cmdliner
-    ----------------------------- Core_command
+    ----------------------------------------------------- Climate
+    ----------------------------------------------------- Cmdliner
+    ----------------------------------------------------- Core_command
     |}];
   (* One letter flags are expected to be supplied with a single dash. *)
   Arg_test.eval_all test { prog = "test"; args = [ "-p" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     Hello
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     Hello
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     Hello
     |}];
   (* One letter flags are not recognized with called with two dashes. All backend agree on that. *)
   Arg_test.eval_all test { prog = "test"; args = [ "--p" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     ("Evaluation Raised" (
       Climate.Parse_error.E
       "Single-character names must only be specified with a single dash. \"--p\" is not allowed as it has two dashes but only one character."))
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     test: unknown option '--p', did you mean '-p'?
     Usage: test [-p] [OPTION]…
     Try 'test --help' for more information.
     ("Evaluation Failed" ((exit_code 124)))
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
       "Command.Failed_to_parse_command_line(\"unknown flag --p\")"))
     |}];
@@ -130,30 +130,30 @@ let%expect_test "1-letter-alias" =
   Arg_test.eval_all test { prog = "test"; args = [] };
   [%expect
     {|
-    ----------------------------- Climate
-    ----------------------------- Cmdliner
-    ----------------------------- Core_command
+    ----------------------------------------------------- Climate
+    ----------------------------------------------------- Cmdliner
+    ----------------------------------------------------- Core_command
     |}];
   (* When full flags are provided, all backend agree and things work as expected. *)
   Arg_test.eval_all test { prog = "test"; args = [ "--print-hello" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     Hello
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     Hello
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     Hello
     |}];
   (* The specification now includes an explicit one letter alias. *)
   Arg_test.eval_all test { prog = "test"; args = [ "-p" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     Hello
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     Hello
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     Hello
     |}];
   (* One letter flags may not be called with 2 dashes. However, since [cmdliner]
@@ -163,13 +163,13 @@ let%expect_test "1-letter-alias" =
   Arg_test.eval_all test { prog = "test"; args = [ "--p" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     ("Evaluation Raised" (
       Climate.Parse_error.E
       "Single-character names must only be specified with a single dash. \"--p\" is not allowed as it has two dashes but only one character."))
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     Hello
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     Hello
     |}];
   ()
@@ -188,29 +188,29 @@ let%expect_test "ambiguous prefixes" =
   Arg_test.eval_all test { prog = "test"; args = [] };
   [%expect
     {|
-    ----------------------------- Climate
-    ----------------------------- Cmdliner
-    ----------------------------- Core_command
+    ----------------------------------------------------- Climate
+    ----------------------------------------------------- Cmdliner
+    ----------------------------------------------------- Core_command
     |}];
   (* When full flags are provided, all backend agree and things work as expected. *)
   Arg_test.eval_all test { prog = "test"; args = [ "--print-hello-you" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     Hello You
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     Hello You
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     Hello You
     |}];
   Arg_test.eval_all test { prog = "test"; args = [ "--print-hello-world" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     Hello World
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     Hello World
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     Hello World
     |}];
   (* When the flags are supplied partially, the backend diverge. If the
@@ -218,27 +218,27 @@ let%expect_test "ambiguous prefixes" =
   Arg_test.eval_all test { prog = "test"; args = [ "--print-hello-w" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     ("Evaluation Raised" (
       Climate.Parse_error.E "Unknown argument name: --print-hello-w"))
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     Hello World
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     Hello World
     |}];
   (* When the prefix is ambiguous, it is rejected. *)
   Arg_test.eval_all test { prog = "test"; args = [ "--print-hello" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     ("Evaluation Raised" (
       Climate.Parse_error.E "Unknown argument name: --print-hello"))
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     test: option '--print-hello' ambiguous and could be either '--print-hello-world' or '--print-hello-you'
     Usage: test [--print-hello-world] [--print-hello-you] [OPTION]…
     Try 'test --help' for more information.
     ("Evaluation Failed" ((exit_code 124)))
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
       "Command.Failed_to_parse_command_line(\"flag --print-hello is an ambiguous prefix: --print-hello-world, --print-hello-you\")"))
     |}];
@@ -255,11 +255,11 @@ let%expect_test "flag_count" =
   Arg_test.eval_all test { prog = "test"; args = [] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     ((count 0))
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     ((count 0))
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     ("Translation Raised" (
       "Flag_count not supported by core.command" ((names (count c)) (doc count))))
     |}];
@@ -267,11 +267,11 @@ let%expect_test "flag_count" =
   Arg_test.eval_all test { prog = "test"; args = [ "--count"; "-c"; "-c" ] };
   [%expect
     {|
-    ----------------------------- Climate
+    ----------------------------------------------------- Climate
     ((count 3))
-    ----------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     ((count 3))
-    ----------------------------- Core_command
+    ----------------------------------------------------- Core_command
     ("Translation Raised" (
       "Flag_count not supported by core.command" ((names (count c)) (doc count))))
     |}];

@@ -26,7 +26,8 @@ let%expect_test "climate" =
   (* In climate, subcommand names containing an underscore are valid. *)
   Climate.Command.eval
     (Cmdlang_to_climate.Translate.command group)
-    { program = "./main.exe"; args = [ "name_with_underscore" ] };
+    ~program_name:(Literal "./main.exe")
+    [ "name_with_underscore" ];
   [%expect {||}];
   ()
 ;;
