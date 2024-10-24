@@ -1,14 +1,11 @@
-## 0.0.6 (unreleased)
-
-### Added
+## 0.0.6 (2024-10-24)
 
 ### Changed
 
-### Deprecated
-
-### Fixed
-
-### Removed
+- Prepare documentation for initial release.
+- Upgrade to `climate.0.1.0`.
+- Make opam files pass opam-repository linting rules.
+- Upgrade Docusaurus.
 
 ## 0.0.5 (2024-09-17)
 
