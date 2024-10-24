@@ -22,7 +22,7 @@
  (synopsis "Declarative Command-line Parsing for OCaml")
  (depends
   (ocaml
-   (>= 5.2))))
+   (>= 4.14))))
 
 (package
  (name err)
@@ -121,20 +121,24 @@
  (synopsis "Convert cmdlang Parsers to cmdliner")
  (depends
   (ocaml
-   (>= 5.2))
+   (>= 4.14))
   (cmdlang
    (= :version))
   (cmdliner
-   (= 1.3.0))))
+   (and
+    (>= 1.3.0)
+    (< 1.4)))))
 
 (package
  (name cmdlang-to-climate)
  (synopsis "Convert cmdlang Parsers to climate")
  (depends
   (ocaml
-   (>= 5.2))
+   (>= 4.14))
   (climate
-   (>= 0.1.0~preview-0.1))
+   (and
+    (>= 0.1.0~)
+    (< 0.2)))
   (cmdlang
    (= :version))))
 
@@ -143,13 +147,15 @@
  (synopsis "A cmdlang runner using cmdliner and err")
  (depends
   (ocaml
-   (>= 5.2))
+   (>= 4.14))
   (cmdlang
    (= :version))
   (cmdlang-to-cmdliner
    (= :version))
   (cmdliner
-   (= 1.3.0))
+   (and
+    (>= 1.3.0)
+    (< 1.4)))
   (err
    (= :version))))
 
@@ -172,7 +178,9 @@
     :with-dev-setup
     (>= 2.8.3)))
   (climate
-   (>= 0.1.0~preview-0.1))
+   (and
+    (>= 0.1.0~)
+    (< 0.2)))
   (cmdlang
    (= :version))
   (cmdlang-cmdliner-runner
@@ -184,7 +192,7 @@
   (cmdlang-to-cmdliner
    (= :version))
   (cmdliner
-   (= 1.3.0))
+   (>= 1.3.0))
   (core
    (and
     (>= v0.17)
