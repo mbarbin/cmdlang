@@ -1,12 +1,66 @@
-(** Declarative Command-line Parsing for OCaml. *)
+(** Declarative Command-line Parsing for OCaml.
+
+    Cmdlang is a library for creating command-line parsers in OCaml. Implemented
+    as an OCaml EDSL, its declarative specification language lives at the
+    intersection of other well-established similar libraries.
+
+    Cmdlang exposes a single module named [Command], which contains the entire
+    API to declare command line parsers.
+
+    Assuming [Cmdlang.Command] to be available in your scope as [Command], the
+    following is a minimalist command that does nothing:
+
+    {[
+      let cmd : unit Command.t =
+        Command.make
+          ~summary:"A command that does nothing"
+          (let open Command.Std in
+           let+ () = Arg.return () in
+           ())
+      ;;
+    ]}
+
+    To get started with this API refers to this
+    {{:https://mbarbin.github.io/cmdlang/docs/tutorials/getting-started/} tutorial}
+    from cmdlang's documentation. *)
 
 (** {1 Utils} *)
 
 module Nonempty_list : sig
+  (** A type to represent lists that are statically known to be non-empty. *)
+
+  (** The way this constructor is defined allows one to use the regular list
+      literal syntax in a context where a non-empty list is expected. For
+      example, the function {!val:Arg.flag} expects a first argument of type
+      [string Nonempty_list.t] and may be used that way:
+
+      {[
+        Arg.flag [ "verbose" ] ~doc:"enable more output"
+      ]}
+
+      The point being that the following would be a type error:
+
+      {[
+        Arg.flag [] ~doc:"enable more output"
+      ]} *)
   type 'a t = 'a Cmdlang_ast.Ast.Nonempty_list.t = ( :: ) : 'a * 'a list -> 'a t
 end
 
+(** {1 Interfaces}
+
+    These interfaces are convenient to use with the {!module:Param} module, so
+    you can apply its helpers to custom modules. For example, if your module
+    [My_enum] implements the {!Enumerated_stringable} interface, then you can
+    build a parser for it with:
+
+    {[
+      Param.enumerated (module My_enum)
+    ]} *)
+
 module type Enumerated_stringable = sig
+  (** An interface for types that have a finite number of inhabitants that all
+      have a canonical string representation. *)
+
   type t
 
   val all : t list
@@ -28,11 +82,11 @@ end
 
 module type Validated_string = sig
   (** An interface for types that can be parsed from strings, with the possibility
-      of parsing failures. This is useful for types that require validation
-      during conversion from string representations.
+      of parsing failures.
 
-      The names [v] and [to_string] were chosen to match the conventions used by
-      some existing libraries, such as [Fpath]. *)
+      This is useful for types that require validation during conversion from
+      string representations. The names [v] and [to_string] were chosen to match
+      the conventions used by some existing libraries, such as [Fpath]. *)
 
   type t
 
@@ -162,7 +216,17 @@ end
 
 (** {1 Let operators}
 
-    For use with the [( let+ )] style. *)
+    For use with the [( let+ )] style:
+
+    {[
+      let cmd : unit Command.t =
+        Command.make
+          ~summary:"A command that does nothing"
+          (let open Command.Std in
+           let+ () = Arg.return () in
+           ())
+      ;;
+    ]} *)
 
 module Std : sig
   include Applicative_syntax with type 'a t := 'a Arg.t
@@ -173,7 +237,16 @@ end
 
 (** {1 Ppx_let}
 
-    For use with the [( let%map_open.Command )] style. *)
+    For use with the [( let%map_open.Command )] style:
+
+    {[
+      let cmd : unit Command.t =
+        Command.make
+          ~summary:"A command that does nothing"
+          (let%map_open.Command () = Arg.return () in
+           ())
+      ;;
+    ]} *)
 
 module Let_syntax : sig
     (** Substituted below. *)

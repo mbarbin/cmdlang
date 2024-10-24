@@ -1,3 +1,11 @@
+(** Translate cmdlang parsers to climate.
+
+    The translation to climate is experimental, not well tested or documented,
+    and doesn't support all features of climate. In particular there's currently
+    no support to target the auto-completion features offered by climate. This
+    is an area left for future work. More info
+    {{:https://mbarbin.github.io/cmdlang/docs/explanation/future_plans/} here}. *)
+
 (** {1 Param} *)
 
 val param : 'a Cmdlang.Command.Param.t -> 'a Climate.Arg_parser.conv

@@ -1,3 +1,20 @@
+(** The internal representation for the EDSL used by the cmdlang library.
+
+    Cmdlang doesn't include an execution engine. Instead, Cmdlang parsers are
+    automatically translated to `cmdliner`, `core.command`, or `climate`
+    commands for execution.
+
+    When you use the cmdlang library to define a command-line interface, you are
+    effectively building a value of type [Cmdlang_ast.Ast.Command.t]. It is then
+    converted internally to the targeted backend.
+
+    This module is not meant to be used directly by users of the library.
+    Rather, users use the [Cmdlang.Command] interface which provides a
+    high-level API meant to be ergonomic and user-friendly.
+
+    [Cmdlang_ast] is exposed to allow extending the library with new backends or
+    to write analysis tools, etc. *)
+
 type 'a parse := string -> ('a, [ `Msg of string ]) result
 type 'a print := Format.formatter -> 'a -> unit
 
