@@ -1,3 +1,5 @@
+(** Translate cmdlang parsers to cmdliner. *)
+
 (** {1 Param} *)
 
 val param : 'a Cmdlang.Command.Param.t -> 'a Cmdliner.Arg.conv

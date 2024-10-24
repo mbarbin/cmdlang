@@ -1,3 +1,15 @@
+(** Translate cmdlang parsers to core.command. *)
+
+(** {1 Configuration}
+
+    The translation implemented in this module allows some configuration
+    regarding the resulting command that you want to build. The goal of this
+    configuration is to furnish assistance for complex multi-stages migrations from
+    a backend to another.
+
+    It is currently experimental, not well tested or documented, and expected to
+    change in the future. *)
+
 module Config : sig
   type t
 
