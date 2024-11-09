@@ -15,15 +15,12 @@ depends: [
   "bisect_ppx" {with-dev-setup & >= "2.8.3"}
   "climate" {>= "0.1.0~" & < "0.2"}
   "cmdlang" {= version}
-  "cmdlang-cmdliner-runner" {= version}
   "cmdlang-to-base" {= version}
   "cmdlang-to-climate" {= version}
   "cmdlang-to-cmdliner" {= version}
   "cmdliner" {>= "1.3.0"}
   "core" {>= "v0.17" & < "v0.18"}
   "core_unix" {>= "v0.17" & < "v0.18"}
-  "err" {= version}
-  "err-cli" {= version}
   "expect_test_helpers_core" {>= "v0.17" & < "v0.18"}
   "loc" {>= "0.2.0"}
   "mdx" {>= "2.4"}
