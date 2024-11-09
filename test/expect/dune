@@ -22,8 +22,6 @@
   cmdliner
   core.command
   core_unix.command_unix
-  pp-log.err
-  pp-log.cli
   expect_test_helpers_core.expect_test_helpers_base
   loc)
  (instrumentation
