@@ -1,3 +1,9 @@
+## 0.0.7 (2024-11-10)
+
+### Removed
+
+- Moved `err`, `err-cli` and `cmdlang-cmdliner-runner` to [pp-log](https://github.com/mbarbin/pp-log).
+
 ## 0.0.6 (2024-10-24)
 
 ### Changed
