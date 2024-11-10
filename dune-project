@@ -25,45 +25,6 @@
    (>= 4.14))))
 
 (package
- (name err)
- (synopsis "Error Handling Standard Based on Human Readable Messages")
- (depends
-  (ocaml
-   (>= 5.2))
-  (loc
-   (>= 0.2.0))
-  (sexplib0
-   (and
-    (>= v0.17)
-    (< v0.18)))
-  (stdune
-   (>= 3.16))))
-
-(package
- (name err-cli)
- (synopsis
-  "Command line interface configuration for [Err] based on [Cmdlang]")
- (depends
-  (ocaml
-   (>= 5.2))
-  (cmdlang
-   (= :version))
-  (err
-   (= :version))
-  (fmt
-   (>= 0.9.0))
-  (loc
-   (>= 0.2.0))
-  (logs
-   (>= 0.7.0))
-  (sexplib0
-   (and
-    (>= v0.17)
-    (< v0.18)))
-  (stdune
-   (>= 3.16))))
-
-(package
  (name cmdlang-to-base)
  (synopsis "Convert cmdlang Parsers to core.command")
  (depends
@@ -143,23 +104,6 @@
    (= :version))))
 
 (package
- (name cmdlang-cmdliner-runner)
- (synopsis "A cmdlang runner using cmdliner and err")
- (depends
-  (ocaml
-   (>= 4.14))
-  (cmdlang
-   (= :version))
-  (cmdlang-to-cmdliner
-   (= :version))
-  (cmdliner
-   (and
-    (>= 1.3.0)
-    (< 1.4)))
-  (err
-   (= :version))))
-
-(package
  (name cmdlang-tests)
  (synopsis "Tests for cmdlang")
  (depends
@@ -183,8 +127,6 @@
     (< 0.2)))
   (cmdlang
    (= :version))
-  (cmdlang-cmdliner-runner
-   (= :version))
   (cmdlang-to-base
    (= :version))
   (cmdlang-to-climate
@@ -201,10 +143,6 @@
    (and
     (>= v0.17)
     (< v0.18)))
-  (err
-   (= :version))
-  (err-cli
-   (= :version))
   (expect_test_helpers_core
    (and
     (>= v0.17)

@@ -1,8 +1,12 @@
 name: ci
 
 on:
-  - pull_request
-  - push
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - "**" # This will match pull requests targeting any branch
 
 jobs:
   build:
@@ -27,8 +31,8 @@ jobs:
           opam-repositories: |
             default: https://github.com/ocaml/opam-repository.git
             mbarbin: https://github.com/mbarbin/opam-repository.git
-#           janestreet-bleeding: https://github.com/janestreet/opam-repository.git
-#           janestreet-bleeding-external: https://github.com/janestreet/opam-repository.git#external-packages
+      #     janestreet-bleeding: https://github.com/janestreet/opam-repository.git
+      #     janestreet-bleeding-external: https://github.com/janestreet/opam-repository.git#external-packages
 
       - name: Install dependencies
         run: opam install . --deps-only --with-doc --with-test --with-dev-setup
@@ -38,8 +42,8 @@ jobs:
 
       - name: Run tests
         run: |
-             mkdir $BISECT_DIR
-             opam exec -- dune runtest --instrument-with bisect_ppx
+          mkdir $BISECT_DIR
+          opam exec -- dune runtest --instrument-with bisect_ppx
         env:
           BISECT_DIR: ${{ runner.temp }}/_bisect_ppx_data
           BISECT_FILE: ${{ runner.temp }}/_bisect_ppx_data/data
