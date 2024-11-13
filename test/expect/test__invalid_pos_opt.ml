@@ -20,6 +20,8 @@ let%expect_test "invalid_pos_sequence" =
     ((a (A)) (b B))
     ----------------------------------------------------- Core_command
     ((a (A)) (b B))
+    ----------------------------------------------------- Stdlib_runner
+    ((a (A)) (b B))
     |}];
   Arg_test.eval_all test { prog = "test"; args = [ "B" ] };
   [%expect
@@ -34,6 +36,9 @@ let%expect_test "invalid_pos_sequence" =
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" "missing anonymous argument: STRING")
+    ----------------------------------------------------- Stdlib_runner
+    Missing required positional argument at position 1.
+    ("Evaluation Failed" ((exit_code 2)))
     |}];
   ()
 ;;
@@ -90,6 +95,26 @@ let%expect_test "cmdliner" =
     Usage: ./main.exe [OPTION]… [STRING] STRING
     Try './main.exe --help' for more information.
     124
+    |}];
+  ()
+;;
+
+let%expect_test "stdlib-runner" =
+  let run args =
+    Cmdlang_stdlib_runner.eval_exit_code
+      cmd
+      ~argv:(Array.concat [ [| "./main.exe" |]; Array.of_list args ])
+    |> Stdlib.print_int
+  in
+  run [ "A"; "B" ];
+  [%expect {|
+    ((a (A)) (b B))
+    0
+    |}];
+  run [ "B" ];
+  [%expect {|
+    Missing required positional argument at position 1.
+    2
     |}];
   ()
 ;;

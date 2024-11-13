@@ -41,3 +41,14 @@ let%expect_test "cmdliner" =
   [%expect {| 0 |}];
   ()
 ;;
+
+let%expect_test "stdlib-runner" =
+  (* In the stdlib-runner, subcommand names containing an underscore are valid. *)
+  (match
+     Cmdlang_stdlib_runner.eval group ~argv:[| "./main.exe"; "name_with_underscore" |]
+   with
+   | Ok () -> ()
+   | Error _ -> assert false);
+  [%expect {||}];
+  ()
+;;

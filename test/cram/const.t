@@ -48,6 +48,14 @@ Checking the help when there are no arguments.
   SEE ALSO
          ./main_cmdliner.exe(1)
   
+  $ ./main_stdlib_runner.exe return --help
+  Usage: ./main_stdlib_runner.exe return [OPTIONS]
+  
+  An empty command
+  
+  Options:
+    -help   Display this list of options
+    --help  Display this list of options
 
 And run it too.
 
@@ -58,4 +66,7 @@ And run it too.
   ()
 
   $ ./main_cmdliner.exe return
+  ()
+
+  $ ./main_stdlib_runner.exe return
   ()

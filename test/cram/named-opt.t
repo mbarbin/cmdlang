@@ -58,11 +58,27 @@ Let's start with characterizing whether and how the default value appears in the
          ./main_cmdliner.exe(1)
   
 
+  $ ./main_stdlib_runner.exe named opt string-with-docv --help
+  Usage: ./main_stdlib_runner.exe named opt string-with-docv [OPTIONS]
+  
+  Named_opt__string_with_docv
+  
+  Options:
+    --who <WHO> Hello WHO?
+    -help       Display this list of options
+    --help      Display this list of options
+
+--
+
   $ ./main_base.exe named opt string-with-docv
 
   $ ./main_climate.exe named opt string-with-docv
 
   $ ./main_cmdliner.exe named opt string-with-docv
+
+  $ ./main_stdlib_runner.exe named opt string-with-docv
+
+--
 
   $ ./main_base.exe named opt string-with-docv --who Alice
   Hello Alice
@@ -71,6 +87,9 @@ Let's start with characterizing whether and how the default value appears in the
   Hello Alice
 
   $ ./main_cmdliner.exe named opt string-with-docv --who Alice
+  Hello Alice
+
+  $ ./main_stdlib_runner.exe named opt string-with-docv --who Alice
   Hello Alice
 
 Characterizing the flag documentation when the `docv` parameter is not supplied.
@@ -131,3 +150,14 @@ Characterizing the flag documentation when the `docv` parameter is not supplied.
   SEE ALSO
          ./main_cmdliner.exe(1)
   
+
+  $ ./main_stdlib_runner.exe named opt string-without-docv --help
+  Usage: ./main_stdlib_runner.exe named opt string-without-docv [OPTIONS]
+  
+  Named_opt__string_without_docv
+  
+  Options:
+    --who <STRING> Hello WHO?
+    -help          Display this list of options
+    --help         Display this list of options
+

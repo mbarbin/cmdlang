@@ -74,3 +74,18 @@ the executable for each backend.
   
          125 on unexpected internal errors (bugs).
   
+
+  $ ./main_stdlib_runner.exe --help
+  Usage: ./main_stdlib_runner.exe [OPTIONS]
+  
+  Cram Test Command
+  
+  Subcommands:
+    basic      Basic types
+    doc        Testing documentation features
+    named      Named arguments
+    return     An empty command
+  
+  Options:
+    -help   Display this list of options
+    --help  Display this list of options

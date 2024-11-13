@@ -74,6 +74,23 @@
          ./main_cmdliner.exe(1)
   
 
+  $ ./main_stdlib_runner.exe doc --help
+  Usage: ./main_stdlib_runner.exe doc [OPTIONS]
+  
+  Testing documentation features
+  
+  
+  This group is dedicated to testing documentation features.
+      
+  
+  Subcommands:
+    args-doc-end-with-dots     Args doc end with dots
+    singleton-with-readme      Singleton command with a readme
+  
+  Options:
+    -help   Display this list of options
+    --help  Display this list of options
+
 A singleton command with a readme:
 
   $ ./main_base.exe doc singleton-with-readme --help
@@ -138,6 +155,21 @@ A singleton command with a readme:
   SEE ALSO
          ./main_cmdliner.exe(1)
   
+
+  $ ./main_stdlib_runner.exe doc singleton-with-readme --help
+  Usage: ./main_stdlib_runner.exe doc singleton-with-readme [OPTIONS]
+  
+  Singleton command with a readme
+  
+  
+  This is a readme.
+  It can be written on multiple lines.
+  
+  
+  Options:
+    -help   Display this list of options
+    --help  Display this list of options
+
 Arguments doc created with or without dots at the end. Positional arguments are
 currently not documented in the help output of the base and climate commands,
 but they are in the cmdliner command. In cmdliner, we currently add the trailing
@@ -172,10 +204,10 @@ dot to the documentation string if it is not present.
   
   ARGUMENTS
          STRING (required)
-             The doc for a ends with a dot.
+             The doc for [a] in the code ends with a dot.
   
          STRING (required)
-             The doc for b doesn't.
+             The doc for [b] doesn't.
   
   COMMON OPTIONS
          --help[=FMT] (default=auto)
@@ -200,3 +232,17 @@ dot to the documentation string if it is not present.
   SEE ALSO
          ./main_cmdliner.exe(1)
   
+
+  $ ./main_stdlib_runner.exe doc args-doc-end-with-dots --help
+  Usage: ./main_stdlib_runner.exe doc args-doc-end-with-dots [OPTIONS] [ARGUMENTS]
+  
+  Args doc end with dots
+  
+  Arguments:
+    <STRING>  The doc for [a] in the code ends with a dot (required)
+    <STRING>  The doc for [b] doesn't (required)
+  
+  Options:
+    -help   Display this list of options
+    --help  Display this list of options
+
