@@ -55,7 +55,7 @@ module Private : sig
       change in breaking ways without any notice. Do not use. *)
 
   module Arg : sig
-    type 'a t = { param : 'a Command.Param.t }
+    type 'a t = 'a Command.Param.t
 
     val translate : 'a Cmdlang_ast.Ast.Arg.t -> config:Config.t -> 'a t
   end
