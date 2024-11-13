@@ -21,6 +21,9 @@ let%expect_test "pos" =
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" "missing anonymous argument: WHO")
+    ----------------------------------------------------- Stdlib_runner
+    Missing required positional argument at position 0.
+    ("Evaluation Failed" ((exit_code 2)))
     |}];
   Arg_test.eval_all test { prog = "test"; args = [ "World" ] };
   [%expect
@@ -30,6 +33,8 @@ let%expect_test "pos" =
     ----------------------------------------------------- Cmdliner
     Hello World
     ----------------------------------------------------- Core_command
+    Hello World
+    ----------------------------------------------------- Stdlib_runner
     Hello World
     |}];
   ()
@@ -63,6 +68,12 @@ let%expect_test "skipping-pos" =
       "Positional arguments must be supplied in consecutive order"
       ((expected 0)
        (got      1))))
+    ----------------------------------------------------- Stdlib_runner
+    Invalid command specification (programming error):
+
+    Attempted to declare a parser with a gap in its positional arguments.
+    Positional argument 0 is missing.
+    ("Evaluation Failed" ((exit_code 2)))
     |}];
   Arg_test.eval_all test { prog = "test"; args = [ "World" ] };
   [%expect
@@ -81,6 +92,12 @@ let%expect_test "skipping-pos" =
       "Positional arguments must be supplied in consecutive order"
       ((expected 0)
        (got      1))))
+    ----------------------------------------------------- Stdlib_runner
+    Invalid command specification (programming error):
+
+    Attempted to declare a parser with a gap in its positional arguments.
+    Positional argument 0 is missing.
+    ("Evaluation Failed" ((exit_code 2)))
     |}];
   Arg_test.eval_all test { prog = "test"; args = [ "Big"; "World" ] };
   [%expect
@@ -96,6 +113,12 @@ let%expect_test "skipping-pos" =
       "Positional arguments must be supplied in consecutive order"
       ((expected 0)
        (got      1))))
+    ----------------------------------------------------- Stdlib_runner
+    Invalid command specification (programming error):
+
+    Attempted to declare a parser with a gap in its positional arguments.
+    Positional argument 0 is missing.
+    ("Evaluation Failed" ((exit_code 2)))
     |}];
   ()
 ;;
@@ -114,6 +137,7 @@ let%expect_test "pos_opt" =
     ----------------------------------------------------- Climate
     ----------------------------------------------------- Cmdliner
     ----------------------------------------------------- Core_command
+    ----------------------------------------------------- Stdlib_runner
     |}];
   Arg_test.eval_all test { prog = "test"; args = [ "World" ] };
   [%expect
@@ -123,6 +147,8 @@ let%expect_test "pos_opt" =
     ----------------------------------------------------- Cmdliner
     Hello World
     ----------------------------------------------------- Core_command
+    Hello World
+    ----------------------------------------------------- Stdlib_runner
     Hello World
     |}];
   ()
@@ -150,6 +176,8 @@ let%expect_test "pos_with_default" =
     Hello World
     ----------------------------------------------------- Core_command
     Hello World
+    ----------------------------------------------------- Stdlib_runner
+    Hello World
     |}];
   Arg_test.eval_all test { prog = "test"; args = [ "You" ] };
   [%expect
@@ -159,6 +187,8 @@ let%expect_test "pos_with_default" =
     ----------------------------------------------------- Cmdliner
     Hello You
     ----------------------------------------------------- Core_command
+    Hello You
+    ----------------------------------------------------- Stdlib_runner
     Hello You
     |}];
   ()
@@ -178,6 +208,7 @@ let%expect_test "pos_all" =
     ----------------------------------------------------- Climate
     ----------------------------------------------------- Cmdliner
     ----------------------------------------------------- Core_command
+    ----------------------------------------------------- Stdlib_runner
     |}];
   Arg_test.eval_all test { prog = "test"; args = [ "World" ] };
   [%expect
@@ -187,6 +218,8 @@ let%expect_test "pos_all" =
     ----------------------------------------------------- Cmdliner
     Hello World
     ----------------------------------------------------- Core_command
+    Hello World
+    ----------------------------------------------------- Stdlib_runner
     Hello World
     |}];
   Arg_test.eval_all test { prog = "test"; args = [ "World"; "You"; "Me" ] };
@@ -201,6 +234,10 @@ let%expect_test "pos_all" =
     Hello You
     Hello Me
     ----------------------------------------------------- Core_command
+    Hello World
+    Hello You
+    Hello Me
+    ----------------------------------------------------- Stdlib_runner
     Hello World
     Hello You
     Hello Me

@@ -6,7 +6,7 @@ module Param = struct
     | Float -> Cmdliner.Arg.float
     | Bool -> Cmdliner.Arg.bool
     | File -> Cmdliner.Arg.file
-    | Enum { docv = _; choices = hd :: tl } -> Cmdliner.Arg.enum (hd :: tl)
+    | Enum { docv = _; choices = hd :: tl; to_string = _ } -> Cmdliner.Arg.enum (hd :: tl)
     | Comma_separated param -> Cmdliner.Arg.list ~sep:',' (translate param)
   ;;
 
@@ -17,7 +17,7 @@ module Param = struct
     | Float -> Some "FLOAT"
     | Bool -> Some "BOOL"
     | File -> Some "FILE"
-    | Enum { docv; choices = _ } -> docv
+    | Enum { docv; choices = _; to_string = _ } -> docv
     | Comma_separated param ->
       docv param |> Option.map (fun docv -> Printf.sprintf "[%s,..]" docv)
   ;;
@@ -42,7 +42,7 @@ module Arg = struct
     fun ~doc ~param ->
     match (param : _ Ast.Param.t) with
     | Conv _ | String | Int | Float | Bool | File -> with_dot_suffix ~doc
-    | Enum { docv = _; choices = hd :: tl } ->
+    | Enum { docv = _; choices = hd :: tl; to_string = _ } ->
       Printf.sprintf
         "%s. $(docv) must be %s."
         doc

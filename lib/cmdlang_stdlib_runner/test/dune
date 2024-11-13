@@ -1,6 +1,6 @@
 (library
- (name cmdlang_expect_tests)
- (public_name cmdlang-tests.expect-tests)
+ (name cmdlang_stdlib_runner_test)
+ (public_name cmdlang-tests.cmdlang_stdlib_runner_test)
  (inline_tests)
  (flags
   :standard
@@ -14,17 +14,8 @@
   Expect_test_helpers_base)
  (libraries
   base
-  climate
-  cmdlang
-  cmdlang-stdlib-runner
-  cmdlang-to-base
-  cmdlang-to-climate
-  cmdlang-to-cmdliner
-  cmdliner
-  core.command
-  core_unix.command_unix
-  expect_test_helpers_core.expect_test_helpers_base
-  loc)
+  cmdlang_stdlib_runner
+  expect_test_helpers_core.expect_test_helpers_base)
  (instrumentation
   (backend bisect_ppx))
  (lint

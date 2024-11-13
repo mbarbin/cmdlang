@@ -21,6 +21,9 @@ let%expect_test "named" =
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" "missing required flag: --who")
+    ----------------------------------------------------- Stdlib_runner
+    Missing required named argument: "who".
+    ("Evaluation Failed" ((exit_code 2)))
     |}];
   Arg_test.eval_all test { prog = "test"; args = [ "--who"; "World" ] };
   [%expect
@@ -31,8 +34,11 @@ let%expect_test "named" =
     Hello World
     ----------------------------------------------------- Core_command
     Hello World
+    ----------------------------------------------------- Stdlib_runner
+    Hello World
     |}];
-  (* [climate] and [cmdliner] support the [--arg=VALUE] syntax. [core.command] does not. *)
+  (* [climate], [cmdliner] and [stdlib-runner] support the [--arg=VALUE] syntax.
+     [core.command] does not. *)
   Arg_test.eval_all test { prog = "test"; args = [ "--who=You" ] };
   [%expect
     {|
@@ -43,6 +49,8 @@ let%expect_test "named" =
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
       "Command.Failed_to_parse_command_line(\"unknown flag --who=You\")"))
+    ----------------------------------------------------- Stdlib_runner
+    Hello You
     |}];
   ()
 ;;
@@ -68,6 +76,9 @@ let%expect_test "1-letter-named" =
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" "missing required flag: -w")
+    ----------------------------------------------------- Stdlib_runner
+    Missing required named argument: "w".
+    ("Evaluation Failed" ((exit_code 2)))
     |}];
   Arg_test.eval_all test { prog = "test"; args = [ "-w"; "World" ] };
   [%expect
@@ -78,8 +89,26 @@ let%expect_test "1-letter-named" =
     Hello World
     ----------------------------------------------------- Core_command
     Hello World
+    ----------------------------------------------------- Stdlib_runner
+    Hello World
     |}];
-  (* [climate] and [cmdliner] support the [-wVALUE] syntax. [core.command] does not. *)
+  (* [climate], [cmdliner] and [stdlib-runner] support the [-a=VALUE] syntax.
+     [core.command] does not. *)
+  Arg_test.eval_all test { prog = "test"; args = [ "-w=You" ] };
+  [%expect
+    {|
+    ----------------------------------------------------- Climate
+    Hello =You
+    ----------------------------------------------------- Cmdliner
+    Hello =You
+    ----------------------------------------------------- Core_command
+    ("Evaluation Failed" (
+      "Command.Failed_to_parse_command_line(\"unknown flag -w=You\")"))
+    ----------------------------------------------------- Stdlib_runner
+    Hello You
+    |}];
+  (* [climate] and [cmdliner] support the [-wVALUE] syntax. [core.command] and
+     [cmdlang] do not. *)
   Arg_test.eval_all test { prog = "test"; args = [ "-wYou" ] };
   [%expect
     {|
@@ -90,6 +119,17 @@ let%expect_test "1-letter-named" =
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
       "Command.Failed_to_parse_command_line(\"unknown flag -wYou\")"))
+    ----------------------------------------------------- Stdlib_runner
+    test: unknown option '-wYou'.
+    Usage: test [OPTIONS]
+
+    eval-stdlib-runner
+
+    Options:
+      -w <WHO> hello who?
+      -help    Display this list of options
+      --help   Display this list of options
+    ("Evaluation Failed" ((exit_code 2)))
     |}];
   ()
 ;;
@@ -108,6 +148,7 @@ let%expect_test "named_multi" =
     ----------------------------------------------------- Climate
     ----------------------------------------------------- Cmdliner
     ----------------------------------------------------- Core_command
+    ----------------------------------------------------- Stdlib_runner
     |}];
   Arg_test.eval_all test { prog = "test"; args = [ "--who"; "World" ] };
   [%expect
@@ -117,6 +158,8 @@ let%expect_test "named_multi" =
     ----------------------------------------------------- Cmdliner
     Hello World
     ----------------------------------------------------- Core_command
+    Hello World
+    ----------------------------------------------------- Stdlib_runner
     Hello World
     |}];
   Arg_test.eval_all
@@ -138,6 +181,10 @@ let%expect_test "named_multi" =
     Hello World
     Hello You
     Hello Me
+    ----------------------------------------------------- Stdlib_runner
+    Hello World
+    Hello You
+    Hello Me
     |}];
   ()
 ;;
@@ -156,6 +203,7 @@ let%expect_test "named_opt" =
     ----------------------------------------------------- Climate
     ----------------------------------------------------- Cmdliner
     ----------------------------------------------------- Core_command
+    ----------------------------------------------------- Stdlib_runner
     |}];
   Arg_test.eval_all test { prog = "test"; args = [ "--who"; "World" ] };
   [%expect
@@ -165,6 +213,8 @@ let%expect_test "named_opt" =
     ----------------------------------------------------- Cmdliner
     Hello World
     ----------------------------------------------------- Core_command
+    Hello World
+    ----------------------------------------------------- Stdlib_runner
     Hello World
     |}];
   ()
@@ -192,6 +242,8 @@ let%expect_test "named_with_default" =
     Hello World
     ----------------------------------------------------- Core_command
     Hello World
+    ----------------------------------------------------- Stdlib_runner
+    Hello World
     |}];
   Arg_test.eval_all test { prog = "test"; args = [ "--who"; "You" ] };
   [%expect
@@ -201,6 +253,8 @@ let%expect_test "named_with_default" =
     ----------------------------------------------------- Cmdliner
     Hello You
     ----------------------------------------------------- Core_command
+    Hello You
+    ----------------------------------------------------- Stdlib_runner
     Hello You
     |}];
   ()
@@ -234,6 +288,10 @@ let%expect_test "named_with_default__comma_separated" =
     Hello You
     Hello Me
     Hello World
+    ----------------------------------------------------- Stdlib_runner
+    Hello You
+    Hello Me
+    Hello World
     |}];
   Arg_test.eval_all (test ~default:[] ()) { prog = "test"; args = [] };
   [%expect
@@ -241,11 +299,12 @@ let%expect_test "named_with_default__comma_separated" =
     ----------------------------------------------------- Climate
     ----------------------------------------------------- Cmdliner
     ----------------------------------------------------- Core_command
+    ----------------------------------------------------- Stdlib_runner
     |}];
-  (* Empty values are currently treated inconsistently by the three
-     translation+backend. In climate, you get a singleton made of the empty
-     string, in cmdliner you get the empty list, and in core.command you get an
-     error. *)
+  (* Empty values are currently treated inconsistently by the translation
+     backends. In [climate] and [stdlib-runner], you get a singleton made of the
+     empty string, in [cmdliner] you get the empty list, and in [core.command]
+     you get an error. *)
   Arg_test.eval_all (test ()) { prog = "test"; args = [ "--who"; "" ] };
   [%expect
     {|
@@ -255,6 +314,8 @@ let%expect_test "named_with_default__comma_separated" =
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
       "Command.Failed_to_parse_command_line(\"failed to parse --who value \\\"\\\".\\n(Failure \\\"Command.Spec.Arg_type.comma_separated: empty list not allowed\\\")\")"))
+    ----------------------------------------------------- Stdlib_runner
+    Hello
     |}];
   Arg_test.eval_all (test ()) { prog = "test"; args = [ "--who"; "Universe,Them Too" ] };
   [%expect
@@ -266,6 +327,9 @@ let%expect_test "named_with_default__comma_separated" =
     Hello Universe
     Hello Them Too
     ----------------------------------------------------- Core_command
+    Hello Universe
+    Hello Them Too
+    ----------------------------------------------------- Stdlib_runner
     Hello Universe
     Hello Them Too
     |}];

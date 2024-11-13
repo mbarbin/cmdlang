@@ -7,10 +7,14 @@
 (rule
  (copy bin/cmdliner/main_cmdliner.exe main_cmdliner.exe))
 
+(rule
+ (copy bin/stdlib-runner/main_stdlib_runner.exe main_stdlib_runner.exe))
+
 (cram
  (package cmdlang-tests)
  (deps
   (package cmdlang)
   main_base.exe
   main_climate.exe
-  main_cmdliner.exe))
+  main_cmdliner.exe
+  main_stdlib_runner.exe))

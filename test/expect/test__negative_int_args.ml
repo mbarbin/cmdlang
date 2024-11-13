@@ -22,6 +22,8 @@ let%expect_test "negative positional" =
     zero
     ----------------------------------------------------- Core_command
     zero
+    ----------------------------------------------------- Stdlib_runner
+    zero
     |}];
   Arg_test.eval_all test { prog = "test"; args = [ "+1" ] };
   [%expect
@@ -32,8 +34,10 @@ let%expect_test "negative positional" =
     positive
     ----------------------------------------------------- Core_command
     positive
+    ----------------------------------------------------- Stdlib_runner
+    positive
     |}];
-  (* All three backend agree, negative numbers are not supported as positional
+  (* All backends agree, negative numbers are not supported as positional
      arguments, because they look like flags. *)
   Arg_test.eval_all test { prog = "test"; args = [ "-1" ] };
   [%expect
@@ -48,6 +52,19 @@ let%expect_test "negative positional" =
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
       "Command.Failed_to_parse_command_line(\"unknown flag -1\")"))
+    ----------------------------------------------------- Stdlib_runner
+    test: unknown option '-1'.
+    Usage: test [OPTIONS] [ARGUMENTS]
+
+    eval-stdlib-runner
+
+    Arguments:
+      <INT>  an integer (required)
+
+    Options:
+      -help   Display this list of options
+      --help  Display this list of options
+    ("Evaluation Failed" ((exit_code 2)))
     |}];
   ()
 ;;
@@ -74,6 +91,8 @@ let%expect_test "negative named" =
     zero
     ----------------------------------------------------- Core_command
     zero
+    ----------------------------------------------------- Stdlib_runner
+    zero
     |}];
   Arg_test.eval_all test { prog = "test"; args = [ "-n"; "+1" ] };
   [%expect
@@ -84,9 +103,10 @@ let%expect_test "negative named" =
     positive
     ----------------------------------------------------- Core_command
     positive
+    ----------------------------------------------------- Stdlib_runner
+    positive
     |}];
-  (* When the arg is named, climate and core.command support negative values,
-     but cmdliner does not. *)
+  (* When the arg is named, cmdliner does not support negative values. *)
   Arg_test.eval_all test { prog = "test"; args = [ "-n"; "-1" ] };
   [%expect
     {|
@@ -98,6 +118,8 @@ let%expect_test "negative named" =
     Try 'test --help' for more information.
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
+    negative
+    ----------------------------------------------------- Stdlib_runner
     negative
     |}];
   ()

@@ -77,6 +77,9 @@ We initiated the library as part of another project where we are migrating some 
    - Convert `cmdlang` parsers at runtime into `cmdliner`, `core.command`, or `climate` parsers
    - Packaged as separate helper libraries to keep dependencies isolated.
 
+4. **Basic execution runner based on stdlib.arg**:
+   - A proof-of-concept execution engine implemented on top of `stdlib.arg`.
+
 ## Experimental Status
 
 `cmdlang` is currently under construction and considered experimental. We are actively seeking feedback to validate our design and engage with other declarative command-line enthusiasts.

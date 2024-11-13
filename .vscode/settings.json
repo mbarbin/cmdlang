@@ -3,6 +3,7 @@
         "cmdlang",
         "cmdliner",
         "conv",
+        "groff",
         "janestreet",
         "odoc",
         "opam",

@@ -55,6 +55,18 @@ String.
          ./main_cmdliner.exe(1)
   
 
+  $ ./main_stdlib_runner.exe basic string --help
+  Usage: ./main_stdlib_runner.exe basic string [OPTIONS] [ARGUMENTS]
+  
+  print string
+  
+  Arguments:
+    <STRING>  value (required)
+  
+  Options:
+    -help   Display this list of options
+    --help  Display this list of options
+
 And run it too.
 
   $ ./main_base.exe basic string Hello
@@ -64,6 +76,9 @@ And run it too.
   Hello
 
   $ ./main_cmdliner.exe basic string Hello
+  Hello
+
+  $ ./main_stdlib_runner.exe basic string Hello
   Hello
 
 Int.
@@ -120,6 +135,17 @@ Int.
   SEE ALSO
          ./main_cmdliner.exe(1)
   
+  $ ./main_stdlib_runner.exe basic int --help
+  Usage: ./main_stdlib_runner.exe basic int [OPTIONS] [ARGUMENTS]
+  
+  print int
+  
+  Arguments:
+    <INT>  value (required)
+  
+  Options:
+    -help   Display this list of options
+    --help  Display this list of options
 
 And run it too.
 
@@ -130,6 +156,9 @@ And run it too.
   17
 
   $ ./main_cmdliner.exe basic int 17
+  17
+
+  $ ./main_stdlib_runner.exe basic int 17
   17
 
 Negative numbers are not supported as positional arguments since they look like
@@ -155,6 +184,20 @@ flags.
   Usage: ./main_cmdliner.exe basic int [OPTION]… INT
   Try './main_cmdliner.exe basic int --help' or './main_cmdliner.exe --help' for more information.
   [124]
+
+  $ ./main_stdlib_runner.exe basic int -13
+  int: unknown option '-13'.
+  Usage: ./main_stdlib_runner.exe basic int [OPTIONS] [ARGUMENTS]
+  
+  print int
+  
+  Arguments:
+    <INT>  value (required)
+  
+  Options:
+    -help   Display this list of options
+    --help  Display this list of options
+  [2]
 
 Float.
 
@@ -210,6 +253,17 @@ Float.
   SEE ALSO
          ./main_cmdliner.exe(1)
   
+  $ ./main_stdlib_runner.exe basic float --help
+  Usage: ./main_stdlib_runner.exe basic float [OPTIONS] [ARGUMENTS]
+  
+  print float
+  
+  Arguments:
+    <FLOAT>  value (required)
+  
+  Options:
+    -help   Display this list of options
+    --help  Display this list of options
 
 And run it too.
 
@@ -220,6 +274,9 @@ And run it too.
   3.14
 
   $ ./main_cmdliner.exe basic float 3.14
+  3.14
+
+  $ ./main_stdlib_runner.exe basic float 3.14
   3.14
 
 Negative numbers are not supported as positional arguments since they look like
@@ -245,6 +302,20 @@ flags.
   Usage: ./main_cmdliner.exe basic float [OPTION]… FLOAT
   Try './main_cmdliner.exe basic float --help' or './main_cmdliner.exe --help' for more information.
   [124]
+
+  $ ./main_stdlib_runner.exe basic float -13.8
+  float: unknown option '-13.8'.
+  Usage: ./main_stdlib_runner.exe basic float [OPTIONS] [ARGUMENTS]
+  
+  print float
+  
+  Arguments:
+    <FLOAT>  value (required)
+  
+  Options:
+    -help   Display this list of options
+    --help  Display this list of options
+  [2]
 
 Bool.
 
@@ -300,6 +371,17 @@ Bool.
   SEE ALSO
          ./main_cmdliner.exe(1)
   
+  $ ./main_stdlib_runner.exe basic bool --help
+  Usage: ./main_stdlib_runner.exe basic bool [OPTIONS] [ARGUMENTS]
+  
+  print bool
+  
+  Arguments:
+    <BOOL>  value (required)
+  
+  Options:
+    -help   Display this list of options
+    --help  Display this list of options
 
 And run it too.
 
@@ -312,6 +394,11 @@ And run it too.
   $ ./main_cmdliner.exe basic bool true
   true
 
+  $ ./main_stdlib_runner.exe basic bool true
+  true
+
+--
+
   $ ./main_base.exe basic bool false
   false
 
@@ -320,6 +407,11 @@ And run it too.
 
   $ ./main_cmdliner.exe basic bool false
   false
+
+  $ ./main_stdlib_runner.exe basic bool false
+  false
+
+--
 
   $ ./main_base.exe basic bool True
   Error parsing command line:
@@ -343,6 +435,20 @@ And run it too.
   Usage: ./main_cmdliner.exe basic bool [OPTION]… BOOL
   Try './main_cmdliner.exe basic bool --help' or './main_cmdliner.exe --help' for more information.
   [124]
+
+  $ ./main_stdlib_runner.exe basic bool True
+  bool: Failed to parse the argument at position 0: invalid value "True" (not a bool).
+  Usage: ./main_stdlib_runner.exe basic bool [OPTIONS] [ARGUMENTS]
+  
+  print bool
+  
+  Arguments:
+    <BOOL>  value (required)
+  
+  Options:
+    -help   Display this list of options
+    --help  Display this list of options
+  [2]
 
 Invalid entry.
 
@@ -368,6 +474,20 @@ Invalid entry.
   Usage: ./main_cmdliner.exe basic bool [OPTION]… BOOL
   Try './main_cmdliner.exe basic bool --help' or './main_cmdliner.exe --help' for more information.
   [124]
+
+  $ ./main_stdlib_runner.exe basic bool Not_a_bool
+  bool: Failed to parse the argument at position 0: invalid value "Not_a_bool" (not a bool).
+  Usage: ./main_stdlib_runner.exe basic bool [OPTIONS] [ARGUMENTS]
+  
+  print bool
+  
+  Arguments:
+    <BOOL>  value (required)
+  
+  Options:
+    -help   Display this list of options
+    --help  Display this list of options
+  [2]
 
 File.
 
@@ -423,6 +543,17 @@ File.
   SEE ALSO
          ./main_cmdliner.exe(1)
   
+  $ ./main_stdlib_runner.exe basic file --help
+  Usage: ./main_stdlib_runner.exe basic file [OPTIONS] [ARGUMENTS]
+  
+  print file
+  
+  Arguments:
+    <FILE>  value (required)
+  
+  Options:
+    -help   Display this list of options
+    --help  Display this list of options
 
 And run it too.
 
@@ -438,10 +569,15 @@ And run it too.
   Try './main_cmdliner.exe basic file --help' or './main_cmdliner.exe --help' for more information.
   [124]
 
+  $ ./main_stdlib_runner.exe basic file foo.txt
+  foo.txt
+
 Same when the file actually exists
 
   $ echo "foo" | tee foo.txt
   foo
+
+--
 
   $ ./main_base.exe basic file foo.txt
   foo.txt
@@ -451,6 +587,11 @@ Same when the file actually exists
 
   $ ./main_cmdliner.exe basic file foo.txt
   foo.txt
+
+  $ ./main_stdlib_runner.exe basic file foo.txt
+  foo.txt
+
+--
 
   $ ./main_base.exe basic file /bogus/bar
   /bogus/bar
@@ -463,3 +604,6 @@ Same when the file actually exists
   Usage: ./main_cmdliner.exe basic file [OPTION]… FILE
   Try './main_cmdliner.exe basic file --help' or './main_cmdliner.exe --help' for more information.
   [124]
+
+  $ ./main_stdlib_runner.exe basic file /bogus/bar
+  /bogus/bar

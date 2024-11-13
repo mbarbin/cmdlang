@@ -17,6 +17,8 @@ let%expect_test "string" =
     hello
     ----------------------------------------------------- Core_command
     hello
+    ----------------------------------------------------- Stdlib_runner
+    hello
     |}];
   ()
 ;;
@@ -31,6 +33,8 @@ let%expect_test "int" =
     ----------------------------------------------------- Cmdliner
     1_234
     ----------------------------------------------------- Core_command
+    1_234
+    ----------------------------------------------------- Stdlib_runner
     1_234
     |}];
   Arg_test.eval_all t1 { prog = "test"; args = [ "not-an-int" ] };
@@ -48,6 +52,19 @@ let%expect_test "int" =
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
       "Command.Failed_to_parse_command_line(\"failed to parse INT value \\\"not-an-int\\\"\\n(Failure \\\"Int.of_string: \\\\\\\"not-an-int\\\\\\\"\\\")\")"))
+    ----------------------------------------------------- Stdlib_runner
+    test: Failed to parse the argument at position 0: invalid value "not-an-int" (not an int).
+    Usage: test [OPTIONS] [ARGUMENTS]
+
+    eval-stdlib-runner
+
+    Arguments:
+      <INT>  param (required)
+
+    Options:
+      -help   Display this list of options
+      --help  Display this list of options
+    ("Evaluation Failed" ((exit_code 2)))
     |}];
   ()
 ;;
@@ -63,6 +80,8 @@ let%expect_test "float" =
     1234.
     ----------------------------------------------------- Core_command
     1234.
+    ----------------------------------------------------- Stdlib_runner
+    1234.
     |}];
   Arg_test.eval_all t1 { prog = "test"; args = [ "1.234" ] };
   [%expect
@@ -72,6 +91,8 @@ let%expect_test "float" =
     ----------------------------------------------------- Cmdliner
     1.234
     ----------------------------------------------------- Core_command
+    1.234
+    ----------------------------------------------------- Stdlib_runner
     1.234
     |}];
   Arg_test.eval_all t1 { prog = "test"; args = [ "not-an-number" ] };
@@ -90,6 +111,19 @@ let%expect_test "float" =
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
       "Command.Failed_to_parse_command_line(\"failed to parse FLOAT value \\\"not-an-number\\\"\\n(Invalid_argument \\\"Float.of_string not-an-number\\\")\")"))
+    ----------------------------------------------------- Stdlib_runner
+    test: Failed to parse the argument at position 0: invalid value "not-an-number" (not a float).
+    Usage: test [OPTIONS] [ARGUMENTS]
+
+    eval-stdlib-runner
+
+    Arguments:
+      <FLOAT>  param (required)
+
+    Options:
+      -help   Display this list of options
+      --help  Display this list of options
+    ("Evaluation Failed" ((exit_code 2)))
     |}];
   ()
 ;;
@@ -105,6 +139,8 @@ let%expect_test "bool" =
     true
     ----------------------------------------------------- Core_command
     true
+    ----------------------------------------------------- Stdlib_runner
+    true
     |}];
   Arg_test.eval_all t1 { prog = "test"; args = [ "false" ] };
   [%expect
@@ -114,6 +150,8 @@ let%expect_test "bool" =
     ----------------------------------------------------- Cmdliner
     false
     ----------------------------------------------------- Core_command
+    false
+    ----------------------------------------------------- Stdlib_runner
     false
     |}];
   Arg_test.eval_all t1 { prog = "test"; args = [ "not-a-bool" ] };
@@ -131,6 +169,19 @@ let%expect_test "bool" =
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
       "Command.Failed_to_parse_command_line(\"failed to parse BOOL value \\\"not-a-bool\\\"\\n(Failure \\\"valid arguments: {false,true}\\\")\")"))
+    ----------------------------------------------------- Stdlib_runner
+    test: Failed to parse the argument at position 0: invalid value "not-a-bool" (not a bool).
+    Usage: test [OPTIONS] [ARGUMENTS]
+
+    eval-stdlib-runner
+
+    Arguments:
+      <BOOL>  param (required)
+
+    Options:
+      -help   Display this list of options
+      --help  Display this list of options
+    ("Evaluation Failed" ((exit_code 2)))
     |}];
   ()
 ;;
@@ -155,6 +206,8 @@ let%expect_test "file" =
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     foo.txt
+    ----------------------------------------------------- Stdlib_runner
+    foo.txt
     |}];
   save_file ~path:"foo.txt" ~contents:"Foo";
   Arg_test.eval_all t1 { prog = "test"; args = [ "foo.txt" ] };
@@ -166,59 +219,9 @@ let%expect_test "file" =
     foo.txt
     ----------------------------------------------------- Core_command
     foo.txt
+    ----------------------------------------------------- Stdlib_runner
+    foo.txt
     |}]
-;;
-
-let%expect_test "assoc" =
-  let module E = struct
-    type t =
-      | A
-      | B
-    [@@deriving enumerate, sexp_of]
-
-    let to_string t = Sexp.to_string (sexp_of_t t)
-  end
-  in
-  let t1 =
-    test (Command.Param.assoc (List.map E.all ~f:(fun e -> E.to_string e, e))) E.to_string
-  in
-  Arg_test.eval_all t1 { prog = "test"; args = [ "A" ] };
-  [%expect
-    {|
-    ----------------------------------------------------- Climate
-    A
-    ----------------------------------------------------- Cmdliner
-    A
-    ----------------------------------------------------- Core_command
-    A
-    |}];
-  Arg_test.eval_all t1 { prog = "test"; args = [ "B" ] };
-  [%expect
-    {|
-    ----------------------------------------------------- Climate
-    B
-    ----------------------------------------------------- Cmdliner
-    B
-    ----------------------------------------------------- Core_command
-    B
-    |}];
-  Arg_test.eval_all t1 { prog = "test"; args = [ "Not_an_e" ] };
-  [%expect
-    {|
-    ----------------------------------------------------- Climate
-    ("Evaluation Raised" (
-      Climate.Parse_error.E
-      "Failed to parse the argument at position 0: invalid value: \"Not_an_e\" (valid values are: A, B)"))
-    ----------------------------------------------------- Cmdliner
-    test: invalid value 'Not_an_e', expected either 'A' or 'B'
-    Usage: test [OPTION]… ARG
-    Try 'test --help' for more information.
-    ("Evaluation Failed" ((exit_code 124)))
-    ----------------------------------------------------- Core_command
-    ("Evaluation Failed" (
-      "Command.Failed_to_parse_command_line(\"failed to parse VAL value \\\"Not_an_e\\\"\\n(Failure \\\"valid arguments: {A,B}\\\")\")"))
-    |}];
-  ()
 ;;
 
 let%expect_test "enumerated" =
@@ -244,6 +247,8 @@ let%expect_test "enumerated" =
     A
     ----------------------------------------------------- Core_command
     A
+    ----------------------------------------------------- Stdlib_runner
+    A
     |}];
   Arg_test.eval_all t1 { prog = "test"; args = [ "B" ] };
   [%expect
@@ -253,6 +258,8 @@ let%expect_test "enumerated" =
     ----------------------------------------------------- Cmdliner
     B
     ----------------------------------------------------- Core_command
+    B
+    ----------------------------------------------------- Stdlib_runner
     B
     |}];
   Arg_test.eval_all t1 { prog = "test"; args = [ "Not_an_e" ] };
@@ -270,6 +277,19 @@ let%expect_test "enumerated" =
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
       "Command.Failed_to_parse_command_line(\"failed to parse VAL value \\\"Not_an_e\\\"\\n(Failure \\\"valid arguments: {A,B}\\\")\")"))
+    ----------------------------------------------------- Stdlib_runner
+    test: Failed to parse the argument at position 0: invalid value "Not_an_e" (not a valid choice).
+    Usage: test [OPTIONS] [ARGUMENTS]
+
+    eval-stdlib-runner
+
+    Arguments:
+      <VAL>  param (required)
+
+    Options:
+      -help   Display this list of options
+      --help  Display this list of options
+    ("Evaluation Failed" ((exit_code 2)))
     |}];
   ()
 ;;
@@ -296,6 +316,8 @@ let%expect_test "stringable" =
     ----------------------------------------------------- Cmdliner
     my-id
     ----------------------------------------------------- Core_command
+    my-id
+    ----------------------------------------------------- Stdlib_runner
     my-id
     |}];
   ()
@@ -332,6 +354,8 @@ let%expect_test "validated_string" =
     A
     ----------------------------------------------------- Core_command
     A
+    ----------------------------------------------------- Stdlib_runner
+    A
     |}];
   Arg_test.eval_all t1 { prog = "test"; args = [ "B" ] };
   [%expect
@@ -342,6 +366,8 @@ let%expect_test "validated_string" =
     B
     ----------------------------------------------------- Core_command
     B
+    ----------------------------------------------------- Stdlib_runner
+    B
     |}];
   Arg_test.eval_all t1 { prog = "test"; args = [ "Id_size8" ] };
   [%expect
@@ -351,6 +377,8 @@ let%expect_test "validated_string" =
     ----------------------------------------------------- Cmdliner
     Id_size8
     ----------------------------------------------------- Core_command
+    Id_size8
+    ----------------------------------------------------- Stdlib_runner
     Id_size8
     |}];
   Arg_test.eval_all t1 { prog = "test"; args = [ "Id_of_size12" ] };
@@ -368,6 +396,19 @@ let%expect_test "validated_string" =
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
       "Command.Failed_to_parse_command_line(\"failed to parse VAL value \\\"Id_of_size12\\\"\\n(Msg \\\"invalid id\\\")\")"))
+    ----------------------------------------------------- Stdlib_runner
+    test: Failed to parse the argument at position 0: invalid id.
+    Usage: test [OPTIONS] [ARGUMENTS]
+
+    eval-stdlib-runner
+
+    Arguments:
+      <VAL>  param (required)
+
+    Options:
+      -help   Display this list of options
+      --help  Display this list of options
+    ("Evaluation Failed" ((exit_code 2)))
     |}];
   ()
 ;;
@@ -399,6 +440,8 @@ let%expect_test "comma_separated" =
     A
     ----------------------------------------------------- Core_command
     A
+    ----------------------------------------------------- Stdlib_runner
+    A
     |}];
   Arg_test.eval_all t1 { prog = "test"; args = [ "B" ] };
   [%expect
@@ -409,6 +452,8 @@ let%expect_test "comma_separated" =
     B
     ----------------------------------------------------- Core_command
     B
+    ----------------------------------------------------- Stdlib_runner
+    B
     |}];
   Arg_test.eval_all t1 { prog = "test"; args = [ "A,B" ] };
   [%expect
@@ -418,6 +463,8 @@ let%expect_test "comma_separated" =
     ----------------------------------------------------- Cmdliner
     A,B
     ----------------------------------------------------- Core_command
+    A,B
+    ----------------------------------------------------- Stdlib_runner
     A,B
     |}];
   (* At the moment the translation does not consistently determine whether the
@@ -435,6 +482,19 @@ let%expect_test "comma_separated" =
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
       "Command.Failed_to_parse_command_line(\"failed to parse VAL value \\\"\\\"\\n(Failure \\\"Command.Spec.Arg_type.comma_separated: empty list not allowed\\\")\")"))
+    ----------------------------------------------------- Stdlib_runner
+    test: Failed to parse the argument at position 0: invalid value "" (not a valid choice).
+    Usage: test [OPTIONS] [ARGUMENTS]
+
+    eval-stdlib-runner
+
+    Arguments:
+      <VAL>  param (required)
+
+    Options:
+      -help   Display this list of options
+      --help  Display this list of options
+    ("Evaluation Failed" ((exit_code 2)))
     |}];
   Arg_test.eval_all t1 { prog = "test"; args = [ "Not_an_e" ] };
   [%expect
@@ -452,6 +512,19 @@ let%expect_test "comma_separated" =
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
       "Command.Failed_to_parse_command_line(\"failed to parse VAL value \\\"Not_an_e\\\"\\n(Failure \\\"valid arguments: {A,B}\\\")\")"))
+    ----------------------------------------------------- Stdlib_runner
+    test: Failed to parse the argument at position 0: invalid value "Not_an_e" (not a valid choice).
+    Usage: test [OPTIONS] [ARGUMENTS]
+
+    eval-stdlib-runner
+
+    Arguments:
+      <VAL>  param (required)
+
+    Options:
+      -help   Display this list of options
+      --help  Display this list of options
+    ("Evaluation Failed" ((exit_code 2)))
     |}];
   ()
 ;;

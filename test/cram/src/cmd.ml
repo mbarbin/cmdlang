@@ -71,8 +71,9 @@ It can be written on multiple lines.
     Command.make
       ~summary:"Args doc end with dots"
       (let open Command.Std in
-       let+ _ = Arg.pos ~pos:0 Param.string ~doc:"The doc for a ends with a dot."
-       and+ _ = Arg.pos ~pos:1 Param.string ~doc:"The doc for b doesn't" in
+       let+ _ =
+         Arg.pos ~pos:0 Param.string ~doc:"The doc for [a] in the code ends with a dot."
+       and+ _ = Arg.pos ~pos:1 Param.string ~doc:"The doc for [b] doesn't" in
        (() [@coverage off]))
   ;;
 
@@ -117,6 +118,21 @@ module Named = struct
   end
 
   module With_default = struct
+    let int =
+      Command.make
+        ~summary:"Named_with_default__int"
+        (let open Command.Std in
+         let+ x =
+           Arg.named_with_default
+             [ "x" ]
+             Param.int
+             ~docv:"X"
+             ~default:42
+             ~doc:"Print Hello X"
+         in
+         print_endline ("Hello " ^ Int.to_string x))
+    ;;
+
     let string =
       Command.make
         ~summary:"Named_with_default__string"
@@ -255,6 +271,7 @@ module Named = struct
       Command.group
         ~summary:"Testing named-with-default"
         [ "create", create
+        ; "int", int
         ; "string", string
         ; "stringable", stringable
         ; "validated", validated

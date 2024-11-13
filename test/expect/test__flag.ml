@@ -12,6 +12,7 @@ let%expect_test "flag" =
     ----------------------------------------------------- Climate
     ----------------------------------------------------- Cmdliner
     ----------------------------------------------------- Core_command
+    ----------------------------------------------------- Stdlib_runner
     |}];
   (* When full flags are provided, all backend agree and things work as expected. *)
   Arg_test.eval_all test { prog = "test"; args = [ "--print-hello" ] };
@@ -22,6 +23,8 @@ let%expect_test "flag" =
     ----------------------------------------------------- Cmdliner
     Hello
     ----------------------------------------------------- Core_command
+    Hello
+    ----------------------------------------------------- Stdlib_runner
     Hello
     |}];
   (* When the specification does not include an explicit one letter alias, none
@@ -39,6 +42,17 @@ let%expect_test "flag" =
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
       "Command.Failed_to_parse_command_line(\"unknown flag -p\")"))
+    ----------------------------------------------------- Stdlib_runner
+    test: unknown option '-p'.
+    Usage: test [OPTIONS]
+
+    eval-stdlib-runner
+
+    Options:
+      --print-hello  print Hello
+      -help          Display this list of options
+      --help         Display this list of options
+    ("Evaluation Failed" ((exit_code 2)))
     |}];
   (* The default translation configured in [cmdlang] doesn't enable special
      support for long flag names with a single dash. That is reserved to special
@@ -57,8 +71,19 @@ let%expect_test "flag" =
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
       "Command.Failed_to_parse_command_line(\"unknown flag -print-hello\")"))
+    ----------------------------------------------------- Stdlib_runner
+    test: unknown option '-print-hello'.
+    Usage: test [OPTIONS]
+
+    eval-stdlib-runner
+
+    Options:
+      --print-hello  print Hello
+      -help          Display this list of options
+      --help         Display this list of options
+    ("Evaluation Failed" ((exit_code 2)))
     |}];
-  (* Partial flags are handled differently by the backend. In [climate], they
+  (* Partial flags are handled differently by the backends. In [climate], they
      are rejected. In [cmdliner] and [core.command], prefixes are interpreted as
      full flags. We say more about this in a dedicated section below. *)
   Arg_test.eval_all test { prog = "test"; args = [ "--print" ] };
@@ -70,6 +95,17 @@ let%expect_test "flag" =
     Hello
     ----------------------------------------------------- Core_command
     Hello
+    ----------------------------------------------------- Stdlib_runner
+    test: unknown option '--print'.
+    Usage: test [OPTIONS]
+
+    eval-stdlib-runner
+
+    Options:
+      --print-hello  print Hello
+      -help          Display this list of options
+      --help         Display this list of options
+    ("Evaluation Failed" ((exit_code 2)))
     |}];
   ()
 ;;
@@ -87,6 +123,7 @@ let%expect_test "1-letter-flag" =
     ----------------------------------------------------- Climate
     ----------------------------------------------------- Cmdliner
     ----------------------------------------------------- Core_command
+    ----------------------------------------------------- Stdlib_runner
     |}];
   (* One letter flags are expected to be supplied with a single dash. *)
   Arg_test.eval_all test { prog = "test"; args = [ "-p" ] };
@@ -97,6 +134,8 @@ let%expect_test "1-letter-flag" =
     ----------------------------------------------------- Cmdliner
     Hello
     ----------------------------------------------------- Core_command
+    Hello
+    ----------------------------------------------------- Stdlib_runner
     Hello
     |}];
   (* One letter flags are not recognized with called with two dashes. All backend agree on that. *)
@@ -115,6 +154,17 @@ let%expect_test "1-letter-flag" =
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
       "Command.Failed_to_parse_command_line(\"unknown flag --p\")"))
+    ----------------------------------------------------- Stdlib_runner
+    test: unknown option '--p'.
+    Usage: test [OPTIONS]
+
+    eval-stdlib-runner
+
+    Options:
+      -p      print Hello
+      -help   Display this list of options
+      --help  Display this list of options
+    ("Evaluation Failed" ((exit_code 2)))
     |}];
   ()
 ;;
@@ -133,6 +183,7 @@ let%expect_test "1-letter-alias" =
     ----------------------------------------------------- Climate
     ----------------------------------------------------- Cmdliner
     ----------------------------------------------------- Core_command
+    ----------------------------------------------------- Stdlib_runner
     |}];
   (* When full flags are provided, all backend agree and things work as expected. *)
   Arg_test.eval_all test { prog = "test"; args = [ "--print-hello" ] };
@@ -144,6 +195,8 @@ let%expect_test "1-letter-alias" =
     Hello
     ----------------------------------------------------- Core_command
     Hello
+    ----------------------------------------------------- Stdlib_runner
+    Hello
     |}];
   (* The specification now includes an explicit one letter alias. *)
   Arg_test.eval_all test { prog = "test"; args = [ "-p" ] };
@@ -154,6 +207,8 @@ let%expect_test "1-letter-alias" =
     ----------------------------------------------------- Cmdliner
     Hello
     ----------------------------------------------------- Core_command
+    Hello
+    ----------------------------------------------------- Stdlib_runner
     Hello
     |}];
   (* One letter flags may not be called with 2 dashes. However, since [cmdliner]
@@ -171,6 +226,18 @@ let%expect_test "1-letter-alias" =
     Hello
     ----------------------------------------------------- Core_command
     Hello
+    ----------------------------------------------------- Stdlib_runner
+    test: unknown option '--p'.
+    Usage: test [OPTIONS]
+
+    eval-stdlib-runner
+
+    Options:
+      -p             print Hello
+      --print-hello  print Hello
+      -help          Display this list of options
+      --help         Display this list of options
+    ("Evaluation Failed" ((exit_code 2)))
     |}];
   ()
 ;;
@@ -191,6 +258,7 @@ let%expect_test "ambiguous prefixes" =
     ----------------------------------------------------- Climate
     ----------------------------------------------------- Cmdliner
     ----------------------------------------------------- Core_command
+    ----------------------------------------------------- Stdlib_runner
     |}];
   (* When full flags are provided, all backend agree and things work as expected. *)
   Arg_test.eval_all test { prog = "test"; args = [ "--print-hello-you" ] };
@@ -202,6 +270,8 @@ let%expect_test "ambiguous prefixes" =
     Hello You
     ----------------------------------------------------- Core_command
     Hello You
+    ----------------------------------------------------- Stdlib_runner
+    Hello You
     |}];
   Arg_test.eval_all test { prog = "test"; args = [ "--print-hello-world" ] };
   [%expect
@@ -211,6 +281,8 @@ let%expect_test "ambiguous prefixes" =
     ----------------------------------------------------- Cmdliner
     Hello World
     ----------------------------------------------------- Core_command
+    Hello World
+    ----------------------------------------------------- Stdlib_runner
     Hello World
     |}];
   (* When the flags are supplied partially, the backend diverge. If the
@@ -225,6 +297,18 @@ let%expect_test "ambiguous prefixes" =
     Hello World
     ----------------------------------------------------- Core_command
     Hello World
+    ----------------------------------------------------- Stdlib_runner
+    test: unknown option '--print-hello-w'.
+    Usage: test [OPTIONS]
+
+    eval-stdlib-runner
+
+    Options:
+      --print-hello-world  print Hello World
+      --print-hello-you    print Hello You
+      -help                Display this list of options
+      --help               Display this list of options
+    ("Evaluation Failed" ((exit_code 2)))
     |}];
   (* When the prefix is ambiguous, it is rejected. *)
   Arg_test.eval_all test { prog = "test"; args = [ "--print-hello" ] };
@@ -241,6 +325,18 @@ let%expect_test "ambiguous prefixes" =
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
       "Command.Failed_to_parse_command_line(\"flag --print-hello is an ambiguous prefix: --print-hello-world, --print-hello-you\")"))
+    ----------------------------------------------------- Stdlib_runner
+    test: unknown option '--print-hello'.
+    Usage: test [OPTIONS]
+
+    eval-stdlib-runner
+
+    Options:
+      --print-hello-world  print Hello World
+      --print-hello-you    print Hello You
+      -help                Display this list of options
+      --help               Display this list of options
+    ("Evaluation Failed" ((exit_code 2)))
     |}];
   ()
 ;;
@@ -262,6 +358,8 @@ let%expect_test "flag_count" =
     ----------------------------------------------------- Core_command
     ("Translation Raised" (
       "Flag_count not supported by core.command" ((names (count c)) (doc count))))
+    ----------------------------------------------------- Stdlib_runner
+    ((count 0))
     |}];
   (* We want to verify that the same count is updated by any of the alias. *)
   Arg_test.eval_all test { prog = "test"; args = [ "--count"; "-c"; "-c" ] };
@@ -274,6 +372,8 @@ let%expect_test "flag_count" =
     ----------------------------------------------------- Core_command
     ("Translation Raised" (
       "Flag_count not supported by core.command" ((names (count c)) (doc count))))
+    ----------------------------------------------------- Stdlib_runner
+    ((count 3))
     |}];
   ()
 ;;

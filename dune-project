@@ -104,6 +104,15 @@
    (= :version))))
 
 (package
+ (name cmdlang-stdlib-runner)
+ (synopsis "A basic execution runner for cmdlang based on stdlib.arg")
+ (depends
+  (ocaml
+   (>= 4.14))
+  (cmdlang
+   (= :version))))
+
+(package
  (name cmdlang-tests)
  (synopsis "Tests for cmdlang")
  (depends
@@ -132,6 +141,8 @@
   (cmdlang-to-climate
    (= :version))
   (cmdlang-to-cmdliner
+   (= :version))
+  (cmdlang-stdlib-runner
    (= :version))
   (cmdliner
    (>= 1.3.0))

@@ -64,6 +64,13 @@ module type Enumerated_stringable = sig
   type t
 
   val all : t list
+
+  (** Due to the canonical string representation contract, cmdlang will assume
+      to be able to define an equality function between [t]s defined as such:
+
+      {[
+        let equal a b = phys_equal a b || String.equal (to_string a) (to_string b)
+      ]} *)
   val to_string : t -> string
 end
 
@@ -116,7 +123,6 @@ module Param : sig
 
   (** {1 Helpers} *)
 
-  val assoc : ?docv:string -> (string * 'a) list -> 'a t
   val enumerated : ?docv:string -> (module Enumerated_stringable with type t = 'a) -> 'a t
   val stringable : ?docv:string -> (module Stringable with type t = 'a) -> 'a t
 

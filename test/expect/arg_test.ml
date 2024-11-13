@@ -1,7 +1,8 @@
 module Core_command = Command
 
 type 'a t =
-  { base : ('a Core_command.Param.t, Exn.t) Result.t
+  { arg : 'a Cmdlang.Command.Arg.t
+  ; base : ('a Core_command.Param.t, Exn.t) Result.t
   ; climate : ('a Climate.Arg_parser.t, Exn.t) Result.t
   ; cmdliner : ('a Cmdliner.Term.t, Exn.t) Result.t
   }
@@ -23,7 +24,7 @@ let create arg =
     | term -> Ok term
     | exception e -> Error e [@coverage off]
   in
-  { base; climate; cmdliner }
+  { arg; base; climate; cmdliner }
 ;;
 
 module Backend = struct
@@ -31,6 +32,7 @@ module Backend = struct
     | Climate
     | Cmdliner
     | Core_command
+    | Stdlib_runner
   [@@deriving enumerate, sexp_of]
 
   let to_string t = Sexp.to_string (sexp_of_t t)
@@ -98,6 +100,17 @@ let eval_cmdliner t { Command_line.prog; args } =
      | exception e -> print_s [%sexp "Evaluation Raised", (e : Exn.t)] [@coverage off])
 ;;
 
+let eval_stdlib_runner t { Command_line.prog; args } =
+  let command = Cmdlang.Command.make t.arg ~summary:"eval-stdlib-runner" in
+  match Cmdlang_stdlib_runner.eval command ~argv:(Array.of_list (prog :: args)) with
+  | Ok () -> ()
+  | Error (`Help msg) -> print_endline msg
+  | Error (`Bad msg) ->
+    Stdlib.print_string msg;
+    print_s [%sexp "Evaluation Failed", { exit_code = (2 : int) }] [@coverage off]
+  | exception e -> print_s [%sexp "Evaluation Raised", (e : Exn.t)] [@coverage off]
+;;
+
 let eval_all t command_line =
   List.iter Backend.all ~f:(fun backend ->
     print_endline
@@ -107,7 +120,8 @@ let eval_all t command_line =
     (match backend with
      | Climate -> eval_climate t command_line
      | Cmdliner -> eval_cmdliner t command_line
-     | Core_command -> eval_base t command_line);
+     | Core_command -> eval_base t command_line
+     | Stdlib_runner -> eval_stdlib_runner t command_line);
     Stdlib.(flush stdout);
     Stdlib.(flush stderr));
   ()

@@ -67,6 +67,16 @@ parentheses. See `(absent=...)` below.
          ./main_cmdliner.exe(1)
   
 
+  $ ./main_stdlib_runner.exe named with-default string --help
+  Usage: ./main_stdlib_runner.exe named with-default string [OPTIONS]
+  
+  Named_with_default__string
+  
+  Options:
+    --who <WHO> Hello WHO?
+    -help       Display this list of options
+    --help      Display this list of options
+
 Let's check behavior when the default value is used.
 
   $ ./main_base.exe named with-default string
@@ -78,6 +88,9 @@ Let's check behavior when the default value is used.
   $ ./main_cmdliner.exe named with-default string
   Hello World
 
+  $ ./main_stdlib_runner.exe named with-default string
+  Hello World
+
 And when a value is provided.
 
   $ ./main_base.exe named with-default string --who You
@@ -87,6 +100,9 @@ And when a value is provided.
   Hello You
 
   $ ./main_cmdliner.exe named with-default string --who=You
+  Hello You
+
+  $ ./main_stdlib_runner.exe named with-default string --who=You
   Hello You
 
 We also exercises some default for param constructs involving custom print
@@ -101,6 +117,11 @@ functions or parsers generated from modules with utils.
   $ ./main_cmdliner.exe named with-default create --who=A
   Hello A
 
+  $ ./main_stdlib_runner.exe named with-default create --who=A
+  Hello A
+
+--
+
   $ ./main_base.exe named with-default create --who B
   Hello B
 
@@ -109,6 +130,11 @@ functions or parsers generated from modules with utils.
 
   $ ./main_cmdliner.exe named with-default create --who=B
   Hello B
+
+  $ ./main_stdlib_runner.exe named with-default create --who=B
+  Hello B
+
+--
 
   $ ./main_base.exe named with-default create --who C
   Error parsing command line:
@@ -131,6 +157,20 @@ functions or parsers generated from modules with utils.
   Usage: ./main_cmdliner.exe named with-default create [--who=(A|B)] [OPTION]…
   Try './main_cmdliner.exe named with-default create --help' or './main_cmdliner.exe --help' for more information.
   [124]
+
+  $ ./main_stdlib_runner.exe named with-default create --who C
+  create: Failed to parse the named argument "who": "C": invalid E.t.
+  Usage: ./main_stdlib_runner.exe named with-default create [OPTIONS]
+  
+  Named_with_default__create
+  
+  Options:
+    --who <(A|B)> Greet A or B?
+    -help         Display this list of options
+    --help        Display this list of options
+  [2]
+
+--
 
   $ ./main_base.exe named with-default create --help
   Named_with_default__create
@@ -188,6 +228,17 @@ functions or parsers generated from modules with utils.
   SEE ALSO
          ./main_cmdliner.exe(1)
   
+
+  $ ./main_stdlib_runner.exe named with-default create --help
+  Usage: ./main_stdlib_runner.exe named with-default create [OPTIONS]
+  
+  Named_with_default__create
+  
+  Options:
+    --who <(A|B)> Greet A or B?
+    -help         Display this list of options
+    --help        Display this list of options
+
 Named-with-default with a stringable parameter.
 
   $ ./main_base.exe named with-default stringable --help
@@ -246,6 +297,19 @@ Named-with-default with a stringable parameter.
   SEE ALSO
          ./main_cmdliner.exe(1)
   
+
+  $ ./main_stdlib_runner.exe named with-default stringable --help
+  Usage: ./main_stdlib_runner.exe named with-default stringable [OPTIONS]
+  
+  Named_with_default__stringable
+  
+  Options:
+    --who <VAL> identifier
+    -help       Display this list of options
+    --help      Display this list of options
+
+--
+
   $ ./main_base.exe named with-default stringable
   Hello my-id
 
@@ -253,6 +317,9 @@ Named-with-default with a stringable parameter.
   Hello my-id
 
   $ ./main_cmdliner.exe named with-default stringable
+  Hello my-id
+
+  $ ./main_stdlib_runner.exe named with-default stringable
   Hello my-id
 
 Named-with-default with a validated string parameter.
@@ -313,6 +380,19 @@ Named-with-default with a validated string parameter.
   SEE ALSO
          ./main_cmdliner.exe(1)
   
+
+  $ ./main_stdlib_runner.exe named with-default validated --help
+  Usage: ./main_stdlib_runner.exe named with-default validated [OPTIONS]
+  
+  Named_with_default__validated
+  
+  Options:
+    --who <VAL> 4 letters alphanumerical identifier
+    -help       Display this list of options
+    --help      Display this list of options
+
+--
+
   $ ./main_base.exe named with-default validated
   Hello 0000
 
@@ -320,6 +400,9 @@ Named-with-default with a validated string parameter.
   Hello 0000
 
   $ ./main_cmdliner.exe named with-default validated
+  Hello 0000
+
+  $ ./main_stdlib_runner.exe named with-default validated
   Hello 0000
 
 Invalid entry for the validated string parameter.
@@ -347,6 +430,18 @@ Invalid entry for the validated string parameter.
   Try './main_cmdliner.exe named with-default validated --help' or './main_cmdliner.exe --help' for more information.
   [124]
 
+  $ ./main_stdlib_runner.exe named with-default validated --who foo
+  validated: Failed to parse the named argument "who": "foo": invalid 4 letters alphanumerical identifier.
+  Usage: ./main_stdlib_runner.exe named with-default validated [OPTIONS]
+  
+  Named_with_default__validated
+  
+  Options:
+    --who <VAL> 4 letters alphanumerical identifier
+    -help       Display this list of options
+    --help      Display this list of options
+  [2]
+
 Valid entry for the validated string parameter.
 
   $ ./main_base.exe named with-default validated --who foo7
@@ -356,6 +451,9 @@ Valid entry for the validated string parameter.
   Hello foo7
 
   $ ./main_cmdliner.exe named with-default validated --who foo7
+  Hello foo7
+
+  $ ./main_stdlib_runner.exe named with-default validated --who foo7
   Hello foo7
 
 Named-with-default with a comma-separated string parameter.
@@ -416,6 +514,19 @@ Named-with-default with a comma-separated string parameter.
   SEE ALSO
          ./main_cmdliner.exe(1)
   
+
+  $ ./main_stdlib_runner.exe named with-default comma-separated --help
+  Usage: ./main_stdlib_runner.exe named with-default comma-separated [OPTIONS]
+  
+  Named_with_default__comma_separated
+  
+  Options:
+    --who <STRING> Hello WHO?
+    -help          Display this list of options
+    --help         Display this list of options
+
+--
+
   $ ./main_base.exe named with-default comma-separated
   Hello World
 
@@ -423,6 +534,9 @@ Named-with-default with a comma-separated string parameter.
   Hello World
 
   $ ./main_cmdliner.exe named with-default comma-separated
+  Hello World
+
+  $ ./main_stdlib_runner.exe named with-default comma-separated
   Hello World
 
 Valid entry for the parameter.
@@ -436,5 +550,9 @@ Valid entry for the parameter.
   Hello Me
 
   $ ./main_cmdliner.exe named with-default comma-separated --who You,Me
+  Hello You
+  Hello Me
+
+  $ ./main_stdlib_runner.exe named with-default comma-separated --who You,Me
   Hello You
   Hello Me
