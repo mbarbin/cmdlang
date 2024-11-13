@@ -1,4 +1,5 @@
-type 'a parse = string -> ('a, [ `Msg of string ]) result
+type 'a or_error_msg = ('a, [ `Msg of string ]) result
+type 'a parse = string -> 'a or_error_msg
 type 'a print = Format.formatter -> 'a -> unit
 
 module Nonempty_list = struct
@@ -124,4 +125,9 @@ module Command = struct
         ; subcommands : (string * 'a t) list
         }
         -> 'a t
+
+  let summary = function
+    | Make { summary; _ } -> summary
+    | Group { summary; _ } -> summary
+  ;;
 end

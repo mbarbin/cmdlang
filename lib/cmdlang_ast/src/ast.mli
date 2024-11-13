@@ -15,7 +15,8 @@
     [Cmdlang_ast] is exposed to allow extending the library with new backends or
     to write analysis tools, etc. *)
 
-type 'a parse := string -> ('a, [ `Msg of string ]) result
+type 'a or_error_msg = ('a, [ `Msg of string ]) result
+type 'a parse := string -> 'a or_error_msg
 type 'a print := Format.formatter -> 'a -> unit
 
 module Nonempty_list : sig
@@ -141,4 +142,6 @@ module Command : sig
         ; subcommands : (string * 'a t) list
         }
         -> 'a t
+
+  val summary : _ t -> string
 end
