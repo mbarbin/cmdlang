@@ -136,13 +136,13 @@
     (< 0.2)))
   (cmdlang
    (= :version))
+  (cmdlang-stdlib-runner
+   (= :version))
   (cmdlang-to-base
    (= :version))
   (cmdlang-to-climate
    (= :version))
   (cmdlang-to-cmdliner
-   (= :version))
-  (cmdlang-stdlib-runner
    (= :version))
   (cmdliner
    (>= 1.3.0))
