@@ -1,3 +1,19 @@
+## 0.0.8 (unreleased)
+
+### Added
+
+- Add a new backend based on `stdlib.arg`.
+
+### Changed
+
+### Deprecated
+
+### Fixed
+
+### Removed
+
+- Remove `Param.assoc`. We require now the `to_string` function found in `Enums`.
+
 ## 0.0.7 (2024-11-10)
 
 ### Removed

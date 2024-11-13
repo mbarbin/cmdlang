@@ -15,6 +15,13 @@ However, we have a good intuition that by reducing some of the expressiveness of
 - [x] Develop a strategy for translating positional arguments in `core.command` (Completed: Aug 2024)
 - [x] Implement left-to-right order enforcement for positional arguments when compiling to `core.command` (Completed: Aug 2024)
 
+## Targeting stdlib.arg as a runner
+
+We'd like to write a mini-compiler targeting `stdlib.arg` as a proof-of-concept showing that it is possible to implement an execution runner for cmdlang that reuses the parsing engine implemented in the standard library.
+
+### Tasks
+- [x] Implemented an execution engine for cmdlang based on `stdlib.arg` (Completed: Nov 2024)
+
 ## Generation of Complex Man Pages
 
 Another area of focus is the generation of complex man pages. `cmdliner` has excellent support for these. Currently, we have added basic support for one-line summaries of help messages to get started. However, we believe we could reuse most of the design of `cmdliner` and add it as optional information to the specification language.
