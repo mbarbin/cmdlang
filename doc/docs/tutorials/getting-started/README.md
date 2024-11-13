@@ -103,7 +103,7 @@ let () =
        Getting_started.cmd
        ~name:"my-calculator"
        ~version:"%%VERSION%%")
-  |> Stdlib.exit
+  |> exit
 ;;
 ```
 
