@@ -2,9 +2,11 @@
 
 ### Added
 
-- Add a new backend based on `stdlib.arg`.
+- Add a new backend based on `stdlib.arg` (#16, @mbarbin).
 
 ### Changed
+
+- Internal refactor to intermediate representations used in cmdlang-to-base (#16, @mbarbin).
 
 ### Deprecated
 
@@ -12,7 +14,7 @@
 
 ### Removed
 
-- Remove `Param.assoc`. We require now the `to_string` function found in `Enums`.
+- Remove `Param.assoc`. We require now the `to_string` function found in `Enums` (#16, @mbarbin).
 
 ## 0.0.7 (2024-11-10)
 
