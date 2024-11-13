@@ -11,27 +11,14 @@ module Param = struct
     | Float -> Climate.Arg_parser.float
     | Bool -> Climate.Arg_parser.bool
     | File -> Climate.Arg_parser.file
-    | Enum { docv; choices = hd :: tl } ->
+    | Enum { docv; choices = hd :: tl; to_string } ->
       let choices = hd :: tl in
-      let eq a b =
-        (* We are basing this function on the fact that climate cannot produce
-           values of type ['a] out of thin air, rather the values that are going
-           to be supplied to [eq] necessarily come from [choices]. Thus we can
-           base the equality function from that of the attached string
-           mnemonics (alternatively, this could also be done in climate). *)
-        if a == b
-        then true
-        else (
-          match
-            ( List.find_opt (fun (_, x) -> x == a) choices
-            , List.find_opt (fun (_, x) -> x == b) choices )
-          with
-          | Some (a, _), Some (b, _) -> String.equal a b
-          | Some _, None | None, Some _ | None, None ->
-            raise
-              (Invalid_argument "Cmdlang_to_climate.enum: eq called with unknown choice")
-            [@coverage off])
+      let str x =
+        match List.find_opt (fun (_, y) -> y == x) choices with
+        | Some (a, _) -> a
+        | None -> to_string x
       in
+      let eq a b = a == b || String.equal (str a) (str b) in
       Climate.Arg_parser.enum ?default_value_name:docv choices ~eq
     | Comma_separated t ->
       let { Climate.Arg_parser.parse; print; default_value_name; completion = _ } =

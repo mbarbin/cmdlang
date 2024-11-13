@@ -39,6 +39,7 @@ module Param : sig
     | Enum :
         { docv : string option
         ; choices : (string * 'a) Nonempty_list.t
+        ; to_string : 'a -> string
         }
         -> 'a t
     | Comma_separated : 'a t -> 'a list t

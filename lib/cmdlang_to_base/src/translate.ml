@@ -56,7 +56,7 @@ module Param = struct
     | Float -> Some "FLOAT"
     | Bool -> Some "BOOL"
     | File -> Some "FILE"
-    | Enum { docv; choices = _ } -> docv
+    | Enum { docv; choices = _; to_string = _ } -> docv
     | Comma_separated param ->
       docv param |> Option.map ~f:(fun docv -> Printf.sprintf "[%s,..]" docv)
   ;;

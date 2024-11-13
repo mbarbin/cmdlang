@@ -38,14 +38,10 @@ module Param = struct
   let bool = Ast.Param.Bool
   let file = Ast.Param.File
 
-  let assoc ?docv choices =
-    match choices with
-    | [] -> invalid_arg "Command.Param.assoc"
-    | hd :: tl -> Ast.Param.Enum { docv; choices = hd :: tl }
-  ;;
-
   let enumerated (type a) ?docv (module M : Enumerated_stringable with type t = a) =
-    assoc ?docv (M.all |> List.map (fun m -> M.to_string m, m))
+    match M.all |> List.map (fun m -> M.to_string m, m) with
+    | [] -> invalid_arg "Command.Param.enumerated"
+    | hd :: tl -> Ast.Param.Enum { docv; choices = hd :: tl; to_string = M.to_string }
   ;;
 
   let stringable (type a) ?docv (module M : Stringable with type t = a) =
