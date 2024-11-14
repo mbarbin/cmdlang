@@ -2,11 +2,16 @@
 
 ### Added
 
+- Add more ci-checks: macOS, Windows, OCaml 4.14 (#17, @mbarbin).
 - Add a new backend based on `stdlib.arg` (#16, @mbarbin).
 
 ### Changed
 
 - Internal refactor to intermediate representations used in cmdlang-to-base (#16, @mbarbin).
+
+### Fixed
+
+- Enable build with `ocaml.4.14` (#17, @mbarbin).
 
 ### Removed
 
