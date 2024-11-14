@@ -1,3 +1,5 @@
+open! Import
+
 module Presence = struct
   type 'a t =
     | Required
