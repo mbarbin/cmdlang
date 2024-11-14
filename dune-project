@@ -87,8 +87,7 @@
    (= :version))
   (cmdliner
    (and
-    (>= 1.3.0)
-    (< 1.4)))))
+    (>= 1.3.0)))))
 
 (package
  (name cmdlang-to-climate)
@@ -98,8 +97,7 @@
    (>= 4.14))
   (climate
    (and
-    (>= 0.1.0~)
-    (< 0.2)))
+    (>= 0.1.0)))
   (cmdlang
    (= :version))))
 
