@@ -1,0 +1,65 @@
+# This workflow file is named 'more-ci' and is used to run additional CI checks
+# that complement the main CI workflow. It ensures that our code is tested
+# across multiple operating systems and OCaml compiler versions.
+#
+# Compared to the main 'ci.yml' job, this skips some steps that are not
+# necessary to check for every combination of os and ocaml-compiler, such as
+# generating coverage report, linting odoc, opam and fmt, etc.
+#
+# We prefer to keep it separate from the main CI workflow because we find it
+# more readable, over having too many conditional steps in the same job.
+
+name: more-ci
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - "**" # This will match pull requests targeting any branch
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - macos-latest
+          - ubuntu-latest
+          - windows-latest
+        ocaml-compiler:
+          - 5.2.x
+          - 4.14.x
+        exclude:
+          # We exclude the combination already tested in the 'ci' workflow.
+          - os: ubuntu-latest
+            ocaml-compiler: 5.2.x
+          # We exclude windows-4.14 - this fails when building core.
+          - os: windows-latest
+            ocaml-compiler: 4.14.x
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup OCaml
+        uses: ocaml/setup-ocaml@v3
+        with:
+          ocaml-compiler: ${{ matrix.ocaml-compiler }}
+          opam-repositories: |
+            default: https://github.com/ocaml/opam-repository.git
+            mbarbin: https://github.com/mbarbin/opam-repository.git
+      #     janestreet-bleeding: https://github.com/janestreet/opam-repository.git
+      #     janestreet-bleeding-external: https://github.com/janestreet/opam-repository.git#external-packages
+
+      # We build and run tests for a subset of packages. More tests are run in
+      # the development workflow and as part of the main CI job. These are the
+      # tests that are checked for every combination of os and ocaml-compiler.
+      - name: Install dependencies
+        run: opam install ./cmdlang.opam ./cmdlang-stdlib-runner.opam ./cmdlang-to-cmdliner.opam ./cmdlang-to-climate.opam --deps-only --with-test
+
+      - name: Build & Run tests
+        run: opam exec -- dune build @all @runtest -p cmdlang,cmdlang-stdlib-runner,cmdlang-to-cmdliner,cmdlang-to-climate
