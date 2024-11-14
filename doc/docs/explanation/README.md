@@ -9,6 +9,7 @@ Welcome to the Explanation section of the `cmdlang` documentation. Here, we delv
 - **Core Specification Language**: A kernel command-line parsing specification language written as an OCaml EDSL.
 - **OCaml Library**: Exposes a single module, `Cmdlang.Command`, with no dependencies, to build command-line parsers in total abstraction using ergonomic helpers.
 - **Translation Libraries**: Convert `cmdlang` parsers at runtime into `cmdliner`, `core.command`, or `climate` parsers.
+- **Basic execution runner**: A proof-of-concept execution engine implemented on top of `stdlib.arg`.
 
 ## Experimental Status
 
