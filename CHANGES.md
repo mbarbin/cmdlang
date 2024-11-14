@@ -1,4 +1,4 @@
-## 0.0.8 (unreleased)
+## 0.0.8 (2024-11-14)
 
 ### Added
 
@@ -7,10 +7,6 @@
 ### Changed
 
 - Internal refactor to intermediate representations used in cmdlang-to-base (#16, @mbarbin).
-
-### Deprecated
-
-### Fixed
 
 ### Removed
 
