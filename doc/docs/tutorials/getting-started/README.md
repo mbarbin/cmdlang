@@ -13,25 +13,12 @@ $ ./my-calculator --op=add 1 2.5
 
 ## Installation
 
-`cmdlang` is currently under development and is not yet published to opam. Instead, it is available through a custom [opam repository](https://github.com/mbarbin/opam-repository.git), which must be added to your opam switch.
-
-For example, if you are using a local opam switch, follow these steps:
-
-<!-- $MDX skip -->
-```sh
-$ cd /path/to/your/local/switch
-$ eval $(opam env)
-$ opam repo add mbarbin https://github.com/mbarbin/opam-repository.git
-```
-
-Once this is set up, you can install `cmdlang` as usual with opam:
+Releases for the `cmdlang` project are published to the main opam public package repository.
 
 <!-- $MDX skip -->
 ```sh
 $ opam install cmdlang
 ```
-
-We will update this section as the project progresses.
 
 ## Packaging
 
