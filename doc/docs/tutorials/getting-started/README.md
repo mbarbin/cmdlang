@@ -197,7 +197,7 @@ let cmd =
     ~doc:"A simple calculator"
     (let open Command.Std in
      let+ op =
-       Arg.named_req
+       Arg.named
          [ "op" ]
          ~doc:"operation to perform"
          (Param. (* <== After typing "Param." you can now enjoy
