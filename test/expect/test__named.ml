@@ -126,7 +126,7 @@ let%expect_test "1-letter-named" =
     eval-stdlib-runner
 
     Options:
-      -w <WHO> hello who?
+      -w <WHO> hello who? (required)
       -help    Display this list of options
       --help   Display this list of options
     ("Evaluation Failed" ((exit_code 2)))

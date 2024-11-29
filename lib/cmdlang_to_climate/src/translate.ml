@@ -49,51 +49,73 @@ module Param = struct
 end
 
 module Arg = struct
+  let fmt_doc ~doc = doc
+
+  let make_desc : type a. doc:string -> param:a Ast.Param.t -> string =
+    fun ~doc ~param ->
+    match (param : _ Ast.Param.t) with
+    | Conv _ | String | Int | Float | Bool | File
+    | Enum { docv = _; choices = _; to_string = _ }
+    | Comma_separated _ -> fmt_doc ~doc
+  ;;
+
   let rec translate : type a. a Ast.Arg.t -> a Climate.Arg_parser.t = function
     | Return x -> Climate.Arg_parser.const x
     | Map { x; f } -> Climate.Arg_parser.map (translate x) ~f
     | Both (a, b) -> Climate.Arg_parser.both (translate a) (translate b)
     | Apply { f; x } -> Climate.Arg_parser.apply (translate f) (translate x)
-    | Flag { names = hd :: tl; doc } -> Climate.Arg_parser.flag ~desc:doc (hd :: tl)
+    | Flag { names = hd :: tl; doc } ->
+      let desc = fmt_doc ~doc in
+      Climate.Arg_parser.flag ~desc (hd :: tl)
     | Flag_count { names = hd :: tl; doc } ->
-      Climate.Arg_parser.flag_count ~desc:doc (hd :: tl)
+      let desc = fmt_doc ~doc in
+      Climate.Arg_parser.flag_count ~desc (hd :: tl)
     | Named { names = hd :: tl; param; docv; doc } ->
+      let desc = make_desc ~doc ~param in
       Climate.Arg_parser.named_req
-        ~desc:doc
+        ~desc
         ?value_name:docv
         (hd :: tl)
         (param |> Param.translate)
     | Named_multi { names = hd :: tl; param; docv; doc } ->
+      let desc = make_desc ~doc ~param in
       Climate.Arg_parser.named_multi
-        ~desc:doc
+        ~desc
         ?value_name:docv
         (hd :: tl)
         (param |> Param.translate)
     | Named_opt { names = hd :: tl; param; docv; doc } ->
+      let desc = make_desc ~doc ~param in
       Climate.Arg_parser.named_opt
-        ~desc:doc
+        ~desc
         ?value_name:docv
         (hd :: tl)
         (param |> Param.translate)
     | Named_with_default { names = hd :: tl; param; default; docv; doc } ->
+      let desc = make_desc ~doc ~param in
       Climate.Arg_parser.named_with_default
-        ~desc:doc
+        ~desc
         ?value_name:docv
         (hd :: tl)
         (param |> Param.translate)
         ~default
-    | Pos { pos; param; docv; doc = _ } ->
-      Climate.Arg_parser.pos_req ?value_name:docv pos (param |> Param.translate)
-    | Pos_opt { pos; param; docv; doc = _ } ->
-      Climate.Arg_parser.pos_opt ?value_name:docv pos (param |> Param.translate)
-    | Pos_with_default { pos; param; default; docv; doc = _ } ->
+    | Pos { pos; param; docv; doc } ->
+      let desc = make_desc ~doc ~param in
+      Climate.Arg_parser.pos_req ~desc ?value_name:docv pos (param |> Param.translate)
+    | Pos_opt { pos; param; docv; doc } ->
+      let desc = make_desc ~doc ~param in
+      Climate.Arg_parser.pos_opt ~desc ?value_name:docv pos (param |> Param.translate)
+    | Pos_with_default { pos; param; default; docv; doc } ->
+      let desc = make_desc ~doc ~param in
       Climate.Arg_parser.pos_with_default
+        ~desc
         ?value_name:docv
         pos
         (param |> Param.translate)
         ~default
-    | Pos_all { param; docv; doc = _ } ->
-      Climate.Arg_parser.pos_all ?value_name:docv (param |> Param.translate)
+    | Pos_all { param; docv; doc } ->
+      let desc = make_desc ~doc ~param in
+      Climate.Arg_parser.pos_all ~desc ?value_name:docv (param |> Param.translate)
   ;;
 end
 

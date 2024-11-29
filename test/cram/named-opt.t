@@ -14,13 +14,13 @@ Let's start with characterizing whether and how the default value appears in the
   
 
   $ ./main_climate.exe named opt string-with-docv --help
-  Usage: ./main_climate.exe named opt string-with-docv [OPTIONS]
-  
   Named_opt__string_with_docv
   
+  Usage: ./main_climate.exe named opt string-with-docv [OPTIONS]
+  
   Options:
-   --who <WHO>   Hello WHO?
-   --help, -h   Print help
+        --who <WHO>  Hello WHO?
+    -h, --help       Print help
 
   $ ./main_cmdliner.exe named opt string-with-docv --help=plain
   NAME
@@ -32,7 +32,7 @@ Let's start with characterizing whether and how the default value appears in the
   
   OPTIONS
          --who=WHO
-             Hello WHO?.
+             Hello WHO?
   
   COMMON OPTIONS
          --help[=FMT] (default=auto)
@@ -64,7 +64,7 @@ Let's start with characterizing whether and how the default value appears in the
   Named_opt__string_with_docv
   
   Options:
-    --who <WHO> Hello WHO?
+    --who <WHO> Hello WHO? (optional)
     -help       Display this list of options
     --help      Display this list of options
 
@@ -106,13 +106,13 @@ Characterizing the flag documentation when the `docv` parameter is not supplied.
   
 
   $ ./main_climate.exe named opt string-without-docv --help
-  Usage: ./main_climate.exe named opt string-without-docv [OPTIONS]
-  
   Named_opt__string_without_docv
   
+  Usage: ./main_climate.exe named opt string-without-docv [OPTIONS]
+  
   Options:
-   --who <STRING>   Hello WHO?
-   --help, -h   Print help
+        --who <STRING>  Hello WHO?
+    -h, --help          Print help
 
   $ ./main_cmdliner.exe named opt string-without-docv --help=plain
   NAME
@@ -125,7 +125,7 @@ Characterizing the flag documentation when the `docv` parameter is not supplied.
   
   OPTIONS
          --who=STRING
-             Hello WHO?.
+             Hello WHO?
   
   COMMON OPTIONS
          --help[=FMT] (default=auto)
@@ -157,7 +157,7 @@ Characterizing the flag documentation when the `docv` parameter is not supplied.
   Named_opt__string_without_docv
   
   Options:
-    --who <STRING> Hello WHO?
+    --who <STRING> Hello WHO? (optional)
     -help          Display this list of options
     --help         Display this list of options
 

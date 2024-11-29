@@ -58,7 +58,7 @@ let%expect_test "skipping-pos" =
     ("Evaluation Raised" (
       Climate.Spec_error.E
       "Attempted to declare a parser with a gap in its positional arguments. No parser would interpret the argument at position 0 but there is a parser for at least one argument at a higher position."))
-    Attempted to declare a parser with a gap in its positional arguments. No parser would interpret the argument at position 0 but there is a parser for at least one argument at a higher position.----------------------------------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     test: required argument WHO is missing
     Usage: test [OPTION]… WHO
     Try 'test --help' for more information.
@@ -82,7 +82,7 @@ let%expect_test "skipping-pos" =
     ("Evaluation Raised" (
       Climate.Spec_error.E
       "Attempted to declare a parser with a gap in its positional arguments. No parser would interpret the argument at position 0 but there is a parser for at least one argument at a higher position."))
-    Attempted to declare a parser with a gap in its positional arguments. No parser would interpret the argument at position 0 but there is a parser for at least one argument at a higher position.----------------------------------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     test: required argument WHO is missing
     Usage: test [OPTION]… WHO
     Try 'test --help' for more information.
@@ -106,7 +106,7 @@ let%expect_test "skipping-pos" =
     ("Evaluation Raised" (
       Climate.Spec_error.E
       "Attempted to declare a parser with a gap in its positional arguments. No parser would interpret the argument at position 0 but there is a parser for at least one argument at a higher position."))
-    Attempted to declare a parser with a gap in its positional arguments. No parser would interpret the argument at position 0 but there is a parser for at least one argument at a higher position.----------------------------------------------------- Cmdliner
+    ----------------------------------------------------- Cmdliner
     Hello World
     ----------------------------------------------------- Core_command
     ("Translation Raised" (

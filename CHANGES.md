@@ -1,3 +1,21 @@
+## 0.0.9 (unreleased)
+
+### Added
+
+### Changed
+
+- Document presence in stdlib-runner help (required, default, etc.) (#19, @mbarbin).
+- Minor refactor in stdlib-runner (#19, @mbarbin).
+- Upgrade to `climate.0.3.0` (#19, @mbarbin).
+
+### Deprecated
+
+### Fixed
+
+- Fix trailing dot additions in `to-cmdliner` for cases such as `?.` and `..` (#19, @mbarbin).
+
+### Removed
+
 ## 0.0.8 (2024-11-14)
 
 ### Added

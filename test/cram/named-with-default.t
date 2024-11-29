@@ -20,13 +20,13 @@ At the moment, the default value is not displayed in the help page for the
 help page.
 
   $ ./main_climate.exe named with-default string --help
-  Usage: ./main_climate.exe named with-default string [OPTIONS]
-  
   Named_with_default__string
   
+  Usage: ./main_climate.exe named with-default string [OPTIONS]
+  
   Options:
-   --who <WHO>   Hello WHO?
-   --help, -h   Print help
+        --who <WHO>  Hello WHO?
+    -h, --help       Print help
 
 In the cmdliner backend, the default value is shown next to the option, in
 parentheses. See `(absent=...)` below.
@@ -41,7 +41,7 @@ parentheses. See `(absent=...)` below.
   
   OPTIONS
          --who=WHO (absent=World)
-             Hello WHO?.
+             Hello WHO?
   
   COMMON OPTIONS
          --help[=FMT] (default=auto)
@@ -73,7 +73,7 @@ parentheses. See `(absent=...)` below.
   Named_with_default__string
   
   Options:
-    --who <WHO> Hello WHO?
+    --who <WHO> Hello WHO? (default World)
     -help       Display this list of options
     --help      Display this list of options
 
@@ -165,7 +165,7 @@ functions or parsers generated from modules with utils.
   Named_with_default__create
   
   Options:
-    --who <(A|B)> Greet A or B?
+    --who <(A|B)> Greet A or B? (default A)
     -help         Display this list of options
     --help        Display this list of options
   [2]
@@ -184,13 +184,13 @@ functions or parsers generated from modules with utils.
   
 
   $ ./main_climate.exe named with-default create --help
-  Usage: ./main_climate.exe named with-default create [OPTIONS]
-  
   Named_with_default__create
   
+  Usage: ./main_climate.exe named with-default create [OPTIONS]
+  
   Options:
-   --who <(A|B)>   Greet A or B?
-   --help, -h   Print help
+        --who <(A|B)>  Greet A or B?
+    -h, --help         Print help
 
   $ ./main_cmdliner.exe named with-default create --help=plain
   NAME
@@ -203,7 +203,7 @@ functions or parsers generated from modules with utils.
   
   OPTIONS
          --who=(A|B) (absent=A)
-             Greet A or B?.
+             Greet A or B?
   
   COMMON OPTIONS
          --help[=FMT] (default=auto)
@@ -235,7 +235,7 @@ functions or parsers generated from modules with utils.
   Named_with_default__create
   
   Options:
-    --who <(A|B)> Greet A or B?
+    --who <(A|B)> Greet A or B? (default A)
     -help         Display this list of options
     --help        Display this list of options
 
@@ -253,13 +253,13 @@ Named-with-default with a stringable parameter.
   
 
   $ ./main_climate.exe named with-default stringable --help
-  Usage: ./main_climate.exe named with-default stringable [OPTIONS]
-  
   Named_with_default__stringable
   
+  Usage: ./main_climate.exe named with-default stringable [OPTIONS]
+  
   Options:
-   --who <VAL>   identifier
-   --help, -h   Print help
+        --who <VAL>  identifier
+    -h, --help       Print help
 
   $ ./main_cmdliner.exe named with-default stringable --help=plain
   NAME
@@ -304,7 +304,7 @@ Named-with-default with a stringable parameter.
   Named_with_default__stringable
   
   Options:
-    --who <VAL> identifier
+    --who <VAL> identifier (default my-id)
     -help       Display this list of options
     --help      Display this list of options
 
@@ -336,13 +336,13 @@ Named-with-default with a validated string parameter.
   
 
   $ ./main_climate.exe named with-default validated --help
-  Usage: ./main_climate.exe named with-default validated [OPTIONS]
-  
   Named_with_default__validated
   
+  Usage: ./main_climate.exe named with-default validated [OPTIONS]
+  
   Options:
-   --who <VAL>   4 letters alphanumerical identifier
-   --help, -h   Print help
+        --who <VAL>  4 letters alphanumerical identifier
+    -h, --help       Print help
 
   $ ./main_cmdliner.exe named with-default validated --help=plain
   NAME
@@ -387,7 +387,7 @@ Named-with-default with a validated string parameter.
   Named_with_default__validated
   
   Options:
-    --who <VAL> 4 letters alphanumerical identifier
+    --who <VAL> 4 letters alphanumerical identifier (default 0000)
     -help       Display this list of options
     --help      Display this list of options
 
@@ -437,7 +437,7 @@ Invalid entry for the validated string parameter.
   Named_with_default__validated
   
   Options:
-    --who <VAL> 4 letters alphanumerical identifier
+    --who <VAL> 4 letters alphanumerical identifier (default 0000)
     -help       Display this list of options
     --help      Display this list of options
   [2]
@@ -470,13 +470,13 @@ Named-with-default with a comma-separated string parameter.
   
 
   $ ./main_climate.exe named with-default comma-separated --help
-  Usage: ./main_climate.exe named with-default comma-separated [OPTIONS]
-  
   Named_with_default__comma_separated
   
+  Usage: ./main_climate.exe named with-default comma-separated [OPTIONS]
+  
   Options:
-   --who <STRING>   Hello WHO?
-   --help, -h   Print help
+        --who <STRING>  Hello WHO?
+    -h, --help          Print help
 
   $ ./main_cmdliner.exe named with-default comma-separated --help=plain
   NAME
@@ -521,7 +521,7 @@ Named-with-default with a comma-separated string parameter.
   Named_with_default__comma_separated
   
   Options:
-    --who <STRING> Hello WHO?
+    --who <STRING> Hello WHO? (default World)
     -help          Display this list of options
     --help         Display this list of options
 

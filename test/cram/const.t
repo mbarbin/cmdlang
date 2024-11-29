@@ -11,12 +11,12 @@ Checking the help when there are no arguments.
   
 
   $ ./main_climate.exe return --help
-  Usage: ./main_climate.exe return [OPTIONS]
-  
   An empty command
   
+  Usage: ./main_climate.exe return [OPTIONS]
+  
   Options:
-   --help, -h   Print help
+    -h, --help  Print help
 
   $ ./main_cmdliner.exe return --help=plain
   NAME

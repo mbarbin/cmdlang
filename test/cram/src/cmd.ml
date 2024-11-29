@@ -54,6 +54,43 @@ module Basic = struct
   ;;
 end
 
+module Enum = struct
+  module Color = struct
+    type t =
+      | Red
+      | Green
+      | Blue
+
+    let all = [ Red; Green; Blue ]
+
+    let to_string = function
+      | Red -> "red"
+      | Green -> "green"
+      | Blue -> "blue"
+    ;;
+  end
+
+  let color_param = Command.Param.enumerated ~docv:"COLOR" (module Color)
+
+  let pos =
+    Command.make
+      ~summary:"print color"
+      (let open Command.Std in
+       let+ color = Arg.pos ~pos:0 color_param ~doc:"color" in
+       print_endline (Color.to_string color))
+  ;;
+
+  let named =
+    Command.make
+      ~summary:"print color"
+      (let open Command.Std in
+       let+ color = Arg.named [ "color" ] color_param ~doc:"color" in
+       print_endline (Color.to_string color))
+  ;;
+
+  let main = Command.group ~summary:"Enum types" [ "named", named; "pos", pos ]
+end
+
 module Doc = struct
   let singleton_with_readme =
     Command.make
@@ -290,5 +327,10 @@ end
 let main =
   Command.group
     ~summary:"Cram Test Command"
-    [ "basic", Basic.main; "doc", Doc.main; "named", Named.main; "return", return ]
+    [ "basic", Basic.main
+    ; "enum", Enum.main
+    ; "doc", Doc.main
+    ; "named", Named.main
+    ; "return", return
+    ]
 ;;
