@@ -48,6 +48,8 @@ let make_docv param ~docv =
   Printf.sprintf "<%s>" docv
 ;;
 
+let make_doc ~doc = doc
+
 let compile
   : type a.
     a Arg_state.t
@@ -70,12 +72,15 @@ let compile
       aux f;
       aux x
     | Flag { names = hd :: tl; doc; var } ->
+      let doc = make_doc ~doc in
       hd :: tl |> List.iter (fun name -> emit (make_key ~name, Arg.Set var, " " ^ doc))
     | Flag_count { names = hd :: tl; doc; var } ->
+      let doc = make_doc ~doc in
       hd :: tl
       |> List.iter (fun name ->
         emit (make_key ~name, Arg.Unit (fun () -> incr var), " " ^ doc))
     | Named { names = hd :: tl; param; docv; doc; var } ->
+      let doc = make_doc ~doc in
       let docv = make_docv param ~docv in
       hd :: tl
       |> List.iter (fun name ->
@@ -84,6 +89,7 @@ let compile
           , make_arg_spec ~name param ~with_var:(fun s -> var := Some s)
           , docv ^ " " ^ doc ))
     | Named_multi { names = hd :: tl; param; docv; doc; rev_var } ->
+      let doc = make_doc ~doc in
       let docv = make_docv param ~docv in
       hd :: tl
       |> List.iter (fun name ->
@@ -92,6 +98,7 @@ let compile
           , make_arg_spec ~name param ~with_var:(fun s -> rev_var := s :: !rev_var)
           , docv ^ " " ^ doc ))
     | Named_opt { names = hd :: tl; param; docv; doc; var } ->
+      let doc = make_doc ~doc in
       let docv = make_docv param ~docv in
       hd :: tl
       |> List.iter (fun name ->
@@ -100,6 +107,7 @@ let compile
           , make_arg_spec ~name param ~with_var:(fun s -> var := Some s)
           , docv ^ " " ^ doc ))
     | Named_with_default { names = hd :: tl; param; default = _; docv; doc; var } ->
+      let doc = make_doc ~doc in
       let docv = make_docv param ~docv in
       hd :: tl
       |> List.iter (fun name ->
@@ -108,19 +116,23 @@ let compile
           , make_arg_spec ~name param ~with_var:(fun s -> var := Some s)
           , docv ^ " " ^ doc ))
     | Pos { pos; param; docv; doc; var } ->
+      let doc = make_doc ~doc in
       pos_state
       := Positional_state.One_pos.T { pos; param; docv; doc; presence = Required; var }
          :: !pos_state
     | Pos_opt { pos; param; docv; doc; var } ->
+      let doc = make_doc ~doc in
       pos_state
       := Positional_state.One_pos.T { pos; param; docv; doc; presence = Optional; var }
          :: !pos_state
     | Pos_with_default { pos; param; default; docv; doc; var } ->
+      let doc = make_doc ~doc in
       pos_state
       := Positional_state.One_pos.T
            { pos; param; docv; doc; presence = With_default default; var }
          :: !pos_state
     | Pos_all { param; docv; doc; rev_var } ->
+      let doc = make_doc ~doc in
       pos_all_state := Some (Positional_state.Pos_all.T { param; docv; doc; rev_var })
   in
   aux t;

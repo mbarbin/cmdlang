@@ -66,7 +66,8 @@ module Arg = struct
     | None -> Param.docv param |> Option.value ~default:"VAL"
   ;;
 
-  let doc_of_param ~docv ~doc ~param = docv_of_param ~docv ~param ^ " " ^ doc
+  let fmt_doc ~doc = doc
+  let doc_of_param ~docv ~doc ~param = docv_of_param ~docv ~param ^ " " ^ fmt_doc ~doc
 
   let translate_flag_names (hd :: tl : _ Nonempty_list.t) ~(config : Config.t) =
     let map_flag name = if String.length name = 1 then name else "--" ^ name in
@@ -113,6 +114,7 @@ module Arg = struct
         let x = aux x in
         Command.Param.apply f x
       | Flag { names; doc } ->
+        let doc = fmt_doc ~doc in
         let (name :: aliases) = translate_flag_names names ~config in
         let flag = Command.Flag.no_arg in
         Command.Param.flag ~aliases name flag ~doc

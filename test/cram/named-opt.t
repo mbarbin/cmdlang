@@ -32,7 +32,7 @@ Let's start with characterizing whether and how the default value appears in the
   
   OPTIONS
          --who=WHO
-             Hello WHO?.
+             Hello WHO?
   
   COMMON OPTIONS
          --help[=FMT] (default=auto)
@@ -125,7 +125,7 @@ Characterizing the flag documentation when the `docv` parameter is not supplied.
   
   OPTIONS
          --who=STRING
-             Hello WHO?.
+             Hello WHO?
   
   COMMON OPTIONS
          --help[=FMT] (default=auto)

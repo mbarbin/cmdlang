@@ -1,3 +1,17 @@
+## 0.0.9 (unreleased)
+
+### Added
+
+### Changed
+
+- Upgrade to `climate.0.3.0` (#PR, @mbarbin).
+
+### Deprecated
+
+### Fixed
+
+### Removed
+
 ## 0.0.8 (2024-11-14)
 
 ### Added

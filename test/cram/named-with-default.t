@@ -41,7 +41,7 @@ parentheses. See `(absent=...)` below.
   
   OPTIONS
          --who=WHO (absent=World)
-             Hello WHO?.
+             Hello WHO?
   
   COMMON OPTIONS
          --help[=FMT] (default=auto)
@@ -203,7 +203,7 @@ functions or parsers generated from modules with utils.
   
   OPTIONS
          --who=(A|B) (absent=A)
-             Greet A or B?.
+             Greet A or B?
   
   COMMON OPTIONS
          --help[=FMT] (default=auto)

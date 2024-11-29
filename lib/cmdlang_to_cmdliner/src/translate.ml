@@ -30,22 +30,27 @@ module Arg = struct
     | None -> Param.docv param
   ;;
 
-  let with_dot_suffix ~doc =
-    let needs_dot =
-      let trim = String.trim doc in
-      String.length trim > 0 && trim.[String.length trim - 1] <> '.'
+  (* Trailing dots integrate better with cmdliner's rendering. *)
+  let fmt_doc ~doc =
+    let trim = String.trim doc in
+    let add_dot_suffix =
+      String.length trim > 0
+      &&
+      match trim.[String.length trim - 1] with
+      | '.' | '?' -> false
+      | _ -> true
     in
-    if needs_dot then doc ^ "." else doc
+    if add_dot_suffix then trim ^ "." else trim
   ;;
 
   let rec doc_of_param : type a. doc:string -> param:a Ast.Param.t -> string =
     fun ~doc ~param ->
     match (param : _ Ast.Param.t) with
-    | Conv _ | String | Int | Float | Bool | File -> with_dot_suffix ~doc
+    | Conv _ | String | Int | Float | Bool | File -> fmt_doc ~doc
     | Enum { docv = _; choices = hd :: tl; to_string = _ } ->
       Printf.sprintf
-        "%s. $(docv) must be %s."
-        doc
+        "%s $(docv) must be %s."
+        (fmt_doc ~doc)
         (Cmdliner.Arg.doc_alts_enum ~quoted:true (hd :: tl))
     | Comma_separated param -> doc_of_param ~doc:(doc ^ " (comma-separated)") ~param
   ;;
@@ -56,10 +61,10 @@ module Arg = struct
     | Both (a, b) -> Cmdliner.Term.product (translate a) (translate b)
     | Apply { f; x } -> Cmdliner.Term.app (translate f) (translate x)
     | Flag { names = hd :: tl; doc } ->
-      let doc = with_dot_suffix ~doc in
+      let doc = fmt_doc ~doc in
       Cmdliner.Arg.value (Cmdliner.Arg.flag (Cmdliner.Arg.info ~doc (hd :: tl)))
     | Flag_count { names = hd :: tl; doc } ->
-      let doc = with_dot_suffix ~doc in
+      let doc = fmt_doc ~doc in
       Cmdliner.Arg.value (Cmdliner.Arg.flag_all (Cmdliner.Arg.info ~doc (hd :: tl)))
       |> Cmdliner.Term.map List.length
     | Named { names = hd :: tl; param; docv; doc } ->

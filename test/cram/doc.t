@@ -170,10 +170,10 @@ A singleton command with a readme:
     -help   Display this list of options
     --help  Display this list of options
 
-Arguments doc created with or without dots at the end. Positional arguments are
-currently not documented in the help output of the base and climate commands,
-but they are in the cmdliner command. In cmdliner, we currently add the trailing
-dot to the documentation string if it is not present.
+Positional arguments are currently not documented in the help output of the base
+commands. Cmdlang recommmand for arguments doc to be created without dots at the
+end. A dot is systematically added when translating to cmdliner since this
+integrates best with its formatting of help pages.
 
   $ ./main_base.exe doc args-doc-end-with-dots --help
   Args doc end with dots
