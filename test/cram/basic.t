@@ -13,12 +13,15 @@ String.
   
 
   $ ./main_climate.exe basic string --help
-  Usage: ./main_climate.exe basic string [OPTIONS] <STRING>
-  
   print string
   
+  Usage: ./main_climate.exe basic string [OPTIONS] <STRING>
+  
+  Arguments:
+    <STRING>  
+  
   Options:
-   --help, -h   Print help
+    -h, --help  Print help
 
   $ ./main_cmdliner.exe basic string --help=plain
   NAME
@@ -94,12 +97,15 @@ Int.
   
 
   $ ./main_climate.exe basic int --help
-  Usage: ./main_climate.exe basic int [OPTIONS] <INT>
-  
   print int
   
+  Usage: ./main_climate.exe basic int [OPTIONS] <INT>
+  
+  Arguments:
+    <INT>  
+  
   Options:
-   --help, -h   Print help
+    -h, --help  Print help
 
   $ ./main_cmdliner.exe basic int --help=plain
   NAME
@@ -212,12 +218,15 @@ Float.
   
 
   $ ./main_climate.exe basic float --help
-  Usage: ./main_climate.exe basic float [OPTIONS] <FLOAT>
-  
   print float
   
+  Usage: ./main_climate.exe basic float [OPTIONS] <FLOAT>
+  
+  Arguments:
+    <FLOAT>  
+  
   Options:
-   --help, -h   Print help
+    -h, --help  Print help
 
   $ ./main_cmdliner.exe basic float --help=plain
   NAME
@@ -330,12 +339,15 @@ Bool.
   
 
   $ ./main_climate.exe basic bool --help
-  Usage: ./main_climate.exe basic bool [OPTIONS] <BOOL>
-  
   print bool
   
+  Usage: ./main_climate.exe basic bool [OPTIONS] <BOOL>
+  
+  Arguments:
+    <BOOL>  
+  
   Options:
-   --help, -h   Print help
+    -h, --help  Print help
 
   $ ./main_cmdliner.exe basic bool --help=plain
   NAME
@@ -502,12 +514,15 @@ File.
   
 
   $ ./main_climate.exe basic file --help
-  Usage: ./main_climate.exe basic file [OPTIONS] <FILE>
-  
   print file
   
+  Usage: ./main_climate.exe basic file [OPTIONS] <FILE>
+  
+  Arguments:
+    <FILE>  
+  
   Options:
-   --help, -h   Print help
+    -h, --help  Print help
 
   $ ./main_cmdliner.exe basic file --help=plain
   NAME

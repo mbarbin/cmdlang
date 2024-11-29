@@ -13,20 +13,20 @@
   
 
   $ ./main_climate.exe doc --help
-  Usage: ./main_climate.exe doc [OPTIONS]
-         ./main_climate.exe doc [SUBCOMMAND]
-  
   Testing documentation features
   
   This group is dedicated to testing documentation features.
       
   
-  Options:
-   --help, -h   Print help
+  Usage: ./main_climate.exe doc [COMMAND]
+         ./main_climate.exe doc [OPTIONS]
   
-  Subcommands:
-   args-doc-end-with-dots  Args doc end with dots
-   singleton-with-readme  Singleton command with a readme
+  Options:
+    -h, --help  Print help
+  
+  Commands:
+    args-doc-end-with-dots  Args doc end with dots
+    singleton-with-readme   Singleton command with a readme
   
   This is a readme.
   It can be written on multiple lines.
@@ -107,16 +107,16 @@ A singleton command with a readme:
   
 
   $ ./main_climate.exe doc singleton-with-readme --help
-  Usage: ./main_climate.exe doc singleton-with-readme [OPTIONS]
-  
   Singleton command with a readme
   
   This is a readme.
   It can be written on multiple lines.
   
   
+  Usage: ./main_climate.exe doc singleton-with-readme [OPTIONS]
+  
   Options:
-   --help, -h   Print help
+    -h, --help  Print help
 
   $ ./main_cmdliner.exe doc singleton-with-readme --help=plain
   NAME
@@ -186,12 +186,16 @@ dot to the documentation string if it is not present.
   
 
   $ ./main_climate.exe doc args-doc-end-with-dots --help
-  Usage: ./main_climate.exe doc args-doc-end-with-dots [OPTIONS] <STRING> <STRING>
-  
   Args doc end with dots
   
+  Usage: ./main_climate.exe doc args-doc-end-with-dots [OPTIONS] <STRING> <STRING>
+  
+  Arguments:
+    <STRING>  
+    <STRING>  
+  
   Options:
-   --help, -h   Print help
+    -h, --help  Print help
 
   $ ./main_cmdliner.exe doc args-doc-end-with-dots --help=plain
   NAME

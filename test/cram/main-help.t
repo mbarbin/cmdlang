@@ -17,22 +17,22 @@ the executable for each backend.
   
 
   $ ./main_climate.exe --help
-  Usage: ./main_climate.exe [OPTIONS]
-         ./main_climate.exe [SUBCOMMAND]
-  
   Cram Test Command
   
-  Options:
-   --help, -h   Print help
+  Usage: ./main_climate.exe [COMMAND]
+         ./main_climate.exe [OPTIONS]
   
-  Subcommands:
-   basic  Basic types
-   doc  Testing documentation features
+  Options:
+    -h, --help  Print help
+  
+  Commands:
+    basic   Basic types
+    doc     Testing documentation features
   
   This group is dedicated to testing documentation features.
       
-   named  Named arguments
-   return  An empty command
+    named   Named arguments
+    return  An empty command
 
   $ ./main_cmdliner.exe --help=plain
   NAME
