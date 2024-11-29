@@ -91,6 +91,18 @@ Let's check behavior when the default value is used.
   $ ./main_stdlib_runner.exe named with-default string
   Hello World
 
+  $ ./main_base.exe named with-default int
+  Hello 42
+
+  $ ./main_climate.exe named with-default int
+  Hello 42
+
+  $ ./main_cmdliner.exe named with-default int
+  Hello 42
+
+  $ ./main_stdlib_runner.exe named with-default int
+  Hello 42
+
 And when a value is provided.
 
   $ ./main_base.exe named with-default string --who You

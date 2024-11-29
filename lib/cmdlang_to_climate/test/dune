@@ -2,8 +2,20 @@
  (name cmdlang_to_climate_test)
  (public_name cmdlang-tests.cmdlang_to_climate_test)
  (inline_tests)
- (flags :standard -w +a-4-40-41-42-44-45-48-66 -warn-error +a)
- (libraries cmdlang_to_climate)
+ (flags
+  :standard
+  -w
+  +a-4-40-41-42-44-45-48-66
+  -warn-error
+  +a
+  -open
+  Base
+  -open
+  Expect_test_helpers_base)
+ (libraries
+  base
+  cmdlang_to_climate
+  expect_test_helpers_core.expect_test_helpers_base)
  (instrumentation
   (backend bisect_ppx))
  (lint
