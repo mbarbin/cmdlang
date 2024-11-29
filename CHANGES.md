@@ -4,15 +4,15 @@
 
 ### Changed
 
-- Document presence in stdlib-runner help (required, default, etc.) (#PR, @mbarbin).
-- Minor refactor in stdlib-runner (#PR, @mbarbin).
-- Upgrade to `climate.0.3.0` (#PR, @mbarbin).
+- Document presence in stdlib-runner help (required, default, etc.) (#19, @mbarbin).
+- Minor refactor in stdlib-runner (#19, @mbarbin).
+- Upgrade to `climate.0.3.0` (#19, @mbarbin).
 
 ### Deprecated
 
 ### Fixed
 
-- Fix trailing dot additions in `to-cmdliner` for cases such as `?.` and `..` (#PR, @mbarbin).
+- Fix trailing dot additions in `to-cmdliner` for cases such as `?.` and `..` (#19, @mbarbin).
 
 ### Removed
 
