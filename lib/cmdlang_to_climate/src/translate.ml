@@ -82,18 +82,19 @@ module Arg = struct
         (hd :: tl)
         (param |> Param.translate)
         ~default
-    | Pos { pos; param; docv; doc = _ } ->
-      Climate.Arg_parser.pos_req ?value_name:docv pos (param |> Param.translate)
-    | Pos_opt { pos; param; docv; doc = _ } ->
-      Climate.Arg_parser.pos_opt ?value_name:docv pos (param |> Param.translate)
-    | Pos_with_default { pos; param; default; docv; doc = _ } ->
+    | Pos { pos; param; docv; doc } ->
+      Climate.Arg_parser.pos_req ~desc:doc ?value_name:docv pos (param |> Param.translate)
+    | Pos_opt { pos; param; docv; doc } ->
+      Climate.Arg_parser.pos_opt ~desc:doc ?value_name:docv pos (param |> Param.translate)
+    | Pos_with_default { pos; param; default; docv; doc } ->
       Climate.Arg_parser.pos_with_default
+        ~desc:doc
         ?value_name:docv
         pos
         (param |> Param.translate)
         ~default
-    | Pos_all { param; docv; doc = _ } ->
-      Climate.Arg_parser.pos_all ?value_name:docv (param |> Param.translate)
+    | Pos_all { param; docv; doc } ->
+      Climate.Arg_parser.pos_all ~desc:doc ?value_name:docv (param |> Param.translate)
   ;;
 end
 

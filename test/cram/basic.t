@@ -18,7 +18,7 @@ String.
   Usage: ./main_climate.exe basic string [OPTIONS] <STRING>
   
   Arguments:
-    <STRING>  
+    <STRING>  value
   
   Options:
     -h, --help  Print help
@@ -102,7 +102,7 @@ Int.
   Usage: ./main_climate.exe basic int [OPTIONS] <INT>
   
   Arguments:
-    <INT>  
+    <INT>  value
   
   Options:
     -h, --help  Print help
@@ -223,7 +223,7 @@ Float.
   Usage: ./main_climate.exe basic float [OPTIONS] <FLOAT>
   
   Arguments:
-    <FLOAT>  
+    <FLOAT>  value
   
   Options:
     -h, --help  Print help
@@ -344,7 +344,7 @@ Bool.
   Usage: ./main_climate.exe basic bool [OPTIONS] <BOOL>
   
   Arguments:
-    <BOOL>  
+    <BOOL>  value
   
   Options:
     -h, --help  Print help
@@ -519,7 +519,7 @@ File.
   Usage: ./main_climate.exe basic file [OPTIONS] <FILE>
   
   Arguments:
-    <FILE>  
+    <FILE>  value
   
   Options:
     -h, --help  Print help

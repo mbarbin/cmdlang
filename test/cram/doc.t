@@ -191,8 +191,8 @@ dot to the documentation string if it is not present.
   Usage: ./main_climate.exe doc args-doc-end-with-dots [OPTIONS] <STRING> <STRING>
   
   Arguments:
-    <STRING>  
-    <STRING>  
+    <STRING>  The doc for [a] in the code ends with a dot.
+    <STRING>  The doc for [b] doesn't
   
   Options:
     -h, --help  Print help
