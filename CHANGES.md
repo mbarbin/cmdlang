@@ -10,6 +10,8 @@
 
 ### Fixed
 
+- Fix trailing dot additions in `to-cmdliner` for cases such as `?.` and `..` (#PR, @mbarbin).
+
 ### Removed
 
 ## 0.0.8 (2024-11-14)
