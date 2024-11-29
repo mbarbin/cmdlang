@@ -3,6 +3,8 @@
         "cmdlang",
         "cmdliner",
         "conv",
+        "docv",
+        "Fpath",
         "groff",
         "janestreet",
         "odoc",
