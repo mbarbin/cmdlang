@@ -73,7 +73,7 @@ parentheses. See `(absent=...)` below.
   Named_with_default__string
   
   Options:
-    --who <WHO> Hello WHO?
+    --who <WHO> Hello WHO? (default World)
     -help       Display this list of options
     --help      Display this list of options
 
@@ -165,7 +165,7 @@ functions or parsers generated from modules with utils.
   Named_with_default__create
   
   Options:
-    --who <(A|B)> Greet A or B?
+    --who <(A|B)> Greet A or B? (default A)
     -help         Display this list of options
     --help        Display this list of options
   [2]
@@ -235,7 +235,7 @@ functions or parsers generated from modules with utils.
   Named_with_default__create
   
   Options:
-    --who <(A|B)> Greet A or B?
+    --who <(A|B)> Greet A or B? (default A)
     -help         Display this list of options
     --help        Display this list of options
 
@@ -304,7 +304,7 @@ Named-with-default with a stringable parameter.
   Named_with_default__stringable
   
   Options:
-    --who <VAL> identifier
+    --who <VAL> identifier (default my-id)
     -help       Display this list of options
     --help      Display this list of options
 
@@ -387,7 +387,7 @@ Named-with-default with a validated string parameter.
   Named_with_default__validated
   
   Options:
-    --who <VAL> 4 letters alphanumerical identifier
+    --who <VAL> 4 letters alphanumerical identifier (default 0000)
     -help       Display this list of options
     --help      Display this list of options
 
@@ -437,7 +437,7 @@ Invalid entry for the validated string parameter.
   Named_with_default__validated
   
   Options:
-    --who <VAL> 4 letters alphanumerical identifier
+    --who <VAL> 4 letters alphanumerical identifier (default 0000)
     -help       Display this list of options
     --help      Display this list of options
   [2]
@@ -521,7 +521,7 @@ Named-with-default with a comma-separated string parameter.
   Named_with_default__comma_separated
   
   Options:
-    --who <STRING> Hello WHO?
+    --who <STRING> Hello WHO? (default World)
     -help          Display this list of options
     --help         Display this list of options
 

@@ -64,7 +64,7 @@ Let's start with characterizing whether and how the default value appears in the
   Named_opt__string_with_docv
   
   Options:
-    --who <WHO> Hello WHO?
+    --who <WHO> Hello WHO? (optional)
     -help       Display this list of options
     --help      Display this list of options
 
@@ -157,7 +157,7 @@ Characterizing the flag documentation when the `docv` parameter is not supplied.
   Named_opt__string_without_docv
   
   Options:
-    --who <STRING> Hello WHO?
+    --who <STRING> Hello WHO? (optional)
     -help          Display this list of options
     --help         Display this list of options
 

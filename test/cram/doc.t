@@ -243,7 +243,7 @@ integrates best with its formatting of help pages.
   Args doc end with dots
   
   Arguments:
-    <STRING>  The doc for [a] in the code ends with a dot (required)
+    <STRING>  The doc for [a] in the code ends with a dot. (required)
     <STRING>  The doc for [b] doesn't (required)
   
   Options:

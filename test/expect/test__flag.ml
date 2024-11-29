@@ -49,7 +49,7 @@ let%expect_test "flag" =
     eval-stdlib-runner
 
     Options:
-      --print-hello  print Hello
+      --print-hello  print Hello (optional)
       -help          Display this list of options
       --help         Display this list of options
     ("Evaluation Failed" ((exit_code 2)))
@@ -78,7 +78,7 @@ let%expect_test "flag" =
     eval-stdlib-runner
 
     Options:
-      --print-hello  print Hello
+      --print-hello  print Hello (optional)
       -help          Display this list of options
       --help         Display this list of options
     ("Evaluation Failed" ((exit_code 2)))
@@ -102,7 +102,7 @@ let%expect_test "flag" =
     eval-stdlib-runner
 
     Options:
-      --print-hello  print Hello
+      --print-hello  print Hello (optional)
       -help          Display this list of options
       --help         Display this list of options
     ("Evaluation Failed" ((exit_code 2)))
@@ -161,7 +161,7 @@ let%expect_test "1-letter-flag" =
     eval-stdlib-runner
 
     Options:
-      -p      print Hello
+      -p      print Hello (optional)
       -help   Display this list of options
       --help  Display this list of options
     ("Evaluation Failed" ((exit_code 2)))
@@ -233,8 +233,8 @@ let%expect_test "1-letter-alias" =
     eval-stdlib-runner
 
     Options:
-      -p             print Hello
-      --print-hello  print Hello
+      -p             print Hello (optional)
+      --print-hello  print Hello (optional)
       -help          Display this list of options
       --help         Display this list of options
     ("Evaluation Failed" ((exit_code 2)))
@@ -304,8 +304,8 @@ let%expect_test "ambiguous prefixes" =
     eval-stdlib-runner
 
     Options:
-      --print-hello-world  print Hello World
-      --print-hello-you    print Hello You
+      --print-hello-world  print Hello World (optional)
+      --print-hello-you    print Hello You (optional)
       -help                Display this list of options
       --help               Display this list of options
     ("Evaluation Failed" ((exit_code 2)))
@@ -332,8 +332,8 @@ let%expect_test "ambiguous prefixes" =
     eval-stdlib-runner
 
     Options:
-      --print-hello-world  print Hello World
-      --print-hello-you    print Hello You
+      --print-hello-world  print Hello World (optional)
+      --print-hello-you    print Hello You (optional)
       -help                Display this list of options
       --help               Display this list of options
     ("Evaluation Failed" ((exit_code 2)))

@@ -4,6 +4,8 @@
 
 ### Changed
 
+- Document presence in stdlib-runner help (required, default, etc.) (#PR, @mbarbin).
+- Minor refactor in stdlib-runner (#PR, @mbarbin).
 - Upgrade to `climate.0.3.0` (#PR, @mbarbin).
 
 ### Deprecated

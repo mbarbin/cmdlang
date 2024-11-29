@@ -5,20 +5,12 @@
     is used to collect and store the values of positional arguments during the
     calls to [Arg.anon_fun]. *)
 
-module Presence : sig
-  type 'a t =
-    | Required
-    | Optional
-    | With_default of 'a
-end
-
 module One_pos : sig
   type 'a t =
     { pos : int
     ; param : 'a Ast.Param.t
     ; docv : string option
     ; doc : string
-    ; presence : 'a Presence.t
     ; var : 'a option ref
     }
 

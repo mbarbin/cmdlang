@@ -1,19 +1,11 @@
 open! Import
 
-module Presence = struct
-  type 'a t =
-    | Required
-    | Optional
-    | With_default of 'a
-end
-
 module One_pos = struct
   type 'a t =
     { pos : int
     ; param : 'a Ast.Param.t
     ; docv : string option
     ; doc : string
-    ; presence : 'a Presence.t
     ; var : 'a option ref
     }
 
@@ -68,9 +60,7 @@ let anon_fun t anon =
   t.current_pos <- succ current_pos;
   if current_pos < Array.length t.pos
   then (
-    let (One_pos.T { pos; param; docv = _; doc = _; presence = _; var }) =
-      t.pos.(current_pos)
-    in
+    let (One_pos.T { pos; param; docv = _; doc = _; var }) = t.pos.(current_pos) in
     assert (pos = current_pos);
     match Param_parser.eval param anon with
     | Ok a -> var := Some a
@@ -93,21 +83,14 @@ let anon_fun t anon =
 let usage_msg { pos; pos_all; current_pos = _ } =
   let pos =
     Array.to_list pos
-    |> List.map (fun (One_pos.T { pos = _; param; docv; doc; presence; var = _ }) ->
+    |> List.map (fun (One_pos.T { pos = _; param; docv; doc; var = _ }) ->
       let docv = Param_parser.docv param ~docv in
       let doc =
         if String.ends_with ~suffix:"." doc
         then String.sub doc 0 (String.length doc - 1)
         else doc
       in
-      Printf.sprintf
-        "  <%s>  %s (%s)"
-        docv
-        doc
-        (match presence with
-         | Required -> "required"
-         | Optional -> "optional"
-         | With_default def -> Printf.sprintf "default %s" (Param_parser.print param def)))
+      Printf.sprintf "  <%s>  %s" docv doc)
   in
   let pos_all =
     match pos_all with
