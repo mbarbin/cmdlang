@@ -10,6 +10,7 @@ the executable for each backend.
   
     basic                      . Basic types
     doc                        . Testing documentation features
+    enum                       . Enum types
     named                      . Named arguments
     return                     . An empty command
     version                    . print version information
@@ -27,6 +28,7 @@ the executable for each backend.
   
   Commands:
     basic   Basic types
+    enum    Enum types
     doc     Testing documentation features
   
   This group is dedicated to testing documentation features.
@@ -47,6 +49,9 @@ the executable for each backend.
   
          doc COMMAND …
              Testing documentation features
+  
+         enum COMMAND …
+             Enum types
   
          named COMMAND …
              Named arguments
@@ -82,6 +87,7 @@ the executable for each backend.
   
   Subcommands:
     basic      Basic types
+    enum       Enum types
     doc        Testing documentation features
     named      Named arguments
     return     An empty command
