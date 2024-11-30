@@ -27,7 +27,7 @@ const sidebars: SidebarsConfig = {
       type: 'category',
       label: 'Guides',
       items: [
-        { type: 'doc', id: 'guides/README', label: 'Introduction' },
+        { type: 'doc', id: 'guides/usage-styles/README', label: 'Usage Styles' },
       ],
     },
   ],
