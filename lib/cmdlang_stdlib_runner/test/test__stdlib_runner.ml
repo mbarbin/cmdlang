@@ -21,7 +21,8 @@ let%expect_test "eval_exit_code" =
     [0]
     |}];
   test [ "--help" ];
-  [%expect {|
+  [%expect
+    {|
     Usage: ./main.exe [OPTIONS]
 
     cmd

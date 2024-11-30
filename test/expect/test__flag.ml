@@ -382,7 +382,7 @@ let%expect_test "user provided dashes" =
   let test name =
     let test =
       Arg_test.create
-        (let%map_open.Command _ = Arg.flag [ name ] ~doc:name in
+        (let%map_open.Command (_ : bool) = Arg.flag [ name ] ~doc:name in
          ())
     in
     Arg_test.eval_all test { prog = "test"; args = [ name ] }
