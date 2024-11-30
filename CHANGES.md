@@ -1,7 +1,9 @@
-## 0.0.9 (unreleased)
+## 0.0.9 (2024-11-30)
 
 ### Added
 
+- Added an example of migration from `core.command` to `climate` (#20, @mbarbin).
+- Added migration utils (#20, @mbarbin).
 - Improve code coverage, added tests (#20, @mbarbin).
 
 ### Changed
@@ -10,15 +12,13 @@
 - Minor refactor in stdlib-runner (#19, @mbarbin).
 - Upgrade to `climate.0.3.0` (#19, @mbarbin).
 
-### Deprecated
-
 ### Fixed
 
 - Fix trailing dot additions in `to-cmdliner` for cases such as `?.` and `..` (#19, @mbarbin).
 
 ### Removed
 
-- Removed config option `auto_add_short_aliases` from to-base translation (#20, @mbarbin).
+- Removed config option `auto_add_short_aliases` from to-base translation (not useful) (#20, @mbarbin).
 
 ## 0.0.8 (2024-11-14)
 
