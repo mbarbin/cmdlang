@@ -121,7 +121,7 @@ const config: Config = {
             },
             {
               label: 'Guides',
-              to: '/docs/guides/',
+              to: '/docs/guides/usage-styles/',
             },
             {
               label: 'Reference',

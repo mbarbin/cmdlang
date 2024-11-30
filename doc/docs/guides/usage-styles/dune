@@ -1,0 +1,15 @@
+(mdx
+ (package cmdlang-tests)
+ (deps
+  (package cmdlang)
+  (glob_files *.txt)
+  (glob_files *.exe)
+  (glob_files *.mli)
+  (glob_files *.ml))
+ (preludes prelude.txt))
+
+(rule
+ (copy ./lib/usage_styles.mli ./usage_styles.mli))
+
+(rule
+ (copy ./lib/usage_styles.ml ./usage_styles.ml))
