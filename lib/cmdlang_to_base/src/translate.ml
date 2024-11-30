@@ -1,17 +1,11 @@
 module Config = struct
   type t =
-    { auto_add_short_aliases : bool
-    ; auto_add_one_dash_aliases : bool
+    { auto_add_one_dash_aliases : bool
     ; full_flags_required : bool
     }
 
-  let create
-    ?(auto_add_short_aliases = false)
-    ?(auto_add_one_dash_aliases = false)
-    ?(full_flags_required = true)
-    ()
-    =
-    { auto_add_short_aliases; auto_add_one_dash_aliases; full_flags_required }
+  let create ?(auto_add_one_dash_aliases = false) ?(full_flags_required = true) () =
+    { auto_add_one_dash_aliases; full_flags_required }
   ;;
 end
 
@@ -71,15 +65,9 @@ module Arg = struct
 
   let translate_flag_names (hd :: tl : _ Nonempty_list.t) ~(config : Config.t) =
     let map_flag name = if String.length name = 1 then name else "--" ^ name in
-    let present = Set.of_list (module String) (hd :: tl) in
     let tl =
       List.concat
-        [ (if String.length hd > 1 && config.auto_add_short_aliases
-           then (
-             let short_alias = String.sub hd ~pos:0 ~len:1 in
-             if Set.mem present short_alias then [] else [ short_alias ])
-           else [])
-        ; (if String.length hd > 1 && config.auto_add_one_dash_aliases then [ hd ] else [])
+        [ (if String.length hd > 1 && config.auto_add_one_dash_aliases then [ hd ] else [])
         ; List.map tl ~f:map_flag
         ]
     in

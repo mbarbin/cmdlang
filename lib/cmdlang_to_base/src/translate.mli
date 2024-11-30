@@ -14,8 +14,7 @@ module Config : sig
   type t
 
   val create
-    :  ?auto_add_short_aliases:bool (** default to [false]. *)
-    -> ?auto_add_one_dash_aliases:bool
+    :  ?auto_add_one_dash_aliases:bool
          (** default to [false]. We recommend enabling one dash aliases to be
              used for migration path only. *)
     -> ?full_flags_required:bool

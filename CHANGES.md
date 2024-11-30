@@ -18,6 +18,8 @@
 
 ### Removed
 
+- Removed config option `auto_add_short_aliases` from to-base translation (#20, @mbarbin).
+
 ## 0.0.8 (2024-11-14)
 
 ### Added
