@@ -17,40 +17,30 @@ let%expect_test "flag" =
       [32;1m-h, --help [0m        Print help
     ("Evaluation Raised" (Climate.Usage))
     ----------------------------------------------------- Cmdliner
-    TEST(1)                           Test Manual                          TEST(1)
-
-
-
-    NNAAMMEE
+    NAME
            test
 
-    SSYYNNOOPPSSIISS
-           tteesstt [----pprriinntt--hheelllloo] [_O_P_T_I_O_N]…
+    SYNOPSIS
+           test [--print-hello] [OPTION]…
 
-    OOPPTTIIOONNSS
-           ----pprriinntt--hheelllloo
+    OPTIONS
+           --print-hello
                print Hello.
 
-    CCOOMMMMOONN OOPPTTIIOONNSS
-           ----hheellpp[=_F_M_T] (default=aauuttoo)
-               Show this help in format _F_M_T. The value _F_M_T must be one of aauuttoo,
-               ppaaggeerr, ggrrooffff or ppllaaiinn. With aauuttoo, the format is ppaaggeerr or ppllaaiinn
-               whenever the TTEERRMM env var is dduummbb or undefined.
+    COMMON OPTIONS
+           --help[=FMT] (default=auto)
+               Show this help in format FMT. The value FMT must be one of auto,
+               pager, groff or plain. With auto, the format is pager or plain
+               whenever the TERM env var is dumb or undefined.
 
-    EEXXIITT SSTTAATTUUSS
-           tteesstt exits with:
+    EXIT STATUS
+           test exits with:
 
            0   on success.
 
            123 on indiscriminate errors reported on standard error.
 
            124 on command line parsing errors.
-
-           125 on unexpected internal errors (bugs).
-
-
-
-    Test                                                                   TEST(1)
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
       "Command.Failed_to_parse_command_line(\"unknown flag --help\")"))
@@ -63,6 +53,9 @@ let%expect_test "flag" =
       --print-hello  print Hello (optional)
       -help          Display this list of options
       --help         Display this list of options
+
+
+           125 on unexpected internal errors (bugs).
     |}];
   ()
 ;;
