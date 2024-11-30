@@ -85,11 +85,6 @@ let usage_msg { pos; pos_all; current_pos = _ } =
     Array.to_list pos
     |> List.map (fun (One_pos.T { pos = _; param; docv; doc; var = _ }) ->
       let docv = Param_parser.docv param ~docv in
-      let doc =
-        if String.ends_with ~suffix:"." doc
-        then String.sub doc 0 (String.length doc - 1)
-        else doc
-      in
       Printf.sprintf "  <%s>  %s" docv doc)
   in
   let pos_all =
@@ -97,11 +92,6 @@ let usage_msg { pos; pos_all; current_pos = _ } =
     | None -> []
     | Some (Pos_all.T { param; docv; doc; rev_var = _ }) ->
       let docv = Param_parser.docv param ~docv in
-      let doc =
-        if String.ends_with ~suffix:"." doc
-        then String.sub doc 0 (String.length doc - 1)
-        else doc
-      in
       [ Printf.sprintf "  <%s>*  %s (listed)" docv doc ]
   in
   match pos @ pos_all with
