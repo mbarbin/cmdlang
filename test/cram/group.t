@@ -234,6 +234,10 @@ Same with a group that has a default command:
     -help   Display this list of options
     --help  Display this list of options
 
+Cover the execution of group a (does nothing):
+
+  $ ./main_stdlib_runner.exe group a
+
 What happens when that group with a default is run:
 
   $ ./main_base.exe group

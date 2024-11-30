@@ -386,21 +386,28 @@ module Named = struct
 end
 
 module Group = struct
+  (* We express the handler for this group as delayed function. This is not
+     required to test default command, rather this is used in order to test the
+     mapping of command handlers. *)
+
   let a =
     Command.make
       ~summary:"do nothing"
       (let open Command.Std in
        let+ () = Arg.return () in
-       ())
+       fun () -> ())
   ;;
 
   let default =
     let open Command.Std in
     let+ name = Arg.pos ~pos:0 Param.string ~doc:"name" in
-    print_endline ("Hello " ^ name)
+    fun () -> print_endline ("Hello " ^ name)
   ;;
 
-  let main = Command.group ~summary:"A group command with a default" ~default [ "a", a ]
+  let main =
+    Command.group ~summary:"A group command with a default" ~default [ "a", a ]
+    |> Command.Utils.map ~f:(fun f -> f ())
+  ;;
 end
 
 let main =

@@ -69,3 +69,7 @@ Characterizing translation and behavior of various flag types.
     -a      short (optional)
     -help   Display this list of options
     --help  Display this list of options
+
+Cover the execution:
+
+  $ ./main_stdlib_runner.exe flags names
