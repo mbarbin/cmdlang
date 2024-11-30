@@ -172,12 +172,14 @@ module Arg = struct
 end
 
 module Command = struct
+  let config_or_default ~config =
+    match config with
+    | Some config -> config
+    | None -> Config.create ()
+  ;;
+
   let unit ?config command =
-    let config =
-      match config with
-      | Some config -> config
-      | None -> Config.create ()
-    in
+    let config = config_or_default ~config in
     let rec aux : unit Ast.Command.t -> Command.t =
       fun command ->
       match command with
@@ -198,11 +200,7 @@ module Command = struct
   ;;
 
   let basic ?config command =
-    let config =
-      match config with
-      | Some config -> config
-      | None -> Config.create ()
-    in
+    let config = config_or_default ~config in
     let rec aux : (unit -> unit) Ast.Command.t -> Command.t =
       fun command ->
       match command with
@@ -219,11 +217,7 @@ module Command = struct
   ;;
 
   let or_error ?config command =
-    let config =
-      match config with
-      | Some config -> config
-      | None -> Config.create ()
-    in
+    let config = config_or_default ~config in
     let rec aux : (unit -> unit Or_error.t) Ast.Command.t -> Command.t =
       fun command ->
       match command with
