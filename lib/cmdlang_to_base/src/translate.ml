@@ -1,17 +1,11 @@
 module Config = struct
   type t =
-    { auto_add_short_aliases : bool
-    ; auto_add_one_dash_aliases : bool
+    { auto_add_one_dash_aliases : bool
     ; full_flags_required : bool
     }
 
-  let create
-    ?(auto_add_short_aliases = false)
-    ?(auto_add_one_dash_aliases = false)
-    ?(full_flags_required = true)
-    ()
-    =
-    { auto_add_short_aliases; auto_add_one_dash_aliases; full_flags_required }
+  let create ?(auto_add_one_dash_aliases = false) ?(full_flags_required = true) () =
+    { auto_add_one_dash_aliases; full_flags_required }
   ;;
 end
 
@@ -71,15 +65,9 @@ module Arg = struct
 
   let translate_flag_names (hd :: tl : _ Nonempty_list.t) ~(config : Config.t) =
     let map_flag name = if String.length name = 1 then name else "--" ^ name in
-    let present = Set.of_list (module String) (hd :: tl) in
     let tl =
       List.concat
-        [ (if String.length hd > 1 && config.auto_add_short_aliases
-           then (
-             let short_alias = String.sub hd ~pos:0 ~len:1 in
-             if Set.mem present short_alias then [] else [ short_alias ])
-           else [])
-        ; (if String.length hd > 1 && config.auto_add_one_dash_aliases then [ hd ] else [])
+        [ (if String.length hd > 1 && config.auto_add_one_dash_aliases then [ hd ] else [])
         ; List.map tl ~f:map_flag
         ]
     in
@@ -184,12 +172,14 @@ module Arg = struct
 end
 
 module Command = struct
+  let config_or_default ~config =
+    match config with
+    | Some config -> config
+    | None -> Config.create ()
+  ;;
+
   let unit ?config command =
-    let config =
-      match config with
-      | Some config -> config
-      | None -> Config.create ()
-    in
+    let config = config_or_default ~config in
     let rec aux : unit Ast.Command.t -> Command.t =
       fun command ->
       match command with
@@ -210,11 +200,7 @@ module Command = struct
   ;;
 
   let basic ?config command =
-    let config =
-      match config with
-      | Some config -> config
-      | None -> Config.create ()
-    in
+    let config = config_or_default ~config in
     let rec aux : (unit -> unit) Ast.Command.t -> Command.t =
       fun command ->
       match command with
@@ -231,11 +217,7 @@ module Command = struct
   ;;
 
   let or_error ?config command =
-    let config =
-      match config with
-      | Some config -> config
-      | None -> Config.create ()
-    in
+    let config = config_or_default ~config in
     let rec aux : (unit -> unit Or_error.t) Ast.Command.t -> Command.t =
       fun command ->
       match command with
@@ -259,6 +241,22 @@ let arg a ~config = a |> To_ast.arg |> Arg.translate ~config
 let command_unit ?config a = a |> To_ast.command |> Command.unit ?config
 let command_basic ?config a = a |> To_ast.command |> Command.basic ?config
 let command_or_error ?config a = a |> To_ast.command |> Command.or_error ?config
+
+module Utils = struct
+  let or_error_handler ~f =
+    match f () with
+    | Ok () -> ()
+    | Error err ->
+      Stdlib.prerr_endline (Error.to_string_hum err);
+      Stdlib.exit 1
+  ;;
+
+  let command_unit_of_basic t = Cmdlang.Command.Utils.map t ~f:(fun f -> f ())
+
+  let command_unit_of_or_error t =
+    Cmdlang.Command.Utils.map t ~f:(fun f -> or_error_handler ~f)
+  ;;
+end
 
 module Private = struct
   module Arg = Arg

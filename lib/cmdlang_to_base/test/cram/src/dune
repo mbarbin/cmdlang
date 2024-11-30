@@ -1,7 +1,6 @@
 (library
- (name cmdlang_to_base_test)
- (public_name cmdlang-tests.cmdlang_to_base_test)
- (inline_tests)
+ (name base_cram_test_command)
+ (public_name cmdlang-tests.base_cram_test_command)
  (flags
   :standard
   -w
@@ -11,13 +10,8 @@
   -open
   Base
   -open
-  Expect_test_helpers_base)
- (libraries
-  base
-  cmdlang
-  cmdlang_to_base
-  core.command
-  expect_test_helpers_core.expect_test_helpers_base)
+  Stdio)
+ (libraries base cmdlang cmdlang_to_base core.command stdio)
  (instrumentation
   (backend bisect_ppx))
  (lint
@@ -27,7 +21,6 @@
    -unused-code-warnings=force
    ppx_compare
    ppx_enumerate
-   ppx_expect
    ppx_hash
    ppx_here
    ppx_let

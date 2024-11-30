@@ -145,4 +145,5 @@ module Command : sig
         -> 'a t
 
   val summary : _ t -> string
+  val map : 'a t -> f:('a -> 'b) -> 'b t
 end

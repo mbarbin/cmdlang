@@ -1,0 +1,11 @@
+(executables
+ (names main_base main_climate)
+ (flags :standard -w +a-4-40-41-42-44-45-48-66 -warn-error +a)
+ (libraries
+  base_cram_test_command
+  core_unix.command_unix
+  cmdlang_to_climate
+  climate)
+ (instrumentation
+  (backend bisect_ppx))
+ (preprocess no_preprocessing))

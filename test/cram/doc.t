@@ -171,7 +171,7 @@ A singleton command with a readme:
     --help  Display this list of options
 
 Positional arguments are currently not documented in the help output of the base
-commands. Cmdlang recommmand for arguments doc to be created without dots at the
+commands. Cmdlang recommends for arguments doc to be created without dots at the
 end. A dot is systematically added when translating to cmdliner since this
 integrates best with its formatting of help pages.
 

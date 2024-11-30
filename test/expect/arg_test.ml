@@ -87,6 +87,11 @@ let eval_climate t { Command_line.prog; args } =
 ;;
 
 let eval_cmdliner t { Command_line.prog; args } =
+  let args =
+    List.map args ~f:(function
+      | "--help" -> "--help=plain"
+      | arg -> arg)
+  in
   match t.cmdliner with
   | Error e -> print_s [%sexp "Translation Raised", (e : Exn.t)] [@coverage off]
   | Ok term ->

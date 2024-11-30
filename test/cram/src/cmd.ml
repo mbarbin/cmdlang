@@ -6,6 +6,19 @@ let return =
      print_endline "()")
 ;;
 
+module Flags = struct
+  let names =
+    Command.make
+      ~summary:"various flags"
+      (let open Command.Std in
+       let+ _ = Arg.flag [ "a" ] ~doc:"short"
+       and+ _ = Arg.flag [ "long" ] ~doc:"long" in
+       ())
+  ;;
+
+  let main = Command.group ~summary:"flags" [ "names", names ]
+end
+
 module Basic = struct
   let string =
     Command.make
@@ -185,6 +198,51 @@ module Named = struct
          print_endline ("Hello " ^ who))
     ;;
 
+    let float =
+      Command.make
+        ~summary:"Named_with_default__float"
+        (let open Command.Std in
+         let+ x =
+           Arg.named_with_default
+             [ "x" ]
+             Param.float
+             ~docv:"X"
+             ~default:42.
+             ~doc:"Print Hello X"
+         in
+         print_endline ("Hello " ^ Float.to_string x))
+    ;;
+
+    let bool =
+      Command.make
+        ~summary:"Named_with_default__bool"
+        (let open Command.Std in
+         let+ x =
+           Arg.named_with_default
+             [ "x" ]
+             Param.bool
+             ~docv:"X"
+             ~default:true
+             ~doc:"Print Hello X"
+         in
+         print_endline ("Hello " ^ Bool.to_string x))
+    ;;
+
+    let file =
+      Command.make
+        ~summary:"Named_with_default__file"
+        (let open Command.Std in
+         let+ x =
+           Arg.named_with_default
+             [ "x" ]
+             Param.file
+             ~docv:"X"
+             ~default:"path/to/file"
+             ~doc:"Print Hello X"
+         in
+         print_endline ("Hello " ^ x))
+    ;;
+
     let create =
       Command.make
         ~summary:"Named_with_default__create"
@@ -310,6 +368,9 @@ module Named = struct
         [ "create", create
         ; "int", int
         ; "string", string
+        ; "float", float
+        ; "bool", bool
+        ; "file", file
         ; "stringable", stringable
         ; "validated", validated
         ; "comma-separated", comma_separated
@@ -324,12 +385,39 @@ module Named = struct
   ;;
 end
 
+module Group = struct
+  (* We express the handler for this group as delayed function. This is not
+     required to test default command, rather this is used in order to test the
+     mapping of command handlers. *)
+
+  let a =
+    Command.make
+      ~summary:"do nothing"
+      (let open Command.Std in
+       let+ () = Arg.return () in
+       fun () -> ())
+  ;;
+
+  let default =
+    let open Command.Std in
+    let+ name = Arg.pos ~pos:0 Param.string ~doc:"name" in
+    fun () -> print_endline ("Hello " ^ name)
+  ;;
+
+  let main =
+    Command.group ~summary:"A group command with a default" ~default [ "a", a ]
+    |> Command.Utils.map ~f:(fun f -> f ())
+  ;;
+end
+
 let main =
   Command.group
     ~summary:"Cram Test Command"
     [ "basic", Basic.main
-    ; "enum", Enum.main
     ; "doc", Doc.main
+    ; "enum", Enum.main
+    ; "flags", Flags.main
+    ; "group", Group.main
     ; "named", Named.main
     ; "return", return
     ]

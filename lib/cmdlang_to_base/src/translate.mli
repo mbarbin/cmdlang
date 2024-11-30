@@ -14,8 +14,7 @@ module Config : sig
   type t
 
   val create
-    :  ?auto_add_short_aliases:bool (** default to [false]. *)
-    -> ?auto_add_one_dash_aliases:bool
+    :  ?auto_add_one_dash_aliases:bool
          (** default to [false]. We recommend enabling one dash aliases to be
              used for migration path only. *)
     -> ?full_flags_required:bool
@@ -47,6 +46,19 @@ val command_or_error
     is probably not quite right, due to the body of the command being evaluated
     as an argument. *)
 val command_unit : ?config:Config.t -> unit Cmdlang.Command.t -> Command.t
+
+module Utils : sig
+  (** {1 Migration helpers} *)
+
+  (** Print error and exit on error. Mimic [Core.Command.basic_or_error]. *)
+  val or_error_handler : f:(unit -> unit Or_error.t) -> unit
+
+  val command_unit_of_basic : (unit -> unit) Cmdlang.Command.t -> unit Cmdlang.Command.t
+
+  val command_unit_of_or_error
+    :  (unit -> unit Or_error.t) Cmdlang.Command.t
+    -> unit Cmdlang.Command.t
+end
 
 (** {1 Private} *)
 

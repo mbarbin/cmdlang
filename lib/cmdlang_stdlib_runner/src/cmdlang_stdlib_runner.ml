@@ -1,7 +1,9 @@
+module Arg_runner = Arg_runner
 module Arg_state = Arg_state
 module Command_selector = Command_selector
 module Param_parser = Param_parser
 module Parser_state = Parser_state
+module Positional_state = Positional_state
 
 let usage_msg
   ~argv

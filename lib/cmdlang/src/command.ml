@@ -96,6 +96,11 @@ let group ?default ?readme ~summary subcommands =
   Ast.Command.Group { default; summary; readme; subcommands }
 ;;
 
+module Utils = struct
+  let summary = Ast.Command.summary
+  let map = Ast.Command.map
+end
+
 module type Applicative_infix = sig
   type 'a t
 

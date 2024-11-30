@@ -377,6 +377,21 @@ val group
   -> (string * 'a t) list
   -> 'a t
 
+module Utils : sig
+  (** Utilities for handling commands. *)
+
+  (** Return the summary of a command. *)
+  val summary : _ t -> string
+
+  (** Map a function over a command. *)
+  val map : 'a t -> f:('a -> 'b) -> 'b t
+end
+
+(** {1 Applicative operations}
+
+    These operations are used to build command-line parsers in a declarative
+    style. *)
+
 module type Applicative_infix = sig
   type 'a t
 
