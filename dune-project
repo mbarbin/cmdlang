@@ -17,6 +17,8 @@
 
 (using mdx 0.4)
 
+(implicit_transitive_deps false)
+
 (package
  (name cmdlang)
  (synopsis "Declarative Command-line Parsing for OCaml")
