@@ -248,6 +248,22 @@ let command_unit ?config a = a |> To_ast.command |> Command.unit ?config
 let command_basic ?config a = a |> To_ast.command |> Command.basic ?config
 let command_or_error ?config a = a |> To_ast.command |> Command.or_error ?config
 
+module Utils = struct
+  let or_error_handler ~f =
+    match f () with
+    | Ok () -> ()
+    | Error err ->
+      Stdlib.prerr_endline (Error.to_string_hum err);
+      Stdlib.exit 1
+  ;;
+
+  let command_unit_of_basic t = Cmdlang.Command.Utils.map t ~f:(fun f -> f ())
+
+  let command_unit_of_or_error t =
+    Cmdlang.Command.Utils.map t ~f:(fun f -> or_error_handler ~f)
+  ;;
+end
+
 module Private = struct
   module Arg = Arg
 end

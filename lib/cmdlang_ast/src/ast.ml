@@ -131,4 +131,18 @@ module Command = struct
     | Make { summary; _ } -> summary
     | Group { summary; _ } -> summary
   ;;
+
+  let rec map : type a b. a t -> f:(a -> b) -> b t =
+    fun a ~f ->
+    match a with
+    | Make { arg; summary; readme } ->
+      Make { arg = Arg.Map { x = arg; f }; summary; readme }
+    | Group { default; summary; readme; subcommands } ->
+      Group
+        { default = default |> Option.map (fun arg -> Arg.Map { x = arg; f })
+        ; summary
+        ; readme
+        ; subcommands = subcommands |> List.map (fun (name, arg) -> name, map arg ~f)
+        }
+  ;;
 end
