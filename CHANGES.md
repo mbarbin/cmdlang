@@ -2,6 +2,8 @@
 
 ### Added
 
+- Improve code coverage, added tests (#20, @mbarbin).
+
 ### Changed
 
 - Document presence in stdlib-runner help (required, default, etc.) (#19, @mbarbin).
