@@ -1,4 +1,4 @@
-(lang dune 3.16)
+(lang dune 3.17)
 
 (name cmdlang)
 
@@ -205,7 +205,7 @@
     (>= v0.17)
     (< v0.18)))
   (stdune
-   (>= 3.16))
+   (>= 3.17))
   (sherlodoc
    (and
     :with-doc
