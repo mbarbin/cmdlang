@@ -14,6 +14,8 @@
   Expect_test_helpers_base)
  (libraries
   base
+  cmdlang
+  cmdlang.ast
   cmdlang_stdlib_runner
   expect_test_helpers_core.expect_test_helpers_base)
  (instrumentation
