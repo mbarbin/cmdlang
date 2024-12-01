@@ -270,6 +270,7 @@ What happens when that group with a default is run:
 And now running it with the required argument:
 
 Default commands are not supported by core.command.
+
   $ ./main_base.exe group World
   A group command with a default
   
@@ -288,11 +289,17 @@ Default commands are not supported by core.command.
 
 With cmdliner, this particular default command is not supported because the
 positional argument is interpreted as an unknown command:
+
   $ ./main_cmdliner.exe group World
   ./main_cmdliner.exe: unknown command 'World', must be 'a'.
   Usage: ./main_cmdliner.exe group [COMMAND] …
   Try './main_cmdliner.exe group --help' or './main_cmdliner.exe --help' for more information.
   [124]
+
+The recommended way to handle this in cmdliner is to add the special '--' token, such as in:
+
+  $ ./main_cmdliner.exe group -- World
+  Hello World
 
   $ ./main_stdlib_runner.exe group World
   Hello World
