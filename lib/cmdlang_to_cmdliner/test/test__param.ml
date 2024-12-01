@@ -1,7 +1,7 @@
 module Command = Cmdlang.Command
 
 let%expect_test "param" =
-  let conv (type a) param sexp_of_a params =
+  let conv (type a) (param : a Command.Param.t) (sexp_of_a : a -> Sexp.t) params =
     let conv = Cmdlang_to_cmdliner.Translate.param param in
     List.iter params ~f:(fun str ->
       print_s

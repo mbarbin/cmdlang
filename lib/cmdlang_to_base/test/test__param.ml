@@ -1,6 +1,6 @@
 let%expect_test "param" =
   let config = Cmdlang_to_base.Translate.Config.create () in
-  let conv (type a) param sexp_of_a params =
+  let conv (type a) (param : a Cmdlang.Command.Param.t) (sexp_of_a : a -> Sexp.t) params =
     let conv = Cmdlang_to_base.Translate.param param ~config in
     List.iter params ~f:(fun str ->
       print_s [%sexp (str : string), (Command.Arg_type.parse conv str : a Or_error.t)])
