@@ -75,6 +75,24 @@ let _ : unit Command.t =
 
 This is the main style recommended by the cmdlang authors.
 
+#### No Indentation Tweak with @@
+
+Some people prefer limiting the indentation of large blocks with the help of the infix operator `@@`. In this context, this may look like this:
+
+<!-- $MDX file=usage_styles.ml,part=let_plus_std_no_indent -->
+```ocaml
+let _ : unit Command.t =
+  Command.make ~summary:"A command skeleton"
+  @@
+  let open Command.Std in
+  let+ (_ : int) = Arg.named [ "n" ] Param.int ~doc:"A value for n"
+  and+ () = Arg.return () in
+  ()
+;;
+```
+
+The cmdlang authors do not have much experience with this style at the time of writing.
+
 ### Using let-syntax and map_open
 
 An alternative based on the `let%map_open` operator of [ppx_let](https://github.com/janestreet/ppx_let) is also supported.
