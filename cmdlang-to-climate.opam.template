@@ -1,0 +1,11 @@
+description: """\
+
+[Cmdlang_to_climate] allows translating command line programs
+specified with [cmdlang] into [climate] commands suitable for
+execution.
+
+[climate]: https://github.com/gridbugs/climate
+
+"""
+tags: [ "cli" "cmdlang" "climate" ]
+x-maintenance-intent: [ "(latest)" ]

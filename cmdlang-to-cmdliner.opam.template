@@ -1,0 +1,11 @@
+description: """\
+
+[Cmdlang_to_cmdliner] allows translating command line programs
+specified with [cmdlang] into [cmdliner] commands suitable for
+execution.
+
+[cmdliner]: https://github.com/dbuenzli/cmdliner
+
+"""
+tags: [ "cli" "cmdlang" "cmdliner" ]
+x-maintenance-intent: [ "(latest)" ]

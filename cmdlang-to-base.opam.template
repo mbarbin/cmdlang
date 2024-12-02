@@ -1,0 +1,10 @@
+description: """\
+
+[Cmdlang_to_base] allows translating command line programs specified
+with [cmdlang] into [core.command] commands suitable for execution.
+
+[core.command]: https://github.com/janestreet/core
+
+"""
+tags: [ "cli" "cmdlang" "core.command" ]
+x-maintenance-intent: [ "(latest)" ]

@@ -27,3 +27,20 @@ build: [
   ]
 ]
 dev-repo: "git+https://github.com/mbarbin/cmdlang.git"
+description: """\
+
+Cmdlang is a library for creating command-line parsers in OCaml.
+Implemented as an OCaml EDSL, its declarative specification language
+lives at the intersection of other well-established similar libraries.
+
+Cmdlang doesn't include an execution engine. Instead, Cmdlang parsers
+are automatically translated to [cmdliner], [core.command], or
+[climate] commands for execution.
+
+[cmdliner]: https://github.com/dbuenzli/cmdliner
+[climate]: https://github.com/gridbugs/climate
+[core.command]: https://github.com/janestreet/core
+
+"""
+tags: [ "cli" ]
+x-maintenance-intent: [ "(latest)" ]

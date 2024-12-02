@@ -28,3 +28,18 @@ build: [
   ]
 ]
 dev-repo: "git+https://github.com/mbarbin/cmdlang.git"
+description: """\
+
+[Cmdlang_stdlib_runner] is an execution engine for running command
+line programs specified with [cmdlang].
+
+It has no dependencies other than [cmdlang] and is implemented using
+the [Arg] module from the OCaml standard library.
+
+This package may be useful as a lightweight alternative to translating
+cmdlang parsers to more feature-rich libraries such as [cmdliner],
+[climate], or [core.command].
+
+"""
+tags: [ "cli" "cmdlang" "stdlib.arg" ]
+x-maintenance-intent: [ "(latest)" ]
