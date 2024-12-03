@@ -7,7 +7,7 @@ let%expect_test "param" =
       print_s
         [%sexp
           (str : string)
-          , (Cmdliner.Arg.conv_parser conv str : (a, [ `Msg of string ]) Result.t)])
+        , (Cmdliner.Arg.conv_parser conv str : (a, [ `Msg of string ]) Result.t)])
   in
   conv Command.Param.int [%sexp_of: int] [ ""; "a"; "0"; "42"; "-17" ];
   [%expect

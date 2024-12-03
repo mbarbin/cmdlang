@@ -6,12 +6,12 @@ module Parser_state = Parser_state
 module Positional_state = Positional_state
 
 let usage_msg
-  ~argv
-  ~resume_parsing_from_index
-  ~summary
-  ~readme
-  ~subcommands
-  ~positional_state
+      ~argv
+      ~resume_parsing_from_index
+      ~summary
+      ~readme
+      ~subcommands
+      ~positional_state
   =
   let usage_prefix =
     Array.sub argv 0 resume_parsing_from_index |> Array.to_list |> String.concat " "
@@ -60,13 +60,13 @@ let usage_msg
 ;;
 
 let eval_arg
-  (type a)
-  ~(arg : a Ast.Arg.t)
-  ~summary
-  ~readme
-  ~subcommands
-  ~argv
-  ~resume_parsing_from_index
+      (type a)
+      ~(arg : a Ast.Arg.t)
+      ~summary
+      ~readme
+      ~subcommands
+      ~argv
+      ~resume_parsing_from_index
   =
   let state =
     match Parser_state.create arg with

@@ -51,15 +51,15 @@ let () =
     [%extension_constructor Climate.Parse_error.E]
     (function
     | Climate.Parse_error.E e ->
-      List [ Atom "Climate.Parse_error.E"; Atom (Climate.Parse_error.to_string e) ] [@coverage
-                                                                                      off]
+      List [ Atom "Climate.Parse_error.E"; Atom (Climate.Parse_error.to_string e) ]
+      [@coverage off]
     | _ -> assert false);
   Sexplib0.Sexp_conv.Exn_converter.add
     [%extension_constructor Climate.Spec_error.E]
     (function
     | Climate.Spec_error.E e ->
-      List [ Atom "Climate.Spec_error.E"; Atom (Climate.Spec_error.to_string e) ] [@coverage
-                                                                                    off]
+      List [ Atom "Climate.Spec_error.E"; Atom (Climate.Spec_error.to_string e) ]
+      [@coverage off]
     | _ -> assert false);
   ()
 ;;

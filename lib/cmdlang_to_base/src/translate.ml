@@ -82,7 +82,7 @@ module Arg = struct
       Error.raise_s
         [%sexp
           "Positional arguments must be supplied in consecutive order"
-          , { expected : int; got = (next_positional_index : int) }]
+        , { expected : int; got = (next_positional_index : int) }]
   ;;
 
   let translate : type a. a Ast.Arg.t -> config:Config.t -> a t =
@@ -110,7 +110,7 @@ module Arg = struct
         raise_s
           [%sexp
             "Flag_count not supported by core.command"
-            , { names = (hd :: tl : string list); doc : string }]
+          , { names = (hd :: tl : string list); doc : string }]
       | Named { names; param; docv; doc } ->
         let (name :: aliases) = translate_flag_names names ~config in
         let arg_type = Param.translate param ~config in

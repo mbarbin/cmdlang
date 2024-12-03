@@ -84,7 +84,8 @@ let%expect_test "cmdliner" =
     |> Stdlib.print_int
   in
   run [ "A"; "B" ];
-  [%expect {|
+  [%expect
+    {|
     ((a (A)) (b B))
     0
     |}];
@@ -107,12 +108,14 @@ let%expect_test "stdlib-runner" =
     |> Stdlib.print_int
   in
   run [ "A"; "B" ];
-  [%expect {|
+  [%expect
+    {|
     ((a (A)) (b B))
     0
     |}];
   run [ "B" ];
-  [%expect {|
+  [%expect
+    {|
     Missing required positional argument at position 1.
     2
     |}];

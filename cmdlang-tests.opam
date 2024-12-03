@@ -10,7 +10,7 @@ bug-reports: "https://github.com/mbarbin/cmdlang/issues"
 depends: [
   "dune" {>= "3.16"}
   "ocaml" {>= "5.2"}
-  "ocamlformat" {with-dev-setup & = "0.26.2"}
+  "ocamlformat" {with-dev-setup & = "0.27.0"}
   "base" {>= "v0.17" & < "v0.18"}
   "bisect_ppx" {with-dev-setup & >= "2.8.3"}
   "climate" {>= "0.3.0"}

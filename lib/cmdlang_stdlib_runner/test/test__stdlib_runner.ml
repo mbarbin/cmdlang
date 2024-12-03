@@ -16,7 +16,8 @@ let%expect_test "eval_exit_code" =
     print_endline (Printf.sprintf "[%d]" code)
   in
   test [];
-  [%expect {|
+  [%expect
+    {|
     false
     [0]
     |}];

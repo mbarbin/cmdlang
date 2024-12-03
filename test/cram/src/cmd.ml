@@ -108,7 +108,8 @@ module Doc = struct
   let singleton_with_readme =
     Command.make
       ~summary:"Singleton command with a readme"
-      ~readme:(fun () -> {|
+      ~readme:(fun () ->
+        {|
 This is a readme.
 It can be written on multiple lines.
 |})
@@ -327,7 +328,7 @@ module Named = struct
              else
                Error
                  (`Msg
-                   (Printf.sprintf "%S: invalid 4 letters alphanumerical identifier" t))
+                     (Printf.sprintf "%S: invalid 4 letters alphanumerical identifier" t))
            ;;
 
            let default =

@@ -38,7 +38,8 @@ let%expect_test "enumerated" =
     Cmdlang_to_climate.Translate.param (Command.Param.enumerated (module Color))
   in
   List.iter Color.all ~f:(fun color -> Stdlib.Format.printf "%a\n" conv.print color);
-  [%expect {|
+  [%expect
+    {|
     red
     green
     blue
@@ -56,7 +57,8 @@ let%expect_test "enumerated" =
   in
   List.iter Missing_color.all ~f:(fun color ->
     Stdlib.Format.printf "%a\n" conv.print color);
-  [%expect {|
+  [%expect
+    {|
     red
     green
     |}];
