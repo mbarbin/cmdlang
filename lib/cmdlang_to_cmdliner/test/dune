@@ -14,7 +14,9 @@
   Expect_test_helpers_base)
  (libraries
   base
+  cmdlang
   cmdlang_to_cmdliner
+  cmdliner
   expect_test_helpers_core.expect_test_helpers_base)
  (instrumentation
   (backend bisect_ppx))
