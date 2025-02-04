@@ -19,8 +19,8 @@ Let's start with characterizing whether and how the default value appears in the
   Usage: ./main_climate.exe named opt string-with-docv [OPTIONS]
   
   Options:
+    -h, --help       Show this help message.
         --who <WHO>  Hello WHO?
-    -h, --help       Print help
 
   $ ./main_cmdliner.exe named opt string-with-docv --help=plain
   NAME
@@ -111,8 +111,8 @@ Characterizing the flag documentation when the `docv` parameter is not supplied.
   Usage: ./main_climate.exe named opt string-without-docv [OPTIONS]
   
   Options:
+    -h, --help          Show this help message.
         --who <STRING>  Hello WHO?
-    -h, --help          Print help
 
   $ ./main_cmdliner.exe named opt string-without-docv --help=plain
   NAME

@@ -21,7 +21,7 @@ String.
     <STRING>  value
   
   Options:
-    -h, --help  Print help
+    -h, --help  Show this help message.
 
   $ ./main_cmdliner.exe basic string --help=plain
   NAME
@@ -105,7 +105,7 @@ Int.
     <INT>  value
   
   Options:
-    -h, --help  Print help
+    -h, --help  Show this help message.
 
   $ ./main_cmdliner.exe basic int --help=plain
   NAME
@@ -226,7 +226,7 @@ Float.
     <FLOAT>  value
   
   Options:
-    -h, --help  Print help
+    -h, --help  Show this help message.
 
   $ ./main_cmdliner.exe basic float --help=plain
   NAME
@@ -347,7 +347,7 @@ Bool.
     <BOOL>  value
   
   Options:
-    -h, --help  Print help
+    -h, --help  Show this help message.
 
   $ ./main_cmdliner.exe basic bool --help=plain
   NAME
@@ -522,7 +522,7 @@ File.
     <FILE>  value
   
   Options:
-    -h, --help  Print help
+    -h, --help  Show this help message.
 
   $ ./main_cmdliner.exe basic file --help=plain
   NAME

@@ -56,8 +56,8 @@ let%expect_test "skipping-pos" =
     {|
     ----------------------------------------------------- Climate
     ("Evaluation Raised" (
-      Climate.Spec_error.E
-      "Attempted to declare a parser with a gap in its positional arguments. No parser would interpret the argument at position 0 but there is a parser for at least one argument at a higher position."))
+      Failure
+      "Error in argument spec: Attempted to declare a parser with a gap in its positional arguments. No parser would interpret the argument at position 0 but there is a parser for at least one argument at a higher position."))
     ----------------------------------------------------- Cmdliner
     test: required argument WHO is missing
     Usage: test [OPTION]… WHO
@@ -80,8 +80,8 @@ let%expect_test "skipping-pos" =
     {|
     ----------------------------------------------------- Climate
     ("Evaluation Raised" (
-      Climate.Spec_error.E
-      "Attempted to declare a parser with a gap in its positional arguments. No parser would interpret the argument at position 0 but there is a parser for at least one argument at a higher position."))
+      Failure
+      "Error in argument spec: Attempted to declare a parser with a gap in its positional arguments. No parser would interpret the argument at position 0 but there is a parser for at least one argument at a higher position."))
     ----------------------------------------------------- Cmdliner
     test: required argument WHO is missing
     Usage: test [OPTION]… WHO
@@ -104,8 +104,8 @@ let%expect_test "skipping-pos" =
     {|
     ----------------------------------------------------- Climate
     ("Evaluation Raised" (
-      Climate.Spec_error.E
-      "Attempted to declare a parser with a gap in its positional arguments. No parser would interpret the argument at position 0 but there is a parser for at least one argument at a higher position."))
+      Failure
+      "Error in argument spec: Attempted to declare a parser with a gap in its positional arguments. No parser would interpret the argument at position 0 but there is a parser for at least one argument at a higher position."))
     ----------------------------------------------------- Cmdliner
     Hello World
     ----------------------------------------------------- Core_command

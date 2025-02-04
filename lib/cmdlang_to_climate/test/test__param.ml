@@ -64,8 +64,8 @@ let%expect_test "enumerated" =
     |}];
   (match Stdlib.Format.printf "%a\n" conv.print Blue with
    | () -> assert false
-   | exception Climate.Spec_error.E e -> print_endline (Climate.Spec_error.to_string e));
+   | exception Failure e -> print_endline e);
   [%expect
-    {| Attempted to format an enum value as a string but the value does not appear in the enum declaration. Valid names for this enum are: red green |}];
+    {| Error in argument spec: Attempted to format an enum value as a string but the value does not appear in the enum declaration. Valid names for this enum are: red green |}];
   ()
 ;;

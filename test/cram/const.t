@@ -16,7 +16,7 @@ Checking the help when there are no arguments.
   Usage: ./main_climate.exe return [OPTIONS]
   
   Options:
-    -h, --help  Print help
+    -h, --help  Show this help message.
 
   $ ./main_cmdliner.exe return --help=plain
   NAME

@@ -26,7 +26,7 @@ the executable for each backend.
          ./main_climate.exe [OPTIONS]
   
   Options:
-    -h, --help  Print help
+    -h, --help  Show this help message.
   
   Commands:
     basic   Basic types
