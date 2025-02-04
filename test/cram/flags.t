@@ -18,9 +18,9 @@ Characterizing translation and behavior of various flag types.
   Usage: ./main_climate.exe flags names [OPTIONS]
   
   Options:
-    -a          short
+    -h, --help  Show this help message.
         --long  long
-    -h, --help  Print help
+    -a          short
 
   $ ./main_cmdliner.exe flags names --help=plain
   NAME

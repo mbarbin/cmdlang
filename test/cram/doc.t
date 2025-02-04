@@ -22,7 +22,7 @@
          ./main_climate.exe doc [OPTIONS]
   
   Options:
-    -h, --help  Print help
+    -h, --help  Show this help message.
   
   Commands:
     args-doc-end-with-dots  Args doc end with dots
@@ -116,7 +116,7 @@ A singleton command with a readme:
   Usage: ./main_climate.exe doc singleton-with-readme [OPTIONS]
   
   Options:
-    -h, --help  Print help
+    -h, --help  Show this help message.
 
   $ ./main_cmdliner.exe doc singleton-with-readme --help=plain
   NAME
@@ -195,7 +195,7 @@ integrates best with its formatting of help pages.
     <STRING>  The doc for [b] doesn't
   
   Options:
-    -h, --help  Print help
+    -h, --help  Show this help message.
 
   $ ./main_cmdliner.exe doc args-doc-end-with-dots --help=plain
   NAME

@@ -392,8 +392,8 @@ let%expect_test "user provided dashes" =
     {|
     ----------------------------------------------------- Climate
     ("Translation Raised" (
-      Climate.Spec_error.E
-      "Attempted to use \"-a\" as an argument name. \"-a\" is not a valid argument name because it begins with a dash which is not allowed."))
+      Failure
+      "Error in argument spec: Attempted to use \"-a\" as an argument name. \"-a\" is not a valid argument name because it begins with a dash which is not allowed."))
     ----------------------------------------------------- Cmdliner
     test: unknown option '-a'.
     Usage: test [---a] [OPTION]…
@@ -409,8 +409,8 @@ let%expect_test "user provided dashes" =
     {|
     ----------------------------------------------------- Climate
     ("Translation Raised" (
-      Climate.Spec_error.E
-      "Attempted to use \"--a\" as an argument name. \"--a\" is not a valid argument name because it begins with a dash which is not allowed."))
+      Failure
+      "Error in argument spec: Attempted to use \"--a\" as an argument name. \"--a\" is not a valid argument name because it begins with a dash which is not allowed."))
     ----------------------------------------------------- Cmdliner
     test: unknown option '--a', did you mean '----a'?
     Usage: test [----a] [OPTION]…
@@ -426,8 +426,8 @@ let%expect_test "user provided dashes" =
     {|
     ----------------------------------------------------- Climate
     ("Translation Raised" (
-      Climate.Spec_error.E
-      "Attempted to use \"-long\" as an argument name. \"-long\" is not a valid argument name because it begins with a dash which is not allowed."))
+      Failure
+      "Error in argument spec: Attempted to use \"-long\" as an argument name. \"-long\" is not a valid argument name because it begins with a dash which is not allowed."))
     ----------------------------------------------------- Cmdliner
     test: unknown option '-l', did you mean '---long'?
     Usage: test [---long] [OPTION]…
@@ -443,8 +443,8 @@ let%expect_test "user provided dashes" =
     {|
     ----------------------------------------------------- Climate
     ("Translation Raised" (
-      Climate.Spec_error.E
-      "Attempted to use \"--long\" as an argument name. \"--long\" is not a valid argument name because it begins with a dash which is not allowed."))
+      Failure
+      "Error in argument spec: Attempted to use \"--long\" as an argument name. \"--long\" is not a valid argument name because it begins with a dash which is not allowed."))
     ----------------------------------------------------- Cmdliner
     test: unknown option '--long', did you mean '----long'?
     Usage: test [----long] [OPTION]…

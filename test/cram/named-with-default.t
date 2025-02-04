@@ -25,8 +25,8 @@ help page.
   Usage: ./main_climate.exe named with-default string [OPTIONS]
   
   Options:
+    -h, --help       Show this help message.
         --who <WHO>  Hello WHO?
-    -h, --help       Print help
 
 In the cmdliner backend, the default value is shown next to the option, in
 parentheses. See `(absent=...)` below.
@@ -237,8 +237,8 @@ functions or parsers generated from modules with utils.
   Usage: ./main_climate.exe named with-default create [OPTIONS]
   
   Options:
+    -h, --help         Show this help message.
         --who <(A|B)>  Greet A or B?
-    -h, --help         Print help
 
   $ ./main_cmdliner.exe named with-default create --help=plain
   NAME
@@ -306,8 +306,8 @@ Named-with-default with a stringable parameter.
   Usage: ./main_climate.exe named with-default stringable [OPTIONS]
   
   Options:
+    -h, --help       Show this help message.
         --who <VAL>  identifier
-    -h, --help       Print help
 
   $ ./main_cmdliner.exe named with-default stringable --help=plain
   NAME
@@ -389,8 +389,8 @@ Named-with-default with a validated string parameter.
   Usage: ./main_climate.exe named with-default validated [OPTIONS]
   
   Options:
+    -h, --help       Show this help message.
         --who <VAL>  4 letters alphanumerical identifier
-    -h, --help       Print help
 
   $ ./main_cmdliner.exe named with-default validated --help=plain
   NAME
@@ -523,8 +523,8 @@ Named-with-default with a comma-separated string parameter.
   Usage: ./main_climate.exe named with-default comma-separated [OPTIONS]
   
   Options:
+    -h, --help          Show this help message.
         --who <STRING>  Hello WHO?
-    -h, --help          Print help
 
   $ ./main_cmdliner.exe named with-default comma-separated --help=plain
   NAME

@@ -134,7 +134,7 @@
     (>= 2.8.3)))
   (climate
    (and
-    (>= 0.3.0)))
+    (>= 0.4.0)))
   (cmdlang
    (= :version))
   (cmdlang-stdlib-runner

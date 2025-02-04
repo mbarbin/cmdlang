@@ -22,7 +22,7 @@ Characterizing the help of a group:
          ./main_climate.exe basic [OPTIONS]
   
   Options:
-    -h, --help  Print help
+    -h, --help  Show this help message.
   
   Commands:
     string  print string
@@ -120,7 +120,7 @@ What happens when that group is run:
          ./main_climate.exe basic [OPTIONS]
   
   Options:
-    -h, --help  Print help
+    -h, --help  Show this help message.
   
   Commands:
     string  print string
@@ -175,7 +175,7 @@ Same with a group that has a default command:
     <STRING>  name
   
   Options:
-    -h, --help  Print help
+    -h, --help  Show this help message.
   
   Commands:
     a  do nothing
