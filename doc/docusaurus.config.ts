@@ -62,13 +62,13 @@ const config: Config = {
 
   themeConfig: {
     // Replace with your project's social card
-    image: 'img/cmdlang.png',
+    image: 'img/cmdlang.jpg',
     navbar: {
       hideOnScroll: true,
       title: 'cmdlang',
       logo: {
         alt: 'Site Logo',
-        src: 'img/cmdlang.png',
+        src: 'img/cmdlang.jpg',
       },
       items: [
         {

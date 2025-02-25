@@ -1,8 +1,8 @@
 <h1 align="center">
   <p align="center">Declarative Command-line Parsing for OCaml</p>
   <img
-    src="./img/cmdlang.png?raw=true"
-    width='385'
+    src="./img/cmdlang.jpg"
+    width='384'
     alt="Logo"
   />
 </h1>
