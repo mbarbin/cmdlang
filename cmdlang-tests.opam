@@ -23,7 +23,7 @@ depends: [
   "core" {>= "v0.17" & < "v0.18"}
   "core_unix" {>= "v0.17" & < "v0.18"}
   "expect_test_helpers_core" {>= "v0.17" & < "v0.18"}
-  "loc" {>= "0.2.0"}
+  "loc" {>= "0.2.2"}
   "mdx" {>= "2.4"}
   "ppx_compare" {>= "v0.17" & < "v0.18"}
   "ppx_enumerate" {>= "v0.17" & < "v0.18"}
