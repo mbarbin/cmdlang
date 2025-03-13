@@ -101,7 +101,8 @@
    (>= 4.14))
   (climate
    (and
-    (>= 0.3.0)))
+    (>= 0.3.0)
+    (< 0.5.0)))
   (cmdlang
    (= :version))))
 
@@ -134,7 +135,8 @@
     (>= 2.8.3)))
   (climate
    (and
-    (>= 0.4.0)))
+    (>= 0.4.0)
+    (< 0.5.0)))
   (cmdlang
    (= :version))
   (cmdlang-stdlib-runner
