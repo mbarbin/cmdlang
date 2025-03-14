@@ -45,18 +45,6 @@ module Command_line = struct
     }
 end
 
-(* Improve the display of certain exceptions encountered during our tests. *)
-let () =
-  Sexplib0.Sexp_conv.Exn_converter.add
-    [%extension_constructor Climate.Parse_error.E]
-    (function
-    | Climate.Parse_error.E e ->
-      List [ Atom "Climate.Parse_error.E"; Atom (Climate.Parse_error.to_string e) ]
-      [@coverage off]
-    | _ -> assert false);
-  ()
-;;
-
 let eval_base t { Command_line.prog = _; args } =
   match t.base with
   | Error e -> print_s [%sexp "Translation Raised", (e : Exn.t)] [@coverage off]
@@ -73,9 +61,12 @@ let eval_climate t { Command_line.prog; args } =
   | Ok arg_parser ->
     (match
        let cmd = Climate.Command.singleton arg_parser in
-       Climate.Command.eval cmd ~program_name:(Literal prog) args
+       Climate.For_test.eval_result ~program_name:prog cmd args
      with
-     | () -> ()
+     | Ok () -> ()
+     | Error e ->
+       print_string "Evaluation Failed: ";
+       Climate_non_ret.print e
      | exception e -> print_s [%sexp "Evaluation Raised", (e : Exn.t)] [@coverage off])
 ;;
 

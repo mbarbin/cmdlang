@@ -19,7 +19,7 @@ Characterizing the help of a group:
   Basic types
   
   Usage: ./main_climate.exe basic [COMMAND]
-         ./main_climate.exe basic [OPTIONS]
+         ./main_climate.exe basic [OPTION]…
   
   Options:
     -h, --help  Show this help message.
@@ -117,7 +117,7 @@ What happens when that group is run:
   Basic types
   
   Usage: ./main_climate.exe basic [COMMAND]
-         ./main_climate.exe basic [OPTIONS]
+         ./main_climate.exe basic [OPTION]…
   
   Options:
     -h, --help  Show this help message.
@@ -169,7 +169,7 @@ Same with a group that has a default command:
   A group command with a default
   
   Usage: ./main_climate.exe group [COMMAND]
-         ./main_climate.exe group [OPTIONS] <STRING>
+         ./main_climate.exe group [OPTION]… <STRING>
   
   Arguments:
     <STRING>  name

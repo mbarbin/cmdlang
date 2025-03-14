@@ -58,7 +58,7 @@ Climate.
   $ ./main_climate.exe enum pos --help
   print color
   
-  Usage: ./main_climate.exe enum pos [OPTIONS] <COLOR>
+  Usage: ./main_climate.exe enum pos [OPTION]… <COLOR>
   
   Arguments:
     <COLOR>  color
@@ -76,11 +76,11 @@ Climate.
   $ ./main_climate.exe enum named --help
   print color
   
-  Usage: ./main_climate.exe enum named [OPTIONS]
+  Usage: ./main_climate.exe enum named [OPTION]…
   
   Options:
-    -h, --help           Show this help message.
         --color <COLOR>  color
+    -h, --help           Show this help message.
 
   $ ./main_climate.exe enum named --color red
   red

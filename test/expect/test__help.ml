@@ -10,12 +10,11 @@ let%expect_test "flag" =
   [%expect
     {|
     ----------------------------------------------------- Climate
-    [34;1mUsage: [0mtest [OPTIONS]
+    Evaluation Failed: Usage: test [OPTION]…
 
-    [34;1mOptions:[0m
-      [35;1m-h, --help[0m         Show this help message.
-      [35;1m    --print-hello[0m  print Hello
-    ("Evaluation Raised" (Climate.Usage))
+    Options:
+          --print-hello  print Hello
+      -h, --help         Show this help message.
     ----------------------------------------------------- Cmdliner
     NAME
            test

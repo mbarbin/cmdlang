@@ -12,8 +12,7 @@ let%expect_test "pos" =
   [%expect
     {|
     ----------------------------------------------------- Climate
-    ("Evaluation Raised" (
-      Climate.Parse_error.E "Missing required positional argument at position 0."))
+    Evaluation Failed: Missing required positional argument at position 0.
     ----------------------------------------------------- Cmdliner
     test: required argument WHO is missing
     Usage: test [OPTION]… WHO

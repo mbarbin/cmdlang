@@ -23,7 +23,7 @@ the executable for each backend.
   Cram Test Command
   
   Usage: ./main_climate.exe [COMMAND]
-         ./main_climate.exe [OPTIONS]
+         ./main_climate.exe [OPTION]…
   
   Options:
     -h, --help  Show this help message.

@@ -16,11 +16,11 @@ Let's start with characterizing whether and how the default value appears in the
   $ ./main_climate.exe named opt string-with-docv --help
   Named_opt__string_with_docv
   
-  Usage: ./main_climate.exe named opt string-with-docv [OPTIONS]
+  Usage: ./main_climate.exe named opt string-with-docv [OPTION]…
   
   Options:
-    -h, --help       Show this help message.
         --who <WHO>  Hello WHO?
+    -h, --help       Show this help message.
 
   $ ./main_cmdliner.exe named opt string-with-docv --help=plain
   NAME
@@ -108,11 +108,11 @@ Characterizing the flag documentation when the `docv` parameter is not supplied.
   $ ./main_climate.exe named opt string-without-docv --help
   Named_opt__string_without_docv
   
-  Usage: ./main_climate.exe named opt string-without-docv [OPTIONS]
+  Usage: ./main_climate.exe named opt string-without-docv [OPTION]…
   
   Options:
-    -h, --help          Show this help message.
         --who <STRING>  Hello WHO?
+    -h, --help          Show this help message.
 
   $ ./main_cmdliner.exe named opt string-without-docv --help=plain
   NAME

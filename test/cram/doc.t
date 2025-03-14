@@ -19,7 +19,7 @@
       
   
   Usage: ./main_climate.exe doc [COMMAND]
-         ./main_climate.exe doc [OPTIONS]
+         ./main_climate.exe doc [OPTION]…
   
   Options:
     -h, --help  Show this help message.
@@ -113,7 +113,7 @@ A singleton command with a readme:
   It can be written on multiple lines.
   
   
-  Usage: ./main_climate.exe doc singleton-with-readme [OPTIONS]
+  Usage: ./main_climate.exe doc singleton-with-readme [OPTION]…
   
   Options:
     -h, --help  Show this help message.
@@ -188,7 +188,7 @@ integrates best with its formatting of help pages.
   $ ./main_climate.exe doc args-doc-end-with-dots --help
   Args doc end with dots
   
-  Usage: ./main_climate.exe doc args-doc-end-with-dots [OPTIONS] <STRING> <STRING>
+  Usage: ./main_climate.exe doc args-doc-end-with-dots [OPTION]… <STRING> <STRING>
   
   Arguments:
     <STRING>  The doc for [a] in the code ends with a dot.

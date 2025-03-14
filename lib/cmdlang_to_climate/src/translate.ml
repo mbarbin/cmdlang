@@ -51,7 +51,7 @@ end
 module Arg = struct
   let fmt_doc ~doc = doc
 
-  let make_desc : type a. doc:string -> param:a Ast.Param.t -> string =
+  let make_doc : type a. doc:string -> param:a Ast.Param.t -> string =
     fun ~doc ~param ->
     match (param : _ Ast.Param.t) with
     | Conv _ | String | Int | Float | Bool | File
@@ -65,62 +65,62 @@ module Arg = struct
     | Both (a, b) -> Climate.Arg_parser.both (translate a) (translate b)
     | Apply { f; x } -> Climate.Arg_parser.apply (translate f) (translate x)
     | Flag { names = hd :: tl; doc } ->
-      let desc = fmt_doc ~doc in
-      Climate.Arg_parser.flag ~desc (hd :: tl)
+      let doc = fmt_doc ~doc in
+      Climate.Arg_parser.flag ~doc (hd :: tl)
     | Flag_count { names = hd :: tl; doc } ->
-      let desc = fmt_doc ~doc in
-      Climate.Arg_parser.flag_count ~desc (hd :: tl)
+      let doc = fmt_doc ~doc in
+      Climate.Arg_parser.flag_count ~doc (hd :: tl)
     | Named { names = hd :: tl; param; docv; doc } ->
-      let desc = make_desc ~doc ~param in
+      let doc = make_doc ~doc ~param in
       Climate.Arg_parser.named_req
-        ~desc
+        ~doc
         ?value_name:docv
         (hd :: tl)
         (param |> Param.translate)
     | Named_multi { names = hd :: tl; param; docv; doc } ->
-      let desc = make_desc ~doc ~param in
+      let doc = make_doc ~doc ~param in
       Climate.Arg_parser.named_multi
-        ~desc
+        ~doc
         ?value_name:docv
         (hd :: tl)
         (param |> Param.translate)
     | Named_opt { names = hd :: tl; param; docv; doc } ->
-      let desc = make_desc ~doc ~param in
+      let doc = make_doc ~doc ~param in
       Climate.Arg_parser.named_opt
-        ~desc
+        ~doc
         ?value_name:docv
         (hd :: tl)
         (param |> Param.translate)
     | Named_with_default { names = hd :: tl; param; default; docv; doc } ->
-      let desc = make_desc ~doc ~param in
+      let doc = make_doc ~doc ~param in
       Climate.Arg_parser.named_with_default
-        ~desc
+        ~doc
         ?value_name:docv
         (hd :: tl)
         (param |> Param.translate)
         ~default
     | Pos { pos; param; docv; doc } ->
-      let desc = make_desc ~doc ~param in
-      Climate.Arg_parser.pos_req ~desc ?value_name:docv pos (param |> Param.translate)
+      let doc = make_doc ~doc ~param in
+      Climate.Arg_parser.pos_req ~doc ?value_name:docv pos (param |> Param.translate)
     | Pos_opt { pos; param; docv; doc } ->
-      let desc = make_desc ~doc ~param in
-      Climate.Arg_parser.pos_opt ~desc ?value_name:docv pos (param |> Param.translate)
+      let doc = make_doc ~doc ~param in
+      Climate.Arg_parser.pos_opt ~doc ?value_name:docv pos (param |> Param.translate)
     | Pos_with_default { pos; param; default; docv; doc } ->
-      let desc = make_desc ~doc ~param in
+      let doc = make_doc ~doc ~param in
       Climate.Arg_parser.pos_with_default
-        ~desc
+        ~doc
         ?value_name:docv
         pos
         (param |> Param.translate)
         ~default
     | Pos_all { param; docv; doc } ->
-      let desc = make_desc ~doc ~param in
-      Climate.Arg_parser.pos_all ~desc ?value_name:docv (param |> Param.translate)
+      let doc = make_doc ~doc ~param in
+      Climate.Arg_parser.pos_all ~doc ?value_name:docv (param |> Param.translate)
   ;;
 end
 
 module Command = struct
-  let desc ~summary ~readme =
+  let doc ~summary ~readme =
     match readme with
     | None -> summary
     | Some readme -> summary ^ "\n" ^ readme ()
@@ -130,12 +130,12 @@ module Command = struct
     fun command ->
     match command with
     | Make { arg; summary; readme } ->
-      Climate.Command.singleton ~desc:(desc ~summary ~readme) (arg |> Arg.translate)
+      Climate.Command.singleton ~doc:(doc ~summary ~readme) (arg |> Arg.translate)
     | Group { default; summary; readme; subcommands } ->
       let cmds = subcommands |> List.map (fun (name, arg) -> to_subcommand arg ~name) in
       Climate.Command.group
         ?default_arg_parser:(default |> Option.map Arg.translate)
-        ~desc:(desc ~summary ~readme)
+        ~doc:(doc ~summary ~readme)
         cmds
 
   and to_subcommand
