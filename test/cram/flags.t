@@ -15,12 +15,12 @@ Characterizing translation and behavior of various flag types.
   $ ./main_climate.exe flags names --help
   various flags
   
-  Usage: ./main_climate.exe flags names [OPTIONS]
+  Usage: ./main_climate.exe flags names [OPTION]…
   
   Options:
-    -h, --help  Show this help message.
-        --long  long
     -a          short
+        --long  long
+    -h, --help  Show this help message.
 
   $ ./main_cmdliner.exe flags names --help=plain
   NAME

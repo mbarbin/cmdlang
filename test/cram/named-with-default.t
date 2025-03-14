@@ -22,11 +22,11 @@ help page.
   $ ./main_climate.exe named with-default string --help
   Named_with_default__string
   
-  Usage: ./main_climate.exe named with-default string [OPTIONS]
+  Usage: ./main_climate.exe named with-default string [OPTION]…
   
   Options:
-    -h, --help       Show this help message.
         --who <WHO>  Hello WHO?
+    -h, --help       Show this help message.
 
 In the cmdliner backend, the default value is shown next to the option, in
 parentheses. See `(absent=...)` below.
@@ -234,11 +234,11 @@ functions or parsers generated from modules with utils.
   $ ./main_climate.exe named with-default create --help
   Named_with_default__create
   
-  Usage: ./main_climate.exe named with-default create [OPTIONS]
+  Usage: ./main_climate.exe named with-default create [OPTION]…
   
   Options:
-    -h, --help         Show this help message.
         --who <(A|B)>  Greet A or B?
+    -h, --help         Show this help message.
 
   $ ./main_cmdliner.exe named with-default create --help=plain
   NAME
@@ -303,11 +303,11 @@ Named-with-default with a stringable parameter.
   $ ./main_climate.exe named with-default stringable --help
   Named_with_default__stringable
   
-  Usage: ./main_climate.exe named with-default stringable [OPTIONS]
+  Usage: ./main_climate.exe named with-default stringable [OPTION]…
   
   Options:
-    -h, --help       Show this help message.
         --who <VAL>  identifier
+    -h, --help       Show this help message.
 
   $ ./main_cmdliner.exe named with-default stringable --help=plain
   NAME
@@ -386,11 +386,11 @@ Named-with-default with a validated string parameter.
   $ ./main_climate.exe named with-default validated --help
   Named_with_default__validated
   
-  Usage: ./main_climate.exe named with-default validated [OPTIONS]
+  Usage: ./main_climate.exe named with-default validated [OPTION]…
   
   Options:
-    -h, --help       Show this help message.
         --who <VAL>  4 letters alphanumerical identifier
+    -h, --help       Show this help message.
 
   $ ./main_cmdliner.exe named with-default validated --help=plain
   NAME
@@ -520,11 +520,11 @@ Named-with-default with a comma-separated string parameter.
   $ ./main_climate.exe named with-default comma-separated --help
   Named_with_default__comma_separated
   
-  Usage: ./main_climate.exe named with-default comma-separated [OPTIONS]
+  Usage: ./main_climate.exe named with-default comma-separated [OPTION]…
   
   Options:
-    -h, --help          Show this help message.
         --who <STRING>  Hello WHO?
+    -h, --help          Show this help message.
 
   $ ./main_cmdliner.exe named with-default comma-separated --help=plain
   NAME

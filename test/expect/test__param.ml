@@ -41,9 +41,7 @@ let%expect_test "int" =
   [%expect
     {|
     ----------------------------------------------------- Climate
-    ("Evaluation Raised" (
-      Climate.Parse_error.E
-      "Failed to parse the argument at position 0: invalid value: \"not-an-int\" (not an int)"))
+    Evaluation Failed: Failed to parse the argument at position 0: invalid value: "not-an-int" (not an int)
     ----------------------------------------------------- Cmdliner
     test: INT argument: invalid value 'not-an-int', expected an integer
     Usage: test [OPTION]… INT
@@ -99,9 +97,7 @@ let%expect_test "float" =
   [%expect
     {|
     ----------------------------------------------------- Climate
-    ("Evaluation Raised" (
-      Climate.Parse_error.E
-      "Failed to parse the argument at position 0: invalid value: \"not-an-number\" (not an float)"))
+    Evaluation Failed: Failed to parse the argument at position 0: invalid value: "not-an-number" (not an float)
     ----------------------------------------------------- Cmdliner
     test: FLOAT argument: invalid value 'not-an-number', expected a floating
           point number
@@ -158,9 +154,7 @@ let%expect_test "bool" =
   [%expect
     {|
     ----------------------------------------------------- Climate
-    ("Evaluation Raised" (
-      Climate.Parse_error.E
-      "Failed to parse the argument at position 0: invalid value: \"not-a-bool\" (not an bool)"))
+    Evaluation Failed: Failed to parse the argument at position 0: invalid value: "not-a-bool" (not an bool)
     ----------------------------------------------------- Cmdliner
     test: BOOL argument: invalid value 'not-a-bool', either 'true' or 'false'
     Usage: test [OPTION]… BOOL
@@ -266,9 +260,7 @@ let%expect_test "enumerated" =
   [%expect
     {|
     ----------------------------------------------------- Climate
-    ("Evaluation Raised" (
-      Climate.Parse_error.E
-      "Failed to parse the argument at position 0: invalid value: \"Not_an_e\" (valid values are: A, B)"))
+    Evaluation Failed: Failed to parse the argument at position 0: invalid value: "Not_an_e" (valid values are: A, B)
     ----------------------------------------------------- Cmdliner
     test: invalid value 'Not_an_e', expected either 'A' or 'B'
     Usage: test [OPTION]… ARG
@@ -385,9 +377,7 @@ let%expect_test "validated_string" =
   [%expect
     {|
     ----------------------------------------------------- Climate
-    ("Evaluation Raised" (
-      Climate.Parse_error.E
-      "Failed to parse the argument at position 0: invalid id"))
+    Evaluation Failed: Failed to parse the argument at position 0: invalid id
     ----------------------------------------------------- Cmdliner
     test: invalid id
     Usage: test [OPTION]… ARG
@@ -474,9 +464,7 @@ let%expect_test "comma_separated" =
   [%expect
     {|
     ----------------------------------------------------- Climate
-    ("Evaluation Raised" (
-      Climate.Parse_error.E
-      "Failed to parse the argument at position 0: invalid value: \"\" (valid values are: A, B)"))
+    Evaluation Failed: Failed to parse the argument at position 0: invalid value: "" (valid values are: A, B)
     ----------------------------------------------------- Cmdliner
 
     ----------------------------------------------------- Core_command
@@ -500,9 +488,7 @@ let%expect_test "comma_separated" =
   [%expect
     {|
     ----------------------------------------------------- Climate
-    ("Evaluation Raised" (
-      Climate.Parse_error.E
-      "Failed to parse the argument at position 0: invalid value: \"Not_an_e\" (valid values are: A, B)"))
+    Evaluation Failed: Failed to parse the argument at position 0: invalid value: "Not_an_e" (valid values are: A, B)
     ----------------------------------------------------- Cmdliner
     test: invalid element in list ('Not_an_e'): invalid value 'Not_an_e',
           expected either 'A' or 'B'

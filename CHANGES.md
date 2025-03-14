@@ -1,3 +1,17 @@
+## 0.0.10 (unreleased)
+
+### Added
+
+### Changed
+
+- Upgrade `climate` and now requires `>= 0.5.0` (@mbarbin).
+
+### Deprecated
+
+### Fixed
+
+### Removed
+
 ## 0.0.9 (2024-11-30)
 
 ### Added

@@ -15,7 +15,7 @@ String.
   $ ./main_climate.exe basic string --help
   print string
   
-  Usage: ./main_climate.exe basic string [OPTIONS] <STRING>
+  Usage: ./main_climate.exe basic string [OPTION]… <STRING>
   
   Arguments:
     <STRING>  value
@@ -99,7 +99,7 @@ Int.
   $ ./main_climate.exe basic int --help
   print int
   
-  Usage: ./main_climate.exe basic int [OPTIONS] <INT>
+  Usage: ./main_climate.exe basic int [OPTION]… <INT>
   
   Arguments:
     <INT>  value
@@ -220,7 +220,7 @@ Float.
   $ ./main_climate.exe basic float --help
   print float
   
-  Usage: ./main_climate.exe basic float [OPTIONS] <FLOAT>
+  Usage: ./main_climate.exe basic float [OPTION]… <FLOAT>
   
   Arguments:
     <FLOAT>  value
@@ -341,7 +341,7 @@ Bool.
   $ ./main_climate.exe basic bool --help
   print bool
   
-  Usage: ./main_climate.exe basic bool [OPTIONS] <BOOL>
+  Usage: ./main_climate.exe basic bool [OPTION]… <BOOL>
   
   Arguments:
     <BOOL>  value
@@ -516,7 +516,7 @@ File.
   $ ./main_climate.exe basic file --help
   print file
   
-  Usage: ./main_climate.exe basic file [OPTIONS] <FILE>
+  Usage: ./main_climate.exe basic file [OPTION]… <FILE>
   
   Arguments:
     <FILE>  value

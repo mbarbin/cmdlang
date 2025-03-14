@@ -33,7 +33,7 @@ let%expect_test "flag" =
   [%expect
     {|
     ----------------------------------------------------- Climate
-    ("Evaluation Raised" (Climate.Parse_error.E "Unknown argument name: -p"))
+    Evaluation Failed: Unknown argument name: -p
     ----------------------------------------------------- Cmdliner
     test: unknown option '-p'.
     Usage: test [--print-hello] [OPTION]…
@@ -62,7 +62,7 @@ let%expect_test "flag" =
   [%expect
     {|
     ----------------------------------------------------- Climate
-    ("Evaluation Raised" (Climate.Parse_error.E "Unknown argument name: -p"))
+    Evaluation Failed: Unknown argument name: -p
     ----------------------------------------------------- Cmdliner
     test: unknown option '-p', did you mean '--print-hello'?
     Usage: test [--print-hello] [OPTION]…
@@ -90,7 +90,7 @@ let%expect_test "flag" =
   [%expect
     {|
     ----------------------------------------------------- Climate
-    ("Evaluation Raised" (Climate.Parse_error.E "Unknown argument name: --print"))
+    Evaluation Failed: Unknown argument name: --print
     ----------------------------------------------------- Cmdliner
     Hello
     ----------------------------------------------------- Core_command
@@ -143,9 +143,7 @@ let%expect_test "1-letter-flag" =
   [%expect
     {|
     ----------------------------------------------------- Climate
-    ("Evaluation Raised" (
-      Climate.Parse_error.E
-      "Single-character names must only be specified with a single dash. \"--p\" is not allowed as it has two dashes but only one character."))
+    Evaluation Failed: Single-character names must only be specified with a single dash. "--p" is not allowed as it has two dashes but only one character.
     ----------------------------------------------------- Cmdliner
     test: unknown option '--p', did you mean '-p'?
     Usage: test [-p] [OPTION]…
@@ -219,9 +217,7 @@ let%expect_test "1-letter-alias" =
   [%expect
     {|
     ----------------------------------------------------- Climate
-    ("Evaluation Raised" (
-      Climate.Parse_error.E
-      "Single-character names must only be specified with a single dash. \"--p\" is not allowed as it has two dashes but only one character."))
+    Evaluation Failed: Single-character names must only be specified with a single dash. "--p" is not allowed as it has two dashes but only one character.
     ----------------------------------------------------- Cmdliner
     Hello
     ----------------------------------------------------- Core_command
@@ -291,8 +287,7 @@ let%expect_test "ambiguous prefixes" =
   [%expect
     {|
     ----------------------------------------------------- Climate
-    ("Evaluation Raised" (
-      Climate.Parse_error.E "Unknown argument name: --print-hello-w"))
+    Evaluation Failed: Unknown argument name: --print-hello-w
     ----------------------------------------------------- Cmdliner
     Hello World
     ----------------------------------------------------- Core_command
@@ -315,8 +310,7 @@ let%expect_test "ambiguous prefixes" =
   [%expect
     {|
     ----------------------------------------------------- Climate
-    ("Evaluation Raised" (
-      Climate.Parse_error.E "Unknown argument name: --print-hello"))
+    Evaluation Failed: Unknown argument name: --print-hello
     ----------------------------------------------------- Cmdliner
     test: option '--print-hello' ambiguous and could be either '--print-hello-world' or '--print-hello-you'
     Usage: test [--print-hello-world] [--print-hello-you] [OPTION]…

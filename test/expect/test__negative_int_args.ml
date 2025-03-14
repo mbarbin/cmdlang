@@ -43,7 +43,7 @@ let%expect_test "negative positional" =
   [%expect
     {|
     ----------------------------------------------------- Climate
-    ("Evaluation Raised" (Climate.Parse_error.E "Unknown argument name: -1"))
+    Evaluation Failed: Unknown argument name: -1
     ----------------------------------------------------- Cmdliner
     test: unknown option '-1'.
     Usage: test [OPTION]… INT

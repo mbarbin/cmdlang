@@ -13,7 +13,7 @@ Checking the help when there are no arguments.
   $ ./main_climate.exe return --help
   An empty command
   
-  Usage: ./main_climate.exe return [OPTIONS]
+  Usage: ./main_climate.exe return [OPTION]…
   
   Options:
     -h, --help  Show this help message.

@@ -27,8 +27,7 @@ let%expect_test "invalid_pos_sequence" =
   [%expect
     {|
     ----------------------------------------------------- Climate
-    ("Evaluation Raised" (
-      Climate.Parse_error.E "Missing required positional argument at position 1."))
+    Evaluation Failed: Missing required positional argument at position 1.
     ----------------------------------------------------- Cmdliner
     test: required argument STRING is missing
     Usage: test [OPTION]… [STRING] STRING
@@ -62,18 +61,17 @@ let%expect_test "base" =
 let%expect_test "climate" =
   let cmd = Cmdlang_to_climate.Translate.command cmd in
   let run args =
-    match Climate.Command.eval cmd ~program_name:(Literal "./main.exe") args with
-    | () -> ()
-    | exception e -> print_s [%sexp "Evaluation raised", (e : Exn.t)]
+    match Climate.For_test.eval_result ~program_name:"./main.exe" cmd args with
+    | Ok () -> ()
+    | Error e ->
+      print_string "Evaluation Failed: ";
+      Climate_non_ret.print e
+    | exception e -> print_s [%sexp "Evaluation Raised", (e : Exn.t)] [@coverage off]
   in
   run [ "A"; "B" ];
   [%expect {| ((a (A)) (b B)) |}];
   run [ "B" ];
-  [%expect
-    {|
-    ("Evaluation raised" (
-      Climate.Parse_error.E "Missing required positional argument at position 1."))
-    |}];
+  [%expect {| Evaluation Failed: Missing required positional argument at position 1. |}];
   ()
 ;;
 
