@@ -303,3 +303,56 @@ The recommended way to handle this in cmdliner is to add the special '--' token,
 
   $ ./main_stdlib_runner.exe group World
   Hello World
+
+Monitoring the behavior of a command with subcommand, that has no
+default, when it is invoked with an invalid subcommand name.
+
+  $ ./main_base.exe invalid
+  Cram Test Command
+  
+    main_base.exe SUBCOMMAND
+  
+  === subcommands ===
+  
+    basic                      . Basic types
+    doc                        . Testing documentation features
+    enum                       . Enum types
+    flags                      . flags
+    group                      . A group command with a default
+    named                      . Named arguments
+    return                     . An empty command
+    version                    . print version information
+    help                       . explain a given subcommand (perhaps recursively)
+  
+  unknown subcommand invalid
+  [1]
+
+  $ ./main_climate.exe invalid
+  Too many positional arguments. At most 0 positional arguments may be passed.
+  [124]
+
+  $ ./main_cmdliner.exe invalid
+  ./main_cmdliner.exe: unknown command 'invalid', must be one of 'basic', 'doc', 'enum', 'flags', 'group', 'named' or 'return'.
+  Usage: ./main_cmdliner.exe COMMAND …
+  Try './main_cmdliner.exe --help' for more information.
+  [124]
+
+  $ ./main_stdlib_runner.exe invalid
+  ./main_stdlib_runner.exe: Unexpected positional argument "invalid".
+  Usage: ./main_stdlib_runner.exe [OPTIONS]
+  
+  Cram Test Command
+  
+  Subcommands:
+    basic      Basic types
+    doc        Testing documentation features
+    enum       Enum types
+    flags      flags
+    group      A group command with a default
+    named      Named arguments
+    return     An empty command
+  
+  Options:
+    -help   Display this list of options
+    --help  Display this list of options
+  [2]

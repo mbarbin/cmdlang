@@ -2,6 +2,8 @@
 
 ### Added
 
+- Test behavior when a group is called with an invalid subcommand (@mbarbin).
+
 ### Changed
 
 - Upgrade `climate` and now requires `>= 0.5.0` (@mbarbin).
