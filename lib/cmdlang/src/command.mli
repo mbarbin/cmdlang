@@ -154,8 +154,8 @@ module type Stringable = sig
 end
 
 module type Validated_string = sig
-  (** An interface for types that can be parsed from strings, with the possibility
-      of parsing failures.
+  (** An interface for types that can be parsed from strings, with the
+      possibility of parsing failures.
 
       This is useful for types that require validation during conversion from
       string representations. The names and types for the functions [of_string]
