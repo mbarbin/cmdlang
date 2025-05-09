@@ -158,8 +158,9 @@ module type Validated_string = sig
       of parsing failures.
 
       This is useful for types that require validation during conversion from
-      string representations. The names [v] and [to_string] were chosen to match
-      the conventions used by some existing libraries, such as [Fpath]. *)
+      string representations. The names and types for the functions [of_string]
+      and [to_string] were chosen to match the conventions used by some existing
+      libraries, such as [Fpath]. *)
 
   type t
 
