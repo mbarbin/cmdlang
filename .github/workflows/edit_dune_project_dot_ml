@@ -1,0 +1,73 @@
+(* Usage: ocaml .github/workflows/edit_dune_project_dot_ml <ocaml-version> *)
+
+let starts_with s prefix =
+  let len_s = String.length s in
+  let len_p = String.length prefix in
+  len_s >= len_p && String.sub s 0 len_p = prefix
+;;
+
+let is_implicit_transitive_deps_line line =
+  let prefix = "(implicit_transitive_deps" in
+  starts_with (String.trim line) prefix
+;;
+
+let () =
+  let usage () =
+    Printf.eprintf
+      "Error: OCaml version argument required. Usage: %s <ocaml-version>\n"
+      Sys.argv.(0);
+    exit 1
+  in
+  if Array.length Sys.argv < 2 then usage ();
+  let version = Sys.argv.(1) in
+  let dune_project = "dune-project" in
+  let file_lines =
+    try
+      let ic = open_in dune_project in
+      let rec loop acc =
+        match input_line ic with
+        | line -> loop (line :: acc)
+        | exception End_of_file -> List.rev acc
+      in
+      let lines = loop [] in
+      close_in ic;
+      lines
+    with
+    | Sys_error _ ->
+      Printf.eprintf "File not found: %s\n" dune_project;
+      exit 1
+  in
+  let major, minor =
+    try
+      match String.split_on_char '.' version with
+      | major :: minor :: _ -> int_of_string major, int_of_string minor
+      | _ -> failwith "Invalid version format"
+    with
+    | _ ->
+      Printf.eprintf "Invalid OCaml version: %s\n" version;
+      exit 1
+  in
+  let should_be_false = major > 5 || (major = 5 && minor >= 2) in
+  let changed = ref false in
+  let new_lines =
+    List.map
+      (fun line ->
+         if is_implicit_transitive_deps_line line
+         then (
+           changed := true;
+           Printf.sprintf
+             "(implicit_transitive_deps %s)"
+             (if should_be_false then "false" else "true"))
+         else line)
+      file_lines
+  in
+  if !changed
+  then (
+    let oc = open_out dune_project in
+    List.iter
+      (fun l ->
+         output_string oc l;
+         output_char oc '\n')
+      new_lines;
+    close_out oc)
+;;

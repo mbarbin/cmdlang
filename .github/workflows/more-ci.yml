@@ -56,13 +56,9 @@ jobs:
       #     janestreet-bleeding: https://github.com/janestreet/opam-repository.git
       #     janestreet-bleeding-external: https://github.com/janestreet/opam-repository.git#external-packages
 
-      # This construct is not well supported by older OCaml versions. Given that
-      # we already check the build with this option in the main CI job, we
-      # disable it here unconditionally for simplicity.
+      # Setting `(implicit_transitive_deps VALUE)` conditionally based on the compiler version.
       - name: Edit dune-project
-        shell: pwsh
-        run: |
-          (Get-Content dune-project) -notmatch '\(implicit_transitive_deps false\)' | Set-Content dune-project
+        run: opam exec -- ocaml .github/workflows/edit_dune_project_dot_ml "${{ matrix.ocaml-compiler }}"
 
       # We build and run tests for a subset of packages. More tests are run in
       # the development workflow and as part of the main CI job. These are the
