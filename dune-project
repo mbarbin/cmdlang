@@ -17,7 +17,17 @@
 
 (using mdx 0.4)
 
-(implicit_transitive_deps false)
+;; The value for the [implicit_transtive_deps] option is set during the CI
+;; depending on the OCaml compiler version.
+;;
+;; This will be set to [false] iif [ocaml-version >= 5.2].
+;;
+;; For packaging purposes with older ocaml, it is simpler atm if the option is
+;; set to [true] in the main branch.
+;;
+;; See: [.github/workflows/edit_dune_project_dot_ml].
+
+(implicit_transitive_deps true)
 
 (package
  (name cmdlang)
