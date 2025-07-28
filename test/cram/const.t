@@ -1,7 +1,7 @@
 Checking the help when there are no arguments.
 
   $ ./main_base.exe return --help
-  An empty command
+  An empty command.
   
     main_base.exe return 
   
@@ -11,7 +11,7 @@ Checking the help when there are no arguments.
   
 
   $ ./main_climate.exe return --help
-  An empty command
+  An empty command.
   
   Usage: ./main_climate.exe return [OPTION]…
   
@@ -20,7 +20,7 @@ Checking the help when there are no arguments.
 
   $ ./main_cmdliner.exe return --help=plain
   NAME
-         ./main_cmdliner.exe-return - An empty command
+         ./main_cmdliner.exe-return - An empty command.
   
   SYNOPSIS
          ./main_cmdliner.exe return [OPTION]…
@@ -51,7 +51,7 @@ Checking the help when there are no arguments.
   $ ./main_stdlib_runner.exe return --help
   Usage: ./main_stdlib_runner.exe return [OPTIONS]
   
-  An empty command
+  An empty command.
   
   Options:
     -help   Display this list of options

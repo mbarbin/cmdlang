@@ -44,7 +44,7 @@ Next, create an empty command-line skeleton that we will complete incrementally.
 ```ocaml
 let cmd =
   Command.make
-    ~summary:"A simple calculator"
+    ~summary:"A simple calculator."
     (let open Command.Std in
      let+ () = Arg.return () in
      ())
@@ -144,7 +144,7 @@ Let's revisit our empty skeleton:
 ```ocaml
 let cmd =
   Command.make
-    ~doc:"A simple calculator"
+    ~summary:"A simple calculator."
     (let open Command.Std in
      let+ () = Arg.return () in
      ())
@@ -164,7 +164,7 @@ To do this, we need to insert lines in the `let+` section and fill the body of t
 ```ocaml
 let cmd =
   Command.make
-    ~doc:"A simple calculator"
+    ~summary:"A simple calculator."
     (let open Command.Std in
      let+ _ (* ADD NEW   *) = _
      and+ _ (* ARGUMENTS *) = _
@@ -185,7 +185,7 @@ Since we've opened `Command.Std` in this section, the modules we need are `Arg` 
 ```ocaml
 let cmd =
   Command.make
-    ~doc:"A simple calculator"
+    ~summary:"A simple calculator."
     (let open Command.Std in
      let+ op = Arg.(* <== After typing "Arg." you can now enjoy
                           user-friendly ocaml-lsp completion. *)
@@ -200,12 +200,12 @@ Similarly, remember that parameter parsing helpers are in the `Param` module:
 ```ocaml
 let cmd =
   Command.make
-    ~doc:"A simple calculator"
+    ~summary:"A simple calculator."
     (let open Command.Std in
      let+ op =
        Arg.named
          [ "op" ]
-         ~doc:"operation to perform"
+         ~doc:"Specify the operation to perform."
          (Param. (* <== After typing "Param." you can now enjoy
                         user-friendly ocaml-lsp completion.*)
      ...
@@ -219,17 +219,17 @@ At this point, we have everything we need to complete our calculator.
 ```ocaml
 let cmd =
   Command.make
-    ~summary:"A simple calculator"
+    ~summary:"A simple calculator."
     (let open Command.Std in
      let+ op =
        Arg.named
          [ "op" ]
          (Param.enumerated (module Operator))
          ~docv:"OP"
-         ~doc:"operation to perform"
-     and+ a = Arg.pos ~pos:0 Param.float ~docv:"a" ~doc:"first operand"
-     and+ b = Arg.pos ~pos:1 Param.float ~docv:"b" ~doc:"second operand"
-     and+ verbose = Arg.flag [ "verbose" ] ~doc:"print debug information" in
+         ~doc:"Specify the operation to perform."
+     and+ a = Arg.pos ~pos:0 Param.float ~docv:"a" ~doc:"First operand."
+     and+ b = Arg.pos ~pos:1 Param.float ~docv:"b" ~doc:"Second operand."
+     and+ verbose = Arg.flag [ "verbose" ] ~doc:"Print debug information." in
      if verbose then Printf.printf "op: %s, a: %f, b: %f\n" (Operator.to_string op) a b;
      print_endline (Operator.eval op a b |> string_of_float))
 ;;
@@ -255,24 +255,25 @@ Output of "./my-calculator --help"
 ```sh
 $ ./my-calculator --help=plain
 NAME
-       my-calculator - A simple calculator
+       my-calculator - A simple calculator.
 
 SYNOPSIS
        my-calculator [--op=OP] [--verbose] [OPTION]… a b
 
 ARGUMENTS
        a (required)
-           first operand.
+           First operand.
 
        b (required)
-           second operand.
+           Second operand.
 
 OPTIONS
        --op=OP (required)
-           operation to perform. OP must be either 'add' or 'mul'.
+           Specify the operation to perform. OP must be either 'add' or
+           'mul'.
 
        --verbose
-           print debug information.
+           Print debug information.
 
 COMMON OPTIONS
        --help[=FMT] (default=auto)

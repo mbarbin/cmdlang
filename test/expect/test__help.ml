@@ -3,7 +3,7 @@ module Command = Cmdlang.Command
 let%expect_test "flag" =
   let test =
     Arg_test.create
-      (let%map_open.Command hello = Arg.flag [ "print-hello" ] ~doc:"print Hello" in
+      (let%map_open.Command hello = Arg.flag [ "print-hello" ] ~doc:"Print Hello." in
        (ignore (hello : bool) [@coverage off]))
   in
   Arg_test.eval_all test { prog = "test"; args = [ "--help" ] };
@@ -13,7 +13,7 @@ let%expect_test "flag" =
     Evaluation Failed: Usage: test [OPTION]…
 
     Options:
-          --print-hello  print Hello
+          --print-hello  Print Hello.
       -h, --help         Show this help message.
     ----------------------------------------------------- Cmdliner
     NAME
@@ -24,7 +24,7 @@ let%expect_test "flag" =
 
     OPTIONS
            --print-hello
-               print Hello.
+               Print Hello.
 
     COMMON OPTIONS
            --help[=FMT] (default=auto)
@@ -49,7 +49,7 @@ let%expect_test "flag" =
     eval-stdlib-runner
 
     Options:
-      --print-hello  print Hello (optional)
+      --print-hello  Print Hello. (optional)
       -help          Display this list of options
       --help         Display this list of options
 

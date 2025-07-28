@@ -2,13 +2,13 @@ module Command = Cmdlang.Command
 
 let return =
   Command.make
-    ~summary:"return"
+    ~summary:"A command that returns."
     (let open Command.Std in
      let+ () = Arg.return () in
      ())
 ;;
 
-let group = Command.group ~summary:"group" [ "name_with_underscore", return ]
+let group = Command.group ~summary:"A group." [ "name_with_underscore", return ]
 
 let%expect_test "base" =
   (* core.command rejects subcommand names containing an underscore. *)

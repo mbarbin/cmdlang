@@ -1,22 +1,22 @@
 Characterizing the help of a group:
 
   $ ./main_base.exe basic --help
-  Basic types
+  Basic types.
   
     main_base.exe basic SUBCOMMAND
   
   === subcommands ===
   
-    bool                       . print bool
-    file                       . print file
-    float                      . print float
-    int                        . print int
-    string                     . print string
+    bool                       . Print bool.
+    file                       . Print file.
+    float                      . Print float.
+    int                        . Print int.
+    string                     . Print string.
     help                       . explain a given subcommand (perhaps recursively)
   
 
   $ ./main_climate.exe basic --help
-  Basic types
+  Basic types.
   
   Usage: ./main_climate.exe basic [COMMAND]
          ./main_climate.exe basic [OPTION]…
@@ -25,34 +25,34 @@ Characterizing the help of a group:
     -h, --help  Show this help message.
   
   Commands:
-    string  print string
-    int     print int
-    float   print float
-    bool    print bool
-    file    print file
+    string  Print string.
+    int     Print int.
+    float   Print float.
+    bool    Print bool.
+    file    Print file.
 
   $ ./main_cmdliner.exe basic --help=plain
   NAME
-         ./main_cmdliner.exe-basic - Basic types
+         ./main_cmdliner.exe-basic - Basic types.
   
   SYNOPSIS
          ./main_cmdliner.exe basic COMMAND …
   
   COMMANDS
          bool [OPTION]… BOOL
-             print bool
+             Print bool.
   
          file [OPTION]… FILE
-             print file
+             Print file.
   
          float [OPTION]… FLOAT
-             print float
+             Print float.
   
          int [OPTION]… INT
-             print int
+             Print int.
   
          string [OPTION]… STRING
-             print string
+             Print string.
   
   COMMON OPTIONS
          --help[=FMT] (default=auto)
@@ -81,14 +81,14 @@ Characterizing the help of a group:
   $ ./main_stdlib_runner.exe basic --help
   Usage: ./main_stdlib_runner.exe basic [OPTIONS]
   
-  Basic types
+  Basic types.
   
   Subcommands:
-    string     print string
-    int        print int
-    float      print float
-    bool       print bool
-    file       print file
+    string     Print string.
+    int        Print int.
+    float      Print float.
+    bool       Print bool.
+    file       Print file.
   
   Options:
     -help   Display this list of options
@@ -97,24 +97,24 @@ Characterizing the help of a group:
 What happens when that group is run:
 
   $ ./main_base.exe basic
-  Basic types
+  Basic types.
   
     main_base.exe basic SUBCOMMAND
   
   === subcommands ===
   
-    bool                       . print bool
-    file                       . print file
-    float                      . print float
-    int                        . print int
-    string                     . print string
+    bool                       . Print bool.
+    file                       . Print file.
+    float                      . Print float.
+    int                        . Print int.
+    string                     . Print string.
     help                       . explain a given subcommand (perhaps recursively)
   
   missing subcommand for command main_base.exe basic
   [1]
 
   $ ./main_climate.exe basic
-  Basic types
+  Basic types.
   
   Usage: ./main_climate.exe basic [COMMAND]
          ./main_climate.exe basic [OPTION]…
@@ -123,11 +123,11 @@ What happens when that group is run:
     -h, --help  Show this help message.
   
   Commands:
-    string  print string
-    int     print int
-    float   print float
-    bool    print bool
-    file    print file
+    string  Print string.
+    int     Print int.
+    float   Print float.
+    bool    Print bool.
+    file    Print file.
 
   $ ./main_cmdliner.exe basic
   ./main_cmdliner.exe: required COMMAND name is missing, must be one of 'bool', 'file', 'float', 'int' or 'string'.
@@ -138,14 +138,14 @@ What happens when that group is run:
   $ ./main_stdlib_runner.exe basic
   Usage: ./main_stdlib_runner.exe basic [OPTIONS]
   
-  Basic types
+  Basic types.
   
   Subcommands:
-    string     print string
-    int        print int
-    float      print float
-    bool       print bool
-    file       print file
+    string     Print string.
+    int        Print int.
+    float      Print float.
+    bool       Print bool.
+    file       Print file.
   
   Options:
     -help  Display this list of options
@@ -155,45 +155,45 @@ What happens when that group is run:
 Same with a group that has a default command:
 
   $ ./main_base.exe group --help
-  A group command with a default
+  A group command with a default.
   
     main_base.exe group SUBCOMMAND
   
   === subcommands ===
   
-    a                          . do nothing
+    a                          . Do nothing.
     help                       . explain a given subcommand (perhaps recursively)
   
 
   $ ./main_climate.exe group --help
-  A group command with a default
+  A group command with a default.
   
   Usage: ./main_climate.exe group [COMMAND]
          ./main_climate.exe group [OPTION]… <STRING>
   
   Arguments:
-    <STRING>  name
+    <STRING>  A name to greet.
   
   Options:
     -h, --help  Show this help message.
   
   Commands:
-    a  do nothing
+    a  Do nothing.
 
   $ ./main_cmdliner.exe group --help=plain
   NAME
-         ./main_cmdliner.exe-group - A group command with a default
+         ./main_cmdliner.exe-group - A group command with a default.
   
   SYNOPSIS
          ./main_cmdliner.exe group [COMMAND] …
   
   COMMANDS
          a [OPTION]…
-             do nothing
+             Do nothing.
   
   ARGUMENTS
          STRING (required)
-             name.
+             A name to greet.
   
   COMMON OPTIONS
          --help[=FMT] (default=auto)
@@ -222,13 +222,13 @@ Same with a group that has a default command:
   $ ./main_stdlib_runner.exe group --help
   Usage: ./main_stdlib_runner.exe group [OPTIONS] [ARGUMENTS]
   
-  A group command with a default
+  A group command with a default.
   
   Subcommands:
-    a     do nothing
+    a     Do nothing.
   
   Arguments:
-    <STRING>  name (required)
+    <STRING>  A name to greet. (required)
   
   Options:
     -help   Display this list of options
@@ -241,13 +241,13 @@ Cover the execution of group a (does nothing):
 What happens when that group with a default is run:
 
   $ ./main_base.exe group
-  A group command with a default
+  A group command with a default.
   
     main_base.exe group SUBCOMMAND
   
   === subcommands ===
   
-    a                          . do nothing
+    a                          . Do nothing.
     help                       . explain a given subcommand (perhaps recursively)
   
   missing subcommand for command main_base.exe group
@@ -272,13 +272,13 @@ And now running it with the required argument:
 Default commands are not supported by core.command.
 
   $ ./main_base.exe group World
-  A group command with a default
+  A group command with a default.
   
     main_base.exe group SUBCOMMAND
   
   === subcommands ===
   
-    a                          . do nothing
+    a                          . Do nothing.
     help                       . explain a given subcommand (perhaps recursively)
   
   unknown subcommand World
@@ -308,19 +308,19 @@ Monitoring the behavior of a command with subcommand, that has no
 default, when it is invoked with an invalid subcommand name.
 
   $ ./main_base.exe invalid
-  Cram Test Command
+  Cram Test Commands.
   
     main_base.exe SUBCOMMAND
   
   === subcommands ===
   
-    basic                      . Basic types
-    doc                        . Testing documentation features
-    enum                       . Enum types
-    flags                      . flags
-    group                      . A group command with a default
+    basic                      . Basic types.
+    doc                        . Testing documentation features.
+    enum                       . Enum types.
+    flags                      . Flags.
+    group                      . A group command with a default.
     named                      . Named arguments
-    return                     . An empty command
+    return                     . An empty command.
     version                    . print version information
     help                       . explain a given subcommand (perhaps recursively)
   
@@ -341,16 +341,16 @@ default, when it is invoked with an invalid subcommand name.
   ./main_stdlib_runner.exe: Unexpected positional argument "invalid".
   Usage: ./main_stdlib_runner.exe [OPTIONS]
   
-  Cram Test Command
+  Cram Test Commands.
   
   Subcommands:
-    basic      Basic types
-    doc        Testing documentation features
-    enum       Enum types
-    flags      flags
-    group      A group command with a default
+    basic      Basic types.
+    doc        Testing documentation features.
+    enum       Enum types.
+    flags      Flags.
+    group      A group command with a default.
     named      Named arguments
-    return     An empty command
+    return     An empty command.
   
   Options:
     -help   Display this list of options

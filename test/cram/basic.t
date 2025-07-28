@@ -3,7 +3,7 @@ Checking behavior of basic types.
 String.
 
   $ ./main_base.exe basic string --help
-  print string
+  Print string.
   
     main_base.exe basic string STRING
   
@@ -13,26 +13,26 @@ String.
   
 
   $ ./main_climate.exe basic string --help
-  print string
+  Print string.
   
   Usage: ./main_climate.exe basic string [OPTION]… <STRING>
   
   Arguments:
-    <STRING>  value
+    <STRING>  A param with a value.
   
   Options:
     -h, --help  Show this help message.
 
   $ ./main_cmdliner.exe basic string --help=plain
   NAME
-         ./main_cmdliner.exe-basic-string - print string
+         ./main_cmdliner.exe-basic-string - Print string.
   
   SYNOPSIS
          ./main_cmdliner.exe basic string [OPTION]… STRING
   
   ARGUMENTS
          STRING (required)
-             value.
+             A param with a value.
   
   COMMON OPTIONS
          --help[=FMT] (default=auto)
@@ -61,10 +61,10 @@ String.
   $ ./main_stdlib_runner.exe basic string --help
   Usage: ./main_stdlib_runner.exe basic string [OPTIONS] [ARGUMENTS]
   
-  print string
+  Print string.
   
   Arguments:
-    <STRING>  value (required)
+    <STRING>  A param with a value. (required)
   
   Options:
     -help   Display this list of options
@@ -87,7 +87,7 @@ And run it too.
 Int.
 
   $ ./main_base.exe basic int --help
-  print int
+  Print int.
   
     main_base.exe basic int INT
   
@@ -97,26 +97,26 @@ Int.
   
 
   $ ./main_climate.exe basic int --help
-  print int
+  Print int.
   
   Usage: ./main_climate.exe basic int [OPTION]… <INT>
   
   Arguments:
-    <INT>  value
+    <INT>  A param with a value.
   
   Options:
     -h, --help  Show this help message.
 
   $ ./main_cmdliner.exe basic int --help=plain
   NAME
-         ./main_cmdliner.exe-basic-int - print int
+         ./main_cmdliner.exe-basic-int - Print int.
   
   SYNOPSIS
          ./main_cmdliner.exe basic int [OPTION]… INT
   
   ARGUMENTS
          INT (required)
-             value.
+             A param with a value.
   
   COMMON OPTIONS
          --help[=FMT] (default=auto)
@@ -144,10 +144,10 @@ Int.
   $ ./main_stdlib_runner.exe basic int --help
   Usage: ./main_stdlib_runner.exe basic int [OPTIONS] [ARGUMENTS]
   
-  print int
+  Print int.
   
   Arguments:
-    <INT>  value (required)
+    <INT>  A param with a value. (required)
   
   Options:
     -help   Display this list of options
@@ -195,10 +195,10 @@ flags.
   int: unknown option '-13'.
   Usage: ./main_stdlib_runner.exe basic int [OPTIONS] [ARGUMENTS]
   
-  print int
+  Print int.
   
   Arguments:
-    <INT>  value (required)
+    <INT>  A param with a value. (required)
   
   Options:
     -help   Display this list of options
@@ -208,7 +208,7 @@ flags.
 Float.
 
   $ ./main_base.exe basic float --help
-  print float
+  Print float.
   
     main_base.exe basic float FLOAT
   
@@ -218,26 +218,26 @@ Float.
   
 
   $ ./main_climate.exe basic float --help
-  print float
+  Print float.
   
   Usage: ./main_climate.exe basic float [OPTION]… <FLOAT>
   
   Arguments:
-    <FLOAT>  value
+    <FLOAT>  A param with a value.
   
   Options:
     -h, --help  Show this help message.
 
   $ ./main_cmdliner.exe basic float --help=plain
   NAME
-         ./main_cmdliner.exe-basic-float - print float
+         ./main_cmdliner.exe-basic-float - Print float.
   
   SYNOPSIS
          ./main_cmdliner.exe basic float [OPTION]… FLOAT
   
   ARGUMENTS
          FLOAT (required)
-             value.
+             A param with a value.
   
   COMMON OPTIONS
          --help[=FMT] (default=auto)
@@ -265,10 +265,10 @@ Float.
   $ ./main_stdlib_runner.exe basic float --help
   Usage: ./main_stdlib_runner.exe basic float [OPTIONS] [ARGUMENTS]
   
-  print float
+  Print float.
   
   Arguments:
-    <FLOAT>  value (required)
+    <FLOAT>  A param with a value. (required)
   
   Options:
     -help   Display this list of options
@@ -316,10 +316,10 @@ flags.
   float: unknown option '-13.8'.
   Usage: ./main_stdlib_runner.exe basic float [OPTIONS] [ARGUMENTS]
   
-  print float
+  Print float.
   
   Arguments:
-    <FLOAT>  value (required)
+    <FLOAT>  A param with a value. (required)
   
   Options:
     -help   Display this list of options
@@ -329,7 +329,7 @@ flags.
 Bool.
 
   $ ./main_base.exe basic bool --help
-  print bool
+  Print bool.
   
     main_base.exe basic bool BOOL
   
@@ -339,26 +339,26 @@ Bool.
   
 
   $ ./main_climate.exe basic bool --help
-  print bool
+  Print bool.
   
   Usage: ./main_climate.exe basic bool [OPTION]… <BOOL>
   
   Arguments:
-    <BOOL>  value
+    <BOOL>  A param with a value.
   
   Options:
     -h, --help  Show this help message.
 
   $ ./main_cmdliner.exe basic bool --help=plain
   NAME
-         ./main_cmdliner.exe-basic-bool - print bool
+         ./main_cmdliner.exe-basic-bool - Print bool.
   
   SYNOPSIS
          ./main_cmdliner.exe basic bool [OPTION]… BOOL
   
   ARGUMENTS
          BOOL (required)
-             value.
+             A param with a value.
   
   COMMON OPTIONS
          --help[=FMT] (default=auto)
@@ -386,10 +386,10 @@ Bool.
   $ ./main_stdlib_runner.exe basic bool --help
   Usage: ./main_stdlib_runner.exe basic bool [OPTIONS] [ARGUMENTS]
   
-  print bool
+  Print bool.
   
   Arguments:
-    <BOOL>  value (required)
+    <BOOL>  A param with a value. (required)
   
   Options:
     -help   Display this list of options
@@ -452,10 +452,10 @@ And run it too.
   bool: Failed to parse the argument at position 0: invalid value "True" (not a bool).
   Usage: ./main_stdlib_runner.exe basic bool [OPTIONS] [ARGUMENTS]
   
-  print bool
+  Print bool.
   
   Arguments:
-    <BOOL>  value (required)
+    <BOOL>  A param with a value. (required)
   
   Options:
     -help   Display this list of options
@@ -491,10 +491,10 @@ Invalid entry.
   bool: Failed to parse the argument at position 0: invalid value "Not_a_bool" (not a bool).
   Usage: ./main_stdlib_runner.exe basic bool [OPTIONS] [ARGUMENTS]
   
-  print bool
+  Print bool.
   
   Arguments:
-    <BOOL>  value (required)
+    <BOOL>  A param with a value. (required)
   
   Options:
     -help   Display this list of options
@@ -504,7 +504,7 @@ Invalid entry.
 File.
 
   $ ./main_base.exe basic file --help
-  print file
+  Print file.
   
     main_base.exe basic file FILE
   
@@ -514,26 +514,26 @@ File.
   
 
   $ ./main_climate.exe basic file --help
-  print file
+  Print file.
   
   Usage: ./main_climate.exe basic file [OPTION]… <FILE>
   
   Arguments:
-    <FILE>  value
+    <FILE>  A param with a value.
   
   Options:
     -h, --help  Show this help message.
 
   $ ./main_cmdliner.exe basic file --help=plain
   NAME
-         ./main_cmdliner.exe-basic-file - print file
+         ./main_cmdliner.exe-basic-file - Print file.
   
   SYNOPSIS
          ./main_cmdliner.exe basic file [OPTION]… FILE
   
   ARGUMENTS
          FILE (required)
-             value.
+             A param with a value.
   
   COMMON OPTIONS
          --help[=FMT] (default=auto)
@@ -561,10 +561,10 @@ File.
   $ ./main_stdlib_runner.exe basic file --help
   Usage: ./main_stdlib_runner.exe basic file [OPTIONS] [ARGUMENTS]
   
-  print file
+  Print file.
   
   Arguments:
-    <FILE>  value (required)
+    <FILE>  A param with a value. (required)
   
   Options:
     -help   Display this list of options

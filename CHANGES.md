@@ -2,11 +2,12 @@
 
 ### Added
 
-- Test behavior when a group is called with an invalid subcommand (@mbarbin).
+- Test behavior when a group is called with an invalid subcommand (#26, @mbarbin).
 
 ### Changed
 
-- Upgrade `climate` and now requires `>= 0.5.0` (@mbarbin).
+- More consistent cli commands and args doc strings (#27, @mbarbin).
+- Upgrade `climate` and now requires `>= 0.5.0` (#25, @mbarbin).
 
 ### Deprecated
 
