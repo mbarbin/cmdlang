@@ -4,7 +4,7 @@ let%expect_test "named" =
   let test =
     Arg_test.create
       (let%map_open.Command who =
-         Arg.named [ "who" ] Param.string ~docv:"WHO" ~doc:"hello who?"
+         Arg.named [ "who" ] Param.string ~docv:"WHO" ~doc:"Hello who?"
        in
        print_endline ("Hello " ^ who))
   in
@@ -58,7 +58,7 @@ let%expect_test "1-letter-named" =
   let test =
     Arg_test.create
       (let%map_open.Command who =
-         Arg.named [ "w" ] Param.string ~docv:"WHO" ~doc:"hello who?"
+         Arg.named [ "w" ] Param.string ~docv:"WHO" ~doc:"Hello who?"
        in
        print_endline ("Hello " ^ who))
   in
@@ -124,7 +124,7 @@ let%expect_test "1-letter-named" =
     eval-stdlib-runner
 
     Options:
-      -w <WHO> hello who? (required)
+      -w <WHO> Hello who? (required)
       -help    Display this list of options
       --help   Display this list of options
     ("Evaluation Failed" ((exit_code 2)))
@@ -136,7 +136,7 @@ let%expect_test "named_multi" =
   let test =
     Arg_test.create
       (let%map_open.Command who =
-         Arg.named_multi [ "who" ] Param.string ~docv:"WHO" ~doc:"hello who?"
+         Arg.named_multi [ "who" ] Param.string ~docv:"WHO" ~doc:"Hello who?"
        in
        List.iter who ~f:(fun who -> print_endline ("Hello " ^ who)))
   in
@@ -191,7 +191,7 @@ let%expect_test "named_opt" =
   let test =
     Arg_test.create
       (let%map_open.Command who =
-         Arg.named_opt [ "who" ] Param.string ~docv:"WHO" ~doc:"hello who?"
+         Arg.named_opt [ "who" ] Param.string ~docv:"WHO" ~doc:"Hello who?"
        in
        Option.iter who ~f:(fun who -> print_endline ("Hello " ^ who)))
   in
@@ -227,7 +227,7 @@ let%expect_test "named_with_default" =
            Param.string
            ~docv:"WHO"
            ~default:"World"
-           ~doc:"hello who?"
+           ~doc:"Hello who?"
        in
        print_endline ("Hello " ^ who))
   in
@@ -267,7 +267,7 @@ let%expect_test "named_with_default__comma_separated" =
            (Param.comma_separated Param.string)
            ~docv:"WHO"
            ~default
-           ~doc:"hello who?"
+           ~doc:"Hello who?"
        in
        List.iter who ~f:(fun who -> print_endline ("Hello " ^ who)))
   in

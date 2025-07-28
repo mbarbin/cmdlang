@@ -1,39 +1,39 @@
 Characterizing translation and behavior of various flag types.
 
   $ ./main_base.exe flags names --help
-  various flags
+  Various flags.
   
     main_base.exe flags names 
   
   === flags ===
   
-    [--long]                   . long
-    [-a]                       . short
+    [--long]                   . A long flag.
+    [-a]                       . A short flag.
     [-help], -?                . print this help text and exit
   
 
   $ ./main_climate.exe flags names --help
-  various flags
+  Various flags.
   
   Usage: ./main_climate.exe flags names [OPTION]…
   
   Options:
-    -a          short
-        --long  long
+    -a          A short flag.
+        --long  A long flag.
     -h, --help  Show this help message.
 
   $ ./main_cmdliner.exe flags names --help=plain
   NAME
-         ./main_cmdliner.exe-flags-names - various flags
+         ./main_cmdliner.exe-flags-names - Various flags.
   
   SYNOPSIS
          ./main_cmdliner.exe flags names [-a] [--long] [OPTION]…
   
   OPTIONS
-         -a  short.
+         -a  A short flag.
   
          --long
-             long.
+             A long flag.
   
   COMMON OPTIONS
          --help[=FMT] (default=auto)
@@ -62,11 +62,11 @@ Characterizing translation and behavior of various flag types.
   $ ./main_stdlib_runner.exe flags names --help
   Usage: ./main_stdlib_runner.exe flags names [OPTIONS]
   
-  various flags
+  Various flags.
   
   Options:
-    --long  long (optional)
-    -a      short (optional)
+    --long  A long flag. (optional)
+    -a      A short flag. (optional)
     -help   Display this list of options
     --help  Display this list of options
 

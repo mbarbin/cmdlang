@@ -3,27 +3,27 @@ A simple migration plan from [core.command] to [climate].
 Imagine we started from an original core command, defined as such:
 
   $ ./main_base.exe original -help
-  A group of commands
+  A group of commands.
   
     main_base.exe original SUBCOMMAND
   
   === subcommands ===
   
-    basic                      . A group of basic commands
-    or-error                   . A group of or-error commands
+    basic                      . A group of basic commands.
+    or-error                   . A group of or-error commands.
     help                       . explain a given subcommand (perhaps recursively)
   
 
   $ ./main_base.exe original basic return
 
   $ ./main_base.exe original basic print -help
-  A basic print command
+  A basic print command.
   
     main_base.exe original basic print 
   
   === flags ===
   
-    -arg ARG                   . my long arg
+    -arg ARG                   . My long arg.
     [-help], -?                . print this help text and exit
   
 
@@ -33,13 +33,13 @@ Imagine we started from an original core command, defined as such:
   $ ./main_base.exe original or-error return
 
   $ ./main_base.exe original or-error print -help
-  An or-error print command
+  An or-error print command.
   
     main_base.exe original or-error print 
   
   === flags ===
   
-    [-arg ARG]                 . my long arg
+    [-arg ARG]                 . My long arg.
     [-help], -?                . print this help text and exit
   
   $ ./main_base.exe original or-error print -arg Hello
@@ -103,7 +103,7 @@ OK let's say we've finished migrating all the commands:
   Hello
 
   $ ./main_base.exe migration-step2 or-error print
-  This command fails during execution when the argument is missing
+  This command fails during execution when the argument is missing.
   [1]
 
 At this point, we are still using the core.command library, but we are ready to
@@ -120,7 +120,7 @@ switch to climate, with no breaking changes.
   Hello
 
   $ ./main_climate.exe or-error print
-  This command fails during execution when the argument is missing
+  This command fails during execution when the argument is missing.
   [1]
 
 If you'd like, it is possible to add an additional step where we keep running
@@ -178,5 +178,5 @@ from issues arising from the migration to climate.
   Hello
 
   $ ./main_base.exe migration-step3 or-error print
-  This command fails during execution when the argument is missing
+  This command fails during execution when the argument is missing.
   [1]

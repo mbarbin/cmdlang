@@ -4,8 +4,8 @@
 module Command = Cmdlang.Command
 
 let test =
-  let%map_open.Command a = Arg.pos_opt ~pos:0 Param.string ~doc:"value for a"
-  and b = Arg.pos ~pos:1 Param.string ~doc:"value for b" in
+  let%map_open.Command a = Arg.pos_opt ~pos:0 Param.string ~doc:"Value for [a]."
+  and b = Arg.pos ~pos:1 Param.string ~doc:"Value for [b]." in
   print_s [%sexp { a : string option; b : string }]
 ;;
 
@@ -46,7 +46,7 @@ let%expect_test "invalid_pos_sequence" =
    and cmdliner, the spec is successfully translated, however it will fail when
    the optional positional argument isn't supplied. *)
 
-let cmd = Command.make ~summary:"test" test
+let cmd = Command.make ~summary:"A test command." test
 
 let%expect_test "base" =
   require_does_raise [%here] (fun () -> Cmdlang_to_base.Translate.command_unit cmd);

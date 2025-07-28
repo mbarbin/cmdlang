@@ -4,7 +4,7 @@ let%expect_test "pos" =
   let test =
     Arg_test.create
       (let%map_open.Command who =
-         Arg.pos ~pos:0 Param.string ~docv:"WHO" ~doc:"hello who?"
+         Arg.pos ~pos:0 Param.string ~docv:"WHO" ~doc:"Hello who?"
        in
        print_endline ("Hello " ^ who))
   in
@@ -43,7 +43,7 @@ let%expect_test "skipping-pos" =
   let test =
     Arg_test.create
       (let%map_open.Command who =
-         Arg.pos ~pos:1 Param.string ~docv:"WHO" ~doc:"hello who?"
+         Arg.pos ~pos:1 Param.string ~docv:"WHO" ~doc:"Hello who?"
        in
        print_endline ("Hello " ^ who))
   in
@@ -126,7 +126,7 @@ let%expect_test "pos_opt" =
   let test =
     Arg_test.create
       (let%map_open.Command who =
-         Arg.pos_opt ~pos:0 Param.string ~docv:"WHO" ~doc:"hello who?"
+         Arg.pos_opt ~pos:0 Param.string ~docv:"WHO" ~doc:"Hello who?"
        in
        Option.iter who ~f:(fun who -> print_endline ("Hello " ^ who)))
   in
@@ -162,7 +162,7 @@ let%expect_test "pos_with_default" =
            Param.string
            ~docv:"WHO"
            ~default:"World"
-           ~doc:"hello who?"
+           ~doc:"Hello who?"
        in
        print_endline ("Hello " ^ who))
   in
@@ -197,7 +197,7 @@ let%expect_test "pos_all" =
   let test =
     Arg_test.create
       (let%map_open.Command who =
-         Arg.pos_all Param.string ~docv:"WHO" ~doc:"hello who?"
+         Arg.pos_all Param.string ~docv:"WHO" ~doc:"Hello who?"
        in
        List.iter who ~f:(fun who -> print_endline ("Hello " ^ who)))
   in

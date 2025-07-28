@@ -2,7 +2,7 @@ module Command = Cmdlang.Command
 
 let test param to_string =
   Arg_test.create
-    (let%map_open.Command p = Arg.pos ~pos:0 param ~doc:"param" in
+    (let%map_open.Command p = Arg.pos ~pos:0 param ~doc:"A param." in
      print_endline (to_string p))
 ;;
 
@@ -57,7 +57,7 @@ let%expect_test "int" =
     eval-stdlib-runner
 
     Arguments:
-      <INT>  param (required)
+      <INT>  A param. (required)
 
     Options:
       -help   Display this list of options
@@ -114,7 +114,7 @@ let%expect_test "float" =
     eval-stdlib-runner
 
     Arguments:
-      <FLOAT>  param (required)
+      <FLOAT>  A param. (required)
 
     Options:
       -help   Display this list of options
@@ -170,7 +170,7 @@ let%expect_test "bool" =
     eval-stdlib-runner
 
     Arguments:
-      <BOOL>  param (required)
+      <BOOL>  A param. (required)
 
     Options:
       -help   Display this list of options
@@ -276,7 +276,7 @@ let%expect_test "enumerated" =
     eval-stdlib-runner
 
     Arguments:
-      <VAL>  param (required)
+      <VAL>  A param. (required)
 
     Options:
       -help   Display this list of options
@@ -393,7 +393,7 @@ let%expect_test "validated_string" =
     eval-stdlib-runner
 
     Arguments:
-      <VAL>  param (required)
+      <VAL>  A param. (required)
 
     Options:
       -help   Display this list of options
@@ -477,7 +477,7 @@ let%expect_test "comma_separated" =
     eval-stdlib-runner
 
     Arguments:
-      <VAL>  param (required)
+      <VAL>  A param. (required)
 
     Options:
       -help   Display this list of options
@@ -505,7 +505,7 @@ let%expect_test "comma_separated" =
     eval-stdlib-runner
 
     Arguments:
-      <VAL>  param (required)
+      <VAL>  A param. (required)
 
     Options:
       -help   Display this list of options

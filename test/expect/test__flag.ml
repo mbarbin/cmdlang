@@ -3,7 +3,7 @@ module Command = Cmdlang.Command
 let%expect_test "flag" =
   let test =
     Arg_test.create
-      (let%map_open.Command hello = Arg.flag [ "print-hello" ] ~doc:"print Hello" in
+      (let%map_open.Command hello = Arg.flag [ "print-hello" ] ~doc:"Print Hello." in
        if hello then print_endline "Hello")
   in
   Arg_test.eval_all test { prog = "test"; args = [] };
@@ -49,7 +49,7 @@ let%expect_test "flag" =
     eval-stdlib-runner
 
     Options:
-      --print-hello  print Hello (optional)
+      --print-hello  Print Hello. (optional)
       -help          Display this list of options
       --help         Display this list of options
     ("Evaluation Failed" ((exit_code 2)))
@@ -78,7 +78,7 @@ let%expect_test "flag" =
     eval-stdlib-runner
 
     Options:
-      --print-hello  print Hello (optional)
+      --print-hello  Print Hello. (optional)
       -help          Display this list of options
       --help         Display this list of options
     ("Evaluation Failed" ((exit_code 2)))
@@ -102,7 +102,7 @@ let%expect_test "flag" =
     eval-stdlib-runner
 
     Options:
-      --print-hello  print Hello (optional)
+      --print-hello  Print Hello. (optional)
       -help          Display this list of options
       --help         Display this list of options
     ("Evaluation Failed" ((exit_code 2)))
@@ -114,7 +114,7 @@ let%expect_test "1-letter-flag" =
   (* We revisit the initial example but this time the flag name has only 1 letter. *)
   let test =
     Arg_test.create
-      (let%map_open.Command hello = Arg.flag [ "p" ] ~doc:"print Hello" in
+      (let%map_open.Command hello = Arg.flag [ "p" ] ~doc:"Print Hello." in
        if hello then print_endline "Hello")
   in
   Arg_test.eval_all test { prog = "test"; args = [] };
@@ -159,7 +159,7 @@ let%expect_test "1-letter-flag" =
     eval-stdlib-runner
 
     Options:
-      -p      print Hello (optional)
+      -p      Print Hello. (optional)
       -help   Display this list of options
       --help  Display this list of options
     ("Evaluation Failed" ((exit_code 2)))
@@ -172,7 +172,7 @@ let%expect_test "1-letter-alias" =
      flags needs to be called with a single dash. *)
   let test =
     Arg_test.create
-      (let%map_open.Command hello = Arg.flag [ "print-hello"; "p" ] ~doc:"print Hello" in
+      (let%map_open.Command hello = Arg.flag [ "print-hello"; "p" ] ~doc:"Print Hello." in
        if hello then print_endline "Hello")
   in
   Arg_test.eval_all test { prog = "test"; args = [] };
@@ -229,8 +229,8 @@ let%expect_test "1-letter-alias" =
     eval-stdlib-runner
 
     Options:
-      -p             print Hello (optional)
-      --print-hello  print Hello (optional)
+      -p             Print Hello. (optional)
+      --print-hello  Print Hello. (optional)
       -help          Display this list of options
       --help         Display this list of options
     ("Evaluation Failed" ((exit_code 2)))
@@ -243,8 +243,8 @@ let%expect_test "ambiguous prefixes" =
   let test =
     Arg_test.create
       (let%map_open.Command hello_you =
-         Arg.flag [ "print-hello-you" ] ~doc:"print Hello You"
-       and hello_world = Arg.flag [ "print-hello-world" ] ~doc:"print Hello World" in
+         Arg.flag [ "print-hello-you" ] ~doc:"Print 'Hello You'."
+       and hello_world = Arg.flag [ "print-hello-world" ] ~doc:"Print 'Hello World'." in
        if hello_you then print_endline "Hello You";
        if hello_world then print_endline "Hello World")
   in
@@ -299,8 +299,8 @@ let%expect_test "ambiguous prefixes" =
     eval-stdlib-runner
 
     Options:
-      --print-hello-world  print Hello World (optional)
-      --print-hello-you    print Hello You (optional)
+      --print-hello-world  Print 'Hello World'. (optional)
+      --print-hello-you    Print 'Hello You'. (optional)
       -help                Display this list of options
       --help               Display this list of options
     ("Evaluation Failed" ((exit_code 2)))
@@ -326,8 +326,8 @@ let%expect_test "ambiguous prefixes" =
     eval-stdlib-runner
 
     Options:
-      --print-hello-world  print Hello World (optional)
-      --print-hello-you    print Hello You (optional)
+      --print-hello-world  Print 'Hello World'. (optional)
+      --print-hello-you    Print 'Hello You'. (optional)
       -help                Display this list of options
       --help               Display this list of options
     ("Evaluation Failed" ((exit_code 2)))
@@ -338,7 +338,9 @@ let%expect_test "ambiguous prefixes" =
 let%expect_test "flag_count" =
   let test =
     Arg_test.create
-      (let%map_open.Command count = Arg.flag_count [ "count"; "c" ] ~doc:"count" in
+      (let%map_open.Command count =
+         Arg.flag_count [ "count"; "c" ] ~doc:"A value for the count."
+       in
        print_s [%sexp { count : int }])
   in
   (* At the moment [flag_count] isn't supported by [core.command]. *)
@@ -351,7 +353,8 @@ let%expect_test "flag_count" =
     ((count 0))
     ----------------------------------------------------- Core_command
     ("Translation Raised" (
-      "Flag_count not supported by core.command" ((names (count c)) (doc count))))
+      "Flag_count not supported by core.command" (
+        (names (count c)) (doc "A value for the count."))))
     ----------------------------------------------------- Stdlib_runner
     ((count 0))
     |}];
@@ -365,7 +368,8 @@ let%expect_test "flag_count" =
     ((count 3))
     ----------------------------------------------------- Core_command
     ("Translation Raised" (
-      "Flag_count not supported by core.command" ((names (count c)) (doc count))))
+      "Flag_count not supported by core.command" (
+        (names (count c)) (doc "A value for the count."))))
     ----------------------------------------------------- Stdlib_runner
     ((count 3))
     |}];

@@ -1,6 +1,6 @@
 let return =
   Command.make
-    ~summary:"An empty command"
+    ~summary:"An empty command."
     (let open Command.Std in
      let+ () = Arg.return () in
      print_endline "()")
@@ -9,60 +9,60 @@ let return =
 module Flags = struct
   let names =
     Command.make
-      ~summary:"various flags"
+      ~summary:"Various flags."
       (let open Command.Std in
-       let+ _ = Arg.flag [ "a" ] ~doc:"short"
-       and+ _ = Arg.flag [ "long" ] ~doc:"long" in
+       let+ _ = Arg.flag [ "a" ] ~doc:"A short flag."
+       and+ _ = Arg.flag [ "long" ] ~doc:"A long flag." in
        ())
   ;;
 
-  let main = Command.group ~summary:"flags" [ "names", names ]
+  let main = Command.group ~summary:"Flags." [ "names", names ]
 end
 
 module Basic = struct
   let string =
     Command.make
-      ~summary:"print string"
+      ~summary:"Print string."
       (let open Command.Std in
-       let+ v = Arg.pos ~pos:0 Param.string ~doc:"value" in
+       let+ v = Arg.pos ~pos:0 Param.string ~doc:"A param with a value." in
        print_endline v)
   ;;
 
   let int =
     Command.make
-      ~summary:"print int"
+      ~summary:"Print int."
       (let open Command.Std in
-       let+ v = Arg.pos ~pos:0 Param.int ~doc:"value" in
+       let+ v = Arg.pos ~pos:0 Param.int ~doc:"A param with a value." in
        print_endline (Int.to_string v))
   ;;
 
   let float =
     Command.make
-      ~summary:"print float"
+      ~summary:"Print float."
       (let open Command.Std in
-       let+ v = Arg.pos ~pos:0 Param.float ~doc:"value" in
+       let+ v = Arg.pos ~pos:0 Param.float ~doc:"A param with a value." in
        print_endline (Float.to_string v))
   ;;
 
   let bool =
     Command.make
-      ~summary:"print bool"
+      ~summary:"Print bool."
       (let open Command.Std in
-       let+ v = Arg.pos ~pos:0 Param.bool ~doc:"value" in
+       let+ v = Arg.pos ~pos:0 Param.bool ~doc:"A param with a value." in
        print_endline (Bool.to_string v))
   ;;
 
   let file =
     Command.make
-      ~summary:"print file"
+      ~summary:"Print file."
       (let open Command.Std in
-       let+ v = Arg.pos ~pos:0 Param.file ~doc:"value" in
+       let+ v = Arg.pos ~pos:0 Param.file ~doc:"A param with a value." in
        print_endline v)
   ;;
 
   let main =
     Command.group
-      ~summary:"Basic types"
+      ~summary:"Basic types."
       [ "string", string; "int", int; "float", float; "bool", bool; "file", file ]
   ;;
 end
@@ -87,32 +87,28 @@ module Enum = struct
 
   let pos =
     Command.make
-      ~summary:"print color"
+      ~summary:"Print color."
       (let open Command.Std in
-       let+ color = Arg.pos ~pos:0 color_param ~doc:"color" in
+       let+ color = Arg.pos ~pos:0 color_param ~doc:"A color." in
        print_endline (Color.to_string color))
   ;;
 
   let named =
     Command.make
-      ~summary:"print color"
+      ~summary:"Print color."
       (let open Command.Std in
-       let+ color = Arg.named [ "color" ] color_param ~doc:"color" in
+       let+ color = Arg.named [ "color" ] color_param ~doc:"A color." in
        print_endline (Color.to_string color))
   ;;
 
-  let main = Command.group ~summary:"Enum types" [ "named", named; "pos", pos ]
+  let main = Command.group ~summary:"Enum types." [ "named", named; "pos", pos ]
 end
 
 module Doc = struct
   let singleton_with_readme =
     Command.make
-      ~summary:"Singleton command with a readme"
-      ~readme:(fun () ->
-        {|
-This is a readme.
-It can be written on multiple lines.
-|})
+      ~summary:"Singleton command with a readme."
+      ~readme:(fun () -> "This is a readme.\nIt can be written on multiple lines.")
       (let open Command.Std in
        let+ () = Arg.return () in
        (() [@coverage off]))
@@ -120,7 +116,7 @@ It can be written on multiple lines.
 
   let args_doc_end_with_dots =
     Command.make
-      ~summary:"Args doc end with dots"
+      ~summary:"Args doc end with dots."
       (let open Command.Std in
        let+ _ =
          Arg.pos ~pos:0 Param.string ~doc:"The doc for [a] in the code ends with a dot."
@@ -130,11 +126,8 @@ It can be written on multiple lines.
 
   let main =
     Command.group
-      ~summary:"Testing documentation features"
-      ~readme:(fun () ->
-        {|
-This group is dedicated to testing documentation features.
-    |})
+      ~summary:"Testing documentation features."
+      ~readme:(fun () -> "This group is dedicated to testing documentation features.")
       [ "args-doc-end-with-dots", args_doc_end_with_dots
       ; "singleton-with-readme", singleton_with_readme
       ]
@@ -179,7 +172,7 @@ module Named = struct
              Param.int
              ~docv:"X"
              ~default:42
-             ~doc:"Print Hello X"
+             ~doc:"Print Hello X."
          in
          print_endline ("Hello " ^ Int.to_string x))
     ;;
@@ -209,7 +202,7 @@ module Named = struct
              Param.float
              ~docv:"X"
              ~default:42.
-             ~doc:"Print Hello X"
+             ~doc:"Print Hello X."
          in
          print_endline ("Hello " ^ Float.to_string x))
     ;;
@@ -224,7 +217,7 @@ module Named = struct
              Param.bool
              ~docv:"X"
              ~default:true
-             ~doc:"Print Hello X"
+             ~doc:"Print Hello X."
          in
          print_endline ("Hello " ^ Bool.to_string x))
     ;;
@@ -239,7 +232,7 @@ module Named = struct
              Param.file
              ~docv:"X"
              ~default:"path/to/file"
-             ~doc:"Print Hello X"
+             ~doc:"Print Hello X."
          in
          print_endline ("Hello " ^ x))
     ;;
@@ -393,7 +386,7 @@ module Group = struct
 
   let a =
     Command.make
-      ~summary:"do nothing"
+      ~summary:"Do nothing."
       (let open Command.Std in
        let+ () = Arg.return () in
        fun () -> ())
@@ -401,19 +394,19 @@ module Group = struct
 
   let default =
     let open Command.Std in
-    let+ name = Arg.pos ~pos:0 Param.string ~doc:"name" in
+    let+ name = Arg.pos ~pos:0 Param.string ~doc:"A name to greet." in
     fun () -> print_endline ("Hello " ^ name)
   ;;
 
   let main =
-    Command.group ~summary:"A group command with a default" ~default [ "a", a ]
+    Command.group ~summary:"A group command with a default." ~default [ "a", a ]
     |> Command.Utils.map ~f:(fun f -> f ())
   ;;
 end
 
 let main =
   Command.group
-    ~summary:"Cram Test Command"
+    ~summary:"Cram Test Commands."
     [ "basic", Basic.main
     ; "doc", Doc.main
     ; "enum", Enum.main

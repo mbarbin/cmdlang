@@ -1,5 +1,5 @@
   $ ./main_base.exe doc --help
-  Testing documentation features
+  Testing documentation features.
   
     main_base.exe doc SUBCOMMAND
   
@@ -7,16 +7,14 @@
   
   === subcommands ===
   
-    args-doc-end-with-dots     . Args doc end with dots
-    singleton-with-readme      . Singleton command with a readme
+    args-doc-end-with-dots     . Args doc end with dots.
+    singleton-with-readme      . Singleton command with a readme.
     help                       . explain a given subcommand (perhaps recursively)
   
 
   $ ./main_climate.exe doc --help
-  Testing documentation features
-  
+  Testing documentation features.
   This group is dedicated to testing documentation features.
-      
   
   Usage: ./main_climate.exe doc [COMMAND]
          ./main_climate.exe doc [OPTION]…
@@ -25,30 +23,26 @@
     -h, --help  Show this help message.
   
   Commands:
-    args-doc-end-with-dots  Args doc end with dots
-    singleton-with-readme   Singleton command with a readme
-  
+    args-doc-end-with-dots  Args doc end with dots.
+    singleton-with-readme   Singleton command with a readme.
   This is a readme.
   It can be written on multiple lines.
-  
 
   $ ./main_cmdliner.exe doc --help=plain
   NAME
-         ./main_cmdliner.exe-doc - Testing documentation features
+         ./main_cmdliner.exe-doc - Testing documentation features.
   
   SYNOPSIS
          ./main_cmdliner.exe doc COMMAND …
   
-          
-  
-         This group is dedicated to testing documentation features. 
+         This group is dedicated to testing documentation features.
   
   COMMANDS
          args-doc-end-with-dots [OPTION]… STRING STRING
-             Args doc end with dots
+             Args doc end with dots.
   
          singleton-with-readme [OPTION]…
-             Singleton command with a readme
+             Singleton command with a readme.
   
   COMMON OPTIONS
          --help[=FMT] (default=auto)
@@ -77,15 +71,13 @@
   $ ./main_stdlib_runner.exe doc --help
   Usage: ./main_stdlib_runner.exe doc [OPTIONS]
   
-  Testing documentation features
-  
+  Testing documentation features.
   
   This group is dedicated to testing documentation features.
-      
   
   Subcommands:
-    args-doc-end-with-dots     Args doc end with dots
-    singleton-with-readme      Singleton command with a readme
+    args-doc-end-with-dots     Args doc end with dots.
+    singleton-with-readme      Singleton command with a readme.
   
   Options:
     -help   Display this list of options
@@ -94,7 +86,7 @@
 A singleton command with a readme:
 
   $ ./main_base.exe doc singleton-with-readme --help
-  Singleton command with a readme
+  Singleton command with a readme.
   
     main_base.exe doc singleton-with-readme 
   
@@ -107,11 +99,9 @@ A singleton command with a readme:
   
 
   $ ./main_climate.exe doc singleton-with-readme --help
-  Singleton command with a readme
-  
+  Singleton command with a readme.
   This is a readme.
   It can be written on multiple lines.
-  
   
   Usage: ./main_climate.exe doc singleton-with-readme [OPTION]…
   
@@ -121,16 +111,12 @@ A singleton command with a readme:
   $ ./main_cmdliner.exe doc singleton-with-readme --help=plain
   NAME
          ./main_cmdliner.exe-doc-singleton-with-readme - Singleton command with
-         a readme
+         a readme.
   
   SYNOPSIS
          ./main_cmdliner.exe doc singleton-with-readme [OPTION]…
   
-          
-  
          This is a readme. It can be written on multiple lines.
-  
-          
   
   COMMON OPTIONS
          --help[=FMT] (default=auto)
@@ -159,12 +145,10 @@ A singleton command with a readme:
   $ ./main_stdlib_runner.exe doc singleton-with-readme --help
   Usage: ./main_stdlib_runner.exe doc singleton-with-readme [OPTIONS]
   
-  Singleton command with a readme
-  
+  Singleton command with a readme.
   
   This is a readme.
   It can be written on multiple lines.
-  
   
   Options:
     -help   Display this list of options
@@ -176,7 +160,7 @@ end. A dot is systematically added when translating to cmdliner since this
 integrates best with its formatting of help pages.
 
   $ ./main_base.exe doc args-doc-end-with-dots --help
-  Args doc end with dots
+  Args doc end with dots.
   
     main_base.exe doc args-doc-end-with-dots STRING STRING
   
@@ -186,7 +170,7 @@ integrates best with its formatting of help pages.
   
 
   $ ./main_climate.exe doc args-doc-end-with-dots --help
-  Args doc end with dots
+  Args doc end with dots.
   
   Usage: ./main_climate.exe doc args-doc-end-with-dots [OPTION]… <STRING> <STRING>
   
@@ -200,7 +184,7 @@ integrates best with its formatting of help pages.
   $ ./main_cmdliner.exe doc args-doc-end-with-dots --help=plain
   NAME
          ./main_cmdliner.exe-doc-args-doc-end-with-dots - Args doc end with
-         dots
+         dots.
   
   SYNOPSIS
          ./main_cmdliner.exe doc args-doc-end-with-dots [OPTION]… STRING
@@ -240,7 +224,7 @@ integrates best with its formatting of help pages.
   $ ./main_stdlib_runner.exe doc args-doc-end-with-dots --help
   Usage: ./main_stdlib_runner.exe doc args-doc-end-with-dots [OPTIONS] [ARGUMENTS]
   
-  Args doc end with dots
+  Args doc end with dots.
   
   Arguments:
     <STRING>  The doc for [a] in the code ends with a dot. (required)

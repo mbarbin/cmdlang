@@ -2,25 +2,25 @@ In this test we monitor the global help page that is generated at the root of
 the executable for each backend.
 
   $ ./main_base.exe --help
-  Cram Test Command
+  Cram Test Commands.
   
     main_base.exe SUBCOMMAND
   
   === subcommands ===
   
-    basic                      . Basic types
-    doc                        . Testing documentation features
-    enum                       . Enum types
-    flags                      . flags
-    group                      . A group command with a default
+    basic                      . Basic types.
+    doc                        . Testing documentation features.
+    enum                       . Enum types.
+    flags                      . Flags.
+    group                      . A group command with a default.
     named                      . Named arguments
-    return                     . An empty command
+    return                     . An empty command.
     version                    . print version information
     help                       . explain a given subcommand (perhaps recursively)
   
 
   $ ./main_climate.exe --help
-  Cram Test Command
+  Cram Test Commands.
   
   Usage: ./main_climate.exe [COMMAND]
          ./main_climate.exe [OPTION]…
@@ -29,45 +29,43 @@ the executable for each backend.
     -h, --help  Show this help message.
   
   Commands:
-    basic   Basic types
-    doc     Testing documentation features
-  
+    basic   Basic types.
+    doc     Testing documentation features.
   This group is dedicated to testing documentation features.
-      
-    enum    Enum types
-    flags   flags
-    group   A group command with a default
+    enum    Enum types.
+    flags   Flags.
+    group   A group command with a default.
     named   Named arguments
-    return  An empty command
+    return  An empty command.
 
   $ ./main_cmdliner.exe --help=plain
   NAME
-         ./main_cmdliner.exe - Cram Test Command
+         ./main_cmdliner.exe - Cram Test Commands.
   
   SYNOPSIS
          ./main_cmdliner.exe COMMAND …
   
   COMMANDS
          basic COMMAND …
-             Basic types
+             Basic types.
   
          doc COMMAND …
-             Testing documentation features
+             Testing documentation features.
   
          enum COMMAND …
-             Enum types
+             Enum types.
   
          flags COMMAND …
-             flags
+             Flags.
   
          group [COMMAND] …
-             A group command with a default
+             A group command with a default.
   
          named COMMAND …
              Named arguments
   
          return [OPTION]…
-             An empty command
+             An empty command.
   
   COMMON OPTIONS
          --help[=FMT] (default=auto)
@@ -93,16 +91,16 @@ the executable for each backend.
   $ ./main_stdlib_runner.exe --help
   Usage: ./main_stdlib_runner.exe [OPTIONS]
   
-  Cram Test Command
+  Cram Test Commands.
   
   Subcommands:
-    basic      Basic types
-    doc        Testing documentation features
-    enum       Enum types
-    flags      flags
-    group      A group command with a default
+    basic      Basic types.
+    doc        Testing documentation features.
+    enum       Enum types.
+    flags      Flags.
+    group      A group command with a default.
     named      Named arguments
-    return     An empty command
+    return     An empty command.
   
   Options:
     -help   Display this list of options

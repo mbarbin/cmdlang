@@ -3,10 +3,10 @@ module Command = Cmdlang.Command
 let%expect_test "eval_exit_code" =
   let arg =
     let open Command.Std in
-    let+ arg = Arg.flag [ "flag" ] ~doc:"flag" in
+    let+ arg = Arg.flag [ "flag" ] ~doc:"A flag." in
     print_s [%sexp (arg : bool)]
   in
-  let cmd = Command.make ~summary:"cmd" arg in
+  let cmd = Command.make ~summary:"A cmd." arg in
   let test argv =
     let code =
       Cmdlang_stdlib_runner.eval_exit_code
@@ -26,10 +26,10 @@ let%expect_test "eval_exit_code" =
     {|
     Usage: ./main.exe [OPTIONS]
 
-    cmd
+    A cmd.
 
     Options:
-      --flag  flag (optional)
+      --flag  A flag. (optional)
       -help   Display this list of options
       --help  Display this list of options
     [0]

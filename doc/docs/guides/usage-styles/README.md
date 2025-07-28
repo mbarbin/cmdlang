@@ -65,9 +65,9 @@ They are introduced to the scope, alongside the common modules `Arg` and `Param`
 ```ocaml
 let _ : unit Command.t =
   Command.make
-    ~summary:"A command skeleton"
+    ~summary:"A command skeleton."
     (let open Command.Std in
-     let+ (_ : int) = Arg.named [ "n" ] Param.int ~doc:"A value for n"
+     let+ (_ : int) = Arg.named [ "n" ] Param.int ~doc:"A value for n."
      and+ () = Arg.return () in
      ())
 ;;
@@ -82,10 +82,10 @@ Some people prefer limiting the indentation of large blocks with the help of the
 <!-- $MDX file=usage_styles.ml,part=let_plus_std_no_indent -->
 ```ocaml
 let _ : unit Command.t =
-  Command.make ~summary:"A command skeleton"
+  Command.make ~summary:"A command skeleton."
   @@
   let open Command.Std in
-  let+ (_ : int) = Arg.named [ "n" ] Param.int ~doc:"A value for n"
+  let+ (_ : int) = Arg.named [ "n" ] Param.int ~doc:"A value for n."
   and+ () = Arg.return () in
   ()
 ;;
@@ -101,7 +101,7 @@ An alternative based on the `let%map_open` operator of [ppx_let](https://github.
 ```ocaml
 let _ : unit Command.t =
   Command.make
-    ~summary:"A command skeleton"
+    ~summary:"A command skeleton."
     (let%map_open.Command () = Arg.return ()
      and () = Arg.return () in
      ())

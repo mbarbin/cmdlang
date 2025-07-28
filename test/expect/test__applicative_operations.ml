@@ -25,7 +25,7 @@ let%expect_test "map" =
   let test =
     Arg_test.create
       (let%map_open.Command v =
-         Arg.pos ~pos:0 Param.string ~doc:"an integer" |> Arg.map ~f:Int.of_string_opt
+         Arg.pos ~pos:0 Param.string ~doc:"An integer." |> Arg.map ~f:Int.of_string_opt
        in
        print_s [%sexp (v : int option)])
   in
@@ -91,9 +91,9 @@ let%expect_test "apply" =
     let open Command.Std in
     Arg_test.create
       (let op =
-         Arg.pos ~pos:0 (Param.enumerated (module Operator)) ~doc:"an operator"
+         Arg.pos ~pos:0 (Param.enumerated (module Operator)) ~doc:"An operator."
          |> Arg.map ~f:Operator.apply
-       and v = Arg.pos_with_default ~pos:1 Param.int ~default:0 ~doc:"an integer" in
+       and v = Arg.pos_with_default ~pos:1 Param.int ~default:0 ~doc:"An integer." in
        Arg.map (Arg.apply op v) ~f:(fun v -> print_s [%sexp (v : int)]))
   in
   Arg_test.eval_all test { prog = "test"; args = [ "succ"; "0" ] };

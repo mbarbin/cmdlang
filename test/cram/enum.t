@@ -3,7 +3,7 @@ Characterizing translation and behavior of enumerated types.
 Base.
 
   $ ./main_base.exe enum pos --help
-  print color
+  Print color.
   
     main_base.exe enum pos COLOR
   
@@ -28,13 +28,13 @@ Base.
   [1]
 
   $ ./main_base.exe enum named --help
-  print color
+  Print color.
   
     main_base.exe enum named 
   
   === flags ===
   
-    --color COLOR              . color
+    --color COLOR              . A color.
     [-help], -?                . print this help text and exit
   
 
@@ -56,12 +56,12 @@ Base.
 Climate.
 
   $ ./main_climate.exe enum pos --help
-  print color
+  Print color.
   
   Usage: ./main_climate.exe enum pos [OPTION]… <COLOR>
   
   Arguments:
-    <COLOR>  color
+    <COLOR>  A color.
   
   Options:
     -h, --help  Show this help message.
@@ -74,12 +74,12 @@ Climate.
   [124]
 
   $ ./main_climate.exe enum named --help
-  print color
+  Print color.
   
   Usage: ./main_climate.exe enum named [OPTION]…
   
   Options:
-        --color <COLOR>  color
+        --color <COLOR>  A color.
     -h, --help           Show this help message.
 
   $ ./main_climate.exe enum named --color red
@@ -93,14 +93,14 @@ Cmdliner.
 
   $ ./main_cmdliner.exe enum pos --help=plain
   NAME
-         ./main_cmdliner.exe-enum-pos - print color
+         ./main_cmdliner.exe-enum-pos - Print color.
   
   SYNOPSIS
          ./main_cmdliner.exe enum pos [OPTION]… COLOR
   
   ARGUMENTS
          COLOR (required)
-             color. COLOR must be one of 'red', 'green' or 'blue'.
+             A color. COLOR must be one of 'red', 'green' or 'blue'.
   
   COMMON OPTIONS
          --help[=FMT] (default=auto)
@@ -138,14 +138,14 @@ Cmdliner.
 
   $ ./main_cmdliner.exe enum named --help=plain
   NAME
-         ./main_cmdliner.exe-enum-named - print color
+         ./main_cmdliner.exe-enum-named - Print color.
   
   SYNOPSIS
          ./main_cmdliner.exe enum named [--color=COLOR] [OPTION]…
   
   OPTIONS
          --color=COLOR (required)
-             color. COLOR must be one of 'red', 'green' or 'blue'.
+             A color. COLOR must be one of 'red', 'green' or 'blue'.
   
   COMMON OPTIONS
          --help[=FMT] (default=auto)
@@ -186,10 +186,10 @@ Stdlib runner.
   $ ./main_stdlib_runner.exe enum pos --help
   Usage: ./main_stdlib_runner.exe enum pos [OPTIONS] [ARGUMENTS]
   
-  print color
+  Print color.
   
   Arguments:
-    <COLOR>  color (required)
+    <COLOR>  A color. (required)
   
   Options:
     -help   Display this list of options
@@ -202,10 +202,10 @@ Stdlib runner.
   pos: Failed to parse the argument at position 0: invalid value "INVALID" (not a valid choice).
   Usage: ./main_stdlib_runner.exe enum pos [OPTIONS] [ARGUMENTS]
   
-  print color
+  Print color.
   
   Arguments:
-    <COLOR>  color (required)
+    <COLOR>  A color. (required)
   
   Options:
     -help   Display this list of options
@@ -215,11 +215,11 @@ Stdlib runner.
   $ ./main_stdlib_runner.exe enum named --help
   Usage: ./main_stdlib_runner.exe enum named [OPTIONS]
   
-  print color
+  Print color.
   
   Options:
     --color {red|green|blue}
-     <COLOR> color (required)
+     <COLOR> A color. (required)
     -help   Display this list of options
     --help  Display this list of options
 
@@ -230,11 +230,11 @@ Stdlib runner.
   named: wrong argument 'INVALID'; option '--color' expects one of: red green blue.
   Usage: ./main_stdlib_runner.exe enum named [OPTIONS]
   
-  print color
+  Print color.
   
   Options:
     --color {red|green|blue}
-     <COLOR> color (required)
+     <COLOR> A color. (required)
     -help   Display this list of options
     --help  Display this list of options
   [2]

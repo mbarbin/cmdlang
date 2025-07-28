@@ -4,7 +4,7 @@ let%expect_test "negative positional" =
   let test =
     Arg_test.create
       (let%map_open.Command string =
-         Arg.pos ~pos:0 Param.int ~doc:"an integer"
+         Arg.pos ~pos:0 Param.int ~doc:"An integer."
          |> Arg.map ~f:(fun i ->
            match Ordering.of_int i with
            | Less -> ("negative" [@coverage off])
@@ -59,7 +59,7 @@ let%expect_test "negative positional" =
     eval-stdlib-runner
 
     Arguments:
-      <INT>  an integer (required)
+      <INT>  An integer. (required)
 
     Options:
       -help   Display this list of options
@@ -73,7 +73,7 @@ let%expect_test "negative named" =
   let test =
     Arg_test.create
       (let%map_open.Command string =
-         Arg.named [ "n" ] Param.int ~doc:"an integer"
+         Arg.named [ "n" ] Param.int ~doc:"An integer."
          |> Arg.map ~f:(fun i ->
            match Ordering.of_int i with
            | Less -> "negative"

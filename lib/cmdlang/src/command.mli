@@ -13,7 +13,7 @@
     {[
       let cmd : unit Command.t =
         Command.make
-          ~summary:"A command that does nothing"
+          ~summary:"A command that does nothing."
           (let open Command.Std in
            let+ () = Arg.return () in
            ())
@@ -101,13 +101,13 @@ module Nonempty_list : sig
       [string Nonempty_list.t] and may be used that way:
 
       {[
-        Arg.flag [ "verbose" ] ~doc:"enable more output"
+        Arg.flag [ "verbose" ] ~doc:"Enable more output."
       ]}
 
       The point being that the following would be a type error:
 
       {[
-        Arg.flag [] ~doc:"enable more output"
+        Arg.flag [] ~doc:"Enable more output."
       ]} *)
   type 'a t = 'a Cmdlang_ast.Ast.Nonempty_list.t = ( :: ) : 'a * 'a list -> 'a t
 end
@@ -338,12 +338,10 @@ type 'a t
     {[
       let hello_cmd =
         Command.make
-          ~summary:"Prints 'Hello, world!'"
+          ~summary:"Prints [\"Hello, world!\"]."
           ~readme:(fun () ->
-            {|
-      This would usually be a longer description of the command.
-      It can be written on multiple lines.
-      |})
+            "This would usually be a longer description of the command.\n\
+             It can be written on multiple lines.")
           (let open Command.Std in
            let+ () = Arg.return () in
            print_endline "Hello, world!")
@@ -364,7 +362,7 @@ val make : ?readme:(unit -> string) -> 'a Arg.t -> summary:string -> 'a t
     {[
       let cmd_group =
         Command.group
-          ~summary:"A group of related commands"
+          ~summary:"A group of related commands."
           [ "hello", hello_cmd; "goodbye", goodbye_cmd ]
       ;;
     ]}
@@ -415,7 +413,7 @@ end
     {[
       let cmd : unit Command.t =
         Command.make
-          ~summary:"A command that does nothing"
+          ~summary:"A command that does nothing."
           (let open Command.Std in
            let+ () = Arg.return () in
            ())
@@ -436,7 +434,7 @@ end
     {[
       let cmd : unit Command.t =
         Command.make
-          ~summary:"A command that does nothing"
+          ~summary:"A command that does nothing."
           (let%map_open.Command () = Arg.return () in
            ())
       ;;
