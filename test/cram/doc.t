@@ -155,9 +155,9 @@ A singleton command with a readme:
     --help  Display this list of options
 
 Positional arguments are currently not documented in the help output of the base
-commands. Cmdlang recommends for arguments doc to be created without dots at the
-end. A dot is systematically added when translating to cmdliner since this
-integrates best with its formatting of help pages.
+commands. Cmdlang recommends for arguments doc to be created with dots at the
+end. When translating to cmdliner, this integrates best with its formatting of
+help pages.
 
   $ ./main_base.exe doc args-doc-end-with-dots --help
   Args doc end with dots.
