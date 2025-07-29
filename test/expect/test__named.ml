@@ -3,9 +3,8 @@ module Command = Cmdlang.Command
 let%expect_test "named" =
   let test =
     Arg_test.create
-      (let%map_open.Command who =
-         Arg.named [ "who" ] Param.string ~docv:"WHO" ~doc:"Hello who?"
-       in
+      (let open Command.Std in
+       let+ who = Arg.named [ "who" ] Param.string ~docv:"WHO" ~doc:"Hello who?" in
        print_endline ("Hello " ^ who))
   in
   Arg_test.eval_all test { prog = "test"; args = [] };
@@ -57,9 +56,8 @@ let%expect_test "named" =
 let%expect_test "1-letter-named" =
   let test =
     Arg_test.create
-      (let%map_open.Command who =
-         Arg.named [ "w" ] Param.string ~docv:"WHO" ~doc:"Hello who?"
-       in
+      (let open Command.Std in
+       let+ who = Arg.named [ "w" ] Param.string ~docv:"WHO" ~doc:"Hello who?" in
        print_endline ("Hello " ^ who))
   in
   Arg_test.eval_all test { prog = "test"; args = [] };
@@ -135,9 +133,8 @@ let%expect_test "1-letter-named" =
 let%expect_test "named_multi" =
   let test =
     Arg_test.create
-      (let%map_open.Command who =
-         Arg.named_multi [ "who" ] Param.string ~docv:"WHO" ~doc:"Hello who?"
-       in
+      (let open Command.Std in
+       let+ who = Arg.named_multi [ "who" ] Param.string ~docv:"WHO" ~doc:"Hello who?" in
        List.iter who ~f:(fun who -> print_endline ("Hello " ^ who)))
   in
   Arg_test.eval_all test { prog = "test"; args = [] };
@@ -190,9 +187,8 @@ let%expect_test "named_multi" =
 let%expect_test "named_opt" =
   let test =
     Arg_test.create
-      (let%map_open.Command who =
-         Arg.named_opt [ "who" ] Param.string ~docv:"WHO" ~doc:"Hello who?"
-       in
+      (let open Command.Std in
+       let+ who = Arg.named_opt [ "who" ] Param.string ~docv:"WHO" ~doc:"Hello who?" in
        Option.iter who ~f:(fun who -> print_endline ("Hello " ^ who)))
   in
   Arg_test.eval_all test { prog = "test"; args = [] };
@@ -221,7 +217,8 @@ let%expect_test "named_opt" =
 let%expect_test "named_with_default" =
   let test =
     Arg_test.create
-      (let%map_open.Command who =
+      (let open Command.Std in
+       let+ who =
          Arg.named_with_default
            [ "who" ]
            Param.string
@@ -261,7 +258,8 @@ let%expect_test "named_with_default" =
 let%expect_test "named_with_default__comma_separated" =
   let test ?(default = [ "You"; "Me"; "World" ]) () =
     Arg_test.create
-      (let%map_open.Command who =
+      (let open Command.Std in
+       let+ who =
          Arg.named_with_default
            [ "who" ]
            (Param.comma_separated Param.string)

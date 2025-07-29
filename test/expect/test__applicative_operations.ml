@@ -3,7 +3,8 @@ module Command = Cmdlang.Command
 let%expect_test "const" =
   let test =
     Arg_test.create
-      (let%map_open.Command string = Arg.return "hello" in
+      (let open Command.Std in
+       let+ string = Arg.return "hello" in
        print_endline string)
   in
   Arg_test.eval_all test { prog = "test"; args = [] };
@@ -24,7 +25,8 @@ let%expect_test "const" =
 let%expect_test "map" =
   let test =
     Arg_test.create
-      (let%map_open.Command v =
+      (let open Command.Std in
+       let+ v =
          Arg.pos ~pos:0 Param.string ~doc:"An integer." |> Arg.map ~f:Int.of_string_opt
        in
        print_s [%sexp (v : int option)])

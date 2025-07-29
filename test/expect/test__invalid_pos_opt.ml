@@ -4,8 +4,9 @@
 module Command = Cmdlang.Command
 
 let test =
-  let%map_open.Command a = Arg.pos_opt ~pos:0 Param.string ~doc:"Value for [a]."
-  and b = Arg.pos ~pos:1 Param.string ~doc:"Value for [b]." in
+  let open Command.Std in
+  let+ a = Arg.pos_opt ~pos:0 Param.string ~doc:"Value for [a]."
+  and+ b = Arg.pos ~pos:1 Param.string ~doc:"Value for [b]." in
   print_s [%sexp { a : string option; b : string }]
 ;;
 

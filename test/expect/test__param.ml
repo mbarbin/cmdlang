@@ -2,7 +2,8 @@ module Command = Cmdlang.Command
 
 let test param to_string =
   Arg_test.create
-    (let%map_open.Command p = Arg.pos ~pos:0 param ~doc:"A param." in
+    (let open Command.Std in
+     let+ p = Arg.pos ~pos:0 param ~doc:"A param." in
      print_endline (to_string p))
 ;;
 

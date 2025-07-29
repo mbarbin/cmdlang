@@ -55,9 +55,8 @@ let migrated_basic_print =
   let module Command = Cmdlang.Command in
   Command.make
     ~summary:"A basic command."
-    (let%map_open.Command arg =
-       Arg.named [ "arg" ] Param.string ~docv:"ARG" ~doc:"My long arg."
-     in
+    (let open Command.Std in
+     let+ arg = Arg.named [ "arg" ] Param.string ~docv:"ARG" ~doc:"My long arg." in
      fun () -> print_endline arg)
 ;;
 
@@ -65,7 +64,8 @@ let migrated_basic_return =
   let module Command = Cmdlang.Command in
   Command.make
     ~summary:"A basic command."
-    (let%map_open.Command () = Arg.return () in
+    (let open Command.Std in
+     let+ () = Arg.return () in
      fun () -> ())
 ;;
 
@@ -80,9 +80,8 @@ let migrated_or_error_print =
   let module Command = Cmdlang.Command in
   Command.make
     ~summary:"An or-error print command."
-    (let%map_open.Command arg =
-       Arg.named_opt [ "arg" ] Param.string ~docv:"ARG" ~doc:"My long arg."
-     in
+    (let open Command.Std in
+     let+ arg = Arg.named_opt [ "arg" ] Param.string ~docv:"ARG" ~doc:"My long arg." in
      fun () ->
        match arg with
        | None ->
@@ -97,7 +96,8 @@ let migrated_or_error_return =
   let module Command = Cmdlang.Command in
   Command.make
     ~summary:"An or-error return command."
-    (let%map_open.Command () = Arg.return () in
+    (let open Command.Std in
+     let+ () = Arg.return () in
      fun () -> Or_error.return ())
 ;;
 

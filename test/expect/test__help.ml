@@ -3,7 +3,8 @@ module Command = Cmdlang.Command
 let%expect_test "flag" =
   let test =
     Arg_test.create
-      (let%map_open.Command hello = Arg.flag [ "print-hello" ] ~doc:"Print Hello." in
+      (let open Command.Std in
+       let+ hello = Arg.flag [ "print-hello" ] ~doc:"Print Hello." in
        (ignore (hello : bool) [@coverage off]))
   in
   Arg_test.eval_all test { prog = "test"; args = [ "--help" ] };

@@ -3,7 +3,8 @@ module Command = Cmdlang.Command
 let%expect_test "flag" =
   let test =
     Arg_test.create
-      (let%map_open.Command hello = Arg.flag [ "print-hello" ] ~doc:"Print Hello." in
+      (let open Command.Std in
+       let+ hello = Arg.flag [ "print-hello" ] ~doc:"Print Hello." in
        if hello then print_endline "Hello")
   in
   Arg_test.eval_all test { prog = "test"; args = [] };
@@ -114,7 +115,8 @@ let%expect_test "1-letter-flag" =
   (* We revisit the initial example but this time the flag name has only 1 letter. *)
   let test =
     Arg_test.create
-      (let%map_open.Command hello = Arg.flag [ "p" ] ~doc:"Print Hello." in
+      (let open Command.Std in
+       let+ hello = Arg.flag [ "p" ] ~doc:"Print Hello." in
        if hello then print_endline "Hello")
   in
   Arg_test.eval_all test { prog = "test"; args = [] };
@@ -172,7 +174,8 @@ let%expect_test "1-letter-alias" =
      flags needs to be called with a single dash. *)
   let test =
     Arg_test.create
-      (let%map_open.Command hello = Arg.flag [ "print-hello"; "p" ] ~doc:"Print Hello." in
+      (let open Command.Std in
+       let+ hello = Arg.flag [ "print-hello"; "p" ] ~doc:"Print Hello." in
        if hello then print_endline "Hello")
   in
   Arg_test.eval_all test { prog = "test"; args = [] };
@@ -242,9 +245,9 @@ let%expect_test "ambiguous prefixes" =
   (* In this example, we characterize the behavior of backends that allow flag prefixes. *)
   let test =
     Arg_test.create
-      (let%map_open.Command hello_you =
-         Arg.flag [ "print-hello-you" ] ~doc:"Print 'Hello You'."
-       and hello_world = Arg.flag [ "print-hello-world" ] ~doc:"Print 'Hello World'." in
+      (let open Command.Std in
+       let+ hello_you = Arg.flag [ "print-hello-you" ] ~doc:"Print 'Hello You'."
+       and+ hello_world = Arg.flag [ "print-hello-world" ] ~doc:"Print 'Hello World'." in
        if hello_you then print_endline "Hello You";
        if hello_world then print_endline "Hello World")
   in
@@ -338,9 +341,8 @@ let%expect_test "ambiguous prefixes" =
 let%expect_test "flag_count" =
   let test =
     Arg_test.create
-      (let%map_open.Command count =
-         Arg.flag_count [ "count"; "c" ] ~doc:"A value for the count."
-       in
+      (let open Command.Std in
+       let+ count = Arg.flag_count [ "count"; "c" ] ~doc:"A value for the count." in
        print_s [%sexp { count : int }])
   in
   (* At the moment [flag_count] isn't supported by [core.command]. *)
@@ -380,7 +382,8 @@ let%expect_test "user provided dashes" =
   let test name =
     let test =
       Arg_test.create
-        (let%map_open.Command (_ : bool) = Arg.flag [ name ] ~doc:name in
+        (let open Command.Std in
+         let+ (_ : bool) = Arg.flag [ name ] ~doc:name in
          ())
     in
     Arg_test.eval_all test { prog = "test"; args = [ name ] }

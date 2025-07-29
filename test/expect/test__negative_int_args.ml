@@ -3,7 +3,8 @@ module Command = Cmdlang.Command
 let%expect_test "negative positional" =
   let test =
     Arg_test.create
-      (let%map_open.Command string =
+      (let open Command.Std in
+       let+ string =
          Arg.pos ~pos:0 Param.int ~doc:"An integer."
          |> Arg.map ~f:(fun i ->
            match Ordering.of_int i with
@@ -72,7 +73,8 @@ let%expect_test "negative positional" =
 let%expect_test "negative named" =
   let test =
     Arg_test.create
-      (let%map_open.Command string =
+      (let open Command.Std in
+       let+ string =
          Arg.named [ "n" ] Param.int ~doc:"An integer."
          |> Arg.map ~f:(fun i ->
            match Ordering.of_int i with

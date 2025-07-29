@@ -3,9 +3,8 @@ module Command = Cmdlang.Command
 let%expect_test "pos" =
   let test =
     Arg_test.create
-      (let%map_open.Command who =
-         Arg.pos ~pos:0 Param.string ~docv:"WHO" ~doc:"Hello who?"
-       in
+      (let open Command.Std in
+       let+ who = Arg.pos ~pos:0 Param.string ~docv:"WHO" ~doc:"Hello who?" in
        print_endline ("Hello " ^ who))
   in
   Arg_test.eval_all test { prog = "test"; args = [] };
@@ -42,9 +41,8 @@ let%expect_test "pos" =
 let%expect_test "skipping-pos" =
   let test =
     Arg_test.create
-      (let%map_open.Command who =
-         Arg.pos ~pos:1 Param.string ~docv:"WHO" ~doc:"Hello who?"
-       in
+      (let open Command.Std in
+       let+ who = Arg.pos ~pos:1 Param.string ~docv:"WHO" ~doc:"Hello who?" in
        print_endline ("Hello " ^ who))
   in
   (* As of now, the handling of positional argument with gaps isn't consistent
@@ -125,9 +123,8 @@ let%expect_test "skipping-pos" =
 let%expect_test "pos_opt" =
   let test =
     Arg_test.create
-      (let%map_open.Command who =
-         Arg.pos_opt ~pos:0 Param.string ~docv:"WHO" ~doc:"Hello who?"
-       in
+      (let open Command.Std in
+       let+ who = Arg.pos_opt ~pos:0 Param.string ~docv:"WHO" ~doc:"Hello who?" in
        Option.iter who ~f:(fun who -> print_endline ("Hello " ^ who)))
   in
   Arg_test.eval_all test { prog = "test"; args = [] };
@@ -156,7 +153,8 @@ let%expect_test "pos_opt" =
 let%expect_test "pos_with_default" =
   let test =
     Arg_test.create
-      (let%map_open.Command who =
+      (let open Command.Std in
+       let+ who =
          Arg.pos_with_default
            ~pos:0
            Param.string
@@ -196,9 +194,8 @@ let%expect_test "pos_with_default" =
 let%expect_test "pos_all" =
   let test =
     Arg_test.create
-      (let%map_open.Command who =
-         Arg.pos_all Param.string ~docv:"WHO" ~doc:"Hello who?"
-       in
+      (let open Command.Std in
+       let+ who = Arg.pos_all Param.string ~docv:"WHO" ~doc:"Hello who?" in
        List.iter who ~f:(fun who -> print_endline ("Hello " ^ who)))
   in
   Arg_test.eval_all test { prog = "test"; args = [] };
