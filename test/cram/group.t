@@ -114,6 +114,8 @@ What happens when that group is run:
   [1]
 
   $ ./main_climate.exe basic
+  Error: This command requires a subcommand but none was specified.
+  
   Basic types.
   
   Usage: ./main_climate.exe basic [COMMAND]
@@ -128,6 +130,7 @@ What happens when that group is run:
     float   Print float.
     bool    Print bool.
     file    Print file.
+  [1]
 
   $ ./main_cmdliner.exe basic
   ./main_cmdliner.exe: required COMMAND name is missing, must be one of 'bool', 'file', 'float', 'int' or 'string'.
@@ -254,7 +257,12 @@ What happens when that group with a default is run:
   [1]
 
   $ ./main_climate.exe group
-  Missing required positional argument at position 0.
+  Error: Missing required positional argument at position 0.
+  
+  Usage: ./main_climate.exe group [COMMAND]
+         ./main_climate.exe group [OPTION]… <STRING>
+  
+  For more info, try running `./main_climate.exe group --help`.
   [124]
 
   $ ./main_cmdliner.exe group
@@ -328,7 +336,12 @@ default, when it is invoked with an invalid subcommand name.
   [1]
 
   $ ./main_climate.exe invalid
-  Too many positional arguments. At most 0 positional arguments may be passed.
+  Error: No such subcommand: invalid
+  
+  Usage: ./main_climate.exe [COMMAND]
+         ./main_climate.exe [OPTION]…
+  
+  For more info, try running `./main_climate.exe --help`.
   [124]
 
   $ ./main_cmdliner.exe invalid

@@ -197,7 +197,11 @@ functions or parsers generated from modules with utils.
   [1]
 
   $ ./main_climate.exe named with-default create --who=C
-  Failed to parse the argument to "--who": "C": invalid E.t
+  Error: Failed to parse the argument to "--who": "C": invalid E.t
+  
+  Usage: ./main_climate.exe named with-default create [OPTION]…
+  
+  For more info, try running `./main_climate.exe named with-default create --help`.
   [124]
 
   $ ./main_cmdliner.exe named with-default create --who=C
@@ -468,7 +472,11 @@ Invalid entry for the validated string parameter.
   [1]
 
   $ ./main_climate.exe named with-default validated --who foo
-  Failed to parse the argument to "--who": "foo": invalid 4 letters alphanumerical identifier
+  Error: Failed to parse the argument to "--who": "foo": invalid 4 letters alphanumerical identifier
+  
+  Usage: ./main_climate.exe named with-default validated [OPTION]…
+  
+  For more info, try running `./main_climate.exe named with-default validated --help`.
   [124]
 
   $ ./main_cmdliner.exe named with-default validated --who foo

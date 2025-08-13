@@ -44,7 +44,14 @@ let%expect_test "negative positional" =
   [%expect
     {|
     ----------------------------------------------------- Climate
-    Evaluation Failed: Unknown argument name: -1
+    Evaluation Failed: Usage: test [OPTION]… <INT>
+
+    Arguments:
+      <INT>  An integer.
+
+    Options:
+      -h, --help  Show this help message.
+    Unknown argument name: -1
     ----------------------------------------------------- Cmdliner
     test: unknown option '-1'.
     Usage: test [OPTION]… INT

@@ -28,7 +28,15 @@ let%expect_test "invalid_pos_sequence" =
   [%expect
     {|
     ----------------------------------------------------- Climate
-    Evaluation Failed: Missing required positional argument at position 1.
+    Evaluation Failed: Usage: test [OPTION]… [STRING] <STRING>
+
+    Arguments:
+      [STRING]  Value for [a].
+      <STRING>  Value for [b].
+
+    Options:
+      -h, --help  Show this help message.
+    Missing required positional argument at position 1.
     ----------------------------------------------------- Cmdliner
     test: required argument STRING is missing
     Usage: test [OPTION]… [STRING] STRING
@@ -72,7 +80,20 @@ let%expect_test "climate" =
   run [ "A"; "B" ];
   [%expect {| ((a (A)) (b B)) |}];
   run [ "B" ];
-  [%expect {| Evaluation Failed: Missing required positional argument at position 1. |}];
+  [%expect
+    {|
+    Evaluation Failed: A test command.
+
+    Usage: ./main.exe [OPTION]… [STRING] <STRING>
+
+    Arguments:
+      [STRING]  Value for [a].
+      <STRING>  Value for [b].
+
+    Options:
+      -h, --help  Show this help message.
+    Missing required positional argument at position 1.
+    |}];
   ()
 ;;
 

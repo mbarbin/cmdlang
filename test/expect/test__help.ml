@@ -11,7 +11,11 @@ let%expect_test "flag" =
   [%expect
     {|
     ----------------------------------------------------- Climate
-    Evaluation Failed: Usage: test [OPTION]…
+    Evaluation Failed: (Help (
+      (command_doc_spec _)
+      (error            false)
+      (message ())))
+    Usage: test [OPTION]…
 
     Options:
           --print-hello  Print Hello.
