@@ -87,7 +87,7 @@
   (ocaml
    (>= 4.14))
   (climate
-   (>= 0.5.0))
+   (>= 0.8.0))
   (cmdlang
    (= :version))))
 
@@ -117,7 +117,7 @@
     :with-dev-setup
     (>= 2.8.3)))
   (climate
-   (>= 0.5.0))
+   (>= 0.8.0))
   (cmdlang
    (= :version))
   (cmdlang-stdlib-runner

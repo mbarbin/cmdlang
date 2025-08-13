@@ -53,7 +53,11 @@ The point of the migration plan is to avoid a single roll where all the commands
 are migrated at once, creating braking changes. For example:
 
   $ ./main_climate.exe basic print -arg Hello
-  Unknown argument name: -a
+  Error: Unknown argument name: -a
+  
+  Usage: ./main_climate.exe basic print [OPTION]…
+  
+  For more info, try running `./main_climate.exe basic print --help`.
   [124]
 
 OK, so as a first step, we will have to go over all CLI invocations and make

@@ -11,7 +11,12 @@ let%expect_test "named" =
   [%expect
     {|
     ----------------------------------------------------- Climate
-    Evaluation Failed: Missing required named argument: --who
+    Evaluation Failed: Usage: test [OPTION]…
+
+    Options:
+          --who <WHO>  Hello who?
+      -h, --help       Show this help message.
+    Missing required named argument: --who
     ----------------------------------------------------- Cmdliner
     test: required option --who is missing
     Usage: test [--who=WHO] [OPTION]…
@@ -64,7 +69,12 @@ let%expect_test "1-letter-named" =
   [%expect
     {|
     ----------------------------------------------------- Climate
-    Evaluation Failed: Missing required named argument: -w
+    Evaluation Failed: Usage: test [OPTION]…
+
+    Options:
+      -w <WHO>    Hello who?
+      -h, --help  Show this help message.
+    Missing required named argument: -w
     ----------------------------------------------------- Cmdliner
     test: required option -w is missing
     Usage: test [-w WHO] [OPTION]…

@@ -182,7 +182,11 @@ flags.
   [1]
 
   $ ./main_climate.exe basic int -13
-  Unknown argument name: -1
+  Error: Unknown argument name: -1
+  
+  Usage: ./main_climate.exe basic int [OPTION]… <INT>
+  
+  For more info, try running `./main_climate.exe basic int --help`.
   [124]
 
   $ ./main_cmdliner.exe basic int -13
@@ -303,7 +307,11 @@ flags.
   [1]
 
   $ ./main_climate.exe basic float -13.8
-  Unknown argument name: -1
+  Error: Unknown argument name: -1
+  
+  Usage: ./main_climate.exe basic float [OPTION]… <FLOAT>
+  
+  For more info, try running `./main_climate.exe basic float --help`.
   [124]
 
   $ ./main_cmdliner.exe basic float -13.8
@@ -438,7 +446,11 @@ And run it too.
   [1]
 
   $ ./main_climate.exe basic bool True
-  Failed to parse the argument at position 0: invalid value: "True" (not an bool)
+  Error: Failed to parse the argument at position 0: invalid value: "True" (not an bool)
+  
+  Usage: ./main_climate.exe basic bool [OPTION]… <BOOL>
+  
+  For more info, try running `./main_climate.exe basic bool --help`.
   [124]
 
   $ ./main_cmdliner.exe basic bool True
@@ -477,7 +489,11 @@ Invalid entry.
   [1]
 
   $ ./main_climate.exe basic bool Not_a_bool
-  Failed to parse the argument at position 0: invalid value: "Not_a_bool" (not an bool)
+  Error: Failed to parse the argument at position 0: invalid value: "Not_a_bool" (not an bool)
+  
+  Usage: ./main_climate.exe basic bool [OPTION]… <BOOL>
+  
+  For more info, try running `./main_climate.exe basic bool --help`.
   [124]
 
   $ ./main_cmdliner.exe basic bool Not_a_bool

@@ -70,7 +70,11 @@ Climate.
   red
 
   $ ./main_climate.exe enum pos INVALID
-  Failed to parse the argument at position 0: invalid value: "INVALID" (valid values are: red, green, blue)
+  Error: Failed to parse the argument at position 0: invalid value: "INVALID" (valid values are: red, green, blue)
+  
+  Usage: ./main_climate.exe enum pos [OPTION]… <COLOR>
+  
+  For more info, try running `./main_climate.exe enum pos --help`.
   [124]
 
   $ ./main_climate.exe enum named --help
@@ -86,7 +90,11 @@ Climate.
   red
 
   $ ./main_climate.exe enum named --color INVALID
-  Failed to parse the argument to "--color": invalid value: "INVALID" (valid values are: red, green, blue)
+  Error: Failed to parse the argument to "--color": invalid value: "INVALID" (valid values are: red, green, blue)
+  
+  Usage: ./main_climate.exe enum named [OPTION]…
+  
+  For more info, try running `./main_climate.exe enum named --help`.
   [124]
 
 Cmdliner.

@@ -11,7 +11,14 @@ let%expect_test "pos" =
   [%expect
     {|
     ----------------------------------------------------- Climate
-    Evaluation Failed: Missing required positional argument at position 0.
+    Evaluation Failed: Usage: test [OPTION]… <WHO>
+
+    Arguments:
+      <WHO>  Hello who?
+
+    Options:
+      -h, --help  Show this help message.
+    Missing required positional argument at position 0.
     ----------------------------------------------------- Cmdliner
     test: required argument WHO is missing
     Usage: test [OPTION]… WHO
