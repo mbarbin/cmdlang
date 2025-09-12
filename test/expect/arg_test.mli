@@ -1,3 +1,9 @@
+(*_********************************************************************************)
+(*_  cmdlang - Declarative command-line parsing for OCaml                         *)
+(*_  SPDX-FileCopyrightText: 2024-2025 Mathieu Barbin <mathieu.barbin@gmail.com>  *)
+(*_  SPDX-License-Identifier: MIT                                                 *)
+(*_********************************************************************************)
+
 (** This module allows to stage the translation of a cmdlang argument into
     different backends for testing. *)
 

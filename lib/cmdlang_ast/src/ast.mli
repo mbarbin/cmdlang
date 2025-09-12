@@ -1,3 +1,9 @@
+(*_********************************************************************************)
+(*_  cmdlang - Declarative command-line parsing for OCaml                         *)
+(*_  SPDX-FileCopyrightText: 2024-2025 Mathieu Barbin <mathieu.barbin@gmail.com>  *)
+(*_  SPDX-License-Identifier: MIT                                                 *)
+(*_********************************************************************************)
+
 (** The internal representation for the EDSL used by the cmdlang library.
 
     Cmdlang doesn't include an execution engine. Instead, Cmdlang parsers are

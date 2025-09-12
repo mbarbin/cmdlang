@@ -1,3 +1,9 @@
+(*********************************************************************************)
+(*  cmdlang - Declarative command-line parsing for OCaml                         *)
+(*  SPDX-FileCopyrightText: 2024-2025 Mathieu Barbin <mathieu.barbin@gmail.com>  *)
+(*  SPDX-License-Identifier: MIT                                                 *)
+(*********************************************************************************)
+
 type 'a or_error_msg = ('a, [ `Msg of string ]) result
 type 'a parse = string -> 'a or_error_msg
 type 'a print = Format.formatter -> 'a -> unit

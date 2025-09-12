@@ -1,3 +1,9 @@
+(*********************************************************************************)
+(*  cmdlang - Declarative command-line parsing for OCaml                         *)
+(*  SPDX-FileCopyrightText: 2024-2025 Mathieu Barbin <mathieu.barbin@gmail.com>  *)
+(*  SPDX-License-Identifier: MIT                                                 *)
+(*********************************************************************************)
+
 module Arg_runner = Arg_runner
 module Arg_state = Arg_state
 module Command_selector = Command_selector

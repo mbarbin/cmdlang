@@ -1,3 +1,9 @@
+(*_********************************************************************************)
+(*_  cmdlang - Declarative command-line parsing for OCaml                         *)
+(*_  SPDX-FileCopyrightText: 2024-2025 Mathieu Barbin <mathieu.barbin@gmail.com>  *)
+(*_  SPDX-License-Identifier: MIT                                                 *)
+(*_********************************************************************************)
+
 (** Internal representation used to run a parser.
 
     This is the final representation returned after all of the parsing phases

@@ -1,3 +1,9 @@
+(*********************************************************************************)
+(*  cmdlang - Declarative command-line parsing for OCaml                         *)
+(*  SPDX-FileCopyrightText: 2024-2025 Mathieu Barbin <mathieu.barbin@gmail.com>  *)
+(*  SPDX-License-Identifier: MIT                                                 *)
+(*********************************************************************************)
+
 let make_arg_spec
   : type a. name:string -> a Ast.Param.t -> with_var:(a -> unit) -> Arg.spec
   =

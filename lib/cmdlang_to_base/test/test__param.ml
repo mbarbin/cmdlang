@@ -1,3 +1,9 @@
+(*********************************************************************************)
+(*  cmdlang - Declarative command-line parsing for OCaml                         *)
+(*  SPDX-FileCopyrightText: 2024-2025 Mathieu Barbin <mathieu.barbin@gmail.com>  *)
+(*  SPDX-License-Identifier: MIT                                                 *)
+(*********************************************************************************)
+
 let%expect_test "param" =
   let config = Cmdlang_to_base.Translate.Config.create () in
   let conv (type a) (param : a Cmdlang.Command.Param.t) (sexp_of_a : a -> Sexp.t) params =

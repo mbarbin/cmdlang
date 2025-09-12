@@ -1,3 +1,9 @@
+(*********************************************************************************)
+(*  cmdlang - Declarative command-line parsing for OCaml                         *)
+(*  SPDX-FileCopyrightText: 2024-2025 Mathieu Barbin <mathieu.barbin@gmail.com>  *)
+(*  SPDX-License-Identifier: MIT                                                 *)
+(*********************************************************************************)
+
 module Manpage_block = struct
   type t = [ `P of string ] [@@deriving sexp_of]
 end

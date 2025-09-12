@@ -1,3 +1,9 @@
+(*_********************************************************************************)
+(*_  cmdlang - Declarative command-line parsing for OCaml                         *)
+(*_  SPDX-FileCopyrightText: 2024-2025 Mathieu Barbin <mathieu.barbin@gmail.com>  *)
+(*_  SPDX-License-Identifier: MIT                                                 *)
+(*_********************************************************************************)
+
 (** Declarative Command-line Parsing for OCaml.
 
     Cmdlang is a library for creating command-line parsers in OCaml. Implemented

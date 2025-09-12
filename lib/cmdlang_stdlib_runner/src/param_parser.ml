@@ -1,3 +1,9 @@
+(*********************************************************************************)
+(*  cmdlang - Declarative command-line parsing for OCaml                         *)
+(*  SPDX-FileCopyrightText: 2024-2025 Mathieu Barbin <mathieu.barbin@gmail.com>  *)
+(*  SPDX-License-Identifier: MIT                                                 *)
+(*********************************************************************************)
+
 let rec eval : type a. a Ast.Param.t -> string -> a Ast.or_error_msg =
   fun (type a) (param : a Ast.Param.t) (str : string) : a Ast.or_error_msg ->
   let err msg = Error (`Msg msg) in
