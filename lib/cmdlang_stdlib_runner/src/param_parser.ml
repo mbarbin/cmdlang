@@ -8,7 +8,7 @@ let rec eval : type a. a Ast.Param.t -> string -> a Ast.or_error_msg =
   fun (type a) (param : a Ast.Param.t) (str : string) : a Ast.or_error_msg ->
   let err msg = Error (`Msg msg) in
   match param with
-  | Conv { docv = _; parse; print = _ } -> parse str
+  | Conv { docv = _; of_string; to_string = _ } -> of_string str
   | String -> Ok str
   | Int ->
     (match int_of_string_opt str with
@@ -53,7 +53,7 @@ let docv : type a. a Ast.Param.t -> docv:string option -> string =
         | None -> "VAL"
       in
       (match param with
-       | Conv { docv; parse = _; print = _ } -> or_val docv
+       | Conv { docv; of_string = _; to_string = _ } -> or_val docv
        | String -> "STRING"
        | Int -> "INT"
        | Float -> "FLOAT"
@@ -68,7 +68,7 @@ let docv : type a. a Ast.Param.t -> docv:string option -> string =
 let rec print : type a. a Ast.Param.t -> a -> string =
   fun (type a) (param : a Ast.Param.t) (a : a) : string ->
   match param with
-  | Conv { docv = _; parse = _; print } -> Format.asprintf "%a" print a
+  | Conv { docv = _; of_string = _; to_string } -> to_string a
   | String -> a
   | Int -> string_of_int a
   | Float -> string_of_float a

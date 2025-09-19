@@ -6,8 +6,9 @@
 
 module Param = struct
   let rec translate : type a. a Ast.Param.t -> a Climate.Arg_parser.conv = function
-    | Conv { docv; parse; print } ->
-      { Climate.Arg_parser.parse
+    | Conv { docv; of_string; to_string } ->
+      let print fmt a = Format.pp_print_string fmt (to_string a) in
+      { Climate.Arg_parser.parse = of_string
       ; print
       ; default_value_name = docv |> Option.value ~default:"VAL"
       ; completion = None

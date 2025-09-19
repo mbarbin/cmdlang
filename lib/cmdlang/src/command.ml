@@ -31,11 +31,18 @@ end
 
 module Param = struct
   type 'a t = 'a Ast.Param.t
-  type 'a parse = string -> ('a, [ `Msg of string ]) result
-  type 'a print = Format.formatter -> 'a -> unit
 
-  let create ~docv ~(parse : _ parse) ~(print : _ print) =
-    Ast.Param.Conv { docv = Some docv; parse; print }
+  let create' ~docv ~of_string ~to_string () =
+    Ast.Param.Conv { docv = Some docv; of_string; to_string }
+  ;;
+
+  let create_with_pp ~docv ~parse ~pp () =
+    let to_string a = Format.asprintf "%a" pp a in
+    Ast.Param.Conv { docv = Some docv; of_string = parse; to_string }
+  ;;
+
+  let create ~docv ~parse ~print =
+    create_with_pp ~docv ~parse ~pp:print () [@coverage off]
   ;;
 
   let string = Ast.Param.String
@@ -51,14 +58,12 @@ module Param = struct
   ;;
 
   let stringable (type a) ?docv (module M : Stringable with type t = a) =
-    let parse s = Ok (M.of_string s)
-    and print ppf x = Format.fprintf ppf "%s" (M.to_string x) in
-    Ast.Param.Conv { docv; parse; print }
+    let of_string s = Ok (M.of_string s) in
+    Ast.Param.Conv { docv; of_string; to_string = M.to_string }
   ;;
 
   let validated_string (type a) ?docv (module M : Validated_string with type t = a) =
-    let print ppf x = Format.fprintf ppf "%s" (M.to_string x) in
-    Ast.Param.Conv { docv; parse = M.of_string; print }
+    Ast.Param.Conv { docv; of_string = M.of_string; to_string = M.to_string }
   ;;
 
   let comma_separated t = Ast.Param.Comma_separated t
