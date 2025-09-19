@@ -1,4 +1,4 @@
-## 0.0.10 (unreleased)
+## 0.0.10 (2025-09-19)
 
 ### Added
 
@@ -11,12 +11,6 @@
 - Upgrade to `climate.0.8.0` (#28, @mbarbin).
 - More consistent cli commands and args doc strings (#27, @mbarbin).
 - Upgrade `climate` and now requires `>= 0.5.0` (#25, @mbarbin).
-
-### Deprecated
-
-### Fixed
-
-### Removed
 
 ## 0.0.9 (2024-11-30)
 
