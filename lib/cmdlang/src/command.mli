@@ -276,6 +276,8 @@ module Param : sig
     -> parse:'a of_string
     -> print:(Format.formatter -> 'a -> unit)
     -> 'a t
+  [@@migrate
+    { repl = (fun ~docv ~parse ~print -> Rel.create_with_pp ~docv ~parse ~pp:print ()) }]
 end
 
 (** {1 Building Arguments} *)
