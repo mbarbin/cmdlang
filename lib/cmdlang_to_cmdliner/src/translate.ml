@@ -6,7 +6,9 @@
 
 module Param = struct
   let rec translate : type a. a Ast.Param.t -> a Cmdliner.Arg.conv = function
-    | Conv { docv; parse; print } -> Cmdliner.Arg.conv ?docv (parse, print)
+    | Conv { docv; of_string; to_string } ->
+      let print fmt a = Format.pp_print_string fmt (to_string a) in
+      Cmdliner.Arg.conv ?docv (of_string, print)
     | String -> Cmdliner.Arg.string
     | Int -> Cmdliner.Arg.int
     | Float -> Cmdliner.Arg.float
@@ -17,7 +19,7 @@ module Param = struct
   ;;
 
   let rec docv : type a. a Ast.Param.t -> string option = function
-    | Conv { docv; parse = _; print = _ } -> docv
+    | Conv { docv; of_string = _; to_string = _ } -> docv
     | String -> Some "STRING"
     | Int -> Some "INT"
     | Float -> Some "FLOAT"

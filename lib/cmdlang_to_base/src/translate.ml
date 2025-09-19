@@ -25,9 +25,9 @@ module Param = struct
   let translate : type a. a Ast.Param.t -> config:Config.t -> a t =
     fun ast ~config:(_ : Config.t) ->
     let rec aux : type a. a Ast.Param.t -> a t = function
-      | Conv { docv = _; parse; print = _ } ->
+      | Conv { docv = _; of_string; to_string = _ } ->
         let parse s =
-          match parse s with
+          match of_string s with
           | Ok ok -> ok
           | Error (`Msg str) -> Error.raise_s [%sexp Msg (str : string)]
         in
@@ -45,7 +45,7 @@ module Param = struct
   ;;
 
   let rec docv : type a. a Ast.Param.t -> string option = function
-    | Conv { docv; parse = _; print = _ } -> docv
+    | Conv { docv; of_string = _; to_string = _ } -> docv
     | String -> Some "STRING"
     | Int -> Some "INT"
     | Float -> Some "FLOAT"

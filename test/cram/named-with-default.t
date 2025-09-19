@@ -103,6 +103,18 @@ Let's check behavior when the default value is used.
   $ ./main_stdlib_runner.exe named with-default int
   Hello 42
 
+  $ ./main_base.exe named with-default pos-int
+  Hello 42
+
+  $ ./main_climate.exe named with-default pos-int
+  Hello 42
+
+  $ ./main_cmdliner.exe named with-default pos-int
+  Hello 42
+
+  $ ./main_stdlib_runner.exe named with-default pos-int
+  Hello 42
+
   $ ./main_base.exe named with-default float
   Hello 42.
 
@@ -580,6 +592,96 @@ Named-with-default with a comma-separated string parameter.
     --who <STRING> Hello WHO? (default World)
     -help          Display this list of options
     --help         Display this list of options
+
+--
+
+  $ ./main_base.exe named with-default pos-int -x blah
+  Error parsing command line:
+  
+    failed to parse -x value "blah".
+    (Msg "Not an int")
+  
+  For usage information, run
+  
+    main_base.exe named with-default pos-int -help
+  
+  [1]
+
+  $ ./main_climate.exe named with-default pos-int -x blah
+  Error: Failed to parse the argument to "-x": Not an int
+  
+  Usage: ./main_climate.exe named with-default pos-int [OPTION]…
+  
+  For more info, try running `./main_climate.exe named with-default pos-int --help`.
+  [124]
+
+  $ ./main_cmdliner.exe named with-default pos-int -x blah
+  ./main_cmdliner.exe: option '-x': Not an int
+  Usage: ./main_cmdliner.exe named with-default pos-int [-x X] [OPTION]…
+  Try './main_cmdliner.exe named with-default pos-int --help' or './main_cmdliner.exe --help' for more information.
+  [124]
+
+  $ ./main_stdlib_runner.exe named with-default pos-int -x blah
+  pos-int: Failed to parse the named argument "x": Not an int.
+  Usage: ./main_stdlib_runner.exe named with-default pos-int [OPTIONS]
+  
+  Named_with_default__pos_int
+  
+  Options:
+    -x <X>  Print Hello X. (default 42)
+    -help   Display this list of options
+    --help  Display this list of options
+  [2]
+
+  $ ./main_base.exe named with-default pos-int -x 0
+  Error parsing command line:
+  
+    failed to parse -x value "0".
+    (Msg "Strictly positive int expected")
+  
+  For usage information, run
+  
+    main_base.exe named with-default pos-int -help
+  
+  [1]
+
+  $ ./main_climate.exe named with-default pos-int -x 0
+  Error: Failed to parse the argument to "-x": Strictly positive int expected
+  
+  Usage: ./main_climate.exe named with-default pos-int [OPTION]…
+  
+  For more info, try running `./main_climate.exe named with-default pos-int --help`.
+  [124]
+
+  $ ./main_cmdliner.exe named with-default pos-int -x 0
+  ./main_cmdliner.exe: option '-x': Strictly positive int expected
+  Usage: ./main_cmdliner.exe named with-default pos-int [-x X] [OPTION]…
+  Try './main_cmdliner.exe named with-default pos-int --help' or './main_cmdliner.exe --help' for more information.
+  [124]
+
+  $ ./main_stdlib_runner.exe named with-default pos-int -x 0
+  pos-int: Failed to parse the named argument "x": Strictly positive int expected.
+  Usage: ./main_stdlib_runner.exe named with-default pos-int [OPTIONS]
+  
+  Named_with_default__pos_int
+  
+  Options:
+    -x <X>  Print Hello X. (default 42)
+    -help   Display this list of options
+    --help  Display this list of options
+  [2]
+
+  $ ./main_base.exe named with-default pos-int -x 53
+  Hello 53
+
+  $ ./main_climate.exe named with-default pos-int -x 53
+  Hello 53
+
+  $ ./main_cmdliner.exe named with-default pos-int -x 53
+  Hello 53
+
+  $ ./main_stdlib_runner.exe named with-default pos-int -x 53
+  Hello 53
 
 --
 

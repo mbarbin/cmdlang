@@ -256,7 +256,7 @@ module Named = struct
              | B -> "B"
            ;;
 
-           let print fmt t = Stdlib.Format.pp_print_string fmt (to_string t)
+           let pp fmt t = Stdlib.Format.pp_print_string fmt (to_string t)
 
            let parse = function
              | "A" -> Ok A
@@ -269,11 +269,33 @@ module Named = struct
         let+ e =
           Arg.named_with_default
             [ "who" ]
-            (Param.create ~docv:"(A|B)" ~parse:E.parse ~print:E.print)
+            (Param.create_with_pp ~docv:"(A|B)" ~parse:E.parse ~pp:E.pp ())
             ~default:A
             ~doc:"Greet A or B?"
         in
         print_endline ("Hello " ^ E.to_string e))
+    ;;
+
+    let pos_int =
+      Command.make
+        ~summary:"Named_with_default__pos_int"
+        (let open Command.Std in
+         let+ x =
+           Arg.named_with_default
+             [ "x" ]
+             (Param.create'
+                ~docv:"X"
+                ~to_string:Int.to_string_hum
+                ~of_string:(fun str ->
+                  match Int.of_string_opt str with
+                  | None -> Error (`Msg "Not an int")
+                  | Some i ->
+                    if i > 0 then Ok i else Error (`Msg "Strictly positive int expected"))
+                ())
+             ~default:42
+             ~doc:"Print Hello X."
+         in
+         print_endline ("Hello " ^ Int.to_string x))
     ;;
 
     let stringable =
@@ -367,6 +389,7 @@ module Named = struct
         ~summary:"Testing named-with-default"
         [ "create", create
         ; "int", int
+        ; "pos-int", pos_int
         ; "string", string
         ; "float", float
         ; "bool", bool

@@ -6,6 +6,9 @@
 
 ### Changed
 
+- Add `Param.create'` using `of_string/to_string` API for Param (#31, @mbarbin).
+- Change `Param.conv` internal AST representation to `of_string/to_string` (#31, @mbarbin).
+- Upgrade to `climate.0.8.0` (#28, @mbarbin).
 - More consistent cli commands and args doc strings (#27, @mbarbin).
 - Upgrade `climate` and now requires `>= 0.5.0` (#25, @mbarbin).
 

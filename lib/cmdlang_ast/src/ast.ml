@@ -5,8 +5,8 @@
 (*********************************************************************************)
 
 type 'a or_error_msg = ('a, [ `Msg of string ]) result
-type 'a parse = string -> 'a or_error_msg
-type 'a print = Format.formatter -> 'a -> unit
+type 'a of_string = string -> 'a or_error_msg
+type 'a to_string = 'a -> string
 
 module Nonempty_list = struct
   type 'a t = ( :: ) : 'a * 'a list -> 'a t
@@ -16,8 +16,8 @@ module Param = struct
   type 'a t =
     | Conv :
         { docv : string option
-        ; parse : 'a parse
-        ; print : 'a print
+        ; of_string : 'a of_string
+        ; to_string : 'a to_string
         }
         -> 'a t
     | String : string t

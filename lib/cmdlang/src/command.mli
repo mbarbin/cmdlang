@@ -183,18 +183,33 @@ module Param : sig
   (** Refer to the {{!parameters} Parameters} terminology. *)
 
   (** Parsing parameters of type ['a] from the command line. *)
-  type 'a parse := string -> ('a, [ `Msg of string ]) result
-
-  (** Printing parameters of type ['a] back to their expected command line
-      syntax. Printing parameter is used for example when documenting default
-      values in the help messages. *)
-  type 'a print := Format.formatter -> 'a -> unit
+  type 'a of_string := string -> ('a, [ `Msg of string ]) result
 
   (** A type to hold the capability of parsing and printing a parameter of
-      type ['a]. *)
+      type ['a].
+
+      Printing parameters of type ['a] is expected to roundtrip, thus using the
+      syntax expected by the parsing function. Printing parameter is used for
+      example when documenting default values in the help messages. *)
   type 'a t
 
-  val create : docv:string -> parse:'a parse -> print:'a print -> 'a t
+  (** Create a param manually from the parameters and functions required to
+      implement its capabilities. *)
+  val create'
+    :  docv:string
+    -> of_string:'a of_string
+    -> to_string:('a -> string)
+    -> unit
+    -> 'a t
+
+  (** An alternative to {!val:create'} where the printing it done through the
+      use of a temporary formatter. *)
+  val create_with_pp
+    :  docv:string
+    -> parse:'a of_string
+    -> pp:(Format.formatter -> 'a -> unit)
+    -> unit
+    -> 'a t
 
   (** {1 Basic types} *)
 
@@ -250,6 +265,19 @@ module Param : sig
 
   (** Parser for a list of values separated by commas. *)
   val comma_separated : 'a t -> 'a list t
+
+  (** {1 Deprecated} *)
+
+  (** An alias for {!val:create_with_pp}. Note that in a future version, we'll
+      deprecate this and eventually connect it back to {!val:create'}. This
+      transition will be done in the course of several [ocamlmig] migrations. *)
+  val create
+    :  docv:string
+    -> parse:'a of_string
+    -> print:(Format.formatter -> 'a -> unit)
+    -> 'a t
+  [@@migrate
+    { repl = (fun ~docv ~parse ~print -> Rel.create_with_pp ~docv ~parse ~pp:print ()) }]
 end
 
 (** {1 Building Arguments} *)
