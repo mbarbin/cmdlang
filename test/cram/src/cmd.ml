@@ -269,7 +269,7 @@ module Named = struct
         let+ e =
           Arg.named_with_default
             [ "who" ]
-            (Param.create ~docv:"(A|B)" ~parse:E.parse ~print:E.print)
+            (Param.create_with_pp ~docv:"(A|B)" ~parse:E.parse ~pp:E.print ())
             ~default:A
             ~doc:"Greet A or B?"
         in
