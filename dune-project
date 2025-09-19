@@ -52,12 +52,6 @@
    (>= v0.17))
   (ppx_enumerate
    (>= v0.17))
-  (ppx_expect
-   (>= v0.17))
-  (ppx_hash
-   (>= v0.17))
-  (ppx_here
-   (>= v0.17))
   (ppx_let
    (>= v0.17))
   (ppx_sexp_conv
