@@ -20,6 +20,10 @@ Cmdlang's documentation is published [here](https://mbarbin.github.io/cmdlang).
 
 ## Rationale
 
+⚠️ The following section was written when the development of cmdlang first started - a time when in particular `cmdliner.2.0` didn't exist yet. The version `2.0` of cmdliner implements support for auto-completion, making part of our analysis no longer up-to-date (See also [#33](https://github.com/mbarbin/cmdlang/issues/33)).
+
+----
+
 The OCaml community currently has two popular libraries for declarative command-line argument parsing:
 
 1. [cmdliner](https://github.com/dbuenzli/cmdliner)
