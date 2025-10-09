@@ -123,7 +123,9 @@
   (cmdlang-to-cmdliner
    (= :version))
   (cmdliner
-   (>= 1.3.0))
+   (and
+    (>= 1.3.0)
+    (< 2.0)))
   (core
    (>= v0.17))
   (core_unix
