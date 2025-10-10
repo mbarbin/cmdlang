@@ -17,7 +17,7 @@
 
 (using mdx 0.4)
 
-;; The value for the [implicit_transtive_deps] option is set during the CI
+;; The value for the [implicit_transitive_deps] option is set during the CI
 ;; depending on the OCaml compiler version.
 ;;
 ;; This will be set to [false] iif [ocaml-version >= 5.2].
