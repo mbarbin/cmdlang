@@ -19,4 +19,6 @@
  (copy ./lib/getting_started.ml ./getting_started.ml))
 
 (rule
- (copy ./bin/main.exe ./my-calculator))
+ (package cmdlang-dev)
+ (action
+  (copy ./bin/main.exe ./my-calculator)))

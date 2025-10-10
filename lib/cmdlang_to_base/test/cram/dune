@@ -1,8 +1,12 @@
 (rule
- (copy bin/main_base.exe main_base.exe))
+ (package cmdlang-tests)
+ (action
+  (copy bin/main_base.exe main_base.exe)))
 
 (rule
- (copy bin/main_climate.exe main_climate.exe))
+ (package cmdlang-tests)
+ (action
+  (copy bin/main_climate.exe main_climate.exe)))
 
 (cram
  (package cmdlang-tests)
