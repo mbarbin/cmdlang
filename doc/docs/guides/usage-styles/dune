@@ -1,5 +1,5 @@
 (mdx
- (package cmdlang-tests)
+ (package cmdlang-dev)
  (deps
   (package cmdlang)
   (glob_files *.txt)

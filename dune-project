@@ -100,16 +100,8 @@
  (depends
   (ocaml
    (>= 5.2))
-  (ocamlformat
-   (and
-    :with-dev-setup
-    (= 0.27.0)))
   (base
    (>= v0.17))
-  (bisect_ppx
-   (and
-    :with-dev-setup
-    (>= 2.8.3)))
   (climate
    (>= 0.8.0))
   (cmdlang
@@ -146,10 +138,72 @@
    (>= v0.17))
   (ppx_here
    (>= v0.17))
-  (ppx_js_style
+  (ppx_let
+   (>= v0.17))
+  (ppx_sexp_conv
+   (>= v0.17))
+  (ppx_sexp_value
+   (>= v0.17))
+  (ppxlib
+   (>= 0.33))
+  (stdio
+   (>= v0.17))
+  (stdune
+   (>= 3.17))))
+
+(package
+ (name cmdlang-dev)
+ (synopsis "Package to regroup dev targets, documentation, and more")
+ (allow_empty)
+ (depends
+  (ocaml
+   (>= 5.2))
+  (ocamlformat
+   (= 0.27.0))
+  (base
+   (>= v0.17))
+  (bisect_ppx
+   (>= 2.8.3))
+  (climate
+   (>= 0.8.0))
+  (cmdlang
+   (= :version))
+  (cmdlang-tests
+   (= :version))
+  (cmdlang-stdlib-runner
+   (= :version))
+  (cmdlang-to-base
+   (= :version))
+  (cmdlang-to-climate
+   (= :version))
+  (cmdlang-to-cmdliner
+   (= :version))
+  (cmdliner
    (and
-    :with-dev-setup
-    (>= v0.17)))
+    (>= 1.3.0)
+    (< 2.0)))
+  (core
+   (>= v0.17))
+  (core_unix
+   (>= v0.17))
+  (expect_test_helpers_core
+   (>= v0.17))
+  (loc
+   (>= 0.2.2))
+  (mdx
+   (>= 2.4))
+  (ppx_compare
+   (>= v0.17))
+  (ppx_enumerate
+   (>= v0.17))
+  (ppx_expect
+   (>= v0.17))
+  (ppx_hash
+   (>= v0.17))
+  (ppx_here
+   (>= v0.17))
+  (ppx_js_style
+   (>= v0.17))
   (ppx_let
    (>= v0.17))
   (ppx_sexp_conv
@@ -163,6 +217,4 @@
   (stdune
    (>= 3.17))
   (sherlodoc
-   (and
-    :with-doc
-    (>= 0.2)))))
+   (>= 0.2))))
