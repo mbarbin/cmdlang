@@ -168,9 +168,9 @@
    (>= 0.8.0))
   (cmdlang
    (= :version))
-  (cmdlang-tests
-   (= :version))
   (cmdlang-stdlib-runner
+   (= :version))
+  (cmdlang-tests
    (= :version))
   (cmdlang-to-base
    (= :version))

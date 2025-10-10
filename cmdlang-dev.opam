@@ -15,8 +15,8 @@ depends: [
   "bisect_ppx" {>= "2.8.3"}
   "climate" {>= "0.8.0"}
   "cmdlang" {= version}
-  "cmdlang-tests" {= version}
   "cmdlang-stdlib-runner" {= version}
+  "cmdlang-tests" {= version}
   "cmdlang-to-base" {= version}
   "cmdlang-to-climate" {= version}
   "cmdlang-to-cmdliner" {= version}
