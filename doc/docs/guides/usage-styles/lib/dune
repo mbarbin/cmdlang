@@ -1,6 +1,6 @@
 (library
  (name usage_styles)
- (public_name cmdlang-tests.usage_styles)
+ (public_name cmdlang-dev.usage_styles)
  (flags :standard -w +a-4-40-41-42-44-45-48-66 -warn-error +a -open Cmdlang)
  (libraries cmdlang)
  (lint

@@ -1,5 +1,7 @@
 (executable
  (name main_stdlib_runner)
+ (public_name cram-test-main_stdlib_runner)
+ (package cmdlang-tests)
  (flags :standard -w +a-4-40-41-42-44-45-48-66 -warn-error +a)
  (libraries cmdlang_stdlib_runner cram_test_command)
  (instrumentation

@@ -1,5 +1,7 @@
 (executable
  (name main_climate)
+ (public_name cram-test-main_climate)
+ (package cmdlang-tests)
  (flags :standard -w +a-4-40-41-42-44-45-48-66 -warn-error +a)
  (libraries climate cmdlang_to_climate cram_test_command)
  (instrumentation

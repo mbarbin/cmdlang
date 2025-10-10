@@ -1,14 +1,22 @@
 (rule
- (copy bin/base/main_base.exe main_base.exe))
+ (package cmdlang-tests)
+ (action
+  (copy bin/base/main_base.exe main_base.exe)))
 
 (rule
- (copy bin/climate/main_climate.exe main_climate.exe))
+ (package cmdlang-tests)
+ (action
+  (copy bin/climate/main_climate.exe main_climate.exe)))
 
 (rule
- (copy bin/cmdliner/main_cmdliner.exe main_cmdliner.exe))
+ (package cmdlang-tests)
+ (action
+  (copy bin/cmdliner/main_cmdliner.exe main_cmdliner.exe)))
 
 (rule
- (copy bin/stdlib-runner/main_stdlib_runner.exe main_stdlib_runner.exe))
+ (package cmdlang-tests)
+ (action
+  (copy bin/stdlib-runner/main_stdlib_runner.exe main_stdlib_runner.exe)))
 
 (cram
  (package cmdlang-tests)

@@ -1,5 +1,7 @@
 (executable
  (name main)
+ (public_name docs-getting-started-main)
+ (package cmdlang-dev)
  (flags :standard -w +a-4-40-41-42-44-45-48-66 -warn-error +a)
  (libraries cmdlang-to-cmdliner cmdliner getting_started)
  (instrumentation
