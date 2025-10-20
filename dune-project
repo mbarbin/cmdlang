@@ -103,7 +103,7 @@
   (base
    (>= v0.17))
   (climate
-   (>= 0.8.0))
+   (>= 0.8.5))
   (cmdlang
    (= :version))
   (cmdlang-stdlib-runner

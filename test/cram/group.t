@@ -336,7 +336,7 @@ default, when it is invoked with an invalid subcommand name.
   [1]
 
   $ ./main_climate.exe invalid
-  Error: No such subcommand: invalid
+  Error: No such subcommand: "invalid"
   
   Usage: ./main_climate.exe [COMMAND]
          ./main_climate.exe [OPTION]…
