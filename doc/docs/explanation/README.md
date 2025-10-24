@@ -1,6 +1,6 @@
 # Explanation
 
-Welcome to the Explanation section of the `cmdlang` documentation. Here, we delve into the details of how `cmdlang` works, its design principles, and our future plans. This section is intended to provide a deeper understanding of the project for developers and contributors.
+Welcome to the Explanation section of the `cmdlang` documentation. This section covers how `cmdlang` works, its design principles, and our future plans.
 
 ## Architecture
 
