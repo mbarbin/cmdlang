@@ -262,8 +262,7 @@ functions or parsers generated from modules with utils.
          Named_with_default__create
   
   SYNOPSIS
-         ./main_cmdliner.exe named with-default create [--who=(A|B)]
-         [OPTION]…
+         ./main_cmdliner.exe named with-default create [--who=(A|B)] [OPTION]…
   
   OPTIONS
          --who=(A|B) (absent=A)
@@ -414,8 +413,7 @@ Named-with-default with a validated string parameter.
          Named_with_default__validated
   
   SYNOPSIS
-         ./main_cmdliner.exe named with-default validated [--who=VAL]
-         [OPTION]…
+         ./main_cmdliner.exe named with-default validated [--who=VAL] [OPTION]…
   
   OPTIONS
          --who=VAL (absent=0000)
