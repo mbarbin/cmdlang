@@ -29,13 +29,14 @@ jobs:
           - ubuntu-latest
           - windows-latest
         ocaml-compiler:
+          - 5.4.x
           - 5.3.x
           - 5.2.x
           - 4.14.x
         exclude:
           # We exclude the combination already tested in the 'ci' workflow.
           - os: ubuntu-latest
-            ocaml-compiler: 5.3.x
+            ocaml-compiler: 5.4.x
           # We exclude windows-4.14 - this fails when building core.
           - os: windows-latest
             ocaml-compiler: 4.14.x
