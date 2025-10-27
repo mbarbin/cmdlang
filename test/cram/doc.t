@@ -187,8 +187,7 @@ help pages.
          dots.
   
   SYNOPSIS
-         ./main_cmdliner.exe doc args-doc-end-with-dots [OPTION]… STRING
-         STRING
+         ./main_cmdliner.exe doc args-doc-end-with-dots [OPTION]… STRING STRING
   
   ARGUMENTS
          STRING (required)

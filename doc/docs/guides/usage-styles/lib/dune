@@ -4,7 +4,13 @@
  (flags :standard -w +a-4-40-41-42-44-45-48-66 -warn-error +a -open Cmdlang)
  (libraries cmdlang)
  (lint
-  (pps ppx_js_style -allow-let-operators -check-doc-comments))
+  (pps
+   ppx_js_style
+   -allow-let-operators
+   -check-doc-comments
+   ;; A workaround an issue with this particular lint in that repo with OCaml 5.4
+   ;; See also [https://github.com/janestreet/ppx_js_style/issues/4].
+   -allow-unannotated-ignores))
  (preprocess
   (pps
    -unused-code-warnings=force
