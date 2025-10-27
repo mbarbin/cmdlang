@@ -35,6 +35,7 @@ jobs:
         uses: ocaml/setup-ocaml@v3
         with:
           ocaml-compiler: "5.3.x"
+          dune-cache: true
           opam-repositories: |
             default: https://github.com/ocaml/opam-repository.git
             mbarbin: https://github.com/mbarbin/opam-repository.git
