@@ -39,9 +39,7 @@ let%expect_test "flag" =
 
     COMMON OPTIONS
            --help[=FMT] (default=auto)
-               Show this help in format FMT. The value FMT must be one of auto,
-               pager, groff or plain. With auto, the format is pager or plain
-               whenever the TERM env var is dumb or undefined.
+               Show this help in format FMT. The value FMT must be one of auto, pager, groff or plain. With auto, the format is pager or plain whenever the TERM env var is dumb or undefined.
 
     EXIT STATUS
            test exits with:
@@ -51,6 +49,9 @@ let%expect_test "flag" =
            123 on indiscriminate errors reported on standard error.
 
            124 on command line parsing errors.
+
+           125 on unexpected internal errors (bugs).
+
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
       "Command.Failed_to_parse_command_line(\"unknown flag --help\")"))
@@ -63,9 +64,6 @@ let%expect_test "flag" =
       --print-hello  Print Hello. (optional)
       -help          Display this list of options
       --help         Display this list of options
-
-
-           125 on unexpected internal errors (bugs).
     |}];
   ()
 ;;

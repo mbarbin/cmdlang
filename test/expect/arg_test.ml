@@ -117,6 +117,7 @@ let eval_all t command_line =
      | Cmdliner -> eval_cmdliner t command_line
      | Core_command -> eval_base t command_line
      | Stdlib_runner -> eval_stdlib_runner t command_line);
+    Stdlib.Format.print_flush ();
     Stdlib.(flush stdout);
     Stdlib.(flush stderr));
   ()
