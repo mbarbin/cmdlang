@@ -1,17 +1,19 @@
 # List of directories for headache.sh
 # Add new directories below. Lines starting with '#' are ignored.
-lib/cmdlang/src
-lib/cmdlang/test
-lib/cmdlang_ast/src
-lib/cmdlang_ast/test
-lib/cmdlang_stdlib_runner/src
-lib/cmdlang_stdlib_runner/test
-lib/cmdlang_to_base/src
-lib/cmdlang_to_base/test
-lib/cmdlang_to_climate/src
-lib/cmdlang_to_climate/test
-lib/cmdlang_to_cmdliner/src
-lib/cmdlang_to_cmdliner/test
+src/cmdlang
+src/cmdlang/ast
+src/cmdlang-stdlib-runner
+src/cmdlang-to-base
+src/cmdlang-to-climate
+src/cmdlang-to-cmdliner
+test/cmdlang
+test/cmdlang/ast
+test/cmdlang-stdlib-runner
+test/cmdlang-to-base
+test/cmdlang-to-base/cram/src
+test/cmdlang-to-base/cram/bin
+test/cmdlang-to-climate
+test/cmdlang-to-cmdliner
 test/cram/src
 test/cram/bin/base
 test/cram/bin/climate
