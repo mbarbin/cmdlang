@@ -1,6 +1,6 @@
 (library
- (name cmdlang_expect_tests)
- (public_name cmdlang-tests.expect-tests)
+ (name cmdlang_expect_test)
+ (package cmdlang-tests)
  (inline_tests)
  (flags
   :standard

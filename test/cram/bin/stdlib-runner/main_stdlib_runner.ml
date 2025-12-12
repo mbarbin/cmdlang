@@ -4,4 +4,4 @@
 (*  SPDX-License-Identifier: MIT                                                 *)
 (*********************************************************************************)
 
-let () = Cmdlang_stdlib_runner.run Cram_test_command.Cmd.main
+let () = Cmdlang_stdlib_runner.run Cram_command_test.Cmd.main

@@ -1,6 +1,6 @@
 (library
  (name cmdlang_stdlib_runner_test)
- (public_name cmdlang-tests.cmdlang_stdlib_runner_test)
+ (package cmdlang-tests)
  (inline_tests)
  (flags
   :standard
