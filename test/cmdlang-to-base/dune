@@ -1,6 +1,6 @@
 (library
  (name cmdlang_to_base_test)
- (public_name cmdlang-tests.cmdlang_to_base_test)
+ (package cmdlang-tests)
  (inline_tests)
  (flags
   :standard

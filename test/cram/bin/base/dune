@@ -3,7 +3,9 @@
  (public_name cram-test-main_base)
  (package cmdlang-tests)
  (flags :standard -w +a-4-40-41-42-44-45-48-66 -warn-error +a)
- (libraries cmdlang_to_base core_unix.command_unix cram_test_command)
+ (libraries cmdlang_to_base core_unix.command_unix cram_command_test)
  (instrumentation
   (backend bisect_ppx))
+ (lint
+  (pps ppx_js_style -allow-let-operators -check-doc-comments))
  (preprocess no_preprocessing))

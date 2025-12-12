@@ -1,6 +1,6 @@
 (library
- (name base_cram_test_command)
- (public_name cmdlang-tests.base_cram_test_command)
+ (name base_cram_command_test)
+ (package cmdlang-tests)
  (flags
   :standard
   -w

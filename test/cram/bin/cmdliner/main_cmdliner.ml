@@ -8,7 +8,7 @@ let () =
   let code =
     Cmdliner.Cmd.eval
       (Cmdlang_to_cmdliner.Translate.command
-         Cram_test_command.Cmd.main
+         Cram_command_test.Cmd.main
          ~name:Sys.argv.(0)
          ~version:"%%VERSION%%")
   in

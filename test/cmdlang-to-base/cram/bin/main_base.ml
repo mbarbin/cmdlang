@@ -4,4 +4,4 @@
 (*  SPDX-License-Identifier: MIT                                                 *)
 (*********************************************************************************)
 
-let () = Command_unix.run Base_cram_test_command.Cmd.main
+let () = Command_unix.run Base_cram_command_test.Cmd.main

@@ -4,7 +4,7 @@
  (package cmdlang-tests)
  (flags :standard -w +a-4-40-41-42-44-45-48-66 -warn-error +a)
  (libraries
-  base_cram_test_command
+  base_cram_command_test
   core_unix.command_unix
   cmdlang_to_climate
   climate)
