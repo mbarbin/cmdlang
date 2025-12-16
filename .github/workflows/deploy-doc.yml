@@ -34,12 +34,12 @@ jobs:
       - name: Setup OCaml
         uses: ocaml/setup-ocaml@v3
         with:
-          ocaml-compiler: "5.3.x"
+          ocaml-compiler: "5.4.x"
           dune-cache: true
           opam-repositories: |
             default: https://github.com/ocaml/opam-repository.git
             mbarbin: https://github.com/mbarbin/opam-repository.git
-      #     alpha:   https://github.com/kit-ty-kate/opam-alpha-repository.git
+            alpha:   https://github.com/kit-ty-kate/opam-alpha-repository.git
       #     janestreet-bleeding: https://github.com/janestreet/opam-repository.git
       #     janestreet-bleeding-external: https://github.com/janestreet/opam-repository.git#external-packages
 
