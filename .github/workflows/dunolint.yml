@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Install dunolint
         uses: mbarbin/dunolint-actions/setup-dunolint@2ba7453b5904f39688a3e656c770a5b9727163d0 # v1.0.0-alpha.3
