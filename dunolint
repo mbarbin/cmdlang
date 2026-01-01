@@ -26,6 +26,8 @@
       (and
        (not
         (has_field public_name))
+       (package
+        (equals cmdlang-tests))
        (name
         (is_suffix _test)))))))))
 
