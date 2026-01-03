@@ -1,9 +1,13 @@
 (lang dunolint 1.0)
 
 ;; Instrumentation
+
 (rule
  (cond
-  ((path (or (glob doc/**))) return)
+  ((path
+    (or
+     (glob doc/**)))
+   return)
   (true
    (enforce
     (dune
@@ -11,20 +15,30 @@
       (backend bisect_ppx)))))))
 
 ;; Test lib naming
+
 (rule
  (cond
-  ((path (glob test/**))
+  ((path
+    (glob test/**))
    (enforce
     (dune
      (library
       (and
-       (not (has_field public_name))
-       (name (is_suffix _test)))))))))
+       (not
+        (has_field public_name))
+       (package
+        (equals cmdlang-tests))
+       (name
+        (is_suffix _test)))))))))
 
 ;; Configure the ppx_js_style linter
+
 (rule
  (cond
-  ((path (or (glob doc/**))) return)
+  ((path
+    (or
+     (glob doc/**)))
+   return)
   (true
    (enforce
     (dune
@@ -35,17 +49,23 @@
         (flag
          (name -allow-let-operators)
          (param none)
-         (applies_to (pp ppx_js_style)))
+         (applies_to
+          (pp ppx_js_style)))
         (flag
          (name -check-doc-comments)
          (param none)
-         (applies_to (pp ppx_js_style)))))))))))
+         (applies_to
+          (pp ppx_js_style)))))))))))
 
 ;; No preprocessing
+
 (rule
  (cond
-  ((path (glob src/cmdlang-to-base/*)) return)
-  ((path (glob src/**))
+  ((path
+    (glob src/cmdlang-to-base/*))
+   return)
+  ((path
+    (glob src/**))
    (enforce
     (dune
      (preprocess no_preprocessing))))))
