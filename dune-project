@@ -99,7 +99,7 @@
  (synopsis "Tests for cmdlang")
  (depends
   (ocaml
-   (>= 5.2))
+   (>= 5.3))
   (base
    (>= v0.17))
   (climate
