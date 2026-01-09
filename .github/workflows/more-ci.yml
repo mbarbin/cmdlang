@@ -64,8 +64,16 @@ jobs:
 
       - name: Environment setup
         run: |
-          echo "PACKAGES=cmdlang,cmdlang-stdlib-runner,cmdlang-to-cmdliner,cmdlang-to-climate" >> "$GITHUB_ENV"
-          echo "OPAM_PACKAGES=./cmdlang.opam ./cmdlang-stdlib-runner.opam ./cmdlang-to-cmdliner.opam ./cmdlang-to-climate.opam" >> "$GITHUB_ENV"
+          if [ "${{ matrix.ocaml-compiler }}" = "4.14.x" ]; then
+            echo "PACKAGES=cmdlang,cmdlang-stdlib-runner,cmdlang-to-climate,cmdlang-to-cmdliner" >> "$GITHUB_ENV"
+            echo "OPAM_PACKAGES=./cmdlang.opam ./cmdlang-stdlib-runner.opam ./cmdlang-to-climate.opam ./cmdlang-to-cmdliner.opam" >> "$GITHUB_ENV"
+          elif [ "${{ matrix.ocaml-compiler }}" = "5.2.x" ]; then
+            echo "PACKAGES=cmdlang,cmdlang-stdlib-runner,cmdlang-to-base,cmdlang-to-climate,cmdlang-to-cmdliner" >> "$GITHUB_ENV"
+            echo "OPAM_PACKAGES=./cmdlang.opam ./cmdlang-stdlib-runner.opam ./cmdlang-to-base.opam ./cmdlang-to-climate.opam ./cmdlang-to-cmdliner.opam" >> "$GITHUB_ENV"
+          else
+            echo "PACKAGES=cmdlang,cmdlang-stdlib-runner,cmdlang-tests,cmdlang-to-base,cmdlang-to-climate,cmdlang-to-cmdliner" >> "$GITHUB_ENV"
+            echo "OPAM_PACKAGES=./cmdlang.opam ./cmdlang-stdlib-runner.opam ./cmdlang-tests.opam ./cmdlang-to-base.opam ./cmdlang-to-climate.opam ./cmdlang-to-cmdliner.opam" >> "$GITHUB_ENV"
+          fi
 
       # We build and run tests for a subset of packages. More tests are run in
       # the development workflow and as part of the main CI job. These are the
