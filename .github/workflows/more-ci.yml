@@ -58,15 +58,16 @@ jobs:
       #     janestreet-bleeding: https://github.com/janestreet/opam-repository.git
       #     janestreet-bleeding-external: https://github.com/janestreet/opam-repository.git#external-packages
 
-      # Setting `(implicit_transitive_deps VALUE)` conditionally based on the compiler version.
-      - name: Edit dune-project
-        run: opam exec -- ocaml .github/workflows/edit_dune_project_dot_ml "${{ matrix.ocaml-compiler }}"
+      - name: Environment setup
+        run: |
+          echo "PACKAGES=cmdlang,cmdlang-stdlib-runner,cmdlang-to-cmdliner,cmdlang-to-climate" >> "$GITHUB_ENV"
+          echo "OPAM_PACKAGES=./cmdlang.opam ./cmdlang-stdlib-runner.opam ./cmdlang-to-cmdliner.opam ./cmdlang-to-climate.opam" >> "$GITHUB_ENV"
 
       # We build and run tests for a subset of packages. More tests are run in
       # the development workflow and as part of the main CI job. These are the
       # tests that are checked for every combination of os and ocaml-compiler.
       - name: Install dependencies
-        run: opam install ./cmdlang.opam ./cmdlang-stdlib-runner.opam ./cmdlang-to-cmdliner.opam ./cmdlang-to-climate.opam --deps-only --with-test
+        run: opam install ${{ env.OPAM_PACKAGES }} --deps-only --with-test
 
       - name: Build & Run tests
-        run: opam exec -- dune build @runtest -p cmdlang,cmdlang-stdlib-runner,cmdlang-to-cmdliner,cmdlang-to-climate
+        run: opam exec -- dune build @runtest --only-packages=${{ env.PACKAGES }}
