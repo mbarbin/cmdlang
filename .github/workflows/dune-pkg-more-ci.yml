@@ -1,0 +1,64 @@
+# Additional CI workflow using setup-dune (dune package management).
+# This workflow is intended to eventually replace more-ci.yml.
+#
+# This tests across multiple operating systems and OCaml versions, but skips
+# steps not necessary for every combination (linting, coverage, etc.).
+
+name: dune-pkg-more-ci
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - "**"
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+          - macos-latest
+        ocaml-version:
+          - "5.3"
+          - "5.2"
+          - "4.14"
+        exclude:
+          # Exclude the combination already tested in the main ci workflow.
+          - os: ubuntu-latest
+            ocaml-version: "5.3"
+
+    runs-on: ${{ matrix.os }}
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Environment setup
+        run: |
+          echo "DUNE_WORKSPACE=$PWD/dune-workspace-${{ matrix.ocaml-version }}" >> "$GITHUB_ENV"
+          PACKAGES=$(script/ci-packages/run.sh "${{ matrix.os }}" "${{ matrix.ocaml-version }}" dune)
+          echo "PACKAGES=$PACKAGES" >> "$GITHUB_ENV"
+
+      - name: Add dune-workspace hash to dune-project for cache key differentiation
+        run: |
+          echo "" >> dune-project
+          echo "; dune-workspace: ${{ hashFiles(env.DUNE_WORKSPACE) }}" >> dune-project
+          tail -n 2 dune-project
+
+      - name: Setup Dune
+        uses: mbarbin/setup-dune@e493be45f169e50c4157ab1b6666b35570a63726 # only-packages
+        with:
+          workspace: ${{ env.DUNE_WORKSPACE }}
+          only-packages: ${{ env.PACKAGES }}
+          steps: install-dune enable-pkg lazy-update-depexts install-gpatch install-depexts
+
+      - name: Build & Run tests
+        run: dune build @all @runtest --only-packages=${{ env.PACKAGES }}
