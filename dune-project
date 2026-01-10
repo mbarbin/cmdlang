@@ -180,17 +180,17 @@
     (< 2.0)))
   (mdx
    (>= 2.4))
-  (ppx_expect
-   (>= v0.17))
-  (ppx_js_style
-   (>= v0.17))
   (ppx_compare
    (>= v0.17))
   (ppx_enumerate
    (>= v0.17))
+  (ppx_expect
+   (>= v0.17))
   (ppx_hash
    (>= v0.17))
   (ppx_here
+   (>= v0.17))
+  (ppx_js_style
    (>= v0.17))
   (ppx_let
    (>= v0.17))
