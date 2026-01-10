@@ -13,7 +13,7 @@ set -euo pipefail
 #   verified via dune's expect test promotion (see dune file)
 # - Changes to package selection are caught by tests before breaking CI
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SCRIPT_DIR="$(dirname "${BASH_SOURCE[0]}")"
 CONFIG_FILE="${CI_PACKAGES_CONFIG:-$SCRIPT_DIR/rules.json}"
 
 PROG_NAME="run.sh"
@@ -40,18 +40,18 @@ if [ "$FORMAT" != "dune" ] && [ "$FORMAT" != "opam" ]; then
 fi
 
 # shellcheck disable=SC2016 # $os and $ocaml are jq variables, not bash
-JQ_FILTER='first(.rules[] | select((.os == $os or .os == "*") and (.ocaml == $ocaml or .ocaml == "*"))) | .packages'
+JQ_BASE='first(.rules[] | select((.os == $os or .os == "*") and (.ocaml == $ocaml or .ocaml == "*"))) | .packages'
 
-OUTPUT=$(
-  case "$FORMAT" in
-    dune)
-      jq -r --arg os "$OS" --arg ocaml "$VERSION" "$JQ_FILTER | join(\",\")" "$CONFIG_FILE"
-      ;;
-    opam)
-      jq -r --arg os "$OS" --arg ocaml "$VERSION" "$JQ_FILTER | map(\"./\\(.).opam\") | join(\" \")" "$CONFIG_FILE"
-      ;;
-  esac
-)
+case "$FORMAT" in
+  dune)
+    JQ_FILTER="$JQ_BASE | join(\",\")"
+    ;;
+  opam)
+    JQ_FILTER="$JQ_BASE | map(\"./\\(.).opam\") | join(\" \")"
+    ;;
+esac
+
+OUTPUT=$(jq -r --arg os "$OS" --arg ocaml "$VERSION" "$JQ_FILTER" "$CONFIG_FILE")
 
 if [ -z "$OUTPUT" ]; then
   echo "Error: no matching rule for os='$OS' version='$VERSION'" >&2
