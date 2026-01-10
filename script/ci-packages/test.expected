@@ -43,16 +43,16 @@ $ run.sh windows-latest 4.14 opam
 ./cmdlang.opam ./cmdlang-stdlib-runner.opam ./cmdlang-to-climate.opam ./cmdlang-to-cmdliner.opam
 
 $ run.sh windows-latest 5.2 dune
-cmdlang,cmdlang-stdlib-runner,cmdlang-to-base,cmdlang-to-climate,cmdlang-to-cmdliner
+cmdlang,cmdlang-stdlib-runner,cmdlang-to-climate,cmdlang-to-cmdliner
 
 $ run.sh windows-latest 5.2 opam
-./cmdlang.opam ./cmdlang-stdlib-runner.opam ./cmdlang-to-base.opam ./cmdlang-to-climate.opam ./cmdlang-to-cmdliner.opam
+./cmdlang.opam ./cmdlang-stdlib-runner.opam ./cmdlang-to-climate.opam ./cmdlang-to-cmdliner.opam
 
 $ run.sh windows-latest 5.3 dune
-cmdlang,cmdlang-stdlib-runner,cmdlang-to-base,cmdlang-to-climate,cmdlang-to-cmdliner
+cmdlang,cmdlang-stdlib-runner,cmdlang-to-climate,cmdlang-to-cmdliner
 
 $ run.sh windows-latest 5.3 opam
-./cmdlang.opam ./cmdlang-stdlib-runner.opam ./cmdlang-to-base.opam ./cmdlang-to-climate.opam ./cmdlang-to-cmdliner.opam
+./cmdlang.opam ./cmdlang-stdlib-runner.opam ./cmdlang-to-climate.opam ./cmdlang-to-cmdliner.opam
 
 # Versions with .x suffix
 
