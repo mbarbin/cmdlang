@@ -64,8 +64,10 @@ jobs:
 
       - name: Environment setup
         run: |
-          echo "PACKAGES=cmdlang,cmdlang-stdlib-runner,cmdlang-to-cmdliner,cmdlang-to-climate" >> "$GITHUB_ENV"
-          echo "OPAM_PACKAGES=./cmdlang.opam ./cmdlang-stdlib-runner.opam ./cmdlang-to-cmdliner.opam ./cmdlang-to-climate.opam" >> "$GITHUB_ENV"
+          PACKAGES=$(script/ci-packages/run.sh "${{ matrix.os }}" "${{ matrix.ocaml-compiler }}" dune)
+          OPAM_PACKAGES=$(script/ci-packages/run.sh "${{ matrix.os }}" "${{ matrix.ocaml-compiler }}" opam)
+          echo "PACKAGES=$PACKAGES" >> "$GITHUB_ENV"
+          echo "OPAM_PACKAGES=$OPAM_PACKAGES" >> "$GITHUB_ENV"
 
       # We build and run tests for a subset of packages. More tests are run in
       # the development workflow and as part of the main CI job. These are the

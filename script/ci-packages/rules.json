@@ -1,0 +1,48 @@
+{
+  "$schema": "./rules.schema.json",
+  "rules": [
+    {
+      "os": "windows-latest",
+      "ocaml": "*",
+      "packages": [
+        "cmdlang",
+        "cmdlang-stdlib-runner",
+        "cmdlang-to-climate",
+        "cmdlang-to-cmdliner"
+      ]
+    },
+    {
+      "os": "*",
+      "ocaml": "4.14",
+      "packages": [
+        "cmdlang",
+        "cmdlang-stdlib-runner",
+        "cmdlang-to-climate",
+        "cmdlang-to-cmdliner"
+      ]
+    },
+    {
+      "os": "*",
+      "ocaml": "5.2",
+      "packages": [
+        "cmdlang",
+        "cmdlang-stdlib-runner",
+        "cmdlang-to-base",
+        "cmdlang-to-climate",
+        "cmdlang-to-cmdliner"
+      ]
+    },
+    {
+      "os": "*",
+      "ocaml": "*",
+      "packages": [
+        "cmdlang",
+        "cmdlang-stdlib-runner",
+        "cmdlang-tests",
+        "cmdlang-to-base",
+        "cmdlang-to-climate",
+        "cmdlang-to-cmdliner"
+      ]
+    }
+  ]
+}

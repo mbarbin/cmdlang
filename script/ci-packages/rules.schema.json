@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CI Packages Configuration",
+  "description": "Configuration for selecting which packages to build/test per OS and OCaml version",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Reference to the JSON schema"
+    },
+    "rules": {
+      "type": "array",
+      "description": "List of rules evaluated top-to-bottom, first match wins",
+      "items": {
+        "type": "object",
+        "properties": {
+          "os": {
+            "type": "string",
+            "description": "Operating system to match, or '*' for any",
+            "enum": [
+              "*",
+              "macos-latest",
+              "ubuntu-latest",
+              "windows-latest"
+            ]
+          },
+          "ocaml": {
+            "type": "string",
+            "description": "OCaml version to match (without .x suffix), or '*' for any",
+            "examples": ["4.14", "5.2", "5.3", "*"]
+          },
+          "packages": {
+            "type": "array",
+            "description": "List of packages to build/test",
+            "items": {
+              "type": "string",
+              "enum": [
+                "cmdlang",
+                "cmdlang-dev",
+                "cmdlang-stdlib-runner",
+                "cmdlang-tests",
+                "cmdlang-to-base",
+                "cmdlang-to-climate",
+                "cmdlang-to-cmdliner"
+              ]
+            }
+          }
+        },
+        "required": ["os", "ocaml", "packages"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": ["rules"],
+  "additionalProperties": false
+}
