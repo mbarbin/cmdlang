@@ -1,5 +1,5 @@
 (rule
- (package cmdlang-tests)
+ (package cmdlang-dev)
  (deps run.sh rules.json)
  (action
   (with-stdout-to
@@ -7,11 +7,11 @@
    (run ./test.sh))))
 
 (rule
- (package cmdlang-tests)
+ (package cmdlang-dev)
  (alias runtest)
  (action
   (diff test.expected test.output)))
 
 (cram
- (package cmdlang-tests)
+ (package cmdlang-dev)
  (deps run.sh rules.json rules.schema.json))

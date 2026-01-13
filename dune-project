@@ -178,6 +178,7 @@
    (and
     (>= 1.3.0)
     (< 2.0)))
+  conf-jq
   (mdx
    (>= 2.4))
   (ppx_compare
