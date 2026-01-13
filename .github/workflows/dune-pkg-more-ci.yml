@@ -51,7 +51,7 @@ jobs:
         uses: mbarbin/setup-dune@e1b7a3f5d8ee411d7e148f88e6f1e98d76f7d1ce # v2.0.0+only-packages
         with:
           workspace: ${{ env.DUNE_WORKSPACE }}
-          cache-prefix: ${{ ocaml-version }}
+          cache-prefix: ${{ matrix.ocaml-version }}
           only-packages: ${{ env.PACKAGES }}
           steps: install-dune enable-pkg lazy-update-depexts install-gpatch install-depexts
 
