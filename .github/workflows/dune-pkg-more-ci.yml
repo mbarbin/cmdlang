@@ -47,16 +47,11 @@ jobs:
           PACKAGES=$(script/ci-packages/run.sh "${{ matrix.os }}" "${{ matrix.ocaml-version }}" dune)
           echo "PACKAGES=$PACKAGES" >> "$GITHUB_ENV"
 
-      - name: Add dune-workspace hash to dune-project for cache key differentiation
-        run: |
-          echo "" >> dune-project
-          echo "; dune-workspace: ${{ hashFiles(env.DUNE_WORKSPACE) }}" >> dune-project
-          tail -n 2 dune-project
-
       - name: Setup Dune
-        uses: mbarbin/setup-dune@e493be45f169e50c4157ab1b6666b35570a63726 # only-packages
+        uses: mbarbin/setup-dune@e1b7a3f5d8ee411d7e148f88e6f1e98d76f7d1ce # v2.0.0+only-packages
         with:
           workspace: ${{ env.DUNE_WORKSPACE }}
+          cache-prefix: ${{ ocaml-version }}
           only-packages: ${{ env.PACKAGES }}
           steps: install-dune enable-pkg lazy-update-depexts install-gpatch install-depexts
 
