@@ -8,6 +8,9 @@ on:
     branches:
       - "**" # This will match pull requests targeting any branch
 
+permissions:
+  contents: read
+
 jobs:
   build:
     strategy:
