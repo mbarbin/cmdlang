@@ -51,7 +51,7 @@ jobs:
           echo "PACKAGES=$PACKAGES" >> "$GITHUB_ENV"
 
       - name: Setup Dune
-        uses: mbarbin/setup-dune@da6e0ec79e48dc4653c1e71656c1752532e05e7b # v2.0.0+patched
+        uses: mbarbin/setup-dune@1c4b81012f25bcff3ddc4cb2533cc8066802388f # v2.0.0+patched
         with:
           workspace: ${{ env.DUNE_WORKSPACE }}
           cache-prefix: ${{ matrix.ocaml-version }}
