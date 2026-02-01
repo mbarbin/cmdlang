@@ -19,9 +19,10 @@ jobs:
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
       - name: Install dunolint
-        uses: mbarbin/dunolint-actions/setup-dunolint@2ba7453b5904f39688a3e656c770a5b9727163d0 # v1.0.0-alpha.3
+        uses: mbarbin/dunolint-actions/setup-dunolint@6b1c0591ba857063829211bc162712052889c4e2 # v1.0.0-alpha.4
         with:
           dunolint-version: 0.0.20260103
+          dunolint-digest: sha256:2771c39def3ae771735e105bf22f3ab67745354ed13e7263284a866625eacb69
 
       - name: Lint Check
-        uses: mbarbin/dunolint-actions/lint-check@2ba7453b5904f39688a3e656c770a5b9727163d0 # v1.0.0-alpha.3
+        uses: mbarbin/dunolint-actions/lint-check@6b1c0591ba857063829211bc162712052889c4e2 # v1.0.0-alpha.4
