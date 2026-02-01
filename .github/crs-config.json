@@ -1,0 +1,9 @@
+{
+  "$schema": "https://github.com/mbarbin/crs/releases/download/0.0.20251014/crs-config.schema.json",
+  "default_repo_owner": "mbarbin",
+  "user_mentions_allowlist": [
+    "mbarbin"
+  ],
+  "invalid_crs_annotation_severity": "Error",
+  "crs_due_now_annotation_severity": "Info"
+}
