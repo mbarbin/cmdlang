@@ -1,5 +1,5 @@
 {
-  "$schema": "https://github.com/mbarbin/crs/releases/download/0.0.20251014/crs-config.schema.json",
+  "$schema": "https://github.com/mbarbin/crs/releases/download/0.0.20260202/crs-config.schema.json",
   "default_repo_owner": "mbarbin",
   "user_mentions_allowlist": [
     "mbarbin"
