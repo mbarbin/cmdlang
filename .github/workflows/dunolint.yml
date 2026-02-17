@@ -21,8 +21,8 @@ jobs:
       - name: Install dunolint
         uses: mbarbin/dunolint-actions/setup-dunolint@6b1c0591ba857063829211bc162712052889c4e2 # v1.0.0-alpha.4
         with:
-          dunolint-version: 0.0.20260103
-          dunolint-digest: sha256:2771c39def3ae771735e105bf22f3ab67745354ed13e7263284a866625eacb69
+          dunolint-version: 0.0.20260211
+          dunolint-digest: sha256:8ce2817547a7b104b677e89baf6e6fcb8805811172ae9557505bdd866ee16fbc
 
       - name: Lint Check
         uses: mbarbin/dunolint-actions/lint-check@6b1c0591ba857063829211bc162712052889c4e2 # v1.0.0-alpha.4
