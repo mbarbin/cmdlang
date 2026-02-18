@@ -54,7 +54,7 @@ jobs:
       - name: Setup Dune
         uses: mbarbin/setup-dune@ae2985bcdedc6fb24e5743d6f9dace9cf262b41c # v2.0.0+patch-4
         with:
-          version: "3.21.0"
+          version: "3.21.1"
           workspace: ${{ env.DUNE_WORKSPACE }}
           cache-prefix: ${{ matrix.ocaml-version }}
           cache-readonly: ${{ github.ref != 'refs/heads/main' }}
