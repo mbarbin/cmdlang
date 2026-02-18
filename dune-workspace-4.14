@@ -6,7 +6,7 @@
  (repositories overlay upstream mbarbin)
  (constraints
   (ocaml
-   (= 4.14.2))))
+   (= 4.14.3))))
 
 (repository
  (name mbarbin)
