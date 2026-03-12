@@ -16,13 +16,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Install dunolint
-        uses: mbarbin/dunolint-actions/setup-dunolint@6b1c0591ba857063829211bc162712052889c4e2 # v1.0.0-alpha.4
+        uses: mbarbin/dunolint-actions/setup-dunolint@a29eea82e86ed2a5cc1ee25e15dc615d77ac4b4f # v1.0.0-alpha.5
         with:
-          dunolint-version: 0.0.20260211
-          dunolint-digest: sha256:8ce2817547a7b104b677e89baf6e6fcb8805811172ae9557505bdd866ee16fbc
+          dunolint-version: 0.0.20260306
+          dunolint-digest: sha256:b83c07dd352cd4bec36b872ac593f299972710baff70a62e7a4650e80d2460d4
 
       - name: Lint Check
-        uses: mbarbin/dunolint-actions/lint-check@6b1c0591ba857063829211bc162712052889c4e2 # v1.0.0-alpha.4
+        uses: mbarbin/dunolint-actions/lint-check@a29eea82e86ed2a5cc1ee25e15dc615d77ac4b4f # v1.0.0-alpha.5
