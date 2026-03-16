@@ -1,4 +1,6 @@
 #!/bin/bash -e
+# SPDX-FileCopyrightText: 2025-2026 Mathieu Barbin <mathieu.barbin@gmail.com>
+# SPDX-License-Identifier: MIT
 
 DIRS_FILE="$(dirname "$0")/.headache.dirs"
 
@@ -15,12 +17,19 @@ while IFS= read -r dir; do
     esac
     echo "Apply headache to directory ${dir}"
 
+    # Use per-directory COPYING.HEADER if it exists, otherwise fall back to root
+    if [ -f "${dir}/COPYING.HEADER" ]; then
+        header="${dir}/COPYING.HEADER"
+    else
+        header="COPYING.HEADER"
+    fi
+
     # Apply headache to .ml files
-    headache -c .headache.config -h COPYING.HEADER "${dir}"/*.ml
+    headache -c .headache.config -h "${header}" "${dir}"/*.ml
 
     # Check if .mli files exist in the directory, if so apply headache
     if ls "${dir}"/*.mli 1> /dev/null 2>&1; then
-        headache -c .headache.config -h COPYING.HEADER "${dir}"/*.mli
+        headache -c .headache.config -h "${header}" "${dir}"/*.mli
     fi
 done < "$DIRS_FILE"
 
