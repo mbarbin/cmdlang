@@ -1,0 +1,3 @@
+# Paths below are directory prefix recursively ignored by ./headache.sh
+doc/docs/guides/usage-styles/lib
+doc/docs/tutorials/getting-started
