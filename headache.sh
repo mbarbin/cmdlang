@@ -3,21 +3,25 @@
 # SPDX-License-Identifier: MIT
 
 SCRIPT_DIR="$(dirname "$0")"
-EXCLUDE_FILE="${SCRIPT_DIR}/.headache.exclude"
 
-# Build exclusion list from .headache.exclude.
-# Each line is a path prefix to recursively exclude.
+# Build exclusion list from all .headache.exclude files found in the tree.
+# Paths in each file are relative to the file's location.
 # Empty lines and lines starting with '#' are ignored.
 EXCLUDES=()
-if [ -f "$EXCLUDE_FILE" ]; then
+while IFS= read -r exclude_file; do
+    exclude_dir="$(dirname "$exclude_file")"
     while IFS= read -r line; do
         [ -z "$line" ] && continue
         case "$line" in
             \#*) continue ;;
         esac
-        EXCLUDES+=("$line")
-    done < "$EXCLUDE_FILE"
-fi
+        if [ "$exclude_dir" = "." ]; then
+            EXCLUDES+=("$line")
+        else
+            EXCLUDES+=("${exclude_dir}/${line}")
+        fi
+    done < "$exclude_file"
+done < <(git ls-files '*.headache.exclude')
 
 # Check if a directory matches any exclusion pattern (recursive).
 is_excluded() {
