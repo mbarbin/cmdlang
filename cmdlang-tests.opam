@@ -21,7 +21,6 @@ depends: [
   "core" {>= "v0.17"}
   "core_unix" {>= "v0.17"}
   "expect_test_helpers_core" {>= "v0.17"}
-  "loc" {>= "0.2.2"}
   "mdx" {>= "2.4"}
   "ppx_compare" {>= "v0.17"}
   "ppx_enumerate" {>= "v0.17"}

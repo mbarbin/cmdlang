@@ -23,8 +23,7 @@
   cmdliner
   core.command
   core_unix.command_unix
-  expect_test_helpers_core.expect_test_helpers_base
-  loc)
+  expect_test_helpers_core.expect_test_helpers_base)
  (instrumentation
   (backend bisect_ppx))
  (lint
