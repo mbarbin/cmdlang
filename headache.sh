@@ -2,8 +2,6 @@
 # SPDX-FileCopyrightText: 2025-2026 Mathieu Barbin <mathieu.barbin@gmail.com>
 # SPDX-License-Identifier: MIT
 
-SCRIPT_DIR="$(dirname "$0")"
-
 # Build exclusion list from all .headache.exclude files found in the tree.
 # Paths in each file are relative to the file's location.
 # Empty lines and lines starting with '#' are ignored.
