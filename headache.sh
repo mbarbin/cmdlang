@@ -2,35 +2,75 @@
 # SPDX-FileCopyrightText: 2025-2026 Mathieu Barbin <mathieu.barbin@gmail.com>
 # SPDX-License-Identifier: MIT
 
-DIRS_FILE="$(dirname "$0")/.headache.dirs"
+SCRIPT_DIR="$(dirname "$0")"
+EXCLUDE_FILE="${SCRIPT_DIR}/.headache.exclude"
 
-if [ ! -f "$DIRS_FILE" ]; then
-    echo "Directory list file '$DIRS_FILE' not found!" >&2
-    exit 1
+# Build exclusion list from .headache.exclude.
+# Each line is a path prefix to recursively exclude.
+# Empty lines and lines starting with '#' are ignored.
+EXCLUDES=()
+if [ -f "$EXCLUDE_FILE" ]; then
+    while IFS= read -r line; do
+        [ -z "$line" ] && continue
+        case "$line" in
+            \#*) continue ;;
+        esac
+        EXCLUDES+=("$line")
+    done < "$EXCLUDE_FILE"
 fi
 
-while IFS= read -r dir; do
-    # Ignore empty lines and lines starting with '#'
-    [ -z "$dir" ] && continue
-    case "$dir" in
-        \#*) continue ;;
-    esac
-    echo "Apply headache to directory ${dir}"
+# Check if a directory matches any exclusion pattern (recursive).
+is_excluded() {
+    local dir="$1"
+    for excl in "${EXCLUDES[@]}"; do
+        if [[ "$dir" == "$excl" ]] || [[ "$dir" == "$excl"/* ]]; then
+            return 0
+        fi
+    done
+    return 1
+}
 
-    # Use per-directory COPYING.HEADER if it exists, otherwise fall back to root
-    if [ -f "${dir}/COPYING.HEADER" ]; then
-        header="${dir}/COPYING.HEADER"
+# Find the nearest COPYING.HEADER by walking up from a directory.
+find_header() {
+    local dir="$1"
+    local current="$dir"
+    while [ "$current" != "." ] && [ "$current" != "/" ]; do
+        if [ -f "${current}/COPYING.HEADER" ]; then
+            echo "${current}/COPYING.HEADER"
+            return
+        fi
+        current="$(dirname "$current")"
+    done
+    # Fall back to root
+    if [ -f "COPYING.HEADER" ]; then
+        echo "COPYING.HEADER"
     else
-        header="COPYING.HEADER"
+        echo "No COPYING.HEADER found for ${dir}" >&2
+        return 1
+    fi
+}
+
+# Discover directories containing .ml or .mli files from tracked git files.
+dirs=$(git ls-files '*.ml' '*.mli' | xargs -n1 dirname | sort -u)
+
+for dir in $dirs; do
+    if is_excluded "$dir"; then
+        echo "Skipping excluded directory: ${dir}"
+        continue
     fi
 
-    # Apply headache to .ml files
-    headache -c .headache.config -h "${header}" "${dir}"/*.ml
+    header=$(find_header "$dir")
+    echo "Apply headache to directory ${dir} (header: ${header})"
 
-    # Check if .mli files exist in the directory, if so apply headache
+    # Apply headache to .ml files
+    if ls "${dir}"/*.ml 1> /dev/null 2>&1; then
+        headache -c .headache.config -h "${header}" "${dir}"/*.ml
+    fi
+
+    # Apply headache to .mli files
     if ls "${dir}"/*.mli 1> /dev/null 2>&1; then
         headache -c .headache.config -h "${header}" "${dir}"/*.mli
     fi
-done < "$DIRS_FILE"
+done
 
 dune fmt
