@@ -124,8 +124,6 @@
    (>= v0.17))
   (expect_test_helpers_core
    (>= v0.17))
-  (loc
-   (>= 0.2.2))
   (mdx
    (>= 2.4))
   (ppx_compare
