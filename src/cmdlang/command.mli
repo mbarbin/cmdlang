@@ -17,13 +17,13 @@
     following is a minimalist command that does nothing:
 
     {[
-      let cmd : unit Command.t =
-        Command.make
-          ~summary:"A command that does nothing."
-          (let open Command.Std in
-           let+ () = Arg.return () in
-           ())
-      ;;
+    let cmd : unit Command.t =
+      Command.make
+        ~summary:"A command that does nothing."
+        (let open Command.Std in
+         let+ () = Arg.return () in
+         ())
+    ;;
     ]}
 
     To get started with this API refers to this
@@ -107,13 +107,13 @@ module Nonempty_list : sig
       [string Nonempty_list.t] and may be used that way:
 
       {[
-        Arg.flag [ "verbose" ] ~doc:"Enable more output."
+      Arg.flag [ "verbose" ] ~doc:"Enable more output."
       ]}
 
       The point being that the following would be a type error:
 
       {[
-        Arg.flag [] ~doc:"Enable more output."
+      Arg.flag [] ~doc:"Enable more output."
       ]} *)
   type 'a t = 'a Cmdlang_ast.Ast.Nonempty_list.t = ( :: ) : 'a * 'a list -> 'a t
 end
@@ -126,7 +126,7 @@ end
     build a parser for it with:
 
     {[
-      Param.enumerated (module My_enum)
+    Param.enumerated (module My_enum)
     ]} *)
 
 module type Enumerated_stringable = sig
@@ -141,7 +141,7 @@ module type Enumerated_stringable = sig
       to be able to define an equality function between [t]s defined as such:
 
       {[
-        let equal a b = phys_equal a b || String.equal (to_string a) (to_string b)
+      let equal a b = phys_equal a b || String.equal (to_string a) (to_string b)
       ]} *)
   val to_string : t -> string
 end
@@ -234,22 +234,22 @@ module Param : sig
 
       Example:
       {[
-        module Color = struct
-          type t =
-            | Red
-            | Green
-            | Blue
+      module Color = struct
+        type t =
+          | Red
+          | Green
+          | Blue
 
-          let all = [ Red; Green; Blue ]
+        let all = [ Red; Green; Blue ]
 
-          let to_string = function
-            | Red -> "red"
-            | Green -> "green"
-            | Blue -> "blue"
-          ;;
-        end
+        let to_string = function
+          | Red -> "red"
+          | Green -> "green"
+          | Blue -> "blue"
+        ;;
+      end
 
-        let color_param = Param.enumerated ~docv:"COLOR" (module Color)
+      let color_param = Param.enumerated ~docv:"COLOR" (module Color)
       ]}
 
       The usage message will show the supported values for [COLOR]. *)
@@ -370,16 +370,16 @@ type 'a t
 
     Example:
     {[
-      let hello_cmd =
-        Command.make
-          ~summary:"Prints [\"Hello, world!\"]."
-          ~readme:(fun () ->
-            "This would usually be a longer description of the command.\n\
-             It can be written on multiple lines.")
-          (let open Command.Std in
-           let+ () = Arg.return () in
-           print_endline "Hello, world!")
-      ;;
+    let hello_cmd =
+      Command.make
+        ~summary:"Prints [\"Hello, world!\"]."
+        ~readme:(fun () ->
+          "This would usually be a longer description of the command.\n\
+           It can be written on multiple lines.")
+        (let open Command.Std in
+         let+ () = Arg.return () in
+         print_endline "Hello, world!")
+    ;;
     ]} *)
 val make : ?readme:(unit -> string) -> 'a Arg.t -> summary:string -> 'a t
 
@@ -394,11 +394,11 @@ val make : ?readme:(unit -> string) -> 'a Arg.t -> summary:string -> 'a t
 
     Example of a group with no default command:
     {[
-      let cmd_group =
-        Command.group
-          ~summary:"A group of related commands."
-          [ "hello", hello_cmd; "goodbye", goodbye_cmd ]
-      ;;
+    let cmd_group =
+      Command.group
+        ~summary:"A group of related commands."
+        [ "hello", hello_cmd; "goodbye", goodbye_cmd ]
+    ;;
     ]}
 
     Each command in the group may itself be a group, allowing for hierarchical
@@ -445,13 +445,13 @@ end
     For use with the [( let+ )] style:
 
     {[
-      let cmd : unit Command.t =
-        Command.make
-          ~summary:"A command that does nothing."
-          (let open Command.Std in
-           let+ () = Arg.return () in
-           ())
-      ;;
+    let cmd : unit Command.t =
+      Command.make
+        ~summary:"A command that does nothing."
+        (let open Command.Std in
+         let+ () = Arg.return () in
+         ())
+    ;;
     ]} *)
 
 module Std : sig
@@ -466,12 +466,12 @@ end
     For use with the [( let%map_open.Command )] style:
 
     {[
-      let cmd : unit Command.t =
-        Command.make
-          ~summary:"A command that does nothing."
-          (let%map_open.Command () = Arg.return () in
-           ())
-      ;;
+    let cmd : unit Command.t =
+      Command.make
+        ~summary:"A command that does nothing."
+        (let%map_open.Command () = Arg.return () in
+         ())
+    ;;
     ]} *)
 
 module Let_syntax : sig

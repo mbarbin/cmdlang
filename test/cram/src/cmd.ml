@@ -265,15 +265,15 @@ module Named = struct
            ;;
          end
          in
-        let open Command.Std in
-        let+ e =
-          Arg.named_with_default
-            [ "who" ]
-            (Param.create_with_pp ~docv:"(A|B)" ~parse:E.parse ~pp:E.pp ())
-            ~default:A
-            ~doc:"Greet A or B?"
-        in
-        print_endline ("Hello " ^ E.to_string e))
+         let open Command.Std in
+         let+ e =
+           Arg.named_with_default
+             [ "who" ]
+             (Param.create_with_pp ~docv:"(A|B)" ~parse:E.parse ~pp:E.pp ())
+             ~default:A
+             ~doc:"Greet A or B?"
+         in
+         print_endline ("Hello " ^ E.to_string e))
     ;;
 
     let pos_int =
@@ -313,15 +313,15 @@ module Named = struct
            let of_string t = t
          end
          in
-        let open Command.Std in
-        let+ e =
-          Arg.named_with_default
-            [ "who" ]
-            (Param.stringable (module Id))
-            ~default:(Id.of_string "my-id")
-            ~doc:"identifier"
-        in
-        print_endline ("Hello " ^ Id.to_string e))
+         let open Command.Std in
+         let+ e =
+           Arg.named_with_default
+             [ "who" ]
+             (Param.stringable (module Id))
+             ~default:(Id.of_string "my-id")
+             ~doc:"identifier"
+         in
+         print_endline ("Hello " ^ Id.to_string e))
     ;;
 
     let validated =
@@ -359,15 +359,15 @@ module Named = struct
            ;;
          end
          in
-        let open Command.Std in
-        let+ e =
-          Arg.named_with_default
-            [ "who" ]
-            (Param.validated_string (module Id4))
-            ~default:Id4.default
-            ~doc:"4 letters alphanumerical identifier"
-        in
-        print_endline ("Hello " ^ Id4.to_string e))
+         let open Command.Std in
+         let+ e =
+           Arg.named_with_default
+             [ "who" ]
+             (Param.validated_string (module Id4))
+             ~default:Id4.default
+             ~doc:"4 letters alphanumerical identifier"
+         in
+         print_endline ("Hello " ^ Id4.to_string e))
     ;;
 
     let comma_separated =
