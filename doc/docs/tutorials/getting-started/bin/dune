@@ -3,6 +3,6 @@
  (public_name docs-getting-started-main)
  (package cmdlang-dev)
  (flags :standard -w +a-4-40-41-42-44-45-48-66 -warn-error +a)
- (libraries cmdlang-to-cmdliner cmdliner getting_started)
+ (libraries cmdlang-to-cmdliner cmdliner dune-build-info getting_started)
  (instrumentation
   (backend bisect_ppx)))

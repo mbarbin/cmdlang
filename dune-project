@@ -122,6 +122,8 @@
    (>= v0.17))
   (core_unix
    (>= v0.17))
+  (dune-build-info
+   (>= 3.17))
   (expect_test_helpers_core
    (>= v0.17))
   (mdx
@@ -177,6 +179,8 @@
     (>= 1.3.0)
     (< 2.0)))
   conf-jq
+  (dune-build-info
+   (>= 3.17))
   (mdx
    (>= 2.4))
   (ppx_compare

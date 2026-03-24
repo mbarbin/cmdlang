@@ -3,7 +3,7 @@
  (public_name cram-test-main_cmdliner)
  (package cmdlang-tests)
  (flags :standard -w +a-4-40-41-42-44-45-48-66 -warn-error +a)
- (libraries cmdlang_to_cmdliner cmdliner cram_command_test)
+ (libraries cmdlang_to_cmdliner cmdliner cram_command_test dune-build-info)
  (instrumentation
   (backend bisect_ppx))
  (lint

@@ -1,10 +1,16 @@
+let version =
+  match Build_info.V1.version () with
+  | None -> "n/a"
+  | Some v -> Build_info.V1.Version.to_string v
+;;
+
 let () =
   let code =
     Cmdliner.Cmd.eval
       (Cmdlang_to_cmdliner.Translate.command
          Getting_started.cmd
          ~name:"my-calculator"
-         ~version:"%%VERSION%%")
+         ~version)
   in
   (* We disable coverage here because [bisect_ppx] instruments the out-edge of
      calls to [exit], which never returns. This creates false negatives in test
