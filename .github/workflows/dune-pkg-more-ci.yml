@@ -30,6 +30,13 @@ jobs:
           - "5.3"
           - "5.2"
           - "4.14"
+        include:
+          - os: ubuntu-latest
+            dune-version: "3.22.0"
+            dune-digest: "sha256:33ca9308b48d9f5e90ee34f5b1045b53df6b5780a188556dab72af53621b5fba"
+          - os: macos-latest
+            dune-version: "3.22.0"
+            dune-digest: "sha256:66aa2c005b1c5c60daf711aee0630cc988b6038aa86ca807879e281145f232cb"
         exclude:
           # Exclude the combination already tested in the main ci workflow.
           - os: ubuntu-latest
@@ -47,16 +54,19 @@ jobs:
 
       - name: Environment setup
         run: |
-          echo "DUNE_WORKSPACE=$PWD/dune-workspace-${{ matrix.ocaml-version }}" >> "$GITHUB_ENV"
+          echo "DUNE_WORKSPACE=$PWD/dune-workspace.${{ matrix.ocaml-version }}" >> "$GITHUB_ENV"
           PACKAGES=$(script/ci-packages/run.sh "${{ matrix.os }}" "${{ matrix.ocaml-version }}" dune)
           echo "PACKAGES=$PACKAGES" >> "$GITHUB_ENV"
 
       - name: Setup Dune
-        uses: mbarbin/setup-dune@ae2985bcdedc6fb24e5743d6f9dace9cf262b41c # v2.0.0+patch-4
+        uses: mbarbin/setup-dune@03ede0220d3fe665f250727d8e21b7c0f9517f3b # v2.0.0+patch-7
+        env:
+          GH_TOKEN: ${{ github.token }}
         with:
-          version: "3.21.0"
-          workspace: ${{ env.DUNE_WORKSPACE }}
-          cache-prefix: ${{ matrix.ocaml-version }}
+          version: "${{ matrix.dune-version }}"
+          dune-digest: "${{ matrix.dune-digest }}"
+          workspace: "${{ env.DUNE_WORKSPACE }}"
+          cache-prefix: "${{ matrix.ocaml-version }}"
           cache-readonly: ${{ github.ref != 'refs/heads/main' }}
           only-packages: ${{ env.PACKAGES }}
           steps: install-dune enable-pkg lazy-update-depexts install-gpatch install-depexts

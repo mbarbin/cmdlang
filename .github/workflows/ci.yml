@@ -30,7 +30,7 @@ jobs:
       - name: Setup OCaml
         uses: ocaml/setup-ocaml@dec6499fef64fc5d7ed43d43a87251b7b1c306f5 # v3.4.8
         with:
-          ocaml-compiler: ${{ matrix.ocaml-compiler }}
+          ocaml-compiler: "${{ matrix.ocaml-compiler }}"
           dune-cache: true
           opam-repositories: |
             default: https://github.com/ocaml/opam-repository.git

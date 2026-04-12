@@ -19,8 +19,8 @@ jobs:
       - name: Install crs
         uses: mbarbin/crs-actions/setup-crs@1496bc422fe27b357d6354ab494e922f6a2b061f # v1.0.0-alpha.13
         with:
-          crs-version: 0.0.20260307
-          crs-digest: sha256:5097e709386d8d41351a87f86c8ad374db72aabe4ddc2a8ff2d58faebb1b889f
+          crs-version: "0.0.20260307"
+          crs-digest: "sha256:5097e709386d8d41351a87f86c8ad374db72aabe4ddc2a8ff2d58faebb1b889f"
 
       - name: Summarize CRs in PR
         uses: mbarbin/crs-actions/summarize-crs-in-pr@1496bc422fe27b357d6354ab494e922f6a2b061f # v1.0.0-alpha.13
