@@ -15,6 +15,8 @@
 
 ### Deprecated
 
+- Deprecate `Param.create` and migrate it to `create_with_pp` (#55, @mbarbin).
+
 ### Fixed
 
 - Fixes to satisfy the `unused-libs` dune build target (#52, @mbarbin).
