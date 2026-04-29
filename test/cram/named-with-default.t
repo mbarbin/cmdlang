@@ -256,14 +256,13 @@ functions or parsers generated from modules with utils.
         --who <(A|B)>  Greet A or B?
     -h, --help         Show this help message.
 
-  $ ./main_cmdliner.exe named with-default create --help=plain
+  $ ./main_cmdliner.exe named with-default create --help=plain | awk -f unwrap-cmdliner.awk
   NAME
          ./main_cmdliner.exe-named-with-default-create -
          Named_with_default__create
   
   SYNOPSIS
-         ./main_cmdliner.exe named with-default create [--who=(A|B)]
-         [OPTION]…
+         ./main_cmdliner.exe named with-default create [--who=(A|B)] [OPTION]…
   
   OPTIONS
          --who=(A|B) (absent=A)
@@ -408,14 +407,13 @@ Named-with-default with a validated string parameter.
         --who <VAL>  4 letters alphanumerical identifier
     -h, --help       Show this help message.
 
-  $ ./main_cmdliner.exe named with-default validated --help=plain
+  $ ./main_cmdliner.exe named with-default validated --help=plain | awk -f unwrap-cmdliner.awk
   NAME
          ./main_cmdliner.exe-named-with-default-validated -
          Named_with_default__validated
   
   SYNOPSIS
-         ./main_cmdliner.exe named with-default validated [--who=VAL]
-         [OPTION]…
+         ./main_cmdliner.exe named with-default validated [--who=VAL] [OPTION]…
   
   OPTIONS
          --who=VAL (absent=0000)

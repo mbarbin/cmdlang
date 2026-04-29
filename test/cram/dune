@@ -25,4 +25,5 @@
   main_base.exe
   main_climate.exe
   main_cmdliner.exe
-  main_stdlib_runner.exe))
+  main_stdlib_runner.exe
+  unwrap-cmdliner.awk))
