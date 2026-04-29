@@ -24,6 +24,7 @@
         "opam",
         "ppxlib",
         "prerr",
+        "runtest",
         "sexp",
         "sherlodoc",
         "sprintf",
