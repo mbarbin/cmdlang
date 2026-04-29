@@ -48,20 +48,10 @@
    (= :version))
   (core
    (>= v0.17))
-  (ppx_compare
-   (>= v0.17))
-  (ppx_enumerate
-   (>= v0.17))
-  (ppx_let
-   (>= v0.17))
-  (ppx_sexp_conv
-   (>= v0.17))
   (ppx_sexp_value
    (>= v0.17))
   (ppxlib
-   (>= 0.33))
-  (stdio
-   (>= v0.17))))
+   (>= 0.33))))
 
 (package
  (name cmdlang-to-cmdliner)
@@ -134,8 +124,6 @@
    (>= v0.17))
   (ppx_expect
    (>= v0.17))
-  (ppx_hash
-   (>= v0.17))
   (ppx_here
    (>= v0.17))
   (ppx_let
@@ -188,8 +176,6 @@
   (ppx_enumerate
    (>= v0.17))
   (ppx_expect
-   (>= v0.17))
-  (ppx_hash
    (>= v0.17))
   (ppx_here
    (>= v0.17))

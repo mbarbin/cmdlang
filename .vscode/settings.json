@@ -1,14 +1,34 @@
 {
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "files.associations": {
+        "**/crs-config.json": "jsonc"
+    },
     "cSpell.words": [
+        "alist",
+        "Barbin",
         "cmdlang",
         "cmdliner",
         "conv",
         "docv",
+        "EDSL",
+        "endline",
         "Fpath",
         "groff",
         "janestreet",
+        "Mathieu",
+        "mbarbin",
+        "ocamlformat",
+        "ocamlmig",
         "odoc",
         "opam",
+        "ppxlib",
+        "prerr",
+        "runtest",
+        "sexp",
+        "sherlodoc",
+        "sprintf",
+        "Stdlib",
         "stdune",
         "stringable"
     ]
