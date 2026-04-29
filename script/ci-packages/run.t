@@ -5,7 +5,7 @@ Missing arguments:
   $ ./run.sh
   Usage: run.sh <os> <version> <format>
     os:      Operating system (e.g., ubuntu-latest, windows-latest, macos-latest)
-    version: OCaml version (e.g., 4.14, 5.2, 5.3, 5.4)
+    version: OCaml version (e.g., 4.14, 5.2, 5.3, 5.4, 5.5)
     format:  Output format (dune|opam)
   [1]
 
