@@ -1,0 +1,17 @@
+(lang dune 3.20)
+
+(pkg enabled)
+
+(lock_dir
+ (repositories overlay upstream alpha mbarbin)
+ (constraints
+  (ocaml
+   (= 5.5.0))))
+
+(repository
+ (name mbarbin)
+ (url "git+https://github.com/mbarbin/opam-repository.git"))
+
+(repository
+ (name alpha)
+ (url "git+https://github.com/kit-ty-kate/opam-alpha-repository.git"))
