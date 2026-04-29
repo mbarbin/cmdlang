@@ -16,7 +16,7 @@ module Config = struct
 end
 
 module Nonempty_list = struct
-  type 'a t = 'a Cmdlang.Command.Nonempty_list.t = ( :: ) : 'a * 'a list -> 'a t
+  type 'a t = 'a Cmdlang.Command.Nonempty_list.t = ( :: ) of 'a * 'a list
 end
 
 module Param = struct

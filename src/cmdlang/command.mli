@@ -115,7 +115,7 @@ module Nonempty_list : sig
       {[
       Arg.flag [] ~doc:"Enable more output."
       ]} *)
-  type 'a t = 'a Cmdlang_ast.Ast.Nonempty_list.t = ( :: ) : 'a * 'a list -> 'a t
+  type 'a t = 'a Cmdlang_ast.Ast.Nonempty_list.t = ( :: ) of 'a * 'a list
 end
 
 (** {1 Interfaces}
