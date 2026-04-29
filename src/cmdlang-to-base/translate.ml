@@ -194,8 +194,7 @@ module Command = struct
         Command.basic
           ~summary
           ?readme
-          (let%map_open.Command () = param in
-           fun () -> ())
+          (Command.Let_syntax.Let_syntax.map param ~f:(fun () -> fun () -> ()))
       | Group { default = _; readme; summary; subcommands } ->
         Command.group
           ~summary

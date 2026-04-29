@@ -28,8 +28,6 @@
    ppx_compare
    ppx_enumerate
    ppx_expect
-   ppx_hash
    ppx_here
-   ppx_let
    ppx_sexp_conv
    ppx_sexp_value)))
