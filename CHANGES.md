@@ -5,10 +5,19 @@
 ### Changed
 
 - Simplify type definition of `Nonempty_list` to align it with other libs (#54, @mbarbin).
+- Upgrade `ocamlformat` to `0.29.0` (@mbarbin).
+- Improve `headache` configuration (@mbarbin).
+- Upgrade `dunolint` and `crs` actions (#41, #42, #51, @mbarbin).
+- Improvement to CI (#34, #35, #44, #45, #46, #50, @mbarbin).
+- Use and enforce SHA pins in GitHub actions (@mbarbin).
+- Improve selection of packages to build in CIs (#43, @mbarbin).
+- Improve project pkg directory structure (#40, @mbarbin).
 
 ### Deprecated
 
 ### Fixed
+
+- Fixes to satisfy the `unused-libs` dune build target (#52, @mbarbin).
 
 ### Removed
 
