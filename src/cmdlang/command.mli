@@ -268,14 +268,20 @@ module Param : sig
 
   (** {1 Deprecated} *)
 
-  (** An alias for {!val:create_with_pp}. Note that in a future version, we'll
-      deprecate this and eventually connect it back to {!val:create'}. This
-      transition will be done in the course of several [ocamlmig] migrations. *)
+  (** This is now available as {!val:create_with_pp}. You may migrate your code by
+      running [ocamlmig migrate], or upgrade the call site to use instead the
+      function {!val:create'}. Note that in a future version, [create] will be
+      removed and then reintroduced as the canonical name for what is now
+      available with the name {!val:create'}. This transition will be done in
+      the course of several upgrades and migrations. *)
   val create
     :  docv:string
     -> parse:'a of_string
     -> print:(Format.formatter -> 'a -> unit)
     -> 'a t
+  [@@ocaml.deprecated
+    "[since 2026-04] Use [Param.create'] or [Param.create_with_pp]. Hint: Run [ocamlmig \
+     migrate]"]
   [@@migrate
     { repl = (fun ~docv ~parse ~print -> Rel.create_with_pp ~docv ~parse ~pp:print ()) }]
 end
