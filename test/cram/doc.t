@@ -181,14 +181,13 @@ help pages.
   Options:
     -h, --help  Show this help message.
 
-  $ ./main_cmdliner.exe doc args-doc-end-with-dots --help=plain
+  $ ./main_cmdliner.exe doc args-doc-end-with-dots --help=plain | awk -f unwrap-cmdliner.awk
   NAME
          ./main_cmdliner.exe-doc-args-doc-end-with-dots - Args doc end with
          dots.
   
   SYNOPSIS
-         ./main_cmdliner.exe doc args-doc-end-with-dots [OPTION]… STRING
-         STRING
+         ./main_cmdliner.exe doc args-doc-end-with-dots [OPTION]… STRING STRING
   
   ARGUMENTS
          STRING (required)
