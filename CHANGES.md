@@ -4,7 +4,7 @@
 
 ### Changed
 
-- Simplify type definition of `Nonempty_list` to align it with other libs (@mbarbin).
+- Simplify type definition of `Nonempty_list` to align it with other libs (#54, @mbarbin).
 
 ### Deprecated
 
