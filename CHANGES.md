@@ -1,3 +1,17 @@
+## 0.0.11 (unreleased)
+
+### Added
+
+### Changed
+
+- Simplify type definition of `Nonempty_list` to align it with other libs (@mbarbin).
+
+### Deprecated
+
+### Fixed
+
+### Removed
+
 ## 0.0.10 (2025-09-19)
 
 ### Added

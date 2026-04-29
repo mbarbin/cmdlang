@@ -5,7 +5,7 @@
 (*********************************************************************************)
 
 module Nonempty_list = struct
-  type 'a t = 'a Cmdlang_ast.Ast.Nonempty_list.t = ( :: ) : 'a * 'a list -> 'a t
+  type 'a t = 'a Cmdlang_ast.Ast.Nonempty_list.t = ( :: ) of 'a * 'a list
 end
 
 module type Enumerated_stringable = sig

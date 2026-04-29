@@ -26,7 +26,7 @@ type 'a of_string := string -> 'a or_error_msg
 type 'a to_string := 'a -> string
 
 module Nonempty_list : sig
-  type 'a t = ( :: ) : 'a * 'a list -> 'a t
+  type 'a t = ( :: ) of 'a * 'a list
 end
 
 module Param : sig
