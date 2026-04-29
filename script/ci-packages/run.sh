@@ -21,7 +21,7 @@ PROG_NAME="run.sh"
 usage() {
   echo "Usage: $PROG_NAME <os> <version> <format>" >&2
   echo "  os:      Operating system (e.g., ubuntu-latest, windows-latest, macos-latest)" >&2
-  echo "  version: OCaml version (e.g., 4.14, 5.2, 5.3)" >&2
+  echo "  version: OCaml version (e.g., 4.14, 5.2, 5.3, 5.4)" >&2
   echo "  format:  Output format (dune|opam)" >&2
   exit 1
 }

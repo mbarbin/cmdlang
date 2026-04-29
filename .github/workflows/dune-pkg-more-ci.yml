@@ -27,6 +27,7 @@ jobs:
           - ubuntu-latest
           - macos-latest
         ocaml-version:
+          - "5.4"
           - "5.3"
           - "5.2"
           - "4.14"
