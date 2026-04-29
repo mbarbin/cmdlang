@@ -48,18 +48,10 @@
    (= :version))
   (core
    (>= v0.17))
-  (ppx_compare
-   (>= v0.17))
-  (ppx_enumerate
-   (>= v0.17))
-  (ppx_sexp_conv
-   (>= v0.17))
   (ppx_sexp_value
    (>= v0.17))
   (ppxlib
-   (>= 0.33))
-  (stdio
-   (>= v0.17))))
+   (>= 0.33))))
 
 (package
  (name cmdlang-to-cmdliner)
