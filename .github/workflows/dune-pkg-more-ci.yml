@@ -27,17 +27,18 @@ jobs:
           - ubuntu-latest
           - macos-latest
         ocaml-version:
+          - "5.5"
           - "5.4"
           - "5.3"
           - "5.2"
           - "4.14"
         include:
           - os: ubuntu-latest
-            dune-version: "3.22.0"
-            dune-digest: "sha256:33ca9308b48d9f5e90ee34f5b1045b53df6b5780a188556dab72af53621b5fba"
+            dune-version: "3.23.0"
+            dune-digest: "sha256:5588605a056545459833b10fcbfffa240841fa440d92862bfe94a4c8bfc52400"
           - os: macos-latest
-            dune-version: "3.22.0"
-            dune-digest: "sha256:66aa2c005b1c5c60daf711aee0630cc988b6038aa86ca807879e281145f232cb"
+            dune-version: "3.23.0"
+            dune-digest: "sha256:daeaaf1582250706ee1dd12d10a2eef529d3cd68c2e24e6222734b411dd523b8"
         exclude:
           # Exclude the combination already tested in the main ci workflow.
           - os: ubuntu-latest
