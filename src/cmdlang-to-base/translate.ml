@@ -29,7 +29,8 @@ module Param = struct
         let parse s =
           match of_string s with
           | Ok ok -> ok
-          | Error (`Msg str) -> Error.raise_s [%sexp Msg (str : string)]
+          | Error (`Msg str) ->
+            Error.raise_s (Sexp.List [ Atom "Msg"; Atom (str : string) ])
         in
         Command.Arg_type.create parse
       | String -> Command.Arg_type.Export.string
@@ -86,9 +87,13 @@ module Arg = struct
     then last_positional_index := next_positional_index
     else
       Error.raise_s
-        [%sexp
-          "Positional arguments must be supplied in consecutive order"
-        , { expected : int; got = (next_positional_index : int) }]
+        (Sexp.List
+           [ Atom "Positional arguments must be supplied in consecutive order"
+           ; List
+               [ List [ Atom "expected"; expected |> sexp_of_int ]
+               ; List [ Atom "got"; next_positional_index |> sexp_of_int ]
+               ]
+           ])
   ;;
 
   let translate : type a. a Ast.Arg.t -> config:Config.t -> a t =
@@ -114,9 +119,13 @@ module Arg = struct
         Command.Param.flag ~aliases name flag ~doc
       | Flag_count { names = hd :: tl; doc } ->
         raise_s
-          [%sexp
-            "Flag_count not supported by core.command"
-          , { names = (hd :: tl : string list); doc : string }]
+          (Sexp.List
+             [ Atom "Flag_count not supported by core.command"
+             ; List
+                 [ List [ Atom "names"; hd :: tl |> sexp_of_list sexp_of_string ]
+                 ; List [ Atom "doc"; doc |> sexp_of_string ]
+                 ]
+             ])
       | Named { names; param; docv; doc } ->
         let (name :: aliases) = translate_flag_names names ~config in
         let arg_type = Param.translate param ~config in
