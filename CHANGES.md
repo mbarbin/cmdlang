@@ -25,7 +25,7 @@
 
 ### Removed
 
-- Simplify and removed some unused deps (#57, @mbarbin).
+- Simplify and removed some unused or non-essential deps (#57, #58, @mbarbin).
 
 ## 0.0.10 (2025-09-19)
 
