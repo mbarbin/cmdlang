@@ -2,6 +2,8 @@
 
 ### Added
 
+- Enabled OCaml 5.4 and 5.5 in CI (#56, 44fcd89, @mbarbin).
+
 ### Changed
 
 - Simplify type definition of `Nonempty_list` to align it with other libs (#54, @mbarbin).
@@ -22,6 +24,8 @@
 - Fixes to satisfy the `unused-libs` dune build target (#52, @mbarbin).
 
 ### Removed
+
+- Simplify and removed some unused deps (#57, @mbarbin).
 
 ## 0.0.10 (2025-09-19)
 
