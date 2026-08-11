@@ -47,8 +47,8 @@ let%expect_test "flag" =
       -h, --help         Show this help message.
     Unknown argument name: -p
     ----------------------------------------------------- Cmdliner
-    Usage: [01mtest[m [[01m--help[m] [[01m--print-hello[m] [[04mOPTION[m]…
-    test: [31munknown[m option [01m-p[m
+    Usage: test [--help] [--print-hello] [OPTION]…
+    test: unknown option '-p'
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
@@ -80,8 +80,8 @@ let%expect_test "flag" =
       -h, --help         Show this help message.
     Unknown argument name: -p
     ----------------------------------------------------- Cmdliner
-    Usage: [01mtest[m [[01m--help[m] [[01m--print-hello[m] [[04mOPTION[m]…
-    test: [31munknown[m option [01m-p[m. Did you mean [01m--print-hello[m?
+    Usage: test [--help] [--print-hello] [OPTION]…
+    test: unknown option '-p'. Did you mean '--print-hello'?
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" (

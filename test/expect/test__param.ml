@@ -57,8 +57,8 @@ let%expect_test "int" =
       -h, --help  Show this help message.
     Failed to parse the argument at position 0: invalid value: "not-an-int" (not an int)
     ----------------------------------------------------- Cmdliner
-    Usage: [01mtest[m [[01m--help[m] [[04mOPTION[m]… [04mINT[m
-    test: [04mINT[m argument: [31minvalid[m value [01mnot-an-int[m, expected an integer
+    Usage: test [--help] [OPTION]… INT
+    test: INT argument: invalid value 'not-an-int', expected an integer
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
@@ -119,9 +119,9 @@ let%expect_test "float" =
       -h, --help  Show this help message.
     Failed to parse the argument at position 0: invalid value: "not-an-number" (not an float)
     ----------------------------------------------------- Cmdliner
-    Usage: [01mtest[m [[01m--help[m] [[04mOPTION[m]… [04mFLOAT[m
-    test: [04mFLOAT[m argument: [31minvalid[m value [01mnot-an-number[m, expected a floating point
-          number
+    Usage: test [--help] [OPTION]… FLOAT
+    test: FLOAT argument: invalid value 'not-an-number', expected a floating
+          point number
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
@@ -182,8 +182,9 @@ let%expect_test "bool" =
       -h, --help  Show this help message.
     Failed to parse the argument at position 0: invalid value: "not-a-bool" (not an bool)
     ----------------------------------------------------- Cmdliner
-    Usage: [01mtest[m [[01m--help[m] [[04mOPTION[m]… [04mBOOL[m
-    test: [04mBOOL[m argument: [31minvalid[m value [01mnot-a-bool[m, expected either [01mtrue[m or [01mfalse[m
+    Usage: test [--help] [OPTION]… BOOL
+    test: BOOL argument: invalid value 'not-a-bool', expected either 'true' or
+          'false'
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
@@ -219,8 +220,8 @@ let%expect_test "file" =
     ----------------------------------------------------- Climate
     foo.txt
     ----------------------------------------------------- Cmdliner
-    Usage: [01mtest[m [[01m--help[m] [[04mOPTION[m]… [04mFILE[m
-    test: [04mFILE[m argument: no [01mfoo.txt[m file or directory
+    Usage: test [--help] [OPTION]… FILE
+    test: FILE argument: no 'foo.txt' file or directory
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     foo.txt
@@ -293,8 +294,8 @@ let%expect_test "enumerated" =
       -h, --help  Show this help message.
     Failed to parse the argument at position 0: invalid value: "Not_an_e" (valid values are: A, B)
     ----------------------------------------------------- Cmdliner
-    Usage: [01mtest[m [[01m--help[m] [[04mOPTION[m]… [04mENUM[m
-    test: [04mENUM[m argument: [31minvalid[m value [01mNot_an_e[m, expected either [01mA[m or [01mB[m
+    Usage: test [--help] [OPTION]… ENUM
+    test: ENUM argument: invalid value 'Not_an_e', expected either 'A' or 'B'
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
@@ -416,8 +417,8 @@ let%expect_test "validated_string" =
       -h, --help  Show this help message.
     Failed to parse the argument at position 0: invalid id
     ----------------------------------------------------- Cmdliner
-    Usage: [01mtest[m [[01m--help[m] [[04mOPTION[m]… [04mVALUE[m
-    test: [04mVALUE[m argument: invalid id
+    Usage: test [--help] [OPTION]… VALUE
+    test: VALUE argument: invalid id
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
@@ -540,9 +541,9 @@ let%expect_test "comma_separated" =
       -h, --help  Show this help message.
     Failed to parse the argument at position 0: invalid value: "Not_an_e" (valid values are: A, B)
     ----------------------------------------------------- Cmdliner
-    Usage: [01mtest[m [[01m--help[m] [[04mOPTION[m]… [04mENUM[,…][m
-    test: [04mENUM[,…][m argument: [31minvalid[m element in list ([01mNot_an_e[m): [31minvalid[m value
-          [01mNot_an_e[m, expected either [01mA[m or [01mB[m
+    Usage: test [--help] [OPTION]… ENUM[,…]
+    test: ENUM[,…] argument: invalid element in list ('Not_an_e'): invalid
+          value 'Not_an_e', expected either 'A' or 'B'
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
