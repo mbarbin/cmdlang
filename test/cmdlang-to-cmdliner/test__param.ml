@@ -18,8 +18,12 @@ let%expect_test "param" =
   conv Command.Param.int [%sexp_of: int] [ ""; "a"; "0"; "42"; "-17" ];
   [%expect
     {|
-    ("" (Error (Msg "invalid value '', expected an integer")))
-    (a (Error (Msg "invalid value 'a', expected an integer")))
+    ("" (
+      Error (
+        Msg "\027[31minvalid\027[m value \027[01m\027[m, expected an integer")))
+    (a (
+      Error (
+        Msg "\027[31minvalid\027[m value \027[01ma\027[m, expected an integer")))
     (0 (Ok 0))
     (42 (Ok 42))
     (-17 (Ok -17))

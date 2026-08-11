@@ -47,9 +47,8 @@ let%expect_test "flag" =
       -h, --help         Show this help message.
     Unknown argument name: -p
     ----------------------------------------------------- Cmdliner
-    test: unknown option '-p'.
-    Usage: test [--print-hello] [OPTION]…
-    Try 'test --help' for more information.
+    Usage: [01mtest[m [[01m--help[m] [[01m--print-hello[m] [[04mOPTION[m]…
+    test: [31munknown[m option [01m-p[m
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
@@ -81,9 +80,8 @@ let%expect_test "flag" =
       -h, --help         Show this help message.
     Unknown argument name: -p
     ----------------------------------------------------- Cmdliner
-    test: unknown option '-p', did you mean '--print-hello'?
-    Usage: test [--print-hello] [OPTION]…
-    Try 'test --help' for more information.
+    Usage: [01mtest[m [[01m--help[m] [[01m--print-hello[m] [[04mOPTION[m]…
+    test: [31munknown[m option [01m-p[m. Did you mean [01m--print-hello[m?
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
@@ -173,9 +171,8 @@ let%expect_test "1-letter-flag" =
       -h, --help  Show this help message.
     Single-character names must only be specified with a single dash. "--p" is not allowed as it has two dashes but only one character.
     ----------------------------------------------------- Cmdliner
-    test: unknown option '--p', did you mean '-p'?
-    Usage: test [-p] [OPTION]…
-    Try 'test --help' for more information.
+    Usage: [01mtest[m [[01m--help[m] [[01m-p[m] [[04mOPTION[m]…
+    test: [31munknown[m option [01m--p[m. Did you mean [01m-p[m?
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
@@ -439,9 +436,8 @@ let%expect_test "user provided dashes" =
       Failure
       "Error in argument spec: Attempted to use \"-a\" as an argument name. \"-a\" is not a valid argument name because it begins with a dash which is not allowed."))
     ----------------------------------------------------- Cmdliner
-    test: unknown option '-a'.
-    Usage: test [---a] [OPTION]…
-    Try 'test --help' for more information.
+    Usage: [01mtest[m [[01m--help[m] [[01m---a[m] [[04mOPTION[m]…
+    test: [31munknown[m option [01m-a[m
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" (

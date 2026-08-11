@@ -26,9 +26,8 @@ let%expect_test "pos" =
       -h, --help  Show this help message.
     Missing required positional argument at position 0.
     ----------------------------------------------------- Cmdliner
-    test: required argument WHO is missing
-    Usage: test [OPTION]… WHO
-    Try 'test --help' for more information.
+    Usage: [01mtest[m [[01m--help[m] [[04mOPTION[m]… [04mWHO[m
+    test: required argument [04mWHO[m is [31mmissing[m
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" "missing anonymous argument: WHO")
@@ -69,9 +68,8 @@ let%expect_test "skipping-pos" =
       Failure
       "Error in argument spec: Attempted to declare a parser with a gap in its positional arguments. No parser would interpret the argument at position 0 but there is a parser for at least one argument at a higher position."))
     ----------------------------------------------------- Cmdliner
-    test: required argument WHO is missing
-    Usage: test [OPTION]… WHO
-    Try 'test --help' for more information.
+    Usage: [01mtest[m [[01m--help[m] [[04mOPTION[m]… [04mWHO[m
+    test: required argument [04mWHO[m is [31mmissing[m
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     ("Translation Raised" (
@@ -93,9 +91,8 @@ let%expect_test "skipping-pos" =
       Failure
       "Error in argument spec: Attempted to declare a parser with a gap in its positional arguments. No parser would interpret the argument at position 0 but there is a parser for at least one argument at a higher position."))
     ----------------------------------------------------- Cmdliner
-    test: required argument WHO is missing
-    Usage: test [OPTION]… WHO
-    Try 'test --help' for more information.
+    Usage: [01mtest[m [[01m--help[m] [[04mOPTION[m]… [04mWHO[m
+    test: required argument [04mWHO[m is [31mmissing[m
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     ("Translation Raised" (

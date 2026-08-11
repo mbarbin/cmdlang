@@ -264,7 +264,7 @@ NAME
        my-calculator - A simple calculator.
 
 SYNOPSIS
-       my-calculator [--op=OP] [--verbose] [OPTION]… a b
+       my-calculator --op=OP [--verbose] [OPTION]… a b
 
 ARGUMENTS
        a (required)
@@ -308,19 +308,17 @@ Additionally, we don't need to worry about handling invalid usages, this is done
 
 ```sh
 $ ./my-calculator --op=not-found 1 2.5
-my-calculator: option '--op': invalid value 'not-found', expected either
-               'add' or 'mul'
-Usage: my-calculator [--op=OP] [--verbose] [OPTION]… a b
-Try 'my-calculator --help' for more information.
+Usage: my-calculator [--help] --op=OP [--verbose] [OPTION]… a b
+my-calculator: option --op: invalid value not-found, expected either add or
+               mul
 [124]
 ```
 
 ```sh
 $ ./my-calculator --op=add true 2.5
-my-calculator: a argument: invalid value 'true', expected a floating point
+Usage: my-calculator [--help] --op=OP [--verbose] [OPTION]… a b
+my-calculator: a argument: invalid value true, expected a floating point
                number
-Usage: my-calculator [--op=OP] [--verbose] [OPTION]… a b
-Try 'my-calculator --help' for more information.
 [124]
 ```
 

@@ -44,9 +44,8 @@ let%expect_test "invalid_pos_sequence" =
       -h, --help  Show this help message.
     Missing required positional argument at position 1.
     ----------------------------------------------------- Cmdliner
-    test: required argument STRING is missing
-    Usage: test [OPTION]… [STRING] STRING
-    Try 'test --help' for more information.
+    Usage: [01mtest[m [[01m--help[m] [[04mOPTION[m]… [[04mSTRING[m] [04mSTRING[m
+    test: required argument [04mSTRING[m is [31mmissing[m
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" "missing anonymous argument: STRING")
@@ -118,9 +117,8 @@ let%expect_test "cmdliner" =
   run [ "B" ];
   [%expect
     {|
-    ./main.exe: required argument STRING is missing
-    Usage: ./main.exe [OPTION]… [STRING] STRING
-    Try './main.exe --help' for more information.
+    Usage: [01m./main.exe[m [[01m--help[m] [[04mOPTION[m]… [[04mSTRING[m] [04mSTRING[m
+    ./main.exe: required argument [04mSTRING[m is [31mmissing[m
     124
     |}];
   ()

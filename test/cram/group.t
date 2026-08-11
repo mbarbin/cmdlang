@@ -133,9 +133,9 @@ What happens when that group is run:
   [1]
 
   $ ./main_cmdliner.exe basic
-  ./main_cmdliner.exe: required COMMAND name is missing, must be one of 'bool', 'file', 'float', 'int' or 'string'.
-  Usage: ./main_cmdliner.exe basic COMMAND …
-  Try './main_cmdliner.exe basic --help' or './main_cmdliner.exe --help' for more information.
+  Usage: ./main_cmdliner.exe basic [--help] COMMAND …
+  ./main_cmdliner.exe: required COMMAND name is missing, must be one of bool,
+                       file, float, int or string
   [124]
 
   $ ./main_stdlib_runner.exe basic
@@ -266,9 +266,8 @@ What happens when that group with a default is run:
   [124]
 
   $ ./main_cmdliner.exe group
+  Usage: ./main_cmdliner.exe group [--help] [COMMAND] …
   ./main_cmdliner.exe: required argument STRING is missing
-  Usage: ./main_cmdliner.exe group [COMMAND] …
-  Try './main_cmdliner.exe group --help' or './main_cmdliner.exe --help' for more information.
   [124]
 
   $ ./main_stdlib_runner.exe group
@@ -299,9 +298,8 @@ With cmdliner, this particular default command is not supported because the
 positional argument is interpreted as an unknown command:
 
   $ ./main_cmdliner.exe group World
-  ./main_cmdliner.exe: unknown command 'World', must be 'a'.
-  Usage: ./main_cmdliner.exe group [COMMAND] …
-  Try './main_cmdliner.exe group --help' or './main_cmdliner.exe --help' for more information.
+  Usage: ./main_cmdliner.exe group [--help] [COMMAND] …
+  ./main_cmdliner.exe: unknown command World. Must be a
   [124]
 
 The recommended way to handle this in cmdliner is to add the special '--' token, such as in:
@@ -345,9 +343,9 @@ default, when it is invoked with an invalid subcommand name.
   [124]
 
   $ ./main_cmdliner.exe invalid
-  ./main_cmdliner.exe: unknown command 'invalid', must be one of 'basic', 'doc', 'enum', 'flags', 'group', 'named' or 'return'.
-  Usage: ./main_cmdliner.exe COMMAND …
-  Try './main_cmdliner.exe --help' for more information.
+  Usage: ./main_cmdliner.exe [--help] COMMAND …
+  ./main_cmdliner.exe: unknown command invalid. Must be one of basic, doc,
+                       enum, flags, group, named or return
   [124]
 
   $ ./main_stdlib_runner.exe invalid
