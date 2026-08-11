@@ -173,8 +173,8 @@ let%expect_test "1-letter-flag" =
       -h, --help  Show this help message.
     Single-character names must only be specified with a single dash. "--p" is not allowed as it has two dashes but only one character.
     ----------------------------------------------------- Cmdliner
-    Usage: [01mtest[m [[01m--help[m] [[01m-p[m] [[04mOPTION[m]…
-    test: [31munknown[m option [01m--p[m. Did you mean [01m-p[m?
+    Usage: test [--help] [-p] [OPTION]…
+    test: unknown option '--p'. Did you mean '-p'?
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
@@ -361,9 +361,8 @@ let%expect_test "ambiguous prefixes" =
       -h, --help               Show this help message.
     Unknown argument name: --print-hello
     ----------------------------------------------------- Cmdliner
-    test: option '--print-hello' ambiguous and could be either '--print-hello-world' or '--print-hello-you'
-    Usage: test [--print-hello-world] [--print-hello-you] [OPTION]…
-    Try 'test --help' for more information.
+    Usage: test [--help] [--print-hello-world] [--print-hello-you] [OPTION]…
+    test: unknown option '--print-hello'
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
@@ -442,8 +441,8 @@ let%expect_test "user provided dashes" =
       Failure
       "Error in argument spec: Attempted to use \"-a\" as an argument name. \"-a\" is not a valid argument name because it begins with a dash which is not allowed."))
     ----------------------------------------------------- Cmdliner
-    Usage: [01mtest[m [[01m--help[m] [[01m---a[m] [[04mOPTION[m]…
-    test: [31munknown[m option [01m-a[m
+    Usage: test [--help] [---a] [OPTION]…
+    test: unknown option '-a'
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
@@ -458,9 +457,8 @@ let%expect_test "user provided dashes" =
       Failure
       "Error in argument spec: Attempted to use \"--a\" as an argument name. \"--a\" is not a valid argument name because it begins with a dash which is not allowed."))
     ----------------------------------------------------- Cmdliner
-    test: unknown option '--a', did you mean '----a'?
-    Usage: test [----a] [OPTION]…
-    Try 'test --help' for more information.
+    Usage: test [--help] [----a] [OPTION]…
+    test: unknown option '--a'. Did you mean '----a'?
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
@@ -475,9 +473,8 @@ let%expect_test "user provided dashes" =
       Failure
       "Error in argument spec: Attempted to use \"-long\" as an argument name. \"-long\" is not a valid argument name because it begins with a dash which is not allowed."))
     ----------------------------------------------------- Cmdliner
-    test: unknown option '-l', did you mean '---long'?
-    Usage: test [---long] [OPTION]…
-    Try 'test --help' for more information.
+    Usage: test [--help] [---long] [OPTION]…
+    test: unknown option '-l'. Did you mean '---long'?
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
@@ -492,9 +489,8 @@ let%expect_test "user provided dashes" =
       Failure
       "Error in argument spec: Attempted to use \"--long\" as an argument name. \"--long\" is not a valid argument name because it begins with a dash which is not allowed."))
     ----------------------------------------------------- Cmdliner
-    test: unknown option '--long', did you mean '----long'?
-    Usage: test [----long] [OPTION]…
-    Try 'test --help' for more information.
+    Usage: test [--help] [----long] [OPTION]…
+    test: unknown option '--long'. Did you mean '----long'?
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
