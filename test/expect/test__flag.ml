@@ -98,9 +98,9 @@ let%expect_test "flag" =
       --help         Display this list of options
     ("Evaluation Failed" ((exit_code 2)))
     |}];
-  (* Partial flags are handled differently by the backends. In [climate], they
-     are rejected. In [cmdliner] and [core.command], prefixes are interpreted as
-     full flags. We say more about this in a dedicated section below. *)
+  (* Partial flags are handled differently by the backends. In [core.command],
+     prefixes are interpreted as full flags. In the other backends, they are
+     rejected. We say more about this in a dedicated section below. *)
   Arg_test.eval_all test { prog = "test"; args = [ "--print" ] };
   [%expect
     {|
@@ -112,7 +112,9 @@ let%expect_test "flag" =
       -h, --help         Show this help message.
     Unknown argument name: --print
     ----------------------------------------------------- Cmdliner
-    Hello
+    Usage: test [--help] [--print-hello] [OPTION]…
+    test: unknown option '--print'
+    ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     Hello
     ----------------------------------------------------- Stdlib_runner
@@ -235,10 +237,10 @@ let%expect_test "1-letter-alias" =
     ----------------------------------------------------- Stdlib_runner
     Hello
     |}];
-  (* One letter flags may not be called with 2 dashes. However, since [cmdliner]
-     and [core.command] allow partial flags, if the one letter is actually the
-     prefix of a long flag name, the two dashes form will be accepted by these
-     two backend. Beware, this may be confusing. *)
+  (* One letter flags may not be called with 2 dashes. However, since [core.command]
+     allow partial flags, if the one letter is actually the prefix of a long
+     flag name, the two dashes form will be accepted by this backend. Beware,
+     this may be confusing. *)
   Arg_test.eval_all test { prog = "test"; args = [ "--p" ] };
   [%expect
     {|
@@ -250,7 +252,9 @@ let%expect_test "1-letter-alias" =
       -h, --help         Show this help message.
     Single-character names must only be specified with a single dash. "--p" is not allowed as it has two dashes but only one character.
     ----------------------------------------------------- Cmdliner
-    Hello
+    Usage: test [--help] [--print-hello] [OPTION]…
+    test: unknown option '--p'. Did you mean '-p'?
+    ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     Hello
     ----------------------------------------------------- Stdlib_runner
@@ -312,8 +316,8 @@ let%expect_test "ambiguous prefixes" =
     ----------------------------------------------------- Stdlib_runner
     Hello World
     |}];
-  (* When the flags are supplied partially, the backend diverge. If the
-     prefix is non-ambiguous, [cmdliner] and [core.command] accept it. *)
+  (* When the flags are supplied partially, the backend diverge. If the prefix is
+     non-ambiguous, [core.command] accept it. *)
   Arg_test.eval_all test { prog = "test"; args = [ "--print-hello-w" ] };
   [%expect
     {|
@@ -326,7 +330,9 @@ let%expect_test "ambiguous prefixes" =
       -h, --help               Show this help message.
     Unknown argument name: --print-hello-w
     ----------------------------------------------------- Cmdliner
-    Hello World
+    Usage: test [--help] [--print-hello-world] [--print-hello-you] [OPTION]…
+    test: unknown option '--print-hello-w'
+    ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     Hello World
     ----------------------------------------------------- Stdlib_runner
