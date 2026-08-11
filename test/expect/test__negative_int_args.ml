@@ -59,9 +59,8 @@ let%expect_test "negative positional" =
       -h, --help  Show this help message.
     Unknown argument name: -1
     ----------------------------------------------------- Cmdliner
-    test: unknown option '-1'.
-    Usage: test [OPTION]… INT
-    Try 'test --help' for more information.
+    Usage: test [--help] [OPTION]… INT
+    test: unknown option '-1'
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
@@ -128,9 +127,8 @@ let%expect_test "negative named" =
     ----------------------------------------------------- Climate
     negative
     ----------------------------------------------------- Cmdliner
-    test: unknown option '-1'.
-    Usage: test [-n INT] [OPTION]…
-    Try 'test --help' for more information.
+    Usage: test [--help] -n INT [OPTION]…
+    test: unknown option '-1'
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     negative

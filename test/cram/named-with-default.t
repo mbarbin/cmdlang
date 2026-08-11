@@ -217,9 +217,9 @@ functions or parsers generated from modules with utils.
   [124]
 
   $ ./main_cmdliner.exe named with-default create --who=C
+  Usage: ./main_cmdliner.exe named with-default create [--help] [--who=(A|B)]
+         [OPTION]…
   ./main_cmdliner.exe: option '--who': "C": invalid E.t
-  Usage: ./main_cmdliner.exe named with-default create [--who=(A|B)] [OPTION]…
-  Try './main_cmdliner.exe named with-default create --help' or './main_cmdliner.exe --help' for more information.
   [124]
 
   $ ./main_stdlib_runner.exe named with-default create --who C
@@ -330,11 +330,11 @@ Named-with-default with a stringable parameter.
          Named_with_default__stringable
   
   SYNOPSIS
-         ./main_cmdliner.exe named with-default stringable [--who=VAL]
+         ./main_cmdliner.exe named with-default stringable [--who=VALUE]
          [OPTION]…
   
   OPTIONS
-         --who=VAL (absent=my-id)
+         --who=VALUE (absent=my-id)
              identifier.
   
   COMMON OPTIONS
@@ -413,10 +413,10 @@ Named-with-default with a validated string parameter.
          Named_with_default__validated
   
   SYNOPSIS
-         ./main_cmdliner.exe named with-default validated [--who=VAL] [OPTION]…
+         ./main_cmdliner.exe named with-default validated [--who=VALUE] [OPTION]…
   
   OPTIONS
-         --who=VAL (absent=0000)
+         --who=VALUE (absent=0000)
              4 letters alphanumerical identifier.
   
   COMMON OPTIONS
@@ -490,10 +490,10 @@ Invalid entry for the validated string parameter.
   [124]
 
   $ ./main_cmdliner.exe named with-default validated --who foo
+  Usage: ./main_cmdliner.exe named with-default validated [--help]
+         [--who=VALUE] [OPTION]…
   ./main_cmdliner.exe: option '--who': "foo": invalid 4 letters alphanumerical
                        identifier
-  Usage: ./main_cmdliner.exe named with-default validated [--who=VAL] [OPTION]…
-  Try './main_cmdliner.exe named with-default validated --help' or './main_cmdliner.exe --help' for more information.
   [124]
 
   $ ./main_stdlib_runner.exe named with-default validated --who foo
@@ -614,9 +614,9 @@ Named-with-default with a comma-separated string parameter.
   [124]
 
   $ ./main_cmdliner.exe named with-default pos-int -x blah
+  Usage: ./main_cmdliner.exe named with-default pos-int [--help] [-x X]
+         [OPTION]…
   ./main_cmdliner.exe: option '-x': Not an int
-  Usage: ./main_cmdliner.exe named with-default pos-int [-x X] [OPTION]…
-  Try './main_cmdliner.exe named with-default pos-int --help' or './main_cmdliner.exe --help' for more information.
   [124]
 
   $ ./main_stdlib_runner.exe named with-default pos-int -x blah
@@ -652,9 +652,9 @@ Named-with-default with a comma-separated string parameter.
   [124]
 
   $ ./main_cmdliner.exe named with-default pos-int -x 0
+  Usage: ./main_cmdliner.exe named with-default pos-int [--help] [-x X]
+         [OPTION]…
   ./main_cmdliner.exe: option '-x': Strictly positive int expected
-  Usage: ./main_cmdliner.exe named with-default pos-int [-x X] [OPTION]…
-  Try './main_cmdliner.exe named with-default pos-int --help' or './main_cmdliner.exe --help' for more information.
   [124]
 
   $ ./main_stdlib_runner.exe named with-default pos-int -x 0
