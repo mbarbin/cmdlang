@@ -134,8 +134,8 @@ What happens when that group is run:
 
   $ ./main_cmdliner.exe basic
   Usage: ./main_cmdliner.exe basic [--help] COMMAND …
-  ./main_cmdliner.exe: required COMMAND name is missing, must be one of bool,
-                       file, float, int or string
+  ./main_cmdliner.exe: required COMMAND name is missing, must be one of 'bool',
+                       'file', 'float', 'int' or 'string'
   [124]
 
   $ ./main_stdlib_runner.exe basic
@@ -299,7 +299,7 @@ positional argument is interpreted as an unknown command:
 
   $ ./main_cmdliner.exe group World
   Usage: ./main_cmdliner.exe group [--help] [COMMAND] …
-  ./main_cmdliner.exe: unknown command World. Must be a
+  ./main_cmdliner.exe: unknown command 'World'. Must be 'a'
   [124]
 
 The recommended way to handle this in cmdliner is to add the special '--' token, such as in:
@@ -344,8 +344,8 @@ default, when it is invoked with an invalid subcommand name.
 
   $ ./main_cmdliner.exe invalid
   Usage: ./main_cmdliner.exe [--help] COMMAND …
-  ./main_cmdliner.exe: unknown command invalid. Must be one of basic, doc,
-                       enum, flags, group, named or return
+  ./main_cmdliner.exe: unknown command 'invalid'. Must be one of 'basic',
+                       'doc', 'enum', 'flags', 'group', 'named' or 'return'
   [124]
 
   $ ./main_stdlib_runner.exe invalid

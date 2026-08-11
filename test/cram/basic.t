@@ -191,7 +191,7 @@ flags.
 
   $ ./main_cmdliner.exe basic int -13
   Usage: ./main_cmdliner.exe basic int [--help] [OPTION]… INT
-  ./main_cmdliner.exe: unknown option -1
+  ./main_cmdliner.exe: unknown option '-1'
   [124]
 
   $ ./main_stdlib_runner.exe basic int -13
@@ -315,7 +315,7 @@ flags.
 
   $ ./main_cmdliner.exe basic float -13.8
   Usage: ./main_cmdliner.exe basic float [--help] [OPTION]… FLOAT
-  ./main_cmdliner.exe: unknown option -1
+  ./main_cmdliner.exe: unknown option '-1'
   [124]
 
   $ ./main_stdlib_runner.exe basic float -13.8
@@ -453,8 +453,8 @@ And run it too.
 
   $ ./main_cmdliner.exe basic bool True
   Usage: ./main_cmdliner.exe basic bool [--help] [OPTION]… BOOL
-  ./main_cmdliner.exe: BOOL argument: invalid value True, expected either true
-                       or false
+  ./main_cmdliner.exe: BOOL argument: invalid value 'True', expected either
+                       'true' or 'false'
   [124]
 
   $ ./main_stdlib_runner.exe basic bool True
@@ -495,8 +495,8 @@ Invalid entry.
 
   $ ./main_cmdliner.exe basic bool Not_a_bool
   Usage: ./main_cmdliner.exe basic bool [--help] [OPTION]… BOOL
-  ./main_cmdliner.exe: BOOL argument: invalid value Not_a_bool, expected either
-                       true or false
+  ./main_cmdliner.exe: BOOL argument: invalid value 'Not_a_bool', expected
+                       either 'true' or 'false'
   [124]
 
   $ ./main_stdlib_runner.exe basic bool Not_a_bool
@@ -592,7 +592,7 @@ And run it too.
 
   $ ./main_cmdliner.exe basic file foo.txt
   Usage: ./main_cmdliner.exe basic file [--help] [OPTION]… FILE
-  ./main_cmdliner.exe: FILE argument: no foo.txt file or directory
+  ./main_cmdliner.exe: FILE argument: no 'foo.txt' file or directory
   [124]
 
   $ ./main_stdlib_runner.exe basic file foo.txt
@@ -627,7 +627,7 @@ Same when the file actually exists
 
   $ ./main_cmdliner.exe basic file /bogus/bar
   Usage: ./main_cmdliner.exe basic file [--help] [OPTION]… FILE
-  ./main_cmdliner.exe: FILE argument: no /bogus/bar file or directory
+  ./main_cmdliner.exe: FILE argument: no '/bogus/bar' file or directory
   [124]
 
   $ ./main_stdlib_runner.exe basic file /bogus/bar
