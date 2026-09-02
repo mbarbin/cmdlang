@@ -34,11 +34,11 @@ jobs:
           - "4.14"
         include:
           - os: ubuntu-latest
-            dune-version: "3.23.1"
-            dune-digest: "sha256:9cbcc7fe3b7df76f862c9ab73c241a6106b799765bdd85c75d2e31dc5f410d07"
+            dune-version: "3.24.2"
+            dune-digest: "sha256:3a9cac891f0b6086bfbf58d16c6c17ddfd1d493e031b6b43901f585a7f6899c7"
           - os: macos-latest
-            dune-version: "3.23.1"
-            dune-digest: "sha256:8bf87ea697866dbbb2c85a1a761c541dd93a8a4e0b563f594e7e0322ffb7ba2a"
+            dune-version: "3.24.2"
+            dune-digest: "sha256:d4aa0d58370bb86e1f3f74635d9f7b69fd635fefe159173add82e851e85d12b2"
         exclude:
           # Exclude the combination already tested in the main ci workflow.
           - os: ubuntu-latest
