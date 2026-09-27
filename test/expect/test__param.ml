@@ -57,9 +57,8 @@ let%expect_test "int" =
       -h, --help  Show this help message.
     Failed to parse the argument at position 0: invalid value: "not-an-int" (not an int)
     ----------------------------------------------------- Cmdliner
+    Usage: test [--help] [OPTION]… INT
     test: INT argument: invalid value 'not-an-int', expected an integer
-    Usage: test [OPTION]… INT
-    Try 'test --help' for more information.
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
@@ -120,10 +119,9 @@ let%expect_test "float" =
       -h, --help  Show this help message.
     Failed to parse the argument at position 0: invalid value: "not-an-number" (not an float)
     ----------------------------------------------------- Cmdliner
+    Usage: test [--help] [OPTION]… FLOAT
     test: FLOAT argument: invalid value 'not-an-number', expected a floating
           point number
-    Usage: test [OPTION]… FLOAT
-    Try 'test --help' for more information.
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
@@ -184,9 +182,9 @@ let%expect_test "bool" =
       -h, --help  Show this help message.
     Failed to parse the argument at position 0: invalid value: "not-a-bool" (not an bool)
     ----------------------------------------------------- Cmdliner
-    test: BOOL argument: invalid value 'not-a-bool', either 'true' or 'false'
-    Usage: test [OPTION]… BOOL
-    Try 'test --help' for more information.
+    Usage: test [--help] [OPTION]… BOOL
+    test: BOOL argument: invalid value 'not-a-bool', expected either 'true' or
+          'false'
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
@@ -222,9 +220,8 @@ let%expect_test "file" =
     ----------------------------------------------------- Climate
     foo.txt
     ----------------------------------------------------- Cmdliner
+    Usage: test [--help] [OPTION]… FILE
     test: FILE argument: no 'foo.txt' file or directory
-    Usage: test [OPTION]… FILE
-    Try 'test --help' for more information.
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     foo.txt
@@ -297,9 +294,8 @@ let%expect_test "enumerated" =
       -h, --help  Show this help message.
     Failed to parse the argument at position 0: invalid value: "Not_an_e" (valid values are: A, B)
     ----------------------------------------------------- Cmdliner
-    test: invalid value 'Not_an_e', expected either 'A' or 'B'
-    Usage: test [OPTION]… ARG
-    Try 'test --help' for more information.
+    Usage: test [--help] [OPTION]… ENUM
+    test: ENUM argument: invalid value 'Not_an_e', expected either 'A' or 'B'
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
@@ -421,9 +417,8 @@ let%expect_test "validated_string" =
       -h, --help  Show this help message.
     Failed to parse the argument at position 0: invalid id
     ----------------------------------------------------- Cmdliner
-    test: invalid id
-    Usage: test [OPTION]… ARG
-    Try 'test --help' for more information.
+    Usage: test [--help] [OPTION]… VALUE
+    test: VALUE argument: invalid id
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
@@ -546,10 +541,9 @@ let%expect_test "comma_separated" =
       -h, --help  Show this help message.
     Failed to parse the argument at position 0: invalid value: "Not_an_e" (valid values are: A, B)
     ----------------------------------------------------- Cmdliner
-    test: invalid element in list ('Not_an_e'): invalid value 'Not_an_e',
-          expected either 'A' or 'B'
-    Usage: test [OPTION]… ARG
-    Try 'test --help' for more information.
+    Usage: test [--help] [OPTION]… ENUM[,…]
+    test: ENUM[,…] argument: invalid element in list ('Not_an_e'): invalid
+          value 'Not_an_e', expected either 'A' or 'B'
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" (

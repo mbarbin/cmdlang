@@ -1,4 +1,9 @@
 (env
  (dev
   (odoc
-   (warnings fatal))))
+   (warnings fatal))
+  ;; Since cmdliner 2.0, error and help messages use ANSI-styled. This makes our
+  ;; expect and cram tests depend on the ambient environment of whoever runs
+  ;; them. Force plain output so corrected files are stable across environments.
+  (env-vars
+   (NO_COLOR "1"))))

@@ -26,9 +26,8 @@ let%expect_test "pos" =
       -h, --help  Show this help message.
     Missing required positional argument at position 0.
     ----------------------------------------------------- Cmdliner
+    Usage: test [--help] [OPTION]… WHO
     test: required argument WHO is missing
-    Usage: test [OPTION]… WHO
-    Try 'test --help' for more information.
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" "missing anonymous argument: WHO")
@@ -69,9 +68,8 @@ let%expect_test "skipping-pos" =
       Failure
       "Error in argument spec: Attempted to declare a parser with a gap in its positional arguments. No parser would interpret the argument at position 0 but there is a parser for at least one argument at a higher position."))
     ----------------------------------------------------- Cmdliner
+    Usage: test [--help] [OPTION]… WHO
     test: required argument WHO is missing
-    Usage: test [OPTION]… WHO
-    Try 'test --help' for more information.
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     ("Translation Raised" (
@@ -93,9 +91,8 @@ let%expect_test "skipping-pos" =
       Failure
       "Error in argument spec: Attempted to declare a parser with a gap in its positional arguments. No parser would interpret the argument at position 0 but there is a parser for at least one argument at a higher position."))
     ----------------------------------------------------- Cmdliner
+    Usage: test [--help] [OPTION]… WHO
     test: required argument WHO is missing
-    Usage: test [OPTION]… WHO
-    Try 'test --help' for more information.
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     ("Translation Raised" (

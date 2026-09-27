@@ -1,3 +1,12 @@
+## Unreleased
+
+### Changed
+
+- Require `cmdliner >= 2.1.1` for test packages (@mbarbin).
+- `cmdlang-to-cmdliner` still targets `cmdliner >= 1.3.0` for broad compatibility, but is no longer tested against versions older than 2.1.1 (@mbarbin).
+- Migrated expect and cram tests to `cmdliner.2.1.1`'s revised error/help output (@mbarbin).
+- Force `NO_COLOR=1` in the dev build environment so `cmdliner`'s ANSI-styled error and help output doesn't leak into expected traces (@mbarbin).
+
 ## 0.0.11 (2026-05-08)
 
 ### Added

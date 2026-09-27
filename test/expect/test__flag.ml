@@ -47,9 +47,8 @@ let%expect_test "flag" =
       -h, --help         Show this help message.
     Unknown argument name: -p
     ----------------------------------------------------- Cmdliner
-    test: unknown option '-p'.
-    Usage: test [--print-hello] [OPTION]…
-    Try 'test --help' for more information.
+    Usage: test [--help] [--print-hello] [OPTION]…
+    test: unknown option '-p'
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
@@ -81,9 +80,8 @@ let%expect_test "flag" =
       -h, --help         Show this help message.
     Unknown argument name: -p
     ----------------------------------------------------- Cmdliner
-    test: unknown option '-p', did you mean '--print-hello'?
-    Usage: test [--print-hello] [OPTION]…
-    Try 'test --help' for more information.
+    Usage: test [--help] [--print-hello] [OPTION]…
+    test: unknown option '-p'. Did you mean '--print-hello'?
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
@@ -100,9 +98,9 @@ let%expect_test "flag" =
       --help         Display this list of options
     ("Evaluation Failed" ((exit_code 2)))
     |}];
-  (* Partial flags are handled differently by the backends. In [climate], they
-     are rejected. In [cmdliner] and [core.command], prefixes are interpreted as
-     full flags. We say more about this in a dedicated section below. *)
+  (* Partial flags are handled differently by the backends. In [core.command],
+     prefixes are interpreted as full flags. In the other backends, they are
+     rejected. We say more about this in a dedicated section below. *)
   Arg_test.eval_all test { prog = "test"; args = [ "--print" ] };
   [%expect
     {|
@@ -114,7 +112,9 @@ let%expect_test "flag" =
       -h, --help         Show this help message.
     Unknown argument name: --print
     ----------------------------------------------------- Cmdliner
-    Hello
+    Usage: test [--help] [--print-hello] [OPTION]…
+    test: unknown option '--print'
+    ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     Hello
     ----------------------------------------------------- Stdlib_runner
@@ -173,9 +173,8 @@ let%expect_test "1-letter-flag" =
       -h, --help  Show this help message.
     Single-character names must only be specified with a single dash. "--p" is not allowed as it has two dashes but only one character.
     ----------------------------------------------------- Cmdliner
-    test: unknown option '--p', did you mean '-p'?
-    Usage: test [-p] [OPTION]…
-    Try 'test --help' for more information.
+    Usage: test [--help] [-p] [OPTION]…
+    test: unknown option '--p'. Did you mean '-p'?
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
@@ -238,10 +237,10 @@ let%expect_test "1-letter-alias" =
     ----------------------------------------------------- Stdlib_runner
     Hello
     |}];
-  (* One letter flags may not be called with 2 dashes. However, since [cmdliner]
-     and [core.command] allow partial flags, if the one letter is actually the
-     prefix of a long flag name, the two dashes form will be accepted by these
-     two backend. Beware, this may be confusing. *)
+  (* One letter flags may not be called with 2 dashes. However, since [core.command]
+     allow partial flags, if the one letter is actually the prefix of a long
+     flag name, the two dashes form will be accepted by this backend. Beware,
+     this may be confusing. *)
   Arg_test.eval_all test { prog = "test"; args = [ "--p" ] };
   [%expect
     {|
@@ -253,7 +252,9 @@ let%expect_test "1-letter-alias" =
       -h, --help         Show this help message.
     Single-character names must only be specified with a single dash. "--p" is not allowed as it has two dashes but only one character.
     ----------------------------------------------------- Cmdliner
-    Hello
+    Usage: test [--help] [--print-hello] [OPTION]…
+    test: unknown option '--p'. Did you mean '-p'?
+    ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     Hello
     ----------------------------------------------------- Stdlib_runner
@@ -315,8 +316,8 @@ let%expect_test "ambiguous prefixes" =
     ----------------------------------------------------- Stdlib_runner
     Hello World
     |}];
-  (* When the flags are supplied partially, the backend diverge. If the
-     prefix is non-ambiguous, [cmdliner] and [core.command] accept it. *)
+  (* When the flags are supplied partially, the backend diverge. If the prefix is
+     non-ambiguous, [core.command] accept it. *)
   Arg_test.eval_all test { prog = "test"; args = [ "--print-hello-w" ] };
   [%expect
     {|
@@ -329,7 +330,9 @@ let%expect_test "ambiguous prefixes" =
       -h, --help               Show this help message.
     Unknown argument name: --print-hello-w
     ----------------------------------------------------- Cmdliner
-    Hello World
+    Usage: test [--help] [--print-hello-world] [--print-hello-you] [OPTION]…
+    test: unknown option '--print-hello-w'
+    ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     Hello World
     ----------------------------------------------------- Stdlib_runner
@@ -358,9 +361,8 @@ let%expect_test "ambiguous prefixes" =
       -h, --help               Show this help message.
     Unknown argument name: --print-hello
     ----------------------------------------------------- Cmdliner
-    test: option '--print-hello' ambiguous and could be either '--print-hello-world' or '--print-hello-you'
-    Usage: test [--print-hello-world] [--print-hello-you] [OPTION]…
-    Try 'test --help' for more information.
+    Usage: test [--help] [--print-hello-world] [--print-hello-you] [OPTION]…
+    test: unknown option '--print-hello'
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
@@ -439,9 +441,8 @@ let%expect_test "user provided dashes" =
       Failure
       "Error in argument spec: Attempted to use \"-a\" as an argument name. \"-a\" is not a valid argument name because it begins with a dash which is not allowed."))
     ----------------------------------------------------- Cmdliner
-    test: unknown option '-a'.
-    Usage: test [---a] [OPTION]…
-    Try 'test --help' for more information.
+    Usage: test [--help] [---a] [OPTION]…
+    test: unknown option '-a'
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
@@ -456,9 +457,8 @@ let%expect_test "user provided dashes" =
       Failure
       "Error in argument spec: Attempted to use \"--a\" as an argument name. \"--a\" is not a valid argument name because it begins with a dash which is not allowed."))
     ----------------------------------------------------- Cmdliner
-    test: unknown option '--a', did you mean '----a'?
-    Usage: test [----a] [OPTION]…
-    Try 'test --help' for more information.
+    Usage: test [--help] [----a] [OPTION]…
+    test: unknown option '--a'. Did you mean '----a'?
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
@@ -473,9 +473,8 @@ let%expect_test "user provided dashes" =
       Failure
       "Error in argument spec: Attempted to use \"-long\" as an argument name. \"-long\" is not a valid argument name because it begins with a dash which is not allowed."))
     ----------------------------------------------------- Cmdliner
-    test: unknown option '-l', did you mean '---long'?
-    Usage: test [---long] [OPTION]…
-    Try 'test --help' for more information.
+    Usage: test [--help] [---long] [OPTION]…
+    test: unknown option '-l'. Did you mean '---long'?
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" (
@@ -490,9 +489,8 @@ let%expect_test "user provided dashes" =
       Failure
       "Error in argument spec: Attempted to use \"--long\" as an argument name. \"--long\" is not a valid argument name because it begins with a dash which is not allowed."))
     ----------------------------------------------------- Cmdliner
-    test: unknown option '--long', did you mean '----long'?
-    Usage: test [----long] [OPTION]…
-    Try 'test --help' for more information.
+    Usage: test [--help] [----long] [OPTION]…
+    test: unknown option '--long'. Did you mean '----long'?
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" (

@@ -138,10 +138,9 @@ Cmdliner.
   red
 
   $ ./main_cmdliner.exe enum pos INVALID
+  Usage: ./main_cmdliner.exe enum pos [--help] [OPTION]… COLOR
   ./main_cmdliner.exe: COLOR argument: invalid value 'INVALID', expected one of
                        'red', 'green' or 'blue'
-  Usage: ./main_cmdliner.exe enum pos [OPTION]… COLOR
-  Try './main_cmdliner.exe enum pos --help' or './main_cmdliner.exe --help' for more information.
   [124]
 
   $ ./main_cmdliner.exe enum named --help=plain
@@ -149,7 +148,7 @@ Cmdliner.
          ./main_cmdliner.exe-enum-named - Print color.
   
   SYNOPSIS
-         ./main_cmdliner.exe enum named [--color=COLOR] [OPTION]…
+         ./main_cmdliner.exe enum named --color=COLOR [OPTION]…
   
   OPTIONS
          --color=COLOR (required)
@@ -183,10 +182,9 @@ Cmdliner.
   red
 
   $ ./main_cmdliner.exe enum named --color INVALID
+  Usage: ./main_cmdliner.exe enum named [--help] --color=COLOR [OPTION]…
   ./main_cmdliner.exe: option '--color': invalid value 'INVALID', expected one
                        of 'red', 'green' or 'blue'
-  Usage: ./main_cmdliner.exe enum named [--color=COLOR] [OPTION]…
-  Try './main_cmdliner.exe enum named --help' or './main_cmdliner.exe --help' for more information.
   [124]
 
 Stdlib runner.

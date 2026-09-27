@@ -190,9 +190,8 @@ flags.
   [124]
 
   $ ./main_cmdliner.exe basic int -13
-  ./main_cmdliner.exe: unknown option '-1'.
-  Usage: ./main_cmdliner.exe basic int [OPTION]… INT
-  Try './main_cmdliner.exe basic int --help' or './main_cmdliner.exe --help' for more information.
+  Usage: ./main_cmdliner.exe basic int [--help] [OPTION]… INT
+  ./main_cmdliner.exe: unknown option '-1'
   [124]
 
   $ ./main_stdlib_runner.exe basic int -13
@@ -315,9 +314,8 @@ flags.
   [124]
 
   $ ./main_cmdliner.exe basic float -13.8
-  ./main_cmdliner.exe: unknown option '-1'.
-  Usage: ./main_cmdliner.exe basic float [OPTION]… FLOAT
-  Try './main_cmdliner.exe basic float --help' or './main_cmdliner.exe --help' for more information.
+  Usage: ./main_cmdliner.exe basic float [--help] [OPTION]… FLOAT
+  ./main_cmdliner.exe: unknown option '-1'
   [124]
 
   $ ./main_stdlib_runner.exe basic float -13.8
@@ -454,10 +452,9 @@ And run it too.
   [124]
 
   $ ./main_cmdliner.exe basic bool True
-  ./main_cmdliner.exe: BOOL argument: invalid value 'True', either 'true' or
-                       'false'
-  Usage: ./main_cmdliner.exe basic bool [OPTION]… BOOL
-  Try './main_cmdliner.exe basic bool --help' or './main_cmdliner.exe --help' for more information.
+  Usage: ./main_cmdliner.exe basic bool [--help] [OPTION]… BOOL
+  ./main_cmdliner.exe: BOOL argument: invalid value 'True', expected either
+                       'true' or 'false'
   [124]
 
   $ ./main_stdlib_runner.exe basic bool True
@@ -497,10 +494,9 @@ Invalid entry.
   [124]
 
   $ ./main_cmdliner.exe basic bool Not_a_bool
-  ./main_cmdliner.exe: BOOL argument: invalid value 'Not_a_bool', either 'true'
-                       or 'false'
-  Usage: ./main_cmdliner.exe basic bool [OPTION]… BOOL
-  Try './main_cmdliner.exe basic bool --help' or './main_cmdliner.exe --help' for more information.
+  Usage: ./main_cmdliner.exe basic bool [--help] [OPTION]… BOOL
+  ./main_cmdliner.exe: BOOL argument: invalid value 'Not_a_bool', expected
+                       either 'true' or 'false'
   [124]
 
   $ ./main_stdlib_runner.exe basic bool Not_a_bool
@@ -595,9 +591,8 @@ And run it too.
   foo.txt
 
   $ ./main_cmdliner.exe basic file foo.txt
+  Usage: ./main_cmdliner.exe basic file [--help] [OPTION]… FILE
   ./main_cmdliner.exe: FILE argument: no 'foo.txt' file or directory
-  Usage: ./main_cmdliner.exe basic file [OPTION]… FILE
-  Try './main_cmdliner.exe basic file --help' or './main_cmdliner.exe --help' for more information.
   [124]
 
   $ ./main_stdlib_runner.exe basic file foo.txt
@@ -631,9 +626,8 @@ Same when the file actually exists
   /bogus/bar
 
   $ ./main_cmdliner.exe basic file /bogus/bar
+  Usage: ./main_cmdliner.exe basic file [--help] [OPTION]… FILE
   ./main_cmdliner.exe: FILE argument: no '/bogus/bar' file or directory
-  Usage: ./main_cmdliner.exe basic file [OPTION]… FILE
-  Try './main_cmdliner.exe basic file --help' or './main_cmdliner.exe --help' for more information.
   [124]
 
   $ ./main_stdlib_runner.exe basic file /bogus/bar

@@ -101,9 +101,7 @@
   (cmdlang-to-cmdliner
    (= :version))
   (cmdliner
-   (and
-    (>= 1.3.0)
-    (< 2.0)))
+   (>= 2.1.1))
   (core
    (>= v0.17))
   (core_unix
@@ -159,9 +157,7 @@
   (cmdlang-to-cmdliner
    (= :version))
   (cmdliner
-   (and
-    (>= 1.3.0)
-    (< 2.0)))
+   (>= 2.1.1))
   conf-jq
   (dune-build-info
    (>= 3.17))

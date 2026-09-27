@@ -24,9 +24,8 @@ let%expect_test "named" =
       -h, --help       Show this help message.
     Missing required named argument: --who
     ----------------------------------------------------- Cmdliner
+    Usage: test [--help] --who=WHO [OPTION]…
     test: required option --who is missing
-    Usage: test [--who=WHO] [OPTION]…
-    Try 'test --help' for more information.
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" "missing required flag: --who")
@@ -82,9 +81,8 @@ let%expect_test "1-letter-named" =
       -h, --help  Show this help message.
     Missing required named argument: -w
     ----------------------------------------------------- Cmdliner
+    Usage: test [--help] -w WHO [OPTION]…
     test: required option -w is missing
-    Usage: test [-w WHO] [OPTION]…
-    Try 'test --help' for more information.
     ("Evaluation Failed" ((exit_code 124)))
     ----------------------------------------------------- Core_command
     ("Evaluation Failed" "missing required flag: -w")
